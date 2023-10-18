@@ -92,75 +92,24 @@ FilePond.create(
 		allowFileTypeValidation: true,
 		acceptedFileTypes: ['image/*'],
 		maxFileSize: '300MB',
-		server: {
-			process: {
-				url: 'https://api.cloudflare.com/client/v4/accounts/1adf66719c0e0ef72e53038acebcc018/images/v1',
-				method: 'POST',
-				headers: {
-					'Authorization': 'Bearer cy61fvnJ5PhvxJRcidmDNuu07LsGlQIWJAwy61AP',
-					'Content-Type': ' multipart/form-data'
-				},
-				onload: function(response) {
-					console.log(response);
-				},
-				onerror: function(response) {
-					console.log(response);
-				},
-				send: function() {
-					const formData = new FormData();
-					for (let i = 0; i < this.files.length; i++) {
-						formData.append('filepond[]', this.files[i].file);
-					}
-					axios.post(this.url, formData, {
-						headers: this.headers
-					})
-					.then(response => {
-						this.onload(response);
-					})
-					.catch(error => {
-						this.onerror(error);
-					});
-				}
-			},
-			revert: {
-				url: 'https://api.cloudflare.com/client/v4/accounts/1adf66719c0e0ef72e53038acebcc018/images/v1',
-				method: 'DELETE',
-				headers: {
-					'Authorization': 'Bearer cy61fvnJ5PhvxJRcidmDNuu07LsGlQIWJAwy61AP',
-					'Content-Type': ' multipart/form-data'
-				},
-				onload: function(response) {
-					console.log(response);
-				},
-				onerror: function(response) {
-					console.log(response);
-				},
-				send: function() {
-					axios.delete(this.url, {
-						headers: this.headers
-					})
-					.then(response => {
-						this.onload(response);
-					})
-					.catch(error => {
-						this.onerror(error);
-					});
-				}
-			}
-		},
-		onprocessfiles: function(files) {
+		onprocessfiles: (files) => {
 			const formData = new FormData();
-			for (let i = 0; i < files.length; i++) {
-				formData.append('filepond[]', files[i].file);
-			}
-			this.server.process.headers = {
-				...this.server.process.headers,
-				...formData.getHeaders()
-			};
-			this.server.process.data = formData;
-			this.server.process.send();
+			files.forEach((file) => {
+				formData.append('filepond', file.file);
+			});
+			axios.post('https://api.cloudflare.com/client/v4/accounts/1adf66719c0e0ef72e53038acebcc018/stream', formData, {
+				headers: {
+					'Content-Type': 'multipart/form-data',
+					'Authorization': 'Bearer x2skj57v2poPW8UxIQGqBACBxkJ4Glg42lVhbDPe'
+				}
+			})
+			.then((response) => {
+				console.log(response);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 		}
 	}
 );
 </script>
-<!-- file upload itself is disabled in this pen -->

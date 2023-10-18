@@ -143,7 +143,32 @@
                                                     </tr>
                                                     <tr>
                                                         <th>ทีมเซลล์</th>
-                                                        <td><input type="text" class="form-control" v-model="sales_team"></td>
+                                                        <td><select v-model="sales_team" class="form-control">
+                                                                <option value="A">A</option>
+                                                                <option value="B">B</option>
+                                                                <option value="C">C</option>
+                                                                <option value="D">D</option>
+                                                                <option value="G">G</option>
+                                                                <option value="I">I</option>
+                                                                <option value="X">X</option>
+                                                                <option value="U">U</option>
+                                                                <option value="Y">Y</option>
+                                                                <option value="P">P</option>
+                                                                <option value="Z">Z</option>
+                                                                <option value="E">E</option>
+                                                                <option value="H">H</option>
+                                                                <option value="K">K</option>
+                                                                <option value="L">L</option>
+                                                                <option value="M">M</option>
+                                                                <option value="N">N</option>
+                                                                <option value="R">R</option>
+                                                                <option value="W">W</option>
+                                                                <option value="S">S</option>
+                                                                <option value="J">J</option>
+                                                                <option value="T">T</option>
+                                                                <option value="V">V</option>
+                                                            </select>
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <th>เบอร์โทรศัพท์</th>
@@ -308,7 +333,7 @@
                                     swal("สำเร็จ", "เพิ่มสมาชิกเรียบร้อย", "success",{ 
                                         button: "ตกลง"
                                     }).then((value) => {
-                                        window.location.href = "/admin/pages/car_detail.php?u="+res.data.id
+                                        window.location.href = "/admin/detail/"+res.data.id
                                     });
 
                                 if(res.data.status == 505) 

@@ -50,7 +50,7 @@
                 );
                 $id = $db->insert ('finance_data', $data);
                 if($id)
-                    echo 'user was created. Id=' . $id;
+                    echo 'user was created. Id=' . $id.'<br>';
 
 
     

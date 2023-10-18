@@ -1,8 +1,5 @@
 <?php 
-        session_start();
        
-        $userid = $_SESSION['a77usrid'];
-
         $image = $_FILES['file_upload']['tmp_name'];
         $type = mime_content_type($image);
         $name = basename($image);
