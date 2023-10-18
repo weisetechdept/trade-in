@@ -34,13 +34,15 @@
             while (($getData = fgetcsv($csvFile, 10000, ",")) !== FALSE)
             {
                 // Get row data
-                $brand = $getData[0];
-                $serie = $getData[1];
-                $year = $getData[2];
-                $section = $getData[3];
-                $price = $getData[4];
+                $tltid = $getData[0];
+                $brand = $getData[1];
+                $serie = $getData[2];
+                $year = $getData[3];
+                $section = $getData[4];
+                $price = $getData[5];
 
-                $data = Array ("find_brand" => $brand,
+                $data = Array ("find_tltid" => $tltid,
+                    "find_brand" => $brand,
                     "find_serie" => $serie,
                     "find_section" => $section,
                     "find_year" => $year,

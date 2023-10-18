@@ -135,6 +135,10 @@
                                                         <th>รุ่นปี</th>
                                                         <td>{{ car_year }}</td>
                                                     </tr>
+                                                    <tr>
+                                                        <th>สี</th>
+                                                        <td><input type="email" class="form-control" v-model="color"></td>
+                                                    </tr>
                                                     <tr class="car_select">
                                                         <th>แก้ใขยี่ห้อ ซีรี่ รุ่น</th>
                                                         <td>

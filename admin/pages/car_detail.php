@@ -124,6 +124,10 @@
                                                         <td>{{ vin }}</td>
                                                     </tr>
                                                     <tr>
+                                                        <th>เลขไมล์</th>
+                                                        <td>{{ mileage }}</td>
+                                                    </tr>
+                                                    <tr>
                                                         <th>ยี่ห้อ</th>
                                                         <td>{{ brand }}</td>
                                                     </tr>
@@ -139,12 +143,12 @@
                                                         <td>{{ transmission }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th>รุ่นปี</th>
-                                                        <td>{{ car_year }}</td>
+                                                        <th>สี</th>
+                                                        <td>{{ color }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th>เลขไมล์</th>
-                                                        <td>{{ mileage }}</td>
+                                                        <th>รุ่นปี</th>
+                                                        <td>{{ car_year }}</td>
                                                     </tr>
                                                     <tr>
                                                         <th>ปีจดทะเบียน</th>
@@ -155,7 +159,7 @@
                                                         <td>{{ price }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th>ราคา TLT</th>
+                                                        <th>ราคากลาง (TLT)</th>
                                                         <td>{{ tlt_price }}</td>
                                                     </tr>
                                                     <tr>
