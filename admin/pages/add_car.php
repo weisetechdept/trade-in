@@ -167,6 +167,7 @@
                                                                 <option value="J">J</option>
                                                                 <option value="T">T</option>
                                                                 <option value="V">V</option>
+                                                                <option value="NoSales">No Sales</option>
                                                             </select>
                                                         </td>
                                                     </tr>
