@@ -207,7 +207,9 @@
                                           <form @submit.prevent="sendData">
                                                 <div class="form-group">
                                                     <select class="form-control" v-model="group" id="exampleFormControlSelect1">
+                                                        <option value="0">เลือกประเภทรูป</option>
                                                         <option value="1">รูปหน้าปก</option>
+                                                        <option value="2">รูปอื่นๆ</option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
