@@ -429,7 +429,7 @@
                     data () {
                         return {
                             file_upload: null,
-                            group: '1'
+                            group: '0'
                         }
                     },
                     methods: {
