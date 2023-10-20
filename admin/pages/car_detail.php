@@ -159,6 +159,10 @@
                                                         <td>{{ price }}</td>
                                                     </tr>
                                                     <tr>
+                                                        <th>ราคาตั้งขาย</th>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
                                                         <th>ราคากลาง (TLT)</th>
                                                         <td>{{ tlt_price }}</td>
                                                     </tr>

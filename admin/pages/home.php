@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>A77 Member List</title>
+    <title>Trade-In List</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta content="A77" name="description" />
     <meta content="A77" name="author" />

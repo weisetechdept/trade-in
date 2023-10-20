@@ -21,6 +21,7 @@
             'cast_license' => '',
             'cast_vin' => '',
             'cast_price' => $price,
+            'cast_trade_price' => '',
             'cast_condition' => '',
             'cast_sales_parent' => $sales,
             'cast_sales_team' => $sales_team,
