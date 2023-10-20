@@ -160,7 +160,7 @@
                                                     </tr>
                                                     <tr>
                                                         <th>ราคาตั้งขาย</th>
-                                                        <td></td>
+                                                        <td>{{ trade_price }}</td>
                                                     </tr>
                                                     <tr>
                                                         <th>ราคากลาง (TLT)</th>
@@ -387,6 +387,9 @@
                             transmission: '',
                             color: '',
                             price: '',
+                            trade_price: '',
+                            condition:'',
+                            tlt_price: '',
                             sales: '',
                             status: '',
                             car_year: '',
@@ -416,6 +419,7 @@
                                 this.section = response.data.car.section;
                                 this.color = response.data.car.color;
                                 this.price = response.data.car.price;
+                                this.trade_price = response.data.car.trade_price;
                                 this.sales = response.data.car.sales;
                                 this.status = response.data.car.status;
                                 this.car_year = response.data.car.car_year;

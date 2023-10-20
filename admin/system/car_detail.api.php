@@ -20,6 +20,7 @@
             'reg_year' => $stock['cast_year'],
             'color' => $stock['cast_color'],
             'price' => number_format($stock['cast_price']),
+            'trade_price' => number_format($stock['cast_trade_price']),
             'tlt_price' => number_format($stock['find_price']),
             'sales' => $stock['cast_sales_parent'].' - '.$stock['cast_sales_team'],
             'status' => $stock['cast_status'],

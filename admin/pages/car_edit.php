@@ -179,6 +179,10 @@
                                                         <td><input type="text" class="form-control" v-model="price"></td>
                                                     </tr>
                                                     <tr>
+                                                        <th>ราคาตั้งขาย</th>
+                                                        <td><input type="text" class="form-control" v-model="trade_price"></td>
+                                                    </tr>
+                                                    <tr>
                                                         <th>เพิ่มเติม</th>
                                                         <td><textarea class="form-control" v-model="option" rows="3"></textarea></td>
                                                     </tr>
@@ -293,6 +297,7 @@
                             transmission: '',
                             color: '',
                             price: '',
+                            trade_price: '',
                             sales: '',
                             sales_team: '',
                             status: '',
@@ -309,7 +314,8 @@
                             for_serie: '',
                             for_section: '',
                             for_change: '0',
-                            tel: ''
+                            tel: '',
+                            condition: '',
                         }
                     },
                     mounted () {
@@ -330,6 +336,7 @@
                                 this.section = response.data.car.section;
                                 this.color = response.data.car.color;
                                 this.price = response.data.car.price;
+                                this.trade_price = response.data.car.trade_price;
                                 this.sales = response.data.car.sales;
                                 this.status = response.data.car.status;
                                 this.car_year = response.data.car.car_year;
@@ -386,6 +393,7 @@
                                 transmission: this.transmission,
                                 color: this.color,
                                 price: this.price,
+                                trade_price: this.trade_price,
                                 sales: this.sales,
                                 status: this.status,
                                 car_year: this.car_year,

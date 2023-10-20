@@ -9,7 +9,7 @@
 
         $db->join('car_stock c', "f.find_id=c.cast_car", "RIGHT");
         $db->where('c.cast_id', $id);
-        $stock = $db->getOne("finance_data f", null, "f.find_id, f.find_brand, f.find_serie, f.find_section, f.find_color, f.find_price, f.find_status, c.cast_id, c.cast_license, c.cast_color, c.cast_price, c.cast_sales_parent, c.cast_sales_team, c.cast_status");
+        $stock = $db->getOne("finance_data f", null, "f.find_id, f.find_brand, f.find_serie, f.find_section, f.find_color, f.find_price, f.find_status, c.cast_id, c.cast_license, c.cast_color, c.cast_price, c.cast_sales_parent, c.cast_sales_team, c.cast_status, c.cast_trade_price");
 
         $api['car'] = array('id' => $stock['cast_id'],
             'license' => $stock['cast_license'],
@@ -20,6 +20,7 @@
             'reg_year' => $stock['cast_year'],
             'color' => $stock['cast_color'],
             'price' => $stock['cast_price'],
+            'trade_price' => $stock['cast_trade_price'],
             'tlt_price' => $stock['find_price'],
             'sales' => $stock['cast_sales_parent'],
             'sale_team' => $stock['cast_sales_team'],

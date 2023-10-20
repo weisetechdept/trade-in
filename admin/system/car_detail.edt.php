@@ -26,6 +26,7 @@
         $for_change = $request->for_change;
         $for_section = $request->for_section;
         $condition = $request->condition;
+        $trade_price = $request->trade_price;
 
         $change = array();
         if($for_change != '0'){
@@ -39,6 +40,7 @@
             'cast_mileage' => $mileage,
             'cast_license'=> $license,
             'cast_price' => $price,
+            'cast_trade_price' => $trade_price,
             'cast_vin' => $vin,
             'cast_year' => $reg_year,
             'cast_condition' => $condition,
