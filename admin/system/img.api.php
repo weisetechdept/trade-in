@@ -17,14 +17,15 @@
 	}
 
     $db->join("car_stock c", "c.cast_id=i.cari_parent", "LEFT");
-    $db->where("c.cast_id",$_GET['u']);
-    $img = $db->get("car_image i", null, "i.cari_link , i.cari_link_500, i.cari_group, i.cari_parent, i.cari_status, i.cari_datetime");
+    $db->where("c.cast_id",$_GET['u'])->where('i.cari_status',1);
+    $img = $db->get("car_image i", null, "i.cari_link , i.cari_link_500, i.cari_group, i.cari_parent, i.cari_status, i.cari_datetime,i.cari_id");
 
     
     foreach ($img as $value) {
         
         $api['img'][] = array('link' => $value['cari_link'],
         'link_500' => $value['cari_link_500'],
+        'id' => $value['cari_id'],
         'datetime' => DateThai($value['cari_datetime']));
         
     }

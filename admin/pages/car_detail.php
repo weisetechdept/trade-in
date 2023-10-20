@@ -71,6 +71,13 @@
                 height: 300px;
                 object-fit: cover;
             }
+            .swal-button--danger {
+                background-color: #e64942;
+            }
+            .swal-button--cancel {
+                color: #555;
+                background-color: #efefef;
+            }
         </style>
     </head>
 
@@ -253,7 +260,8 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <img :src="docs.link_500" width="100%" class="car_img">
-                                            <a :href="docs.link_500" target="_blank" type="button" class="btn btn-sm btn-primary waves-effect waves-light mt-2" style="width: 100%; margin-top: 10px;">รูปขนาดเต็ม</a>
+                                            <a :href="docs.link_500" target="_blank" type="button" class="btn btn-sm btn-primary waves-effect waves-light mt-2" style="margin-top: 10px;">รูปขนาดเต็ม</a>
+                                            <button @click="sendDelete" :value="docs.id" type="button" class="btn btn-sm btn-danger waves-effect waves-light mt-2" style="margin-top: 10px;">ลบ</button>
                                             <p class="mt-1">อัพโหลดเมื่อ : {{ docs.datetime }}</p>
                                         </div>
                                     </div>
@@ -525,6 +533,45 @@
                           .then(response => (
                               this.img = response.data.img
                           ))
+                    },
+                    methods: {
+                        sendDelete(e){
+                            e.preventDefault();
+                            swal({
+                                title: 'คุณแน่ใจหรือไม่ ?',
+                                text: "คุณต้องการลบรูปภาพใช่หรือไม่ โปรดตรวจสอบข้อมูลให้ถูกต้อง",
+                                icon: "warning",
+                                buttons: {
+                                    cancel: "ยกเลิก",
+                                    confirm: {
+                                        text: "ดำเนินการต่อ",
+                                    }
+                                },
+                                dangerMode: true
+                            })
+                            .then((willDelete) => {
+                                if (willDelete) {
+                                    axios.post('/admin/system/img_del.api.php', {
+                                        id: e.target.value
+                                    }).then(res => {
+                                        if(res.data.status == 200)
+                                            swal("สำเร็จ", "ลบรูปภาพเรียบร้อย", "success",{ 
+                                                button: "ตกลง"
+                                            }).then((value) => {
+                                                location.reload();
+                                            });
+
+                                        if(res.data.status == 505) 
+                                            swal("ทำรายการไม่สำเร็จ", "อาจมีบางอย่างผิดปกติ โปรดตรวจสอบเงื่อนไขการสมัครสมาชิกให้ถูกต้อง และครบถ้วน หรือติดต่อเจ้าหน้าที่", "warning",{ 
+                                                button: "ตกลง"
+                                            }
+                                        );
+                                    });
+                                } else {
+                                    swal("Your imaginary file is safe!");
+                                }
+                            });
+                        }
                     }
                 });
 
