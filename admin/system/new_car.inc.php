@@ -21,12 +21,12 @@
             'cast_license' => '',
             'cast_vin' => '',
             'cast_price' => $price,
-            'cast_trade_price' => '',
+            'cast_trade_price' => '0',
             'cast_condition' => '',
             'cast_sales_parent' => $sales,
             'cast_sales_team' => $sales_team,
             'cast_tel' => $tel,
-            'cast_status' => '0',
+            'cast_status' => '0', 
             'cast_datetime' => date('Y-m-d H:i:s')
         );
         $id = $db->insert('car_stock', $data);
