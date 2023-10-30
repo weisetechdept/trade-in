@@ -208,6 +208,25 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        ราคาขาย : {{ price }} บาท<br />
+                                        ราคากลาง (TLT) : {{ tlt_price }} บาท<br />
+                                        เรทการกู้ : {{ loanrate }}%<br />
+                                        ดาวน์ : {{ downpayment.toFixed(2) }} บาท<br />
+                                        ยอดจัด : {{ loan.toFixed(2) }} บาท<br />
+                                        ดอกเบี้ย : {{ interestrate }}%<br />
+                                        ดอกเบี้ยต่อปี : {{ ((loan * interestrate)/100).toFixed(2) }} บาท<br />
+                                        ระยะเวลาผ่อน : {{ period }} ปี ({{ period * 12 }} เดือน)<br />
+                                        ดอกเบี้ยตลอดอายุสัญญา : {{ (((loan * interestrate)/100) * period).toFixed(2) }} บาท<br />
+                                        ยอดสินเชื่อรวมดอกเบี้ย : {{ (loan + (((loan * interestrate)/100) * period)).toFixed(2) }} บาท<br />
+                                        ราคาภาษีมูลค่าเพิ่ม (VAT) : {{ ((loan + (((loan * interestrate)/100) * period)) * 0.07).toFixed(2) }} บาท<br />
+                                        ยอดรวมสินเชื่อหลัง VAT : {{ ((loan + (((loan * interestrate)/100) * period)) * 1.07).toFixed(2) }} บาท<br />
+                                        ยอดผ่อนต่อเดือน : {{ (((this.loan + (((this.loan * this.interestrate)/100) * this.period)) * 1.07) / (this.period * 12)).toFixed(2) }} บาท<br />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         
                       </div>
@@ -406,19 +425,39 @@
                             option: '',
                             vin: '',
                             mileage: '',
-                            tel: ''
+                            tel: '',
+                            downpayment: '',
+                            loanrate: '90',
+                            loan: '',
+                            interestrate: '5.5',
+                            period: '6',
                         }
                     },
                     mounted () {
                         axios.get('/admin/system/car_detail.api.php?u=<?php echo $cid; ?>')
                             .then(response => {
-                                
+                                console.log(response.data);
                                 if(response.data.status == 404) 
                                     swal("เกิดข้อผิดพลาดบางอย่าง", "อาจมีบางอย่างผิดปกติ (error : 404)", "warning",{ 
                                         button: "ตกลง"
                                     }).then((value) => {
                                         window.location.href = "/admin/home";
                                     });
+                                
+                                var cal_price = response.data.car.cal_price;
+                                var cal_tltprice = response.data.car.cal_tlt_price;
+                                var loanrate = this.loanrate;
+                                
+
+                                var cal_down = cal_price - (cal_tltprice * (loanrate/100));
+                                if(cal_down < 0){
+                                    this.downpayment = 0
+                                } else {
+                                    this.downpayment = cal_down
+                                }
+
+                                this.loan = (cal_price - this.downpayment)
+                                
 
                                 this.id = response.data.car.id;
                                 this.license = response.data.car.license;

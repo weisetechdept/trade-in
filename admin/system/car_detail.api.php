@@ -29,7 +29,9 @@
             'condition' => $stock['cast_condition'],
             'vin' => $stock['cast_vin'],
             'mileage' => number_format($stock['cast_mileage']),
-            'tel' => '0'.$stock['cast_tel']
+            'tel' => '0'.$stock['cast_tel'],
+            'cal_price' => $stock['cast_price'],
+            'cal_tlt_price' => $stock['find_price'],
         );
 
     }
