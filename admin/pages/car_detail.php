@@ -211,19 +211,123 @@
                             <div class="col-lg-6 col-md-12">
                                 <div class="card">
                                     <div class="card-body">
+                                        <h4 class="mb-2 font-size-18">คำนวณยอดผ่อน</h4>
+                                        
+                                        <div class="row">
+                                            <div class="col-md-4 col-xl-4">
+                                                <div class="card bg-success border-success">
+                                                    <div class="card-body">
+                                                        <div class="mb-2">
+                                                            <h5 class="card-title mb-0 text-white">ผ่อน / เดือน</h5>
+                                                        </div>
+                                                        <div class="row d-flex align-items-center mb-2">
+                                                            <div class="col-8">
+                                                                <h2 class="d-flex align-items-center text-white mb-0">
+                                                                    {{ formatPrice((((this.loan + (((this.loan * this.interestrate)/100) * this.period)) * 1.07) / (this.period * 12)).toFixed(2)) }}
+                                                                </h2>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-xl-4">
+                                                <div class="card bg-primary border-primary">
+                                                    <div class="card-body">
+                                                        <div class="mb-2">
+                                                            <h5 class="card-title mb-0 text-white">ระยะเวลาผ่อน</h5>
+                                                        </div>
+                                                        <div class="row d-flex align-items-center mb-2">
+                                                            <div class="col-8">
+                                                                <h2 class="d-flex align-items-center text-white mb-0">
+                                                                    {{ period * 12 }}
+                                                                </h2>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-xl-4">
+                                                <div class="card bg-warning border-warning">
+                                                    <div class="card-body">
+                                                        <div class="mb-2">
+                                                            <h5 class="card-title mb-0 text-white">เงินดาวน์</h5>
+                                                        </div>
+                                                        <div class="row d-flex align-items-center mb-2">
+                                                            <div class="col-8">
+                                                                <h2 class="d-flex align-items-center text-white mb-0">
+                                                                    {{ formatPrice(downpayment.toFixed(2)) }}
+                                                                </h2>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <table class="table mb-0">
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">เรทการกู้</th>
+                                                    <td><select class="form-control" v-model="loanrate" @change="calDownpayment($event)" :value="loanrate">
+                                                        <option value="100">100%</option>
+                                                        <option value="95">95%</option>
+                                                        <option value="90">90%</option>
+                                                        <option value="85">85%</option>
+                                                        <option value="80">80%</option>
+                                                        <option value="75">75%</option>
+                                                        <option value="70">70%</option>
+                                                        <option value="65">65%</option>
+                                                        <option value="60">60%</option>
+                                                        <option value="55">55%</option>
+                                                        <option value="50">50%</option>
+                                                    </select></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">ดอกเบี้ย</th>
+                                                    <td><input class="form-control" v-model="interestrate" :value="interestrate"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">ระยะเวลาผ่อน </th>
+                                                    <td>
+                                                        <select class="form-control" v-model="period" :value="period">
+                                                            <option value="3">36</option>
+                                                            <option value="4">48</option>
+                                                            <option value="5">60</option>
+                                                            <option value="6">72</option>
+                                                            <option value="7">84</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    <br />
+                                    <p>
+                                        <button class="btn btn-outline-info ml-1" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                            รายละเอียดการคำนวณ
+                                        </button>
+                                    </p>
+                                <div class="collapse" id="collapseExample">
+                                    <div class="card card-body">
                                         ราคาขาย : {{ price }} บาท<br />
                                         ราคากลาง (TLT) : {{ tlt_price }} บาท<br />
-                                        เรทการกู้ : {{ loanrate }}%<br />
-                                        ดาวน์ : {{ downpayment.toFixed(2) }} บาท<br />
-                                        ยอดจัด : {{ loan.toFixed(2) }} บาท<br />
-                                        ดอกเบี้ย : {{ interestrate }}%<br />
-                                        ดอกเบี้ยต่อปี : {{ ((loan * interestrate)/100).toFixed(2) }} บาท<br />
+                                        เรทการกู้ : {{ loanrate }} %<br />
+                                        ดาวน์ : {{ formatPrice(downpayment.toFixed(2)) }} บาท<br />
+                                        ยอดจัด : {{ formatPrice(loan.toFixed(2)) }} บาท<br />
+                                        ดอกเบี้ย : {{ interestrate }} %<br />
+                                        ดอกเบี้ยต่อปี : {{ formatPrice(((loan * interestrate)/100).toFixed(2)) }} บาท<br />
                                         ระยะเวลาผ่อน : {{ period }} ปี ({{ period * 12 }} เดือน)<br />
-                                        ดอกเบี้ยตลอดอายุสัญญา : {{ (((loan * interestrate)/100) * period).toFixed(2) }} บาท<br />
-                                        ยอดสินเชื่อรวมดอกเบี้ย : {{ (loan + (((loan * interestrate)/100) * period)).toFixed(2) }} บาท<br />
-                                        ราคาภาษีมูลค่าเพิ่ม (VAT) : {{ ((loan + (((loan * interestrate)/100) * period)) * 0.07).toFixed(2) }} บาท<br />
-                                        ยอดรวมสินเชื่อหลัง VAT : {{ ((loan + (((loan * interestrate)/100) * period)) * 1.07).toFixed(2) }} บาท<br />
-                                        ยอดผ่อนต่อเดือน : {{ (((this.loan + (((this.loan * this.interestrate)/100) * this.period)) * 1.07) / (this.period * 12)).toFixed(2) }} บาท<br />
+                                        ดอกเบี้ยตลอดอายุสัญญา : {{ formatPrice((((loan * interestrate)/100) * period).toFixed(2)) }} บาท<br />
+                                        ยอดสินเชื่อรวมดอกเบี้ย : {{ formatPrice((loan + (((loan * interestrate)/100) * period)).toFixed(2)) }} บาท<br />
+                                        ราคาภาษีมูลค่าเพิ่ม (VAT) : {{ formatPrice(((loan + (((loan * interestrate)/100) * period)) * 0.07).toFixed(2)) }} บาท<br />
+                                        ยอดรวมสินเชื่อหลัง VAT : {{ formatPrice(((loan + (((loan * interestrate)/100) * period)) * 1.07).toFixed(2)) }} บาท<br />
+                                        ยอดผ่อนต่อเดือน : {{ formatPrice((((this.loan + (((this.loan * this.interestrate)/100) * this.period)) * 1.07) / (this.period * 12)).toFixed(2)) }} บาท<br />
+                                    </div>
+                                </div>
+                        
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -431,6 +535,9 @@
                             loan: '',
                             interestrate: '5.5',
                             period: '6',
+                            cal_price: '',
+                            cal_tltprice: '',
+
                         }
                     },
                     mounted () {
@@ -444,21 +551,16 @@
                                         window.location.href = "/admin/home";
                                     });
                                 
-                                var cal_price = response.data.car.cal_price;
-                                var cal_tltprice = response.data.car.cal_tlt_price;
-                                var loanrate = this.loanrate;
-                                
-
-                                var cal_down = cal_price - (cal_tltprice * (loanrate/100));
+                                this.cal_price = response.data.car.cal_price;
+                                this.cal_tltprice = response.data.car.cal_tlt_price;
+                                var cal_down = this.cal_price - (this.cal_tltprice * (this.loanrate/100));
                                 if(cal_down < 0){
                                     this.downpayment = 0
                                 } else {
                                     this.downpayment = cal_down
                                 }
-
-                                this.loan = (cal_price - this.downpayment)
+                                this.loan = (this.cal_price - this.downpayment)
                                 
-
                                 this.id = response.data.car.id;
                                 this.license = response.data.car.license;
                                 this.brand = response.data.car.brand;
@@ -478,7 +580,27 @@
                                 this.vin = response.data.car.vin;
                                 this.mileage = response.data.car.mileage;
                                 this.tel = response.data.car.tel;
-                            })
+                             
+                            }),
+                            this.calDownpayment();
+                    },
+                    methods: {
+                        calDownpayment(e){
+                            
+                            var cal_down = this.cal_price - (this.cal_tltprice * (this.loanrate/100));
+                            if(cal_down < 0){
+                                this.downpayment = 0
+                            } else {
+                                this.downpayment = cal_down
+                            }
+                            this.loan = (this.cal_price - this.downpayment)
+                        
+                            
+                        },
+                        formatPrice(value) {
+                            let val = (value/1).toFixed(2).replace(',', '.')
+                            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                        }
                     }
                 });
 
