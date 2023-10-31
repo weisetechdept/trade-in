@@ -22,6 +22,8 @@
                         <li><a href="/admin/add">เพิ่มรถยนต์ใหม่</a></li>
                     </ul>
                 </li>
+                <li><a href="/admin/extension" class=" waves-effect"><i class="feather-box"></i><span>ส่วนขยาย</span></a></li>
+                <li><a href="#" class=" waves-effect"><i class="feather-clipboard"></i><span>แบบสำรวจ</span></a></li>
             </ul>
 
             

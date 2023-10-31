@@ -20,6 +20,17 @@
         require_once 'admin/pages/add_car.php';
     });
 
+    $router->get( '/admin/extension', function() {
+        require_once 'admin/pages/extension.php';
+    });
+
+    $router->get( '/admin/extension/(.*)', function($id) {
+        require_once 'admin/pages/extension_detail.php';
+    });
+    $router->get( '/admin/ext-edit/(.*)', function($id) {
+        require_once 'admin/pages/extension_edit.php';
+    });
+
     $router->get( '/admin/detail/(.*)', function($cid) {
         require_once 'admin/pages/car_detail.php';
     });
