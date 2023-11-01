@@ -12,6 +12,10 @@
     });
 
     /* admin */
+    $router->get( '/access', function() {
+        require_once 'admin/access.php';
+    });
+
     $router->get( '/admin/home', function() {
         require_once 'admin/pages/home.php';
     });

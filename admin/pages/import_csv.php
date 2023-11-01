@@ -1,3 +1,10 @@
+<?php
+    session_start();
+    if($_SESSION['tin_admin'] != true){
+        header("location: /404");
+        exit();
+    }
+?>
 <!doctype html>
 <html lang="en">
     <head>

@@ -1,5 +1,8 @@
-<?php 
-       
+<?php session_start();
+       if($_SESSION['tin_admin'] != true){
+        header("location: /404");
+        exit();
+    }
         $image = $_FILES['file_upload']['tmp_name'];
         $type = mime_content_type($image);
         $name = basename($image);

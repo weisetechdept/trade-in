@@ -2,6 +2,10 @@
     session_start();
     require_once '../../db-conn.php';
     date_default_timezone_set("Asia/Bangkok");
+    if($_SESSION['tin_admin'] != true){
+        header("location: /404");
+        exit();
+    }
 
     $job = $db->get('job');
     foreach ($job as $value) {
