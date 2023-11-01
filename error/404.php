@@ -23,17 +23,16 @@
 
     <div>
         <div class="container">
-            <div class="row">
-                <div class="col-12">
+            <div class="row justify-content-md-center">
+                <div class="col-6">
                     <div class="d-flex align-items-center min-vh-100">
                         <div class="w-100 d-block bg-white shadow-lg rounded my-5">
                             <div class="row">
-                                <div class="col-lg-5 d-none d-lg-block bg-login rounded-left"></div>
-                                <div class="col-lg-7">
+                                <div class="col-lg-12">
                                     <div class="p-5">
                                         <div class="text-center mb-5">
                                             <a href="index.html" class="text-dark font-size-22 font-family-secondary">
-                                                <i class="mdi mdi-alpha-x-circle"></i> <b>XACTON</b>
+                                                <b>Trade-In</b>
                                             </a>
                                         </div>
                                         
@@ -45,7 +44,7 @@
 
                                         <div class="row mt-4">
                                             <div class="col-12 text-center">
-                                                <a href="index.html" class="btn btn-success waves-effect waves-light"><i class="mdi mdi-home mr-2"></i>Back to Home </a>
+                                                <a href="/access" class="btn btn-success waves-effect waves-light"><i class="mdi mdi-home mr-2"></i>Back to login </a>
                                             </div> <!-- end col -->
                                         </div>
                                         <!-- end row -->

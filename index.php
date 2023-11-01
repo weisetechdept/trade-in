@@ -8,7 +8,7 @@
     });
 
     $router->get( '/404', function() {
-        require_once '/error/404.php';
+        require_once 'error/404.php';
     });
 
     /* admin */
