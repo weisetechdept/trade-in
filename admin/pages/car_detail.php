@@ -221,11 +221,11 @@
                                         <h4 class="mb-2 font-size-18">คำนวณยอดผ่อน</h4>
                                         
                                         <div class="row">
-                                            <div class="col-md-4 col-xl-4">
+                                            <div class="col-md-6 col-xl-6">
                                                 <div class="card bg-success border-success">
                                                     <div class="card-body">
                                                         <div class="mb-2">
-                                                            <h5 class="card-title mb-0 text-white">ผ่อน / เดือน</h5>
+                                                            <h5 class="card-title mb-0 text-white">ผ่อน / เดือน (รวม VAT)</h5>
                                                         </div>
                                                         <div class="row d-flex align-items-center mb-2">
                                                             <div class="col-8">
@@ -238,7 +238,26 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4 col-xl-4">
+                                            <div class="col-md-6 col-xl-6">
+                                                <div class="card bg-secondary border-secondary">
+                                                    <div class="card-body">
+                                                        <div class="mb-2">
+                                                            <h5 class="card-title mb-0 text-white">ผ่อน / เดือน (ไม่รวม VAT)</h5>
+                                                        </div>
+                                                        <div class="row d-flex align-items-center mb-2">
+                                                            <div class="col-8">
+                                                                <h2 class="d-flex align-items-center text-white mb-0">
+                                                                    {{ formatPrice(((this.loan + (((this.loan * this.interestrate)/100) * this.period)) / (this.period * 12)).toFixed(2)) }}
+                                                                </h2>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 col-xl-6">
                                                 <div class="card bg-primary border-primary">
                                                     <div class="card-body">
                                                         <div class="mb-2">
@@ -255,7 +274,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4 col-xl-4">
+                                            <div class="col-md-6 col-xl-6">
                                                 <div class="card bg-warning border-warning">
                                                     <div class="card-body">
                                                         <div class="mb-2">
