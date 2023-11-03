@@ -186,6 +186,15 @@
                                                         <td><input type="text" class="form-control" v-model="price"></td>
                                                     </tr>
                                                     <tr>
+                                                        <th>สถานะ Vat</th>
+                                                        <td>
+                                                            <select class="form-control"  v-model="vat">
+                                                                <option value="0">ไม่มี Vat</option>
+                                                                <option value="1">มี Vat</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
                                                         <th>ราคาตั้งขาย</th>
                                                         <td><input type="text" class="form-control" v-model="trade_price"></td>
                                                     </tr>
@@ -323,6 +332,7 @@
                             for_change: '0',
                             tel: '',
                             condition: '',
+                            vat: '',
                         }
                     },
                     mounted () {
@@ -357,6 +367,7 @@
                                 this.select = response.data.brand;
                                 this.tel = response.data.car.tel;
                                 this.sales_team = response.data.car.sale_team;
+                                this.vat = response.data.car.vat;
                             })
                     },
                     methods: {
@@ -413,7 +424,8 @@
                                 for_section: this.for_section,
                                 condition: this.condition,
                                 tel: this.tel,
-                                sales_team: this.sales_team
+                                sales_team: this.sales_team,
+                                vat: this.vat,
                                 
                             }).then(res => {
                                 console.log(res);

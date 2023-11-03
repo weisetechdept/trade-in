@@ -30,6 +30,7 @@
             'cast_sales_parent' => $sales,
             'cast_sales_team' => $sales_team,
             'cast_tel' => $tel,
+            'cast_vat' => '0',
             'cast_status' => '0', 
             'cast_datetime' => date('Y-m-d H:i:s')
         );

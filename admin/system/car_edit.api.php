@@ -35,6 +35,7 @@
             'vin' => $stock['cast_vin'],
             'mileage' => $stock['cast_mileage'],
             'tel' => '0'.$stock['cast_tel'],
+            'vat' => $stock['cast_vat'],
         );
 
         $brand = $db->get('finance_data');

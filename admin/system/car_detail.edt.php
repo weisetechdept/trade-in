@@ -31,6 +31,7 @@
         $for_section = $request->for_section;
         $condition = $request->condition;
         $trade_price = $request->trade_price;
+        $vat = $request->vat;
 
         $change = array();
         if($for_change != '0'){
@@ -50,7 +51,8 @@
             'cast_condition' => $condition,
             'cast_status' => $status,
             'cast_sales_parent' => $sales,
-            'cast_sales_team' => $sales_team
+            'cast_sales_team' => $sales_team,
+            'cast_vat' => $vat,
 
         );
         $data = array_merge($orifinal,$change);

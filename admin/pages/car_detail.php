@@ -173,6 +173,11 @@
                                                         <td>{{ price }}</td>
                                                     </tr>
                                                     <tr>
+                                                        <th>สถานะ Vat</th>
+                                                        <td v-if="vat == '1'">มี Vat</td>
+                                                        <td v-if="vat == '0'">ไม่มี Vat</td>
+                                                    </tr>
+                                                    <tr>
                                                         <th>ราคาตั้งขาย</th>
                                                         <td>{{ trade_price }}</td>
                                                     </tr>
@@ -563,6 +568,7 @@
                             period: '6',
                             cal_price: '',
                             cal_tltprice: '',
+                            vat: '',
 
                         }
                     },
@@ -606,6 +612,7 @@
                                 this.vin = response.data.car.vin;
                                 this.mileage = response.data.car.mileage;
                                 this.tel = response.data.car.tel;
+                                this.vat = response.data.car.vat;
                              
                             }),
                             this.calDownpayment();

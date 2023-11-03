@@ -36,6 +36,7 @@
             'tel' => '0'.$stock['cast_tel'],
             'cal_price' => $stock['cast_price'],
             'cal_tlt_price' => $stock['find_price'],
+            'vat' => $stock['cast_vat'],
         );
 
     }
