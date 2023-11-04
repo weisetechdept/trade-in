@@ -43,6 +43,10 @@
         require_once 'admin/pages/car_edit.php';
     });
 
+    $router->get( '/admin/survey', function() {
+        require_once 'admin/pages/survey.php';
+    });
+
     $router->run();
     
 

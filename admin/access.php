@@ -5,7 +5,13 @@
     if(isset($_POST['password'])){
         if($_POST['password'] == "1474413ab"){
             $_SESSION['tin_admin'] = true;
+            $_SESSION['survey'] = 0;
             header("location: /admin/home");
+            exit();
+        }elseif($_POST['password'] == "55512345"){
+            $_SESSION['tin_admin'] = true;
+            $_SESSION['survey'] = 1;
+            header("location: /admin/survey");
             exit();
         }else{
             header("location: /access");
