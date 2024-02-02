@@ -47,6 +47,12 @@
         require_once 'admin/pages/survey.php';
     });
 
+    /* sales */
+
+    $router->get( '/app', function() {
+        require_once 'sales/pages/auth.php';
+    });
+
     $router->run();
     
 
