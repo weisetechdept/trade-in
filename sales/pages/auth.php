@@ -38,10 +38,11 @@
 			liff.init({ liffId: "1654391121-EdaGJnve" }, () => {
 				if (liff.isLoggedIn()) {
 						liff.getProfile().then(profile => {
+							/*
 							axios.post('/sales/system/auth.php', {
 								userId: profile.userId,
 							}).then(response => {
-								console.log(response.data);
+								
 								if(response.data.status == '200'){
 									if(response.data.permission == 'leader'){
 										window.location.href = "/mgr/home";
@@ -56,8 +57,10 @@
 										}
 									);
 								}
+								
 							});
-
+							*/
+							console.log(profile.userId);
 						}).catch(err => console.error(err));
 				} else {
 					liff.login();
