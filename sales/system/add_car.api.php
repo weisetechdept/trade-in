@@ -10,10 +10,6 @@
         $api['user'] = array(
             'id' => $user_id
         );
-
-        if($_SESSION['tin_admin'] != true){
-            $api['status'] = '400';
-        }
     
         $brand = $db->get('finance_data');
         foreach ($brand as $value) {
