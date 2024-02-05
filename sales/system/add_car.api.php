@@ -12,8 +12,7 @@
         );
 
         if($_SESSION['tin_admin'] != true){
-            header("location: /404");
-            exit();
+            $api['status'] = '400';
         }
     
         $brand = $db->get('finance_data');
@@ -24,7 +23,7 @@
         $api['brand'] = array_unique($api['brand']);
 
     } else {
-
+        $api['status'] = '400';
     }
 
     print_r(json_encode($api));
