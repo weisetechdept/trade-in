@@ -38,17 +38,14 @@
 			liff.init({ liffId: "1654391121-EdaGJnve" }, () => {
 				if (liff.isLoggedIn()) {
 						liff.getProfile().then(profile => {
-							/*
+							
 							axios.post('/sales/system/auth.php', {
 								userId: profile.userId,
 							}).then(response => {
 								
 								if(response.data.status == '200'){
-									if(response.data.permission == 'leader'){
-										window.location.href = "/mgr/home";
-									}
 									if(response.data.permission == 'user'){
-										window.location.href = "/home";
+										window.location.href = "/sales/add-car";
 									}
 								}
 								if(response.data.status == '400'){
@@ -59,7 +56,7 @@
 								}
 								
 							});
-							*/
+							
 							console.log(profile.userId);
 						}).catch(err => console.error(err));
 				} else {

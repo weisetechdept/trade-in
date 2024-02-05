@@ -53,6 +53,10 @@
         require_once 'sales/pages/auth.php';
     });
 
+    $router->get( '/sales/add-car', function() {
+        require_once 'sales/pages/add_car.php';
+    });
+
     $router->run();
     
 
