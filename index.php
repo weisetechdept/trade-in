@@ -57,6 +57,10 @@
         require_once 'sales/pages/add_car.php';
     });
 
+    $router->get( '/sales/detail/(.*)', function($cid) {
+        require_once 'sales/pages/car_detail.php';
+    });
+
     $router->run();
     
 

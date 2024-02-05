@@ -314,7 +314,7 @@
                                     swal("สำเร็จ", "เพิ่มสมาชิกเรียบร้อย", "success",{ 
                                         button: "ตกลง"
                                     }).then((value) => {
-                                        window.location.href = "/admin/detail/"+res.data.id
+                                        window.location.href = "/sales/detail/"+res.data.id
                                     });
 
                                 if(res.data.status == 505) 
