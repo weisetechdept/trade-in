@@ -580,7 +580,7 @@
                                     swal("เกิดข้อผิดพลาดบางอย่าง", "อาจมีบางอย่างผิดปกติ (error : 404)", "warning",{ 
                                         button: "ตกลง"
                                     }).then((value) => {
-                                        window.location.href = "/admin/home";
+                                        window.location.href = "/sales/home";
                                     });
                                 
                                 this.cal_price = response.data.car.cal_price;

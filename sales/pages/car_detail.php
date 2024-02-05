@@ -492,13 +492,13 @@
                             formData.append(fieldName, file, file.name);
 
                             const request = new XMLHttpRequest();
-                            request.open('POST', '/admin/system/multi_upload.php');
+                            request.open('POST', '/sales/system/multi_upload.php');
 
                             // Should call the progress method to update the progress to 100% before calling load
                             // Setting computable to false switches the loading indicator to infinite mode
                             request.upload.onprogress = (e) => {
                                 progress(e.lengthComputable, e.loaded, e.total);
-                                axios.post('/admin/system/multi_upload.php', formData, {
+                                axios.post('/sales/system/multi_upload.php', formData, {
                                     headers: { 
                                         'Content-Type': 'multipart/form-data'
                                     }
@@ -575,14 +575,14 @@
                         }
                     },
                     mounted () {
-                        axios.get('/admin/system/car_detail.api.php?u=<?php echo $cid; ?>')
+                        axios.get('/sales/system/car_detail.api.php?u=<?php echo $cid; ?>')
                             .then(response => {
                                 console.log(response.data);
                                 if(response.data.status == 404) 
                                     swal("เกิดข้อผิดพลาดบางอย่าง", "อาจมีบางอย่างผิดปกติ (error : 404)", "warning",{ 
                                         button: "ตกลง"
                                     }).then((value) => {
-                                        window.location.href = "/admin/home";
+                                        window.location.href = "/sales/home";
                                     });
                                 
                                 this.cal_price = response.data.car.cal_price;
@@ -674,7 +674,7 @@
                                     closeOnEsc: false
                                 });
 
-                                axios.post('/admin/system/cfimg.api.php', formData, {
+                                axios.post('/sales/system/cfimg.api.php', formData, {
                                     headers: { 
                                         'Content-Type': 'multipart/form-data'
                                     }
@@ -684,7 +684,7 @@
                                     var cfimg_link =  res.data.result.variants[1];
 
                                     if(res.data.success == true) 
-                                        axios.post('/admin/system/upload_img.ins.php',{
+                                        axios.post('/sales/system/upload_img.ins.php',{
                                             aimg_img_id: cfimg_id,
                                             aimg_link:  cfimg_link,
                                             aimg_link_500: cfimg_link_500,
@@ -725,7 +725,7 @@
                         }
                     },
                     mounted () {
-                        axios.get('/admin/system/img.api.php?u=<?php echo $cid; ?>')
+                        axios.get('/sales/system/img.api.php?u=<?php echo $cid; ?>')
                           .then(response => (
                               this.img = response.data.img
                           ))
@@ -747,7 +747,7 @@
                             })
                             .then((willDelete) => {
                                 if (willDelete) {
-                                    axios.post('/admin/system/img_del.api.php', {
+                                    axios.post('/sales/system/img_del.api.php', {
                                         id: e.target.value
                                     }).then(res => {
                                         if(res.data.status == 200)
