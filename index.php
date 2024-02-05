@@ -53,13 +53,38 @@
         require_once 'sales/pages/auth.php';
     });
 
-    $router->get( '/sales/add-car', function() {
+    $router->get( '/sales/home', function() {
+        require_once 'sales/pages/home.php';
+    });
+
+    $router->get( '/sales/add', function() {
         require_once 'sales/pages/add_car.php';
+    });
+
+    $router->get( '/sales/extension', function() {
+        require_once 'sales/pages/extension.php';
+    });
+
+    $router->get( '/sales/extension/(.*)', function($id) {
+        require_once 'sales/pages/extension_detail.php';
+    });
+    $router->get( '/sales/ext-edit/(.*)', function($id) {
+        require_once 'sales/pages/extension_edit.php';
     });
 
     $router->get( '/sales/detail/(.*)', function($cid) {
         require_once 'sales/pages/car_detail.php';
     });
+
+    $router->get( '/sales/edit/(.*)', function($cid) {
+        require_once 'sales/pages/car_edit.php';
+    });
+
+    $router->get( '/sales/survey', function() {
+        require_once 'sales/pages/survey.php';
+    });
+
+
 
     $router->run();
     
