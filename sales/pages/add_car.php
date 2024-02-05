@@ -1,6 +1,5 @@
 <?php
     session_start();
-    $_SESSION['tin_user_id'] = 271;
 
     /*
     if($_SESSION['tin_admin'] != true){
@@ -258,7 +257,7 @@
                         axios.get('/sales/system/add_car.api.php')
                             .then(response => {
                                 console.log(response.data);
-                                if(response.data.status == 404) 
+                                if(response.data.status == 404)
                                     swal("เกิดข้อผิดพลาดบางอย่าง", "อาจมีบางอย่างผิดปกติ (error : 404)", "warning",{ 
                                         button: "ตกลง"
                                     }).then((value) => {
