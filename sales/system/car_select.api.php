@@ -2,11 +2,12 @@
     session_start();
     require_once '../../db-conn.php';
     date_default_timezone_set("Asia/Bangkok");
+    /*
     if($_SESSION['tin_admin'] != true){
         header("location: /404");
         exit();
     }
-
+    */
     $b = $_GET['b'];
     $s = $_GET['s'];
     $t = $_GET['t'];
