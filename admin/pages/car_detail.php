@@ -573,7 +573,7 @@
                         }
                     },
                     mounted () {
-                        axios.get('/admin/system/car_detail.api.php?u=<?php echo $cid; ?>')
+                        axios.get('/sales/system/car_detail.api.php?u=<?php echo $cid; ?>')
                             .then(response => {
                                 console.log(response.data);
                                 if(response.data.status == 404) 
