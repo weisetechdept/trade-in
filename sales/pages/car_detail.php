@@ -255,18 +255,7 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-lg-6 col-md-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="mb-2 font-size-18">อัพโหลดรูปรถยนต์</h4>
-                                        <div class="form-group">
-                                            <input type="file" class="filepond">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                       
 
 
                         <div id="car_img">
