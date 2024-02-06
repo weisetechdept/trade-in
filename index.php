@@ -57,7 +57,7 @@
         require_once 'sales/pages/home.php';
     });
 
-    $router->get( '/sales/add', function() {
+    $router->get( '/sales/add-car', function() {
         require_once 'sales/pages/add_car.php';
     });
 
@@ -83,8 +83,6 @@
     $router->get( '/sales/survey', function() {
         require_once 'sales/pages/survey.php';
     });
-
-
 
     $router->run();
     
