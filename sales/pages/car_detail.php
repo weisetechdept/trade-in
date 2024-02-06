@@ -580,7 +580,7 @@
                     el: '#car_img',
                     data () {
                         return {
-                            img: [],
+                            img: []
                         }
                     },
                     mounted () {
