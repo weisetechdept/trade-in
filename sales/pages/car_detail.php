@@ -629,62 +629,7 @@
                         }
                     }
                 });
-
-
-       $(document).ready(function () {
-            // First register any plugins
-            FilePond.registerPlugin( FilePondPluginImagePreview,FilePondPluginImageTransform);
-
-            const inputElement = document.querySelector('input[class="my-pond"]');
-            
-            // Create the FilePond instance
-            FilePond.create(inputElement, {
-                allowMultiple: true,
-                allowImageResize: true,
-                imageResizeTargetWidth: 1024,
-                imageResizeTargetHeight: 1024,
-                imageTransformOutputQuality: 70
-            });
-            
-            FilePond.setOptions({
-                server: {
-                    url: "/Checking/ProcessUpload",
-                    process: (fieldName, file, metadata, load, error, progress, abort) => {
-                        const formData = new FormData();
-                        formData.append(fieldName, file, file.name);
-                        formData.append("DelegateId", "8476");
-
-                        const request = new XMLHttpRequest();
-                        request.open('POST', "/Checking/ProcessUpload");
-                        // Setting computable to false switches the loading indicator to infinite mode
-                        request.upload.onprogress = (e) => {
-                            progress(e.lengthComputable, e.loaded, e.total);
-                        };
-
-                        request.onload = function() {
-                            if (request.status >= 200 && request.status < 300) {
-                                load(request.responseText); // the load method accepts either a string (id) or an object
-                            } else {
-                                error('Error during Upload!');
-                            }
-                        };
-
-                        request.send(formData);
-                        //expose an abort method so the request can be cancelled
-                        return {
-                            abort: () => {
-                                // This function is entered if the user has tapped the cancel button
-                                request.abort();
-                                // Let FilePond know the request has been cancelled
-                                abort();
-                            }
-                        };
-                    }, // we've not implemented these endpoints yet, so leave them null!
-                    fetch: null,
-                    remove: null,
-                }
-            });
-        });
+                
         </script>
 
               <!-- App js -->
