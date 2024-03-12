@@ -87,6 +87,17 @@
                 color: #555;
                 background-color: #efefef;
             }
+            .check-list p {
+                margin-bottom: 5px;
+                padding-left: 10px;
+                font-size: 14px;
+            }
+            .red {
+                color: red;
+            }
+            .green{
+                color: green;
+            }
         </style>
     </head>
 
@@ -132,14 +143,6 @@
                                                         <td>{{ id }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th>เลขทะเบียน</th>
-                                                        <td>{{ license }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>เลขตัวถัง</th>
-                                                        <td>{{ vin }}</td>
-                                                    </tr>
-                                                    <tr>
                                                         <th>เลขไมล์</th>
                                                         <td>{{ mileage }}</td>
                                                     </tr>
@@ -167,25 +170,8 @@
                                                         <td>{{ car_year }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th>ปีจดทะเบียน</th>
-                                                        <td>{{ reg_year }}</td>
-                                                    </tr>
-                                                    <tr>
                                                         <th>ราคา</th>
                                                         <td>{{ price }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>สถานะ Vat</th>
-                                                        <td v-if="vat == '1'">มี Vat</td>
-                                                        <td v-if="vat == '0'">ไม่มี Vat</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>ราคาตั้งขาย</th>
-                                                        <td>{{ trade_price }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>ราคากลาง (TLT)</th>
-                                                        <td>{{ tlt_price }}</td>
                                                     </tr>
                                                     <tr>
                                                         <th>เพิ่มเติม</th>
@@ -194,10 +180,6 @@
                                                     <tr>
                                                         <th>สภาพ</th>
                                                         <td>{{ condition }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>เซลผู้ดูแล</th>
-                                                        <td>{{ sales }}</td>
                                                     </tr>
                                                     <tr>
                                                         <th>เบอร์โทรศัพท์</th>
@@ -227,7 +209,35 @@
                         
                       </div>
 
+                      <div class="row">
+                            <div class="col-lg-6 col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="mb-2 font-size-18">สถานะรูป : <span class="red">ยังไม่ครบ</span></h4>
+                                        <div class="check-list">
+                                            <p v-if="docs.docs3 >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> ด้่านหน้าตรง</p>
+                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> ด้่านหลังตรง</p>
+                                            <p v-if="docs.docs2 >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> มุมเฉียงหน้าซ้าย</p>
+                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> มุมเฉียงหลังซ้าย</p>
+                                            <p v-if="docs.docs2 >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> ที่นั่งคนขับ</p>
+                                            <p v-if="docs.docs3 >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> พวงมาลัย และคอนโซล</p>
+                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> หน้าปัด และเลขไมล์</p>
+                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> เกียร์</p>
+                                            <p v-if="docs.docs2 >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> กุญแจ</p>
+                                            <p v-if="docs.docs3 >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> ป้ายภาษี</p>
+                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> สำเนาทะเบียนผู้ถือกรรมสิทธิ์</p>
+                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> เล่มฟ้าหน้า 18</p>
+                                        </div>
+                                        <div class="mt-4">
+                                            <p class="mb-0"><a href="#">ดูตัวอย่างการถ่ายภาพรถยนต์</a></p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
+     
                         <div class="row">
                             <div class="col-lg-6 col-md-12">
                                 <div class="card">
@@ -236,10 +246,20 @@
                                         <div id="form">
                                           <form @submit.prevent="sendData">
                                                 <div class="form-group">
-                                                    <select class="form-control" v-model="group" id="exampleFormControlSelect1">
-                                                        <option value="0">เลือกประเภทรูป</option>
-                                                        <option value="1">รูปหน้าปก</option>
-                                                        <option value="2">รูปอื่นๆ</option>
+                                                    <select class="form-control" v-model="group">
+                                                        <option value="0">= เลือกประเภทของภาพ =</option>
+                                                        <option value="10">ด้่านหน้าตรง</option>
+                                                        <option value="11">ด้่านหลังตรง</option>
+                                                        <option value="12">มุมเฉียงหน้าซ้าย</option>
+                                                        <option value="13">มุมเฉียงหลังซ้าย</option>
+                                                        <option value="14">ที่นั่งคนขับ</option>
+                                                        <option value="15">พวงมาลัย และคอนโซล</option>
+                                                        <option value="16">หน้าปัด และเลขไมล์</option>
+                                                        <option value="17">เกียร์</option>
+                                                        <option value="18">กุญแจ</option>
+                                                        <option value="19">ป้ายภาษี</option>
+                                                        <option value="20">สำเนาทะเบียนผู้ถือกรรมสิทธิ์</option>
+                                                        <option value="21">เล่มฟ้าหน้า 18</option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
@@ -254,9 +274,6 @@
                                 </div>
                             </div>
                         </div>
-
-                       
-
 
                         <div id="car_img">
                             <div class="row" v-for="docs in img">
@@ -330,62 +347,6 @@
 
 
         <script>
-                FilePond.parse(document.body);
-                FilePond.setOptions({
-                    server: {
-                        process: (fieldName, file, metadata, load, error, progress, abort, transfer, options) => {
-                            // fieldName is the name of the input field
-                            // file is the actual file object to send
-                            const formData = new FormData();
-                            formData.append(fieldName, file, file.name);
-
-                            const request = new XMLHttpRequest();
-                            request.open('POST', '/sales/system/multi_upload.php');
-
-                            // Should call the progress method to update the progress to 100% before calling load
-                            // Setting computable to false switches the loading indicator to infinite mode
-                            request.upload.onprogress = (e) => {
-                                progress(e.lengthComputable, e.loaded, e.total);
-                                axios.post('/sales/system/multi_upload.php', formData, {
-                                    headers: { 
-                                        'Content-Type': 'multipart/form-data'
-                                    }
-                                }).then(res => {
-                                    console.log(res.data);
-                                });
-                            };
-
-                            // Should call the load method when done and pass the returned server file id
-                            // this server file id is then used later on when reverting or restoring a file
-                            // so your server knows which file to return without exposing that info to the client
-                            request.onload = function () {
-                                if (request.status >= 200 && request.status < 300) {
-                                    // the load method accepts either a string (id) or an object
-                                    load(request.responseText);
-                                } else {
-                                    // Can call the error method if something is wrong, should exit after
-                                    error('oh no');
-                                }
-                            };
-
-                            request.send(formData);
-
-                            // Should expose an abort method so the request can be cancelled
-                            return {
-                                abort: () => {
-                                    // This function is entered if the user has tapped the cancel button
-                                    request.abort();
-
-                                    // Let FilePond know the request has been cancelled
-                                    abort();
-                                },
-                            };
-                        },
-                    },
-                });
-                
-
-
                 
                 var agent_detail = new Vue({
                     el: '#agent',

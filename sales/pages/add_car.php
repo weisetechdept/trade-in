@@ -88,11 +88,18 @@
             .page-content {
                 padding: 20px 0px;
             }
+            #agent {
+                margin-top: 70px;
+            }
         </style>
     </head>
 
     <body>
         <div id="layout-wrapper">
+            <?php 
+                    include_once('inc-pages/nav.php');
+                    include_once('inc-pages/sidebar.php');
+            ?>
 
             <div class="main-content">
 
@@ -135,10 +142,19 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <th>ราคา</th>
+                                                        <th>เกียร์</th>
+                                                        <td>
+                                                            <select class="form-control" v-model="transmission">
+                                                                <option value="0">= โปรดเลือกเกียร์ =</option>
+                                                                <option value="MT">เกียร์อัตโนมัติ</option>
+                                                                <option value="AT">เกียร์ธรรมดา</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>ราคาที่ต้องการ</th>
                                                         <td><input type="text" class="form-control" v-model="price"></td>
                                                     </tr>
-
                                                     <tr>
                                                         <th>ชื่อ ผู้ขาย</th>
                                                         <td><input type="text" class="form-control" v-model="seller_name"></td>
@@ -148,6 +164,7 @@
                                                         <th>เบอร์โทร ผู้ขาย</th>
                                                         <td><input type="text" class="form-control" v-model="tel"></td>
                                                     </tr>
+                                                    
                                                 </tbody>
                                             </table>
                                             <div class="form-group mt-3">
@@ -311,7 +328,7 @@
                             }).then(res => {
                                 console.log(res);
                                 if(res.data.status == 200) 
-                                    swal("สำเร็จ", "เพิ่มสมาชิกเรียบร้อย", "success",{ 
+                                    swal("สำเร็จ", "เพิ่มสมาชิกเรียบร้อย", "success",{  
                                         button: "ตกลง"
                                     }).then((value) => {
                                         window.location.href = "/sales/detail/"+res.data.id

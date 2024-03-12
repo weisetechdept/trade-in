@@ -194,7 +194,7 @@
             "drawCallback": function () {
                 $('.dataTables_paginate > .pagination').addClass('pagination-rounded');
             },
-            ajax: '/admin/system/home.api.php',
+            ajax: '/sales/system/home.api.php',
             "columns" : [
                 {'data':'0'},
                 {'data':'1'},
@@ -223,7 +223,7 @@
                     'data': '0',
                     sortable: false,
                     "render": function ( data, type, full, meta ) {
-                        return '<a href="/admin/detail/'+data+'" class="btn btn-sm btn-outline-primary editBtn" role="button"><span class="mdi mdi-account-edit"></span> แก้ใข</a>';
+                        return '<a href="/sales/detail/'+data+'" class="btn btn-sm btn-outline-primary editBtn" role="button"><span class="mdi mdi-account-edit"></span> แก้ใข</a>';
                     }
                 }
             ],

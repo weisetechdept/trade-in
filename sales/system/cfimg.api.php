@@ -1,4 +1,4 @@
-<?php session_start();
+<?php session_start(); 
        
         $image = $_FILES['file_upload']['tmp_name'];
         $type = mime_content_type($image);
