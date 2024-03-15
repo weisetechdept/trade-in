@@ -13,17 +13,14 @@
         if($profile['verify'] == '1') {
 
             $_SESSION['tin_user_id'] = $profile['id'];
+            $_SESSION['tin_permission'] = $profile['status'];
             echo json_encode(array('status' => '200', 'permission' => $profile['status']));
 
         } else {
-
             echo json_encode(array('status' => '400'));
             unset($_SESSION['tin_user_id']);
-
         }
-
     } else {
-
         echo json_encode(array('status' => '400'));
         unset($_SESSION['tin_user_id']);
 

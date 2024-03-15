@@ -98,6 +98,14 @@
             .green{
                 color: green;
             }
+            .guide-line {
+                text-align: center;
+                margin-bottom: 30px;
+            }
+            .car_img_guide {
+                width: 50%;
+                border-radius: 10px;
+            }
         </style>
     </head>
 
@@ -120,8 +128,8 @@
 
                                     <div class="page-title-right">
                                         <ol class="breadcrumb m-0">
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">A77</a></li>
-                                            <li class="breadcrumb-item active">สมาชิก</li>
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Trade</a></li>
+                                            <li class="breadcrumb-item active">รถยนต์</li>
                                         </ol>
                                     </div>
                                     
@@ -217,15 +225,24 @@
                                         <div class="check-list">
                                             <p v-if="docs.docs3 >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> ด้่านหน้าตรง</p>
                                             <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> ด้่านหลังตรง</p>
+                                            
                                             <p v-if="docs.docs2 >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> มุมเฉียงหน้าซ้าย</p>
                                             <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> มุมเฉียงหลังซ้าย</p>
+
                                             <p v-if="docs.docs2 >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> ที่นั่งคนขับ</p>
+
                                             <p v-if="docs.docs3 >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> พวงมาลัย และคอนโซล</p>
+
                                             <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> หน้าปัด และเลขไมล์</p>
+
                                             <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> เกียร์</p>
+
                                             <p v-if="docs.docs2 >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> กุญแจ</p>
+
                                             <p v-if="docs.docs3 >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> ป้ายภาษี</p>
+
                                             <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> สำเนาทะเบียนผู้ถือกรรมสิทธิ์</p>
+
                                             <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> เล่มฟ้าหน้า 18</p>
                                         </div>
                                         <div class="mt-4">
@@ -235,55 +252,60 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-     
-                        <div class="row">
-                            <div class="col-lg-6 col-md-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="mb-2 font-size-18">อัพโหลดรูปหน้าปก</h4>
-                                        <div id="form">
-                                          <form @submit.prevent="sendData">
-                                                <div class="form-group">
-                                                    <select class="form-control" v-model="group">
-                                                        <option value="0">= เลือกประเภทของภาพ =</option>
-                                                        <option value="10">ด้่านหน้าตรง</option>
-                                                        <option value="11">ด้่านหลังตรง</option>
-                                                        <option value="12">มุมเฉียงหน้าซ้าย</option>
-                                                        <option value="13">มุมเฉียงหลังซ้าย</option>
-                                                        <option value="14">ที่นั่งคนขับ</option>
-                                                        <option value="15">พวงมาลัย และคอนโซล</option>
-                                                        <option value="16">หน้าปัด และเลขไมล์</option>
-                                                        <option value="17">เกียร์</option>
-                                                        <option value="18">กุญแจ</option>
-                                                        <option value="19">ป้ายภาษี</option>
-                                                        <option value="20">สำเนาทะเบียนผู้ถือกรรมสิทธิ์</option>
-                                                        <option value="21">เล่มฟ้าหน้า 18</option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="file" name="file_upload" id="file_upload" @change="onFileChange">
-                                                </div>
-                                                <div class="form-group">
-                                                    <button type="submit" class="btn btn-primary waves-effect waves-light">อัพโหลด</button>
-                                                </div>
-                                          </form>
-                                      </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="car_img">
-                            <div class="row" v-for="docs in img">
+                            <div class="row">
                                 <div class="col-lg-6 col-md-12">
                                     <div class="card">
                                         <div class="card-body">
-                                            <img :src="docs.link_500" width="100%" class="car_img">
-                                            <a :href="docs.link_500" target="_blank" type="button" class="btn btn-sm btn-primary waves-effect waves-light mt-2" style="margin-top: 10px;">รูปขนาดเต็ม</a>
-                                            <button @click="sendDelete" :value="docs.id" type="button" class="btn btn-sm btn-danger waves-effect waves-light mt-2" style="margin-top: 10px;">ลบ</button>
-                                            <p class="mt-1">อัพโหลดเมื่อ : {{ docs.datetime }}</p>
+<div id="form">
+                                            <div class="guide-line" id="agent">
+                                                <p>ตัวอย่างการถ่ายรูป</p>
+                                                <img :src="'/assets/images/photo/guide-0'+ group + '.jpg'" width="100%" class="car_img_guide">
+                                            </div>
+
+                                            <h4 class="mb-2 font-size-18">อัพโหลดรูปหน้าปก</h4>
+
+                                                <form @submit.prevent="sendData">
+                                                        <div class="form-group">
+                                                            <select class="form-control" v-model="group">
+                                                                <option value="0">= เลือกประเภทของภาพ =</option>
+                                                                <option value="10">ด้่านหน้าตรง</option>
+                                                                <option value="11">ด้่านหลังตรง</option>
+                                                                <option value="12">มุมเฉียงหน้าซ้าย</option>
+                                                                <option value="13">มุมเฉียงหลังซ้าย</option>
+                                                                <option value="14">ที่นั่งคนขับ</option>
+                                                                <option value="15">พวงมาลัย และคอนโซล</option>
+                                                                <option value="16">หน้าปัด และเลขไมล์</option>
+                                                                <option value="17">เกียร์</option>
+                                                                <option value="18">กุญแจ</option>
+                                                                <option value="19">ป้ายภาษี</option>
+                                                                <option value="20">สำเนาทะเบียนผู้ถือกรรมสิทธิ์</option>
+                                                                <option value="21">เล่มฟ้าหน้า 18</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="file" name="file_upload" id="file_upload" @change="onFileChange">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <button type="submit" class="btn btn-primary waves-effect waves-light">อัพโหลด</button>
+                                                        </div>
+                                                </form>
+</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="car_img">
+                                <div class="row" v-for="docs in img">
+                                    <div class="col-lg-6 col-md-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <img :src="docs.link_500" width="100%" class="car_img">
+                                                <a :href="docs.link_500" target="_blank" type="button" class="btn btn-sm btn-primary waves-effect waves-light mt-2" style="margin-top: 10px;">รูปขนาดเต็ม</a>
+                                                <button @click="sendDelete" :value="docs.id" type="button" class="btn btn-sm btn-danger waves-effect waves-light mt-2" style="margin-top: 10px;">ลบ</button>
+                                                <p class="mt-1">อัพโหลดเมื่อ : {{ docs.datetime }}</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -380,7 +402,6 @@
                             cal_price: '',
                             cal_tltprice: '',
                             vat: '',
-
                         }
                     },
                     mounted () {

@@ -54,6 +54,12 @@
         .card {
             margin-bottom: 10px;
         }
+        .car-thumb {
+            width: 130px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
     </style>
 </head>
 
@@ -97,18 +103,16 @@
                                         <thead>
                                             <tr>
                                                 <th>รหัส</th>
-                                                <th>ทะเบียน</th>
+                                                <th>รูปรถยนต์</th>
+                                                <th>สถานะ</th>
                                                 <th>รถยนต์</th>
                                                 <th>สี</th>
                                                 <th>ราคา</th>
-                                                <th>เซลล์</th>
-                                                <th>สถานะ</th>
                                                 <th>จัดการ</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -180,6 +184,7 @@
     <!-- Datatables init -->
     <script>
         $('#datatable').DataTable({
+            "order": [[ 0, "desc" ]],
             "language": {
                 "paginate": {
                     "previous": "<i class='mdi mdi-chevron-left'>",
@@ -197,13 +202,13 @@
             ajax: '/sales/system/home.api.php',
             "columns" : [
                 {'data':'0'},
-                {'data':'1'},
-                {'data':'2'},
-                {'data':'3'},
-                {'data':'4'},
-                {'data':'5'},
+                {'data':'0',
+                    "render": function ( data, type, full, meta ) {
+                        return '<img src="https://dummyimage.com/600x400/000/fff" class="car-thumb">';
+                    }
+                },
                 { 
-                    'data': '6',
+                    'data': '1',
                     sortable: false,
                     "render": function ( data, type, full, meta ) {
                         if(data == '0'){
@@ -219,6 +224,9 @@
                         } 
                     }
                 },
+                {'data':'2'},
+                {'data':'3'},
+                {'data':'4'},
                 { 
                     'data': '0',
                     sortable: false,
@@ -226,7 +234,7 @@
                         return '<a href="/sales/detail/'+data+'" class="btn btn-sm btn-outline-primary editBtn" role="button"><span class="mdi mdi-account-edit"></span> แก้ใข</a>';
                     }
                 }
-            ],
+            ]
         });
 
     </script>

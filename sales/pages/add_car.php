@@ -162,7 +162,7 @@
                                                     
                                                     <tr>
                                                         <th>เบอร์โทร ผู้ขาย</th>
-                                                        <td><input type="text" class="form-control" v-model="tel"></td>
+                                                        <td><input type="text" class="form-control" v-model="tel" maxlength="10"></td>
                                                     </tr>
                                                     
                                                 </tbody>

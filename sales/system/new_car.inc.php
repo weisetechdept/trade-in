@@ -15,7 +15,7 @@
         $seller_name = $request->seller_name;
         $tel = $request->tel;
 
-        $user_id = $request->user_id;
+        $user_id = '271';
 
         $usr = $db->where('user_parent', $user_id)->getOne('user');
 

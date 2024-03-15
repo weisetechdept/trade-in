@@ -23,11 +23,15 @@
 
     
     foreach ($img as $value) {
-        
-        $api['img'][] = array('link' => $value['cari_link'],
-        'link_500' => $value['cari_link_500'],
-        'id' => $value['cari_id'],
-        'datetime' => DateThai($value['cari_datetime']));
+
+        if(count($img) > 0){
+            $api['img'][] = array('link' => $value['cari_link'],
+            'link_500' => $value['cari_link_500'],
+            'id' => $value['cari_id'],
+            'datetime' => DateThai($value['cari_datetime']));
+        } else {
+            $api['img'] = array();
+        }
         
     }
 
