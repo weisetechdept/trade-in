@@ -84,6 +84,13 @@
         require_once 'sales/pages/survey.php';
     });
 
+    /* sales */
+
+    $router->get( '/trade', function() {
+        require_once 'frontend/pages/trade.php';
+    });
+
+
     $router->run();
     
 

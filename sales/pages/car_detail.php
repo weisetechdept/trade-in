@@ -223,23 +223,23 @@
                                     <div class="card-body">
                                         <h4 class="mb-2 font-size-18">สถานะรูป : <span class="red">ยังไม่ครบ</span></h4>
                                         <div class="check-list">
-                                            <p v-if="docs.docs3 >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> ด้่านหน้าตรง</p>
-                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> ด้่านหลังตรง</p>
+                                            <p v-if="docs.docs3 >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> ด้านหน้าตรง</p>
+                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> ด้านหน้าตรง</p>
                                             
-                                            <p v-if="docs.docs2 >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> มุมเฉียงหน้าซ้าย</p>
-                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> มุมเฉียงหลังซ้าย</p>
+                                            <p v-if="docs.docs2 >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> รูปถ่ายด้านข้างรถซ้าย</p>
+                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> รูปถ่ายด้านข้างรถซ้าย</p>
 
-                                            <p v-if="docs.docs2 >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> ที่นั่งคนขับ</p>
+                                            <p v-if="docs.docs2 >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> รูปถ่ายด้านข้าง 45 องศา</p>
 
-                                            <p v-if="docs.docs3 >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> พวงมาลัย และคอนโซล</p>
+                                            <p v-if="docs.docs3 >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> รูปถ่ายด้านหลัง 45 องศาซัาย</p>
 
-                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> หน้าปัด และเลขไมล์</p>
+                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> รูปถ่ายหลังตรง</p>
 
-                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> เกียร์</p>
+                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> รูปถ่ายด้านหลัง 45 องศาขวา</p>
 
-                                            <p v-if="docs.docs2 >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> กุญแจ</p>
+                                            <p v-if="docs.docs2 >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> รูปถ่ายด้านข้างรถขวา</p>
 
-                                            <p v-if="docs.docs3 >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> ป้ายภาษี</p>
+                                            <p v-if="docs.docs3 >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> รูปถ่ายด้านข้าง</p>
 
                                             <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> สำเนาทะเบียนผู้ถือกรรมสิทธิ์</p>
 
