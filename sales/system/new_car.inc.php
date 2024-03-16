@@ -15,9 +15,8 @@
         $seller_name = $request->seller_name;
         $tel = $request->tel;
 
-        $user_id = '271';
-
-        $usr = $db->where('user_parent', $user_id)->getOne('user');
+        $user_id = $_SESSION['tin_user_id'];
+        $usr = $db_nms->where('id', $user_id)->getOne('db_member');
 
         $data = array(
             'cast_car' => $for_section,
@@ -31,9 +30,9 @@
             'cast_price' => $price,
             'cast_trade_price' => '0',
             'cast_condition' => '',
-            'cast_sales_parent' => $usr['user_nickname'],
-            'cast_sales_parent_no' => $usr['user_id'],
-            'cast_sales_team' => $usr['user_team'],
+            'cast_sales_parent' => $usr['nickname'],
+            'cast_sales_parent_no' => $user_id,
+            'cast_sales_team' => '',
             'cast_seller_name' => $seller_name,
             'cast_tel' => $tel,
             'cast_vat' => '0',
