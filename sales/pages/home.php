@@ -206,7 +206,7 @@
                 {'data':'0'},
                 {'data':'0',
                     "render": function ( data, type, full, meta ) {
-                        return '<img src="https://dummyimage.com/600x400/000/fff" class="car-thumb">';
+                        return '<img src="https://dummyimage.com/600x400/000/fff&text=ไม่มีรูป" class="car-thumb">';
                     }
                 },
                 { 
@@ -220,7 +220,7 @@
                         } else if(data == '2') {
                             return '<span class="badge badge-soft-warning">ไม่ได้สัมผัสรถ</span>';
                         } else if(data == '3') {
-                            return '<span class="badge badge-soft-danger">ลูกค้าขายเอง / ขายที่อื่น</span>';
+                            return '<span class="badge badge-soft-danger">ขายที่อื่น</span>';
                         } else if(data == '4') {
                             return '<span class="badge badge-soft-success">สำเร็จ</span>';
                         } 
