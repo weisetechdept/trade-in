@@ -39,20 +39,13 @@
         }
 
         $orifinal = Array (
-            'cast_option' => $option,
             'cast_transmission' => $transmission,
             'cast_color' => $color,
             'cast_mileage' => $mileage,
             'cast_license'=> $license,
             'cast_price' => $price,
-            'cast_trade_price' => $trade_price,
             'cast_vin' => $vin,
             'cast_year' => $reg_year,
-            'cast_condition' => $condition,
-            'cast_status' => $status,
-            'cast_sales_parent' => $sales,
-            'cast_sales_team' => $sales_team,
-            'cast_vat' => $vat,
 
         );
         $data = array_merge($orifinal,$change);

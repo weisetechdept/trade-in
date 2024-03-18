@@ -1,11 +1,11 @@
 <?php
     session_start();
-    /*
-    if($_SESSION['tin_admin'] != true){
+    
+    if($_SESSION['tin_login'] != true){
         header("location: /404");
         exit();
     }
-    */
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -103,7 +103,7 @@
                 margin-bottom: 30px;
             }
             .car_img_guide {
-                width: 50%;
+                width: 95%;
                 border-radius: 10px;
             }
         </style>
@@ -128,7 +128,7 @@
 
                                     <div class="page-title-right">
                                         <ol class="breadcrumb m-0">
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Trade</a></li>
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Trade-in</a></li>
                                             <li class="breadcrumb-item active">รถยนต์</li>
                                         </ol>
                                     </div>
@@ -190,7 +190,11 @@
                                                         <td>{{ condition }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th>เบอร์โทรศัพท์</th>
+                                                        <th>ชื่อ ผู้ขาย</th>
+                                                        <td>{{ sellername }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>เบอร์โทรศัพท์ ผู้ขาย</th>
                                                         <td>{{ tel }}</td>
                                                     </tr>
                                                     <tr>
@@ -217,41 +221,60 @@
                         
                       </div>
 
-                      <div class="row">
+                      <div class="row" id="chkimg">
                             <div class="col-lg-6 col-md-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="mb-2 font-size-18">สถานะรูป : <span class="red">ยังไม่ครบ</span></h4>
+                                        <h4 class="mb-2 font-size-18">สถานะรูป : <span v-if="status == '0'" class="red">ยังไม่ครบ</span><span v-else-if="status == '1'" class="green">ครบถ้วน</span></h4>
                                         <div class="check-list">
-                                            <p v-if="docs.docs3 >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> ด้านหน้าตรง</p>
+                                            <p v-if="count[10] >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> ด้านหน้าตรง</p>
                                             <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> ด้านหน้าตรง</p>
                                             
-                                            <p v-if="docs.docs2 >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> รูปถ่ายด้านข้างรถซ้าย</p>
-                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> รูปถ่ายด้านข้างรถซ้าย</p>
+                                            <p v-if="count[11] >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> ด้่านหลังตรง</p>
+                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> ด้่านหลังตรง</p>
 
-                                            <p v-if="docs.docs2 >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> รูปถ่ายด้านข้าง 45 องศา</p>
+                                            <p v-if="count[12] >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> มุมเฉียงหน้าซ้าย</p>
+                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> มุมเฉียงหน้าซ้าย</p>
 
-                                            <p v-if="docs.docs3 >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> รูปถ่ายด้านหลัง 45 องศาซัาย</p>
+                                            <p v-if="count[13] >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> มุมเฉียงหลังซ้าย</p>
+                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> มุมเฉียงหลังซ้าย</p>
 
-                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> รูปถ่ายหลังตรง</p>
+                                            <p v-if="count[14] >= 1" class="green"><i class="mdi mdi-close-circle-outline"></i> ที่นั่งคนขับ</p>
+                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> ที่นั่งคนขับ</p>
 
-                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> รูปถ่ายด้านหลัง 45 องศาขวา</p>
+                                            <p v-if="count[15] >= 1" class="green"><i class="mdi mdi-close-circle-outline"></i> ภายในหลังซ้าย</p>
+                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> ภายในหลังซ้าย</p>
 
-                                            <p v-if="docs.docs2 >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> รูปถ่ายด้านข้างรถขวา</p>
+                                            <p v-if="count[16] >= 1" class="green"><i class="mdi mdi-close-circle-outline"></i> พวงมาลัย และคอนโซล</p>
+                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> พวงมาลัย และคอนโซล</p>
 
-                                            <p v-if="docs.docs3 >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> รูปถ่ายด้านข้าง</p>
+                                            <p v-if="count[17] >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> หน้าปัด และเลขไมล์</p>
+                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> หน้าปัด และเลขไมล์</p>
+
+                                            <p v-if="count[18] >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> เกียร์</p>
+                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> เกียร์</p>
+
+                                            <p v-if="count[19] >= 1" class="green"><i class="mdi mdi-close-circle-outline"></i> กุญแจ</p>
+                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> กุญแจ</p>
+
+                                            <p v-if="count[20] >= 1" class="green"><i class="mdi mdi-close-circle-outline"></i> ป้ายภาษี</p>
+                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> ป้ายภาษี</p>
+
+                                            <p v-if="count[21] >= 1" class="green"><i class="mdi mdi-close-circle-outline"></i> สำเนาทะเบียนผู้ถือกรรมสิทธิ์</p>
 
                                             <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> สำเนาทะเบียนผู้ถือกรรมสิทธิ์</p>
 
+                                            <p v-if="count[22] >= 1" class="green"><i class="mdi mdi-close-circle-outline"></i> เล่มฟ้าหน้า 18</p>
                                             <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> เล่มฟ้าหน้า 18</p>
+
                                         </div>
                                         <div class="mt-4">
                                             <p class="mb-0"><a href="#">ดูตัวอย่างการถ่ายภาพรถยนต์</a></p>
                                         </div>
-                                      </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
                             <div class="row">
                                 <div class="col-lg-6 col-md-12">
@@ -260,7 +283,7 @@
 <div id="form">
                                             <div class="guide-line" id="agent">
                                                 <p>ตัวอย่างการถ่ายรูป</p>
-                                                <img :src="'/assets/images/photo/guide-0'+ group + '.jpg'" width="100%" class="car_img_guide">
+                                                    <img v-if="group != 0" :src="'/assets/images/photo-guild/guild-line-00'+ group + '.jpg'" width="100%" class="car_img_guide">
                                             </div>
 
                                             <h4 class="mb-2 font-size-18">อัพโหลดรูปหน้าปก</h4>
@@ -274,13 +297,14 @@
                                                                 <option value="12">มุมเฉียงหน้าซ้าย</option>
                                                                 <option value="13">มุมเฉียงหลังซ้าย</option>
                                                                 <option value="14">ที่นั่งคนขับ</option>
-                                                                <option value="15">พวงมาลัย และคอนโซล</option>
-                                                                <option value="16">หน้าปัด และเลขไมล์</option>
-                                                                <option value="17">เกียร์</option>
-                                                                <option value="18">กุญแจ</option>
-                                                                <option value="19">ป้ายภาษี</option>
-                                                                <option value="20">สำเนาทะเบียนผู้ถือกรรมสิทธิ์</option>
-                                                                <option value="21">เล่มฟ้าหน้า 18</option>
+                                                                <option value="15">ภายในหลังซ้าย</option>
+                                                                <option value="16">พวงมาลัย และคอนโซล</option>
+                                                                <option value="17">หน้าปัด และเลขไมล์</option>
+                                                                <option value="18">เกียร์</option>
+                                                                <option value="19">กุญแจ</option>
+                                                                <option value="20">ป้ายภาษี</option>
+                                                                <option value="21">สำเนาทะเบียนผู้ถือกรรมสิทธิ์</option>
+                                                                <option value="22">เล่มฟ้าหน้า 18</option>
                                                             </select>
                                                         </div>
                                                         <div class="form-group">
@@ -402,12 +426,12 @@
                             cal_price: '',
                             cal_tltprice: '',
                             vat: '',
+                            sellername: '',
                         }
                     },
                     mounted () {
                         axios.get('/sales/system/car_detail.api.php?u=<?php echo $cid; ?>')
                             .then(response => {
-                                console.log(response.data);
                                 if(response.data.status == 404) 
                                     swal("เกิดข้อผิดพลาดบางอย่าง", "อาจมีบางอย่างผิดปกติ (error : 404)", "warning",{ 
                                         button: "ตกลง"
@@ -445,6 +469,7 @@
                                 this.mileage = response.data.car.mileage;
                                 this.tel = response.data.car.tel;
                                 this.vat = response.data.car.vat;
+                                this.sellername = response.data.car.sellername;
                              
                             }),
                             this.calDownpayment();
@@ -469,6 +494,22 @@
                     }
                 });
 
+                var chkimg = new Vue({
+                    el: '#chkimg',
+                    data () {
+                        return {
+                            count: '',
+                            status: ''
+                        }
+                    },
+                    mounted() {
+                        axios.get('/sales/system/chkimg.api.php?u=<?php echo $cid; ?>')
+                            .then(response => {
+                                this.count = response.data.count;
+                                this.status = response.data.status;
+                            })
+                    },
+                });
 
                 var upload = new Vue({
                     el: '#form',
@@ -603,7 +644,6 @@
 
         </script>
 
-              <!-- App js -->
               <script src="/assets/js/theme.js"></script>
 
     </body>

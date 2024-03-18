@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if($_SESSION['tin_admin'] != true){
+    if($_SESSION['tin_login'] != true){
         header("location: /404");
         exit();
     }
@@ -104,8 +104,8 @@
 
                                     <div class="page-title-right">
                                         <ol class="breadcrumb m-0">
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">A77</a></li>
-                                            <li class="breadcrumb-item active">สมาชิก</li>
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Trade-in</a></li>
+                                            <li class="breadcrumb-item active">รถยนต์</li>
                                         </ol>
                                     </div>
                                     
@@ -146,24 +146,6 @@
                                                         <th>สี</th>
                                                         <td><input type="email" class="form-control" v-model="color"></td>
                                                     </tr>
-                                                    <tr class="car_select">
-                                                        <th>แก้ใขยี่ห้อ ซีรี่ รุ่น</th>
-                                                        <td>
-                                                            <select class="form-control" v-model="for_change" @change="onChange($event)">
-                                                                <option value="0">ใช้รุ่นที่เลือกอยู่ตอนนี้</option>
-                                                                <option v-for="brand in select" :value="brand">{{ brand }}</option>
-                                                            </select>
-                                                            <select id="serie" class="form-control mt-3" v-model="for_serie" @change="onChangeSerie($event)">
-                                                                <option v-for="serie in select_serie" :value="serie">{{ serie }}</option>
-                                                            </select>
-                                                            <select id="year" class="form-control mt-3" @change="onChangeSec($event)">
-                                                                <option v-for="year in select_year" :value="year">{{ year }}</option>
-                                                            </select>
-                                                            <select id="section" v-model="for_section" class="form-control mt-3">
-                                                                <option  v-for="section in select_section"  :value="section.id">{{ section.name }}</option>
-                                                            </select>
-                                                        </td>
-                                                    </tr>
                                                     <tr>
                                                         <th>เกียร์</th>
                                                         <td>
@@ -181,55 +163,6 @@
                                                         <th>เลขไมล์</th>
                                                         <td><input type="text" class="form-control" v-model="mileage"></td>
                                                     </tr>
-                                                    <tr>
-                                                        <th>ราคา</th>
-                                                        <td><input type="text" class="form-control" v-model="price"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>สถานะ Vat</th>
-                                                        <td>
-                                                            <select class="form-control"  v-model="vat">
-                                                                <option value="0">ไม่มี Vat</option>
-                                                                <option value="1">มี Vat</option>
-                                                            </select>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>ราคาตั้งขาย</th>
-                                                        <td><input type="text" class="form-control" v-model="trade_price"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>เพิ่มเติม</th>
-                                                        <td><textarea class="form-control" v-model="option" rows="3"></textarea></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>สภาพ</th>
-                                                        <td><textarea class="form-control" v-model="condition" rows="3"></textarea></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>ชื่อเซลล์</th>
-                                                        <td><input type="text" class="form-control" v-model="sales"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>ทีมเซลล์</th>
-                                                        <td><input type="text" class="form-control" v-model="sales_team"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>เบอร์โทรศัพท์</th>
-                                                        <td><input type="text" class="form-control" v-model="tel"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>สถานะ</th>
-                                                        <td>
-                                                            <select class="form-control" v-model="status" id="exampleFormControlSelect1">
-                                                                <option value="1">ติดตามลูกค้า</option>
-                                                                <option value="2">ไม่ได้สัมผัสรถ</option>
-                                                                <option value="3">ลูกค้าขายเอง / ขายที่อื่น</option>
-                                                                <option value="4">สำเร็จ</option>
-                                                            </select>
-                                                        </td>
-                                                    </tr>
-                                                    
                                                 </tbody>
                                             </table>
                                             <div class="form-group mt-3">
@@ -336,14 +269,14 @@
                         }
                     },
                     mounted () {
-                        axios.get('/admin/system/car_edit.api.php?u=<?php echo $cid; ?>')
+                        axios.get('/sales/system/car_edit.api.php?u=<?php echo $cid; ?>')
                             .then(response => {
                                 
                                 if(response.data.status == 404) 
                                     swal("เกิดข้อผิดพลาดบางอย่าง", "อาจมีบางอย่างผิดปกติ (error : 404)", "warning",{ 
                                         button: "ตกลง"
                                     }).then((value) => {
-                                        window.location.href = "/admin/home";
+                                        window.location.href = "/sales/home";
                                     });
 
                                 this.id = response.data.car.id;
@@ -372,7 +305,7 @@
                     },
                     methods: {
                         onChange(e) {
-                            axios.get("/admin/system/car_select.api.php?b="+e.target.value)
+                            axios.get("/sales/system/car_select.api.php?b="+e.target.value)
                                 .then(response => {
                                     if(e.target.value == '0'){
                                         $("#serie").css("display", "none");
@@ -386,7 +319,7 @@
                                 })
                         },
                         onChangeSerie(e) {
-                            axios.get("/admin/system/car_select.api.php?s="+e.target.value)
+                            axios.get("/sales/system/car_select.api.php?s="+e.target.value)
                                 .then(response => {
                                     this.select_year = response.data.year;
                                     $("#year").css("display", "block");
@@ -394,7 +327,7 @@
                                 })
                         },
                         onChangeSec(e) {
-                            axios.get("/admin/system/car_select.api.php?serie="+this.for_serie+'&t='+e.target.value)
+                            axios.get("/sales/system/car_select.api.php?serie="+this.for_serie+'&t='+e.target.value)
                                 .then(response => {
                                     this.select_section = response.data.section;
                                     $("#section").css("display", "block");
@@ -402,7 +335,7 @@
                         },
                         sendData(e) {
                             e.preventDefault();
-                            axios.post('/admin/system/car_detail.edt.php', {
+                            axios.post('/sales/system/car_detail.edt.php', {
                                 id: this.id,
                                 license: this.license,
                                 brand: this.brand,
@@ -433,7 +366,7 @@
                                     swal("สำเร็จ", "เพิ่มสมาชิกเรียบร้อย", "success",{ 
                                         button: "ตกลง"
                                     }).then((value) => {
-                                        window.location.href = "/admin/detail/"+this.id
+                                        window.location.href = "/sales/detail/"+this.id
                                     });
 
                                 if(res.data.status == 505) 

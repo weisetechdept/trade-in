@@ -30,10 +30,14 @@
 
     <style>
         body {
-    font-family: 'Chakra Petch', sans-serif;
+            font-family: 'Kanit', sans-serif;
+            font-weight: 300;
 }
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
     font-family: 'Kanit', sans-serif;
+    font-weight: 400;
+}
+label {
     font-weight: 400;
 }
 .page-content {
@@ -96,7 +100,6 @@ body {
     font-weight: 600;
     padding-left: 17px;
     display: block;
-    margin-bottom: 20px;
     text-align: center;
     padding: 40px 15px;
 }
@@ -133,10 +136,6 @@ body {
     color: #000;
     font-size: 13pt;
     padding-top: 12px;
-}
-img {
-    width: 150px;
-    height: 50px;
 }
 li {
     list-style: none;
@@ -331,12 +330,60 @@ a:hover, a:active {
 .card ,.btn, input,select {
     font-size: 14pt !important;
 }
+.start {
+    text-align: center;
+}
+.start img {
+    width: 85%;
+    height: auto;
+    border-radius: 10px;
+    padding: 0 15px;
+}
+.layout-2 {
+    padding: 0 0 15px;
+    background-color: #000;
+}
+.ci-green {
+    background: rgb(55,238,25);
+    background: linear-gradient(0deg, rgba(55,238,25,1) 0%, rgba(16,155,2,1) 100%);
+    color:#000;
+}
+.photo-grid {
+    padding : 20px;
+    color: #fff;
+}
+.grid-row {
+    margin-bottom: 20px;
+}
+.hidden {
+    display: none;
+}
+.nextBtn2 {
+    margin-top: 20px;
+    text-align: center;
+}
+.nextBtn2 button {
+    color: #000;
+    border-radius: 10px;
+    background: rgb(55, 238, 25);
+    background: linear-gradient(0deg, rgba(55, 238, 25, 1) 0%, rgba(16, 155, 2, 1) 100%);
+    border-color: rgb(55, 238, 25);
+}
+.green-btn button {
+    background: rgb(55, 238, 25);
+    background: linear-gradient(0deg, rgba(55, 238, 25, 1) 0%, rgba(16, 155, 2, 1) 100%);
+    border-color: rgb(55, 238, 25);
+    color: #000;
+}
+.headstep3 {
+    margin: 30px 0 15px;
+}
     </style>
 
 </head>
 
 <body>
-    <div id="testdrive">
+    <div id="trade">
                 
     <header id="page-topbar">
         <div id="nav" class="navbar-header">
@@ -359,155 +406,155 @@ a:hover, a:active {
             <div class="step" id="barStep2">ขั้นตอน 2</div>
             <div class="step" id="barStep3">ขั้นตอน 3</div>
         </div>
-      
-        <div class="navbar-topic">
-            <p class="mb-0">12 ขั้นตอนถ่ายรูปขายรถง่ายๆ</p>
-        </div>
 
     </div>
 
     <div id="layout-wrapper">
 
-            <div class="container-fluid" id="step1"> 
-                
+            <div id="step1"> 
+            <div class="navbar-topic">
+            <p class="mb-0">12 ขั้นตอนถ่ายรูปขายรถง่ายๆ</p>
+        </div>
                 <div class="row">
                     <div class="card" style="border-radius: 0rem;border: 0;width: 100%;">
-                        <div class="card-body" style="padding: 15px 0;">
+                        <div class="card-body">
 
-                            <div class="select-car">
-                                <p style="text-align:center;margin: 70px 0 0 0;">เลือกรถยนต์ที่ต้องการทดลองขับ</p>
+                            <div class="start">
+                                <img @click="nextto2" src="/assets/images/photo-g.png" />
                             </div>
-
 
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="page-content pt-2 step2 animate__animated animate__fadeInRight">
-                <div class="container-fluid"> 
+            <div class="container-fluid" id="step2"> 
+                <div class="row">
+                    <div class="card" style="border-radius: 0rem;border: 0;width: 100%;">
+                        <div class="card-body layout-2">
 
-                    <div class="row justify-content-md-center">
-
-                        <div class="col-12 col-lg-4">
-                            <div class="card">
-                                <div class="card-body">
-
-                                    <label for="car">สาขาที่ต้องการทดลองขับ</label>
-                                    <p class="book-tp" v-if="selected.branch == 'ho'">สำนักงานใหญ่ (รังสิตคลอง 7)</p>
-                                    <p class="book-tp"  v-if="selected.branch == 'tm'">ตลาดไท</p>
-
-                                    <label for="car">รถยนต์ทดลองขับ</label>
-                                    <p class="book-tp">{{ infoDisplay.car }}</p>
-
-                                    <div class="mb-3">
-
-                                        <div class="form-group">
-                                            <label for="date">วันที่จอง</label>
-                                            <input type="date" id="date" class="form-control" v-model="selected.date" min="<?php echo date('Y-m-d', strtotime('+1 day')); ?>" max="<?php echo date('Y-m-d', strtotime('+7 days')); ?>" @change="getTime">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="time">เวลาจอง</label>
-                                            <select id="time" name="time" v-model="selected.time" class="form-control" disabled>
-                                                <option value="0">= เลือกเวลา =</option>
-                                                <option v-for="t in bk.time" v-if="t.status == 1" :value="t.id">{{ t.time }}</option>
-                                                <option v-for="t in bk.time" v-if="t.status == 0" :value="t.id" disabled>{{ t.time }} (ไม่ว่าง)</option>
-                                            </select>
-                                        </div>
-                                        <div class="text-center">
-                                            <p>บริษัท จะมอบหมายที่ปรึกษาการขาย<br />ติดต่อเพื่อยืนยันสิทธิ์ (วัน - เวลา) อีกครั้ง</p>
-                                        </div>
-                                        
-                                    </div>
-                                    <div class="text-center mt-4 pt-2 mb-3">
-                                        <button class="btn btn-danger waves-effect waves-light" @click="nextStep2">ถัดไป</button>
-                                    </div>
-                                       
-                                </div>
+                            <div class="navbar-topic ci-green">
+                                <p class="mb-0">รูปภาพรถยนต์ ({{ upload.count }})</p>
                             </div>
+                            <div class="photo-grid">
+                                <p>กรุณาเพิ่มรูปรถยนต์ขั้นต่ำ 4 รูปภาพ</p>
+                                <div class="row grid-row">
+                        <div class="col-4">
+                            <img v-if="upload.photo1 == '0'" src="/assets/images/grid/button-01.png" @click="uploadCar" data-btn="photo1" class="img-fluid" />
+                            <img v-else src="/assets/images/grid/button-chk-01.png" @click="uploadCar" data-btn="photo1" class="img-fluid" />
+                        </div>
+                        <div class="col-4">
+                            <img v-if="upload.photo2 == '0'" src="/assets/images/grid/button-02.png" @click="uploadCar" data-btn="photo2" class="img-fluid" />
+                            <img v-else src="/assets/images/grid/button-chk-02.png" @click="uploadCar" data-btn="photo2" class="img-fluid" />
+                        </div>
+                        <div class="col-4">
+                            <img v-if="upload.photo3 == '0'" src="/assets/images/grid/button-03.png" @click="uploadCar" data-btn="photo3" class="img-fluid" />
+                            <img v-else src="/assets/images/grid/button-chk-03.png" @click="uploadCar" data-btn="photo3" class="img-fluid" />
                         </div>
                     </div>
 
-                  
+                    <div class="row grid-row">
+                        <div class="col-4">
+                            <img v-if="upload.photo4 == '0'" src="/assets/images/grid/button-04.png" @click="uploadCar" data-btn="photo4" class="img-fluid" />
+                            <img v-else src="/assets/images/grid/button-chk-04.png" @click="uploadCar" data-btn="photo4" class="img-fluid" />
+                        </div>
+                        <div class="col-4">
+                            <img v-if="upload.photo5 == '0'" src="/assets/images/grid/button-05.png" @click="uploadCar" data-btn="photo5" class="img-fluid" />
+                            <img v-else src="/assets/images/grid/button-chk-05.png" @click="uploadCar" data-btn="photo5" class="img-fluid" />
+                        </div>
+                        <div class="col-4">
+                            <img v-if="upload.photo6 == '0'" src="/assets/images/grid/button-06.png" @click="uploadCar" data-btn="photo6" class="img-fluid" />
+                            <img v-else src="/assets/images/grid/button-chk-06.png" @click="uploadCar" data-btn="photo6" class="img-fluid" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <img v-if="upload.photo7 == '0'" src="/assets/images/grid/button-07.png" @click="uploadCar" data-btn="photo7" class="img-fluid" />
+                            <img v-else src="/assets/images/grid/button-chk-07.png" @click="uploadCar" data-btn="photo7" class="img-fluid" />
+                        </div>
+                        <div class="col-4">
+                            <img v-if="upload.photo8 == '0'" src="/assets/images/grid/button-08.png" @click="uploadCar" data-btn="photo8" class="img-fluid" />
+                            <img v-else src="/assets/images/grid/button-chk-08.png" @click="uploadCar" data-btn="photo8" class="img-fluid" />
+                        </div>
+                        <div class="col-4">
+                            <img v-if="upload.photo9 == '0'" src="/assets/images/grid/button-09.png" @click="uploadCar" data-btn="photo9" class="img-fluid" />
+                            <img v-else src="/assets/images/grid/button-chk-09.png" @click="uploadCar" data-btn="photo9" class="img-fluid" />
+                        </div>
+                    </div>
+
+                    <div class="nextBtn2">
+                        <button class="btn btn-primary" @click="nextStep2">ถัดไป</button>
+                    </div>
+
+                        
+
 
                 </div>
+
             </div>
 
-            <div class="page-content pt-2 step3 animate__animated animate__fadeInRight">
+
+            <div class="page-content pt-2" id="step3">
                 <div class="container-fluid"> 
 
                     <div class="row justify-content-md-center">
-
+                    
                         <div class="col-12 col-lg-4">
+                        <div class="headstep3">
+                            <h4>ประเมินราคารถของคุณวันนี้</h4>
+                        </div>
                             <div class="card">
                                 <div class="card-body">
-
-                                    <label for="car">สาขาที่ต้องการทดลองขับ</label>
-                                    <p class="book-tp" v-if="selected.branch == 'ho'"><b>สำนักงานใหญ่ (รังสิตคลอง 7)</b><br />41/1 หมู่ 2 ถ.รังสิต-นครนายก<br />ต.ลำผักกูด อ.ธัญบุรี จ.ปทุมธานี<br />โทร 02 957 1111</p>
-                                    <p class="book-tp"  v-if="selected.branch == 'tm'"><b>ตลาดไท</b>88 หมู่ 9 ถ.พหลโยธิน<br />ต.คลองหนึ่ง อ.คลองหลวง จ.ปทุมธานี<br />โทร 02 516 8000</p>
-
-                                    <label for="car">รถยนต์ทดลองขับ</label>
-                                    <p class="book-tp">{{ infoDisplay.car }}</p>
-
-                                    <label for="date">วันที่จอง</label>
-                                    <p class="book-tp">{{ selected.date }}</p>
-
-                                    <label for="time">เวลาจอง</label>
-                                    <p class="book-tp">{{ infoDisplay.time }}</p>
-
-                                    <div class="mb-3">
-                                        <div class="form-group">
-                                            <label for="car">ชื่อ (ไม่ใส่คำนำหน้า)</label>
-                                            <input type="text" id="fname" v-model="selected.fname" class="form-control">
-                                        </div>
+                                    
+                                    <div class="form-group">
+                                        <label>เลขทะเบียน</label>
+                                        <input type="text" v-model="toupload.license" class="form-control" />
                                     </div>
 
-                                    <div class="mb-3">
-                                        <div class="form-group">
-                                            <label for="car">นามสกุล</label>
-                                            <input type="text" id="lname" v-model="selected.lname" class="form-control">
-                                        </div>
+                                    <div class="form-group">
+                                        <label>ชื่อ - นามสกุล</label>
+                                        <input type="text" v-model="toupload.name" class="form-control" />
                                     </div>
 
-                                    <div class="mb-3">
-                                        <div class="form-group">
-                                            <label for="car">เบอร์โทรศัพท์</label>
-                                            <input type="text" id="tel" v-model="selected.tel" class="form-control" maxlength="10">
-                                        </div>
+                                    <div class="form-group">
+                                        <label>เบอร์โทรติดต่อ</label>
+                                        <input type="text" v-model="toupload.tel" class="form-control" />
                                     </div>
 
-                                    <div class="mb-3">
-                                        <div class="form-group">
-                                            <label for="car">อีเมล (ถ้ามี)</label>
-                                            <input type="text" id="email" v-model="selected.email" class="form-control">
-                                        </div>
-                                    </div>
-
-                                   
-                                    <div class="mb-3">
-                                        <div class="form-group">
-                                            <p>
-                                                <input type="checkbox" class="mr-1" id="condition" v-model="selected.condition">
+                                    <div class="form-group">
+                                    <p>
+                                                <input type="checkbox" class="mr-1" id="condition">
                                                 ข้าพเจ้าได้อ่าน รับทราบและเข้าใจ<a href="https://home.toyotaparagon.com/%e0%b8%99%e0%b9%82%e0%b8%a2%e0%b8%9a%e0%b8%b2%e0%b8%a2%e0%b8%84%e0%b8%a7%e0%b8%b2%e0%b8%a1%e0%b9%80%e0%b8%9b%e0%b9%87%e0%b8%99%e0%b8%aa%e0%b9%88%e0%b8%a7%e0%b8%99%e0%b8%95%e0%b8%b1%e0%b8%a7/" target="_blank">รายละเอียด ข้อกำหนดและเงื่อนไข</a>ในการเก็บรวบรวม ใช้ และ/หรือเปิดเผยข้อมูลส่วนบุคคล ซึ่งเกี่ยวกับข้าพเจ้าในเว็บไซต์นี้โดยตลอดแล้วเห็นว่าถูกต้องตามความประสงค์ของข้าพเจ้า
                                             </p>
-                                        </div>
                                     </div>
-                                        
 
-                                    <div class="text-center mt-4 pt-2 mb-3">
-                                        <button class="btn btn-danger waves-effect waves-light" @click="insData">จองรถ</button>
+                                    <div class="nextBtn2">
+                                        <button class="btn btn-primary" @click="sendData">ประเมินราคา</button>
                                     </div>
                                        
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                  
-
                 </div>
             </div>
+
+        </div>
+    </div>
+</div>
+
+            
+        <div class="hidden" >
+            <input type="file" v-model="toupload.photo1" @change="photoUpload" id="photo1" class="form-control" />
+            <input type="file" v-model="toupload.photo2" @change="photoUpload" id="photo2" class="form-control" />
+            <input type="file" v-model="toupload.photo3" @change="photoUpload" id="photo3" class="form-control" />
+            <input type="file" v-model="toupload.photo4" @change="photoUpload" id="photo4" class="form-control" />
+            <input type="file" v-model="toupload.photo5" @change="photoUpload" id="photo5" class="form-control" />
+            <input type="file" v-model="toupload.photo6" @change="photoUpload" id="photo6" class="form-control" />
+            <input type="file" v-model="toupload.photo7" @change="photoUpload" id="photo7" class="form-control" />
+            <input type="file" v-model="toupload.photo8" @change="photoUpload" id="photo8" class="form-control" />
+            <input type="file" v-model="toupload.photo9" @change="photoUpload" id="photo9" class="form-control" />
+        </div>
 
            
       
@@ -546,7 +593,115 @@ a:hover, a:active {
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="/assets/js/theme.js"></script>
 
-    <script src="/assets/js/booking.js?r=<?php echo rand(0,999999);?>"></script>
+    <script>
+        var trade = new Vue({
+            el: '#trade',
+            data: {
+                upload: {
+                    photo1: '0',
+                    photo2: '0',
+                    photo3: '0',
+                    photo4: '0',
+                    photo5: '0',
+                    photo6: '0',
+                    photo7: '0',
+                    photo8: '0',
+                    photo9: '0',
+                    count: 0
+                },
+                toupload: {
+                    photo1: '',
+                    photo2: '',
+                    photo3: '',
+                    photo4: '',
+                    photo5: '',
+                    photo6: '',
+                    photo7: '',
+                    photo8: '',
+                    photo9: '',
+                    license: '',
+                    name: '',
+                    tel: ''
+                }
+            },
+            methods: {
+                photoUpload() {
+                    if (document.getElementById('photo1').files.length > 0) {
+                        this.upload.photo1 = '1';
+                    }
+                    if (document.getElementById('photo2').files.length > 0) {
+                        this.upload.photo2 = '1';
+                    }
+                    if (document.getElementById('photo3').files.length > 0) {
+                        this.upload.photo3 = '1';
+                    }
+                    if (document.getElementById('photo4').files.length > 0) {
+                        this.upload.photo4 = '1';
+                    }
+                    if (document.getElementById('photo5').files.length > 0) {
+                        this.upload.photo5 = '1';
+                    }
+                    if (document.getElementById('photo6').files.length > 0) {
+                        this.upload.photo6 = '1';
+                    }
+                    if (document.getElementById('photo7').files.length > 0) {
+                        this.upload.photo7 = '1';
+                    }
+                    if (document.getElementById('photo8').files.length > 0) {
+                        this.upload.photo8 = '1';
+                    }
+                    if (document.getElementById('photo9').files.length > 0) {
+                        this.upload.photo9 = '1';
+                    }
+                    
+                },
+                uploadCar(e) {
+                    var btn = e.target.getAttribute('data-btn');
+                    document.getElementById(btn).click();
+                },
+                nextStep2() {
+                    if (this.upload.photo1 == '1' && this.upload.photo2 == '1' && this.upload.photo3 == '1' && this.upload.photo4 == '1') {
+                        /*
+                        document.getElementById('step3').style.display = 'block';
+                        document.getElementById('step2').style.display = 'none';
+                        document.getElementById('barStep2').classList.remove('active');
+                        document.getElementById('barStep3').classList.add('active');
+                        */
+                    } else {
+                        swal({
+                            title: 'แจ้งเตือน',
+                            text: 'กรุณาเพิ่ม 4 รูปแรกของรถยนต์คุณ',
+                            icon: 'warning',
+                            button: 'OK'
+                        });
+                    }
+                },
+                nextto2() {
+                    /*
+                    document.getElementById('step1').style.display = 'none';
+                    document.getElementById('step2').style.display = 'block';
+                    document.getElementById('barStep1').classList.remove('active');
+                    document.getElementById('barStep2').classList.add('active');
+                    */
+                },
+                sendData(){
+                    if(this.toupload.license == '' || this.toupload.name == '' || this.toupload.tel == ''){
+                        swal({
+                            title: 'แจ้งเตือน',
+                            text: 'กรุณากรอกข้อมูลให้ครบถ้วน',
+                            icon: 'warning',
+                            button: 'OK'
+                        });
+                    }else{
+                        axios.post('/frontend/system/trade.api.php', this.toupload).then(function(res){
+                            console.log(res.data);
+                            
+                        });
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>

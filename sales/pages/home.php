@@ -204,9 +204,9 @@
             ajax: '/sales/system/home.api.php',
             "columns" : [
                 {'data':'0'},
-                {'data':'0',
+                {'data':'5',
                     "render": function ( data, type, full, meta ) {
-                        return '<img src="https://dummyimage.com/600x400/000/fff&text=no-image" class="car-thumb">';
+                        return '<img src="'+ data +'" class="car-thumb">';
                     }
                 },
                 { 

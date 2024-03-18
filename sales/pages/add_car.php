@@ -125,6 +125,7 @@
                                                 <tbody>
                                                     <tr>
                                                         <th width="150px">ยี่ห้อ ซีรี่ รุ่น ปี</th>
+                                                        <p>แจ้งเตือน : หากไม่ทราบรุ่นย่อย ให้เลื่อกรุ่นใกล้เคียง ทีมพ่อสื่อจะเช็ครายละเอียดและเปลี่ยนรุ่นให้ถูกต้องในภายหลัง</p>
                                                         <td>
                                                             <select class="form-control" v-model="for_change" @change="onChange($event)">
                                                                 <option value="0">= โปรดเลือกยี่ห้อรถยนต์ =</option>
@@ -152,7 +153,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <th>ราคาที่ต้องการ</th>
+                                                        <th>ราคาที่ยอมรับได้</th>
                                                         <td><input type="text" class="form-control" v-model="price"></td>
                                                     </tr>
                                                     <tr>

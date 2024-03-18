@@ -2,14 +2,14 @@
     session_start();
     require_once '../../db-conn.php';
     date_default_timezone_set("Asia/Bangkok");
-    /*
-    if($_SESSION['tin_admin'] != true){
-        header("location: /404");
-        exit();
-    }
-    */
 
     $id = $_GET['u'];
+
+    $chk_data = $db->where('cast_id', $id)->getOne('car_stock');
+    
+    if($_SESSION['tin_login'] != true || $chk_data['cast_sales_parent_no'] != $_SESSION['tin_user_id'] ){
+        $api['status'] = '404';
+    } else {
 
     if(!empty($id)){
 
@@ -39,8 +39,14 @@
             'cal_price' => $stock['cast_price'],
             'cal_tlt_price' => $stock['find_price'],
             'vat' => $stock['cast_vat'],
+            'sellername' => $stock['cast_seller_name'],
         );
 
     }
+        
+    }
+    
+
+    
 
     print_r(json_encode($api));

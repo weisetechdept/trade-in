@@ -14,6 +14,7 @@
 
             $_SESSION['tin_user_id'] = $profile['id'];
             $_SESSION['tin_permission'] = $profile['status'];
+            $_SESSION['tin_login'] = true;
             echo json_encode(array('status' => '200', 'permission' => $profile['status']));
 
         } else {
