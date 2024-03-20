@@ -44,9 +44,9 @@
 							}).then(response => { 
 								console.log(response.data);
 								if(response.data.status == '200'){
-									if(response.data.permission == 'user'){
+									//if(response.data.permission == 'user'){
 										window.location.href = "/sales/add-car";
-									}
+									//}
 								}
 								if(response.data.status == '400'){
 									swal("ท่านยังไม่ได้ลงทะเบียน", "โปรดติดต่อผู้ดูแลระบบ", "warning",{ 

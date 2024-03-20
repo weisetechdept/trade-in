@@ -9,7 +9,7 @@
 
         $profile = $db_nms->where('line_usrid',$userId)->getOne('db_member');
         //echo json_encode($profile);
-
+ 
         if($profile['verify'] == '1') {
 
             $_SESSION['tin_user_id'] = $profile['id'];
