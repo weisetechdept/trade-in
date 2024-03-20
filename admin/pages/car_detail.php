@@ -573,14 +573,14 @@
                         }
                     },
                     mounted () {
-                        axios.get('/sales/system/car_detail.api.php?u=<?php echo $cid; ?>')
+                        axios.get('/admin/system/car_detail.api.php?u=<?php echo $cid; ?>')
                             .then(response => {
                                 console.log(response.data);
                                 if(response.data.status == 404) 
                                     swal("เกิดข้อผิดพลาดบางอย่าง", "อาจมีบางอย่างผิดปกติ (error : 404)", "warning",{ 
                                         button: "ตกลง"
                                     }).then((value) => {
-                                        window.location.href = "/sales/home";
+                                        window.location.href = "/admin/home";
                                     });
                                 
                                 this.cal_price = response.data.car.cal_price;

@@ -3,9 +3,9 @@
     require_once '../../db-conn.php';
     date_default_timezone_set("Asia/Bangkok");
 
-    //$user_id = $_SESSION['tin_user_id'];
+    $user_id = $_SESSION['tin_user_id'];
 
-    //if(!empty($user_id)){
+    if(!empty($user_id)){
         
         $api['user'] = array(
             'id' => $user_id
@@ -17,8 +17,8 @@
         }
         $api['brand'] = array_unique($api['brand']);
 
-    //} else {
-        //$api['status'] = '400';
-    //}
+    } else {
+        $api['status'] = '400';
+    }
 
     print_r(json_encode($api));
