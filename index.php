@@ -90,6 +90,12 @@
         require_once 'frontend/pages/trade.php';
     });
 
+    /* mgr */
+
+    $router->get( '/sales/mgr', function() {
+        require_once '/sales/pages/mgr.php';
+    });
+
 
     $router->run();
     
