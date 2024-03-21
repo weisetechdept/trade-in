@@ -227,17 +227,17 @@
                                     <div class="card-body">
                                         <h4 class="mb-2 font-size-18">สถานะรูป : <span v-if="status == '0'" class="red">ยังไม่ครบ</span><span v-else-if="status == '1'" class="green">ครบถ้วน</span></h4>
                                         <div class="check-list">
-                                            <p v-if="count[10] >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> ด้านหน้าตรง</p>
-                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> ด้านหน้าตรง</p>
+                                            <p v-if="count[10] >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> ด้านหน้าตรง**</p>
+                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> ด้านหน้าตรง**</p>
                                             
-                                            <p v-if="count[11] >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> ด้่านหลังตรง</p>
-                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> ด้่านหลังตรง</p>
+                                            <p v-if="count[11] >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> ด้่านหลังตรง**</p>
+                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> ด้่านหลังตรง**</p>
 
-                                            <p v-if="count[12] >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> มุมเฉียงหน้าซ้าย</p>
-                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> มุมเฉียงหน้าซ้าย</p>
+                                            <p v-if="count[12] >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> มุมเฉียงหน้าซ้าย**</p>
+                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> มุมเฉียงหน้าซ้าย**</p>
 
-                                            <p v-if="count[13] >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> มุมเฉียงหลังซ้าย</p>
-                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> มุมเฉียงหลังซ้าย</p>
+                                            <p v-if="count[13] >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> มุมเฉียงหลังซ้าย**</p>
+                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> มุมเฉียงหลังซ้าย**</p>
 
                                             <p v-if="count[14] >= 1" class="green"><i class="mdi mdi-close-circle-outline"></i> ที่นั่งคนขับ</p>
                                             <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> ที่นั่งคนขับ</p>
@@ -245,30 +245,30 @@
                                             <p v-if="count[15] >= 1" class="green"><i class="mdi mdi-close-circle-outline"></i> ภายในหลังซ้าย</p>
                                             <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> ภายในหลังซ้าย</p>
 
-                                            <p v-if="count[16] >= 1" class="green"><i class="mdi mdi-close-circle-outline"></i> พวงมาลัย และคอนโซล</p>
-                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> พวงมาลัย และคอนโซล</p>
+                                            <p v-if="count[16] >= 1" class="green"><i class="mdi mdi-close-circle-outline"></i> พวงมาลัย และคอนโซล**</p>
+                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> พวงมาลัย และคอนโซล**</p>
 
-                                            <p v-if="count[17] >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> หน้าปัด และเลขไมล์</p>
-                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> หน้าปัด และเลขไมล์</p>
+                                            <p v-if="count[17] >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> หน้าปัด และเลขไมล์**</p>
+                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> หน้าปัด และเลขไมล์**</p>
 
-                                            <p v-if="count[18] >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> เกียร์</p>
-                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> เกียร์</p>
+                                            <p v-if="count[18] >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> เกียร์**</p>
+                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> เกียร์**</p>
 
                                             <p v-if="count[19] >= 1" class="green"><i class="mdi mdi-close-circle-outline"></i> กุญแจ</p>
                                             <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> กุญแจ</p>
 
-                                            <p v-if="count[20] >= 1" class="green"><i class="mdi mdi-close-circle-outline"></i> ป้ายภาษี</p>
-                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> ป้ายภาษี</p>
+                                            <p v-if="count[20] >= 1" class="green"><i class="mdi mdi-close-circle-outline"></i> ป้ายภาษี**</p>
+                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> ป้ายภาษี**</p>
 
-                                            <p v-if="count[21] >= 1" class="green"><i class="mdi mdi-close-circle-outline"></i> สำเนาทะเบียนผู้ถือกรรมสิทธิ์</p>
+                                            <p v-if="count[21] >= 1" class="green"><i class="mdi mdi-close-circle-outline"></i> สำเนาทะเบียนผู้ถือกรรมสิทธิ์**</p>
+                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> สำเนาทะเบียนผู้ถือกรรมสิทธิ์**</p>
 
-                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> สำเนาทะเบียนผู้ถือกรรมสิทธิ์</p>
-
-                                            <p v-if="count[22] >= 1" class="green"><i class="mdi mdi-close-circle-outline"></i> เล่มฟ้าหน้า 18</p>
-                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> เล่มฟ้าหน้า 18</p>
+                                            <p v-if="count[22] >= 1" class="green"><i class="mdi mdi-close-circle-outline"></i> เล่มฟ้าหน้า 18**</p>
+                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> เล่มฟ้าหน้า 18**</p>
 
                                         </div>
                                         <div class="mt-4">
+                                            <p>**จำเป็นต้องมี</p>
                                             <p class="mb-0"><a href="#">ดูตัวอย่างการถ่ายภาพรถยนต์</a></p>
                                         </div>
                                     </div>

@@ -2,6 +2,7 @@
     session_start();
     require_once '../../db-conn.php';
     date_default_timezone_set("Asia/Bangkok");
+    
     $user_id = $_SESSION['tin_user_id'];
 
     $db->join('car_stock c', "f.find_id=c.cast_car", "INNER");
