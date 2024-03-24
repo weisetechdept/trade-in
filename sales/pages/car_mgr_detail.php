@@ -260,11 +260,11 @@
                                             <p v-if="count[20] >= 1" class="green"><i class="mdi mdi-close-circle-outline"></i> ป้ายภาษี**</p>
                                             <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> ป้ายภาษี**</p>
 
-                                            <p v-if="count[21] >= 1" class="green"><i class="mdi mdi-close-circle-outline"></i> สำเนาทะเบียนผู้ถือกรรมสิทธิ์**</p>
-                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> สำเนาทะเบียนผู้ถือกรรมสิทธิ์**</p>
+                                            <p v-if="count[21] >= 1" class="green"><i class="mdi mdi-close-circle-outline"></i> สำเนาทะเบียนหน้ารายการจดทะเบียน และเจ้าของรถ (ล่าสุด)**</p>
+                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> สำเนาทะเบียนหน้ารายการจดทะเบียน และเจ้าของรถ (ล่าสุด)**</p>
 
-                                            <p v-if="count[22] >= 1" class="green"><i class="mdi mdi-close-circle-outline"></i> เล่มฟ้าหน้า 18**</p>
-                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> เล่มฟ้าหน้า 18**</p>
+                                            <p v-if="count[22] >= 1" class="green"><i class="mdi mdi-close-circle-outline"></i> เล่มฟ้าหน้า 18 (ถ้ามี)</p>
+                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> เล่มฟ้าหน้า 18 (ถ้ามี)</p>
 
                                         </div>
                                         <div class="mt-4">
