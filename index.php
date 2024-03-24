@@ -93,7 +93,11 @@
     /* mgr */
 
     $router->get( '/sales/mgr', function() {
-        require_once '/sales/pages/mgr.php';
+        require_once 'sales/pages/mgr.php'; 
+    });
+
+    $router->get( '/sales/de/mgr/(.*)', function($cid) {
+        require_once 'sales/pages/car_mgr_detail.php';
     });
 
 

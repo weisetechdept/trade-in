@@ -12,7 +12,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Trade-In List</title>
+    <title>Trade-In Team List</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta content="A77" name="description" />
     <meta content="A77" name="author" />
@@ -75,11 +75,12 @@
 
             <div class="page-content">
                 <div class="container-fluid">
+                    
 
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box d-flex align-items-center justify-content-between">
-                                <h4 class="mb-0 font-size-18">รถยนต์</h4>
+                                <h4 class="mb-0 font-size-18">รถยนต์ลูกทีมทั้งหมด</h4>
 
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
@@ -90,7 +91,28 @@
                                 
                             </div>
                         </div>
-                    </div>    
+                    </div>   
+                    
+                    <div class="row" id="count">
+                    
+                            <div class="col-md-6 col-xl-6">
+                                <div class="card bg-secondary border-secondary">
+                                    <div class="card-body">
+                                        <div class="mb-2">
+                                            <h5 class="card-title mb-0 text-white">จำนวนรถยนต์ลูกทีมทั้งหมด</h5>
+                                        </div>
+                                        <div class="row d-flex align-items-center mb-2">
+                                            <div class="col-8">
+                                                <h2 class="d-flex align-items-center text-white mb-0">
+                                                    {{ countAll }}
+                                                </h2>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
 
                     <div class="row">
                         <div class="col-12">
@@ -201,7 +223,7 @@
             "drawCallback": function () {
                 $('.dataTables_paginate > .pagination').addClass('pagination-rounded');
             },
-            ajax: '/sales/system/home.api.php',
+            ajax: '/sales/system/mgr.api.php?get=list',
             "columns" : [
                 {'data':'0'},
                 {'data':'5',
@@ -233,11 +255,27 @@
                     'data': '0',
                     sortable: false,
                     "render": function ( data, type, full, meta ) {
-                        return '<a href="/sales/detail/'+data+'" class="btn btn-sm btn-outline-primary editBtn" role="button"><span class="mdi mdi-account-edit"></span> แก้ใข</a>';
+                        return '<a href="/sales/de/mgr/'+data+'" class="btn btn-sm btn-outline-primary editBtn" role="button"><span class="mdi mdi-account-edit"></span> แก้ใข</a>';
                     }
                 }
             ]
         });
+
+        var count = new Vue({
+            el: '#count',
+            data () {
+                return {
+                    countAll: '0'
+                }
+            },
+            mounted () {
+                axios.get('/sales/system/mgr.api.php?get=count')
+                    .then(response => (
+                        this.countAll = response.data.countAll
+                    ))
+            }
+        });
+
 
     </script>
 
