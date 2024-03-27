@@ -7,12 +7,36 @@
         exit();
     }
 
+    function getTeam($uid){
+        global $db_nms;
+        $team = $db_nms->get('db_user_group');
+        foreach($team as $t){
+            $team_data = json_decode($t['detail']);
+            if(in_array($uid,$team_data)){
+                return $t['name'];
+            } 
+        }
+    }
 
     $db->join('car_stock c', "f.find_id=c.cast_car", "INNER");
-    $stock = $db->get("finance_data f", null ,"c.cast_id,c.cast_license,f.find_brand,f.find_serie,f.find_section,c.cast_color,c.cast_price,c.cast_sales_parent,c.cast_sales_team,c.cast_status");
+    $stock = $db->get("finance_data f", null ,"c.cast_id,c.cast_license,f.find_brand,f.find_serie,f.find_section,c.cast_color,c.cast_price,c.cast_sales_parent,c.cast_sales_team,c.cast_status,cast_sales_parent_no");
+
 
     foreach ($stock as $value) {
-        $api['data'][] = array($value['cast_id'],$value['cast_license'],$value['find_brand'].' '.$value['find_serie'].' '.$value['find_section'],$value['cast_color'],number_format($value['cast_price']),$value['cast_sales_parent'].' - '.$value['cast_sales_team'],$value['cast_status']
+        if(empty($value['cast_sales_parent_no'])){
+            $data_owner = $value['cast_sales_parent'].' - '.$value['cast_sales_team'];
+        } else {
+            $sales = $db_nms->where('id', $value['cast_sales_parent_no'])->getOne('db_member');
+            $data_owner = $sales['first_name'].' - '.getTeam($value['cast_sales_parent_no']);
+        }
+
+        $api['data'][] = array($value['cast_id'],
+            $value['cast_license'],
+            $value['find_brand'].' '.$value['find_serie'].' '.$value['find_section'],
+            $value['cast_color'],
+            number_format($value['cast_price']),
+            $data_owner,
+            $value['cast_status']
         );
     }
 
