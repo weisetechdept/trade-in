@@ -54,6 +54,9 @@
         .card {
             margin-bottom: 10px;
         }
+        .btn-group, .btn-group-vertical {
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 
@@ -100,14 +103,16 @@
                                                 <th>ทะเบียน</th>
                                                 <th>รถยนต์</th>
                                                 <th>สี</th>
-                                                <th>ราคา</th>
+                                                <th>ราคาที่รับได้</th>
                                                 <th>เซลล์</th>
                                                 <th>สถานะ</th>
+                                                <th>วันที่ส่ง</th>
                                                 <th>จัดการ</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
+                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -181,6 +186,11 @@
     <script>
         $('#datatable').DataTable({
             order: [[ 0, "desc" ]],
+            responsive: true,
+            dom: 'Blfrtip',
+            buttons: [
+                'copy', 'print'
+            ],
             "language": {
                 "paginate": {
                     "previous": "<i class='mdi mdi-chevron-left'>",
@@ -220,11 +230,12 @@
                         } 
                     }
                 },
+                {'data':'7'},
                 { 
                     'data': '0',
                     sortable: false,
                     "render": function ( data, type, full, meta ) {
-                        return '<a href="/admin/detail/'+data+'" class="btn btn-sm btn-outline-primary editBtn" role="button"><span class="mdi mdi-account-edit"></span> แก้ใข</a>';
+                        return '<a href="/admin/detail/'+data+'" class="btn btn-sm btn-outline-primary editBtn" role="button"><span class="mdi mdi-account-edit"></span> ดูข้อมูล</a>';
                     }
                 }
             ],

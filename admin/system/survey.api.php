@@ -3,9 +3,6 @@
     require_once '../../db-conn.php';
     date_default_timezone_set("Asia/Bangkok");
 
-
-
-
     $db_sv->join('provinces p', "s.sv_province=p.id", "LEFT");
     $db_sv->join('amphures a', "s.sv_amphure=a.id", "LEFT");
     $sv = $db_sv->get("survey s", null ,"sv_id,sv_type,sv_tel,sv_line,sv_addline,sv_name,p.name_th as prov,a.name_th as amp,sv_email,sv_need,sv_time,sv_car_used,sv_car_other,sv_datetime");
