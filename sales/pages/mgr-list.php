@@ -6,6 +6,10 @@
         exit();
     }
     */
+    if($_SESSION['tin_permission'] !== 'leader') {
+        header("location: /404");
+    }
+    $get = $_GET['get'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -94,126 +98,101 @@
                     </div>   
                     
                     <div class="row mb-3" id="count">
-                    
-                            <div class="col-6 mb-2">
-                                <a href="#">
-                                    <div class="card bg-secondary border-secondary">
-                                        <div class="card-body">
-                                            <div class="mb-2">
-                                                <h5 class="card-title mb-0 text-white">รถยนต์ลูกทีมทั้งหมด</h5>
-                                            </div>
-                                            <div class="row d-flex align-items-center mb-2">
-                                                <div class="col-8">
-                                                    <h2 class="d-flex align-items-center text-white mb-0">
-                                                        {{ countAll }}
-                                                    </h2>
-                                                </div>
-                                            </div>
-
+<?php if($get == '1'){ ?>
+                            <div class="col-12 mb-2">
+                                <div class="card bg-info border-info">
+                                    <div class="card-body">
+                                        <div class="mb-2">
+                                            <h5 class="card-title mb-0 text-white">ดูรถแล่้ว</h5>
                                         </div>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <div class="col-6 mb-2">
-                                <a href="/sales/mgr-list?get=1">
-                                    <div class="card bg-info border-info">
-                                        <div class="card-body">
-                                            <div class="mb-2">
-                                                <h5 class="card-title mb-0 text-white">ดูรถแล่้ว</h5>
+                                        <div class="row d-flex align-items-center mb-2">
+                                            <div class="col-8">
+                                                <h2 class="d-flex align-items-center text-white mb-0">
+                                                    {{ countCar }}
+                                                </h2>
                                             </div>
-                                            <div class="row d-flex align-items-center mb-2">
-                                                <div class="col-8">
-                                                    <h2 class="d-flex align-items-center text-white mb-0">
-                                                        {{ countCar }}
-                                                    </h2>
-                                                </div>
-                                            </div>
-
                                         </div>
+
                                     </div>
-                                </a>
+                                </div>
                             </div>
-
-                            <div class="col-6 col-xl-6">
-                                <a href="/sales/mgr-list?get=0">
-                                    <div class="card bg-warning border-warning">
-                                        <div class="card-body">
-                                            <div class="mb-2">
-                                                <h5 class="card-title mb-0 text-white">ตรวจสอบข้อมูล</h5>
-                                            </div>
-                                            <div class="row d-flex align-items-center mb-2">
-                                                <div class="col-8">
-                                                    <h2 class="d-flex align-items-center text-white mb-0">
-                                                        {{ countChk }}
-                                                    </h2>
-                                                </div>
-                                            </div>
-
+<?php } ?>
+<?php if($get == '0'){ ?>
+                            <div class="col-12 col-xl-6">
+                                <div class="card bg-warning border-warning">
+                                    <div class="card-body">
+                                        <div class="mb-2">
+                                            <h5 class="card-title mb-0 text-white">ตรวจสอบข้อมูล</h5>
                                         </div>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <div class="col-6 col-xl-6">
-                                <a href="/sales/mgr-list?get=2">
-                                    <div class="card bg-primary border-primary">
-                                        <div class="card-body">
-                                            <div class="mb-2">
-                                                <h5 class="card-title mb-0 text-white">ติดตามลูกค้า</h5>
+                                        <div class="row d-flex align-items-center mb-2">
+                                            <div class="col-8">
+                                                <h2 class="d-flex align-items-center text-white mb-0">
+                                                    {{ countChk }}
+                                                </h2>
                                             </div>
-                                            <div class="row d-flex align-items-center mb-2">
-                                                <div class="col-8">
-                                                    <h2 class="d-flex align-items-center text-white mb-0">
-                                                        {{ countFollow }}
-                                                    </h2>
-                                                </div>
-                                            </div>
-
                                         </div>
+
                                     </div>
-                                </a>
+                                </div>
                             </div>
-
-                            <div class="col-6 col-xl-6 mt-2">
-                                <a href="/sales/mgr-list?get=3">
-                                    <div class="card bg-danger border-danger">
-                                        <div class="card-body">
-                                            <div class="mb-2">
-                                                <h5 class="card-title mb-0 text-white">ไม่ขาย / ขายที่อื่น</h5>
-                                            </div>
-                                            <div class="row d-flex align-items-center mb-2">
-                                                <div class="col-8">
-                                                    <h2 class="d-flex align-items-center text-white mb-0">
-                                                        {{ countCancel }}
-                                                    </h2>
-                                                </div>
-                                            </div>
-
+<?php } ?>
+<?php if($get == '2'){ ?>
+                            <div class="col-12 col-xl-6">
+                                <div class="card bg-primary border-primary">
+                                    <div class="card-body">
+                                        <div class="mb-2">
+                                            <h5 class="card-title mb-0 text-white">ติดตามลูกค้า</h5>
                                         </div>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <div class="col-6 col-xl-6 mt-2">
-                                <a href="/sales/mgr-list?get=4">
-                                    <div class="card bg-success border-success">
-                                        <div class="card-body">
-                                            <div class="mb-2">
-                                                <h5 class="card-title mb-0 text-white">ขายสำเร็จ</h5>
+                                        <div class="row d-flex align-items-center mb-2">
+                                            <div class="col-8">
+                                                <h2 class="d-flex align-items-center text-white mb-0">
+                                                    {{ countFollow }}
+                                                </h2>
                                             </div>
-                                            <div class="row d-flex align-items-center mb-2">
-                                                <div class="col-8">
-                                                    <h2 class="d-flex align-items-center text-white mb-0">
-                                                        {{ countSuccess }}
-                                                    </h2>
-                                                </div>
-                                            </div>
-
                                         </div>
+
                                     </div>
-                                </a>
+                                </div>
                             </div>
+<?php } ?>
+<?php if($get == '3'){ ?>
+                            <div class="col-12 col-xl-6 mt-2">
+                                <div class="card bg-danger border-danger">
+                                    <div class="card-body">
+                                        <div class="mb-2">
+                                            <h5 class="card-title mb-0 text-white">ไม่ขาย / ขายที่อื่น</h5>
+                                        </div>
+                                        <div class="row d-flex align-items-center mb-2">
+                                            <div class="col-8">
+                                                <h2 class="d-flex align-items-center text-white mb-0">
+                                                    {{ countCancel }}
+                                                </h2>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+<?php } ?>
+<?php if($get == '4'){ ?>
+                            <div class="col-12 col-xl-6 mt-2">
+                                <div class="card bg-success border-success">
+                                    <div class="card-body">
+                                        <div class="mb-2">
+                                            <h5 class="card-title mb-0 text-white">ขายสำเร็จ</h5>
+                                        </div>
+                                        <div class="row d-flex align-items-center mb-2">
+                                            <div class="col-8">
+                                                <h2 class="d-flex align-items-center text-white mb-0">
+                                                    {{ countSuccess }}
+                                                </h2>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+<?php } ?>
                     </div>
 
                     <div class="row">
@@ -327,7 +306,7 @@
             "drawCallback": function () {
                 $('.dataTables_paginate > .pagination').addClass('pagination-rounded');
             },
-            ajax: '/sales/system/mgr.api.php?get=list',
+            ajax: '/sales/system/mgr-list.api.php?get=<?php echo $get ?>',
             "columns" : [
                 {'data':'0'},
                 {'data':'5',

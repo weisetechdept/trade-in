@@ -25,7 +25,7 @@
                 </li>
                 <?php if($_SESSION['tin_permission'] == 'leader') { ?>
                 <li>
-                    <a href="/sales/mgr" class="waves-effect"><i class="mdi mdi-home"></i><span>รถลูกทีม</span></a>
+                    <a href="/sales/mgr" class="waves-effect"><i class="mdi mdi-car"></i><span>รถลูกทีม</span></a>
                 </li>
                 <?php } ?>
             

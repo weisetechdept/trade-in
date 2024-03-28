@@ -96,6 +96,10 @@
         require_once 'sales/pages/mgr.php'; 
     });
 
+    $router->get( '/sales/mgr-list', function() {
+        require_once 'sales/pages/mgr-list.php'; 
+    });
+
     $router->get( '/sales/de/mgr/(.*)', function($cid) {
         require_once 'sales/pages/car_mgr_detail.php';
     });
