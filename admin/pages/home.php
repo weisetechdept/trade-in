@@ -164,17 +164,13 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">ตารางรถยนต์</h4>
-                                    <p class="card-subtitle mb-4">
-                                        คุณสามารถเลือกจำนวนข้อมูล ค้นหา รายการตามความต้องการของคุณได้ที่เครื่องมือด้านล่าง
-                                    </p>
-
                                     <table id="datatable" class="table dt-responsive nowrap">
                                         <thead>
                                             <tr>
                                                 <th>รหัส</th>
                                                 <th>รูปภาพ</th>
                                                 <th>ทะเบียน</th>
+                                                <th>ปี</th>
                                                 <th>รถยนต์</th>
                                                 <th>สี</th>
                                                 <th>ราคาที่รับได้</th>
@@ -186,6 +182,7 @@
                                         </thead>
                                         <tbody>
                                             <tr>
+                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -289,6 +286,7 @@
                     }
                 },
                 {'data':'1'},
+                {'data':'9'},
                 {'data':'2'},
                 {'data':'3'},
                 {'data':'4'},
