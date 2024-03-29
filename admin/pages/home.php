@@ -315,7 +315,7 @@
                 search: {
                     start: '<?php echo date('Y-m-01'); ?>',
                     end: '<?php echo date('Y-m-d'); ?>',
-                    status: '0'
+                    status: 'all'
                 }
             },
             mounted() {
@@ -327,7 +327,6 @@
             methods: {
                 searchData() {
                     $('#datatable').DataTable().ajax.url('/admin/system/home.api.php?get=search&start='+this.search.start+'&end='+this.search.end+'&status='+this.search.status).load();
-                    
                 }
             }
         });
