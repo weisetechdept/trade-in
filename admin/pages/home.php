@@ -167,6 +167,7 @@
                                         <thead>
                                             <tr>
                                                 <th>รหัส</th>
+                                                <th>รูปภาพ</th>
                                                 <th>ทะเบียน</th>
                                                 <th>รถยนต์</th>
                                                 <th>สี</th>
@@ -179,6 +180,7 @@
                                         </thead>
                                         <tbody>
                                             <tr>
+                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -275,6 +277,7 @@
             ajax: '/admin/system/home.api.php?get=list',
             "columns" : [
                 {'data':'0'},
+                {'data':'9'},
                 {'data':'1'},
                 {'data':'2'},
                 {'data':'3'},
@@ -319,12 +322,10 @@
                 }
             },
             mounted() {
-                axios.get('/admin/system/home.api.php?get=count').then(response => (this.count = response.data.count));
-            },
-            watch: {
-                count: function (val) {
-                    this.count = $('#datatable').DataTable().rows().count();
-                }
+                axios.get('/admin/system/home.api.php?get=count')
+                    .then(response => (
+                        this.count = response.data.count
+                    ));
             },
             methods: {
                 searchData() {
@@ -339,6 +340,7 @@
                     $('#datatable').DataTable().ajax.url('/admin/system/home.api.php?get=search&start='+this.search.start+'&end='+this.search.end+'&status='+this.search.status).load(function() {
                         swal.close(); // Close the loading message
                     });
+                    this.count = $('#datatable').DataTable().rows().count();
                 }
             }
         });
