@@ -318,6 +318,14 @@
                     status: 'all'
                 }
             },
+            mounted() {
+                axios.get('/admin/system/home.api.php?get=count').then(response => (this.count = response.data.count));
+            },
+            watch: {
+                count: function (val) {
+                    this.count = $('#datatable').DataTable().rows().count();
+                }
+            },
             methods: {
                 searchData() {
                     swal({
@@ -331,7 +339,6 @@
                     $('#datatable').DataTable().ajax.url('/admin/system/home.api.php?get=search&start='+this.search.start+'&end='+this.search.end+'&status='+this.search.status).load(function() {
                         swal.close(); // Close the loading message
                     });
-                    this.count = $('#datatable').row().count();
                 }
             }
         });
