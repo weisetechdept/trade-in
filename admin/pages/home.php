@@ -71,7 +71,7 @@
         ?>
         <div class="main-content">
 
-            <div class="page-content" id="count">
+            <div class="page-content">
                 <div class="container-fluid">
 
                     <div class="row">
@@ -90,7 +90,7 @@
                         </div>
                     </div>  
 
-                <div class="row">
+                <div class="row" id="count">
                     <div class="col-3">
                         <div class="row">
                             <div class="col-12 mb-2">
