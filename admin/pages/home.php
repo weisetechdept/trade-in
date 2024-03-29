@@ -145,7 +145,7 @@
                                         </div>
 
                                         <div class="col-md-3">
-                                            <button class="btn btn-primary search-btn" @click="searchData" type="submit">ค้นหา</button>
+                                            <button class="btn btn-primary search-btn" @click="searchData()" type="submit">ค้นหา</button>
                                         </div>
                                     </div>
                           
@@ -327,6 +327,7 @@
             methods: {
                 searchData() {
                     $('#datatable').DataTable().ajax.url('/admin/system/home.api.php?get=search&start='+this.search.start+'&end='+this.search.end+'&status='+this.search.status).load();
+                    this.count = $('#datatable').DataTable().rows().count();
                 }
             }
         });
