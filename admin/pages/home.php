@@ -318,15 +318,13 @@
                     status: 'all'
                 }
             },
-            mounted() {
-                axios.get('/admin/system/home.api.php?get=count')
-                .then(response => {
-                    this.count = response.data.count;
-                })
+            watch: {
+                count: function() {
+                    $('#datatable').DataTable().ajax.url('/admin/system/home.api.php?get=list').load();
+                }
             },
             methods: {
                 searchData() {
-                    
                     swal({
                         title: "กำลังโหลดข้อมูล",
                         text: "โปรดรอสักครู่...",
@@ -335,13 +333,9 @@
                         closeOnClickOutside: false,
                         closeOnEsc: false
                     });
-
                     $('#datatable').DataTable().ajax.url('/admin/system/home.api.php?get=search&start='+this.search.start+'&end='+this.search.end+'&status='+this.search.status).load(function() {
-                        this.count = $('#datatable').DataTable().rows().count();
                         swal.close(); // Close the loading message
                     });
-
-                    
                 }
             }
         });
