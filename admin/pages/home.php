@@ -326,8 +326,22 @@
             },
             methods: {
                 searchData() {
-                    $('#datatable').DataTable().ajax.url('/admin/system/home.api.php?get=search&start='+this.search.start+'&end='+this.search.end+'&status='+this.search.status).load();
-                    this.count = $('#datatable').DataTable().rows().count();
+                    
+                    swal({
+                        title: "กำลังโหลดข้อมูล",
+                        text: "โปรดรอสักครู่...",
+                        icon: "info",
+                        buttons: false,
+                        closeOnClickOutside: false,
+                        closeOnEsc: false
+                    });
+
+                    $('#datatable').DataTable().ajax.url('/admin/system/home.api.php?get=search&start='+this.search.start+'&end='+this.search.end+'&status='+this.search.status).load(function() {
+                        this.count = $('#datatable').DataTable().rows().count();
+                        swal.close(); // Close the loading message
+                    });
+
+                    
                 }
             }
         });
