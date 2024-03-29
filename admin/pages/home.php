@@ -60,6 +60,12 @@
         .search-btn {
             margin-top: 27px;
         }
+        .car-thumb {
+            width: 130px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
     </style>
 </head>
 
@@ -277,7 +283,11 @@
             ajax: '/admin/system/home.api.php?get=list',
             "columns" : [
                 {'data':'0'},
-                {'data':'9'},
+                {'data':'8',
+                    "render": function ( data, type, full, meta ) {
+                        return '<img src="'+ data +'" class="car-thumb">';
+                    }
+                },
                 {'data':'1'},
                 {'data':'2'},
                 {'data':'3'},

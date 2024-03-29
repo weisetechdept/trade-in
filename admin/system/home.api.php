@@ -46,6 +46,12 @@
 
             $img = $db->where('cari_parent', $value['cast_id'])->where('cari_status', '1')->getOne('car_image');
 
+            if(!empty($img)){
+                $thumbnail = $img['cari_link'];
+            } else {
+                $thumbnail = 'https://dummyimage.com/600x400/c4c4c4/fff&text=no-image';
+            }
+
             $api['data'][] = array($value['cast_id'],
                 $value['cast_license'],
                 $value['find_brand'].' '.$value['find_serie'].' '.$value['find_section'],
@@ -54,7 +60,7 @@
                 $data_owner,
                 $value['cast_status'],
                 DateThai($value['cast_datetime']),
-                $img['cari_link']
+                $thumbnail
             );
         }
 
