@@ -29,28 +29,41 @@
 		return "$strDay $strMonthThai $strYear";
 	}
 
-    $db->join('car_stock c', "f.find_id=c.cast_car", "INNER");
-    $stock = $db->get("finance_data f", null ,"c.cast_id,c.cast_license,f.find_brand,f.find_serie,f.find_section,c.cast_color,c.cast_price,c.cast_sales_parent,c.cast_sales_team,c.cast_status,cast_sales_parent_no,cast_datetime");
+    if($_GET['get'] == 'list'){
+
+        $db->join('car_stock c', "f.find_id=c.cast_car", "RIGHT");
+        $stock = $db->get("finance_data f", null ,"c.cast_id,c.cast_license,f.find_brand,f.find_serie,f.find_section,c.cast_color,c.cast_price,c.cast_sales_parent,c.cast_sales_team,c.cast_status,cast_sales_parent_no,cast_datetime");
 
 
-    foreach ($stock as $value) {
-        if(empty($value['cast_sales_parent_no'])){
-            $data_owner = $value['cast_sales_parent'].' - '.$value['cast_sales_team'];
-        } else {
-            $sales = $db_nms->where('id', $value['cast_sales_parent_no'])->getOne('db_member');
-            $data_owner = $sales['first_name'].' - '.getTeam($value['cast_sales_parent_no']);
+        foreach ($stock as $value) {
+            if(empty($value['cast_sales_parent_no'])){
+                $data_owner = $value['cast_sales_parent'].' - '.$value['cast_sales_team'];
+            } else {
+                $sales = $db_nms->where('id', $value['cast_sales_parent_no'])->getOne('db_member');
+                $data_owner = $sales['first_name'].' - '.getTeam($value['cast_sales_parent_no']);
+            }
+
+
+            $api['data'][] = array($value['cast_id'],
+                $value['cast_license'],
+                $value['find_brand'].' '.$value['find_serie'].' '.$value['find_section'],
+                $value['cast_color'],
+                number_format($value['cast_price']),
+                $data_owner,
+                $value['cast_status'],
+                DateThai($value['cast_datetime'])
+            );
         }
 
-
-        $api['data'][] = array($value['cast_id'],
-            $value['cast_license'],
-            $value['find_brand'].' '.$value['find_serie'].' '.$value['find_section'],
-            $value['cast_color'],
-            number_format($value['cast_price']),
-            $data_owner,
-            $value['cast_status'],
-            DateThai($value['cast_datetime'])
-        );
     }
+
+    if($_GET['get'] == 'count'){
+
+        $count = $db->getValue('car_stock','count(*)');
+        $api['count'] = $count;
+
+    }
+
+    
 
     print_r(json_encode($api));

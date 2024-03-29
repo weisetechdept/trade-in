@@ -57,6 +57,9 @@
         .btn-group, .btn-group-vertical {
             margin-bottom: 15px;
         }
+        .search-btn {
+            margin-top: 27px;
+        }
     </style>
 </head>
 
@@ -68,7 +71,7 @@
         ?>
         <div class="main-content">
 
-            <div class="page-content">
+            <div class="page-content" id="count">
                 <div class="container-fluid">
 
                     <div class="row">
@@ -85,7 +88,64 @@
                                 
                             </div>
                         </div>
-                    </div>    
+                    </div>  
+
+                <div class="row">
+                    <div class="col-3">
+                        <div class="row">
+                            <div class="col-12 mb-2">
+                                <a href="#">
+                                    <div class="card bg-secondary border-secondary">
+                                        <div class="card-body">
+                                            <div class="mb-2">
+                                                <h5 class="card-title mb-0 text-white">รถยนต์ทั้งหมด</h5>
+                                            </div>
+                                            <div class="row d-flex align-items-center mb-2">
+                                                <div class="col-8">
+                                                    <h2 class="d-flex align-items-center text-white mb-0">
+                                                        {{ count }}
+                                                    </h2>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+
+                        <form class="needs-validation">
+                            <div class="form-row">
+                                <div class="col-md-3 mb-1">
+                                    <label>ตั้งแต่</label>
+                                    <input type="date" class="form-control" value="<?php echo date('Y-m-d');?>">
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label>ถึง</label>
+                                    <input type="date" class="form-control" value="<?php echo date('Y-m-d');?>">
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label>สถานะ</label>
+                                    <div class="input-group">
+                                        <select class="form-control">
+                                            <option value="0">ทุกสถานะ</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <button class="btn btn-primary search-btn" type="submit">ค้นหา</button>
+                                </div>
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
 
                     <div class="row">
                         <div class="col-12">
@@ -205,7 +265,7 @@
             "drawCallback": function () {
                 $('.dataTables_paginate > .pagination').addClass('pagination-rounded');
             },
-            ajax: '/admin/system/home.api.php',
+            ajax: '/admin/system/home.api.php?get=list',
             "columns" : [
                 {'data':'0'},
                 {'data':'1'},
@@ -239,6 +299,24 @@
                     }
                 }
             ],
+        });
+
+        var count = new Vue({
+            el: '#count',
+            data: {
+                count: 0
+            },
+            mounted() {
+                axios.get('/admin/system/home.api.php?get=count')
+                .then(response => {
+                    this.count = response.data.count;
+                })
+            },
+            methods: {
+                search() {
+
+                }
+            }
         });
 
     </script>
