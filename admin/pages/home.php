@@ -318,11 +318,6 @@
                     status: 'all'
                 }
             },
-            watch: {
-                count: function() {
-                    $('#datatable').DataTable().ajax.url('/admin/system/home.api.php?get=list').load();
-                }
-            },
             methods: {
                 searchData() {
                     swal({
@@ -336,6 +331,7 @@
                     $('#datatable').DataTable().ajax.url('/admin/system/home.api.php?get=search&start='+this.search.start+'&end='+this.search.end+'&status='+this.search.status).load(function() {
                         swal.close(); // Close the loading message
                     });
+                    this.count = $('#datatable').row().count();
                 }
             }
         });
