@@ -133,11 +133,11 @@
                                                                 <div class="form-check form-check-inline mb-2">
                                                                     <input class="form-check-input" type="radio" name="inlineRadioOptions" @click="onTypeCar" id="inlineRadio1" value="1">
                                                                     <label class="form-check-label">เก๋ง (SEDAN,HB,SUV,MPV,PPV)</label>
-                                                                </div>
-                                                                <div class="form-check form-check-inline">
+                                                                </div><br />
+                                                                <div class="form-check form-check-inline mb-2">
                                                                     <input class="form-check-input" type="radio" name="inlineRadioOptions" @click="onTypeCar" id="inlineRadio2" value="2">
                                                                     <label class="form-check-label">กระบะ (Truck)</label>
-                                                                </div>
+                                                                </div><br />
                                                                 <div class="form-check form-check-inline">
                                                                     <input class="form-check-input" type="radio" name="inlineRadioOptions" @click="onTypeCar" id="inlineRadio2" value="3">
                                                                     <label class="form-check-label">รถตู้ หรืออื่นๆ</label>
