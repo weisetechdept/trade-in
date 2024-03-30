@@ -132,7 +132,7 @@
                                                             <div class="form-group mb-0">
                                                                 <div class="form-check form-check-inline mb-2">
                                                                     <input class="form-check-input" type="radio" name="inlineRadioOptions" @click="onTypeCar" id="inlineRadio1" value="1">
-                                                                    <label class="form-check-label">เก๋ง (SEDAN,HB,SUV,MPV,PPV)</label>
+                                                                    <label class="form-check-label">เก๋ง <small>(SEDAN,HB,SUV,MPV,PPV)</small></label>
                                                                 </div><br />
                                                                 <div class="form-check form-check-inline mb-2">
                                                                     <input class="form-check-input" type="radio" name="inlineRadioOptions" @click="onTypeCar" id="inlineRadio2" value="2">

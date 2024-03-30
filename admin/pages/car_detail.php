@@ -156,8 +156,8 @@
                                                         <td>{{ price }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th>ชื่อผู้ขาย (ลูดค้า)</th>
-                                                        <td></td>
+                                                        <th>ชื่อผู้ขาย (ลูกค้า)</th>
+                                                        <td>{{ seller_name }}</td>
                                                     </tr>
                                                     <tr>
                                                         <th>เบอร์โทรผู้ขาย</th>
@@ -665,6 +665,8 @@
                             suspension: '',
                             drive: '',
 
+                            seller_name: '',
+
 
                         }
                     },
@@ -718,6 +720,7 @@
                                 this.passengerType = response.data.car.passengerType;
                                 this.suspension = response.data.car.suspension;
                                 this.drive = response.data.car.drive;
+                                this.seller_name = response.data.car.seller_name;
 
                                 
                              
