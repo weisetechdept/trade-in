@@ -203,7 +203,7 @@
                                                     <tr>
                                                         <th>เกียร์</th>
                                                         <td>
-                                                            <select class="form-control" v-model="send.tranmission">
+                                                            <select class="form-control" v-model="send.transmission">
                                                                 <option value="0">= โปรดเลือกเกียร์ =</option>
                                                                 <option value="MT">เกียร์อัตโนมัติ</option>
                                                                 <option value="AT">เกียร์ธรรมดา</option>
@@ -350,7 +350,7 @@
                                 type: '0',
                                 seat: '0',
                                 door: '0',
-                                tranmission: '0',
+                                transmission: '0',
                                 fuel: [],
                                 engine: '',
                                 price: '',
@@ -421,7 +421,7 @@
                                     type: this.send.type,
                                     seat: this.send.seat,
                                     door: this.send.door,
-                                    tranmission: this.send.tranmission,
+                                    transmission: this.send.transmission,
                                     fuel: this.send.fuel,
                                     engine: this.send.engine,
                                     price: this.send.price,
@@ -432,7 +432,7 @@
                                     drive: this.send.drive,
                                     year: this.send.year
                                 }).then(res => {
-                                    console.log(res);
+                                    console.log(res.data);
                                     if(res.data.status == 200) 
                                         swal("สำเร็จ", "เพิ่มสมาชิกเรียบร้อย", "success",{  
                                             button: "ตกลง"

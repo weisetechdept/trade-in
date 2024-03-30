@@ -120,7 +120,7 @@
                                     <div class="card bg-info border-info">
                                         <div class="card-body">
                                             <div class="mb-2">
-                                                <h5 class="card-title mb-0 text-white">ดูรถแล่้ว</h5>
+                                                <h5 class="card-title mb-0 text-white">ดูรถแล้ว</h5>
                                             </div>
                                             <div class="row d-flex align-items-center mb-2">
                                                 <div class="col-8">
