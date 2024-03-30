@@ -91,6 +91,10 @@
             #agent {
                 margin-top: 70px;
             }
+            .hd-f {
+                display: none;
+                background-color: #f0f0f0;
+            }
         </style>
     </head>
 
@@ -100,7 +104,6 @@
                     include_once('inc-pages/nav.php');
                     include_once('inc-pages/sidebar.php');
             ?>
-
             <div class="main-content">
 
                 <div class="page-content">
@@ -124,28 +127,83 @@
                                             <table class="table mb-0">
                                                 <tbody>
                                                     <tr>
-                                                        <th width="150px">ยี่ห้อ ซีรี่ รุ่น ปี</th>
-                                                        <p>แจ้งเตือน : หากไม่ทราบรุ่นย่อย ให้เลื่อกรุ่นใกล้เคียง ทีมพ่อสื่อจะเช็ครายละเอียดและเปลี่ยนรุ่นให้ถูกต้องในภายหลัง</p>
+                                                        <th width="120px">ประเภทรถ</th>
                                                         <td>
-                                                            <select class="form-control" v-model="for_change" @change="onChange($event)">
-                                                                <option value="0">= โปรดเลือกยี่ห้อรถยนต์ =</option>
-                                                                <option v-for="brand in select" :value="brand">{{ brand }}</option>
+                                                            <div class="form-group mb-0">
+                                                                <div class="form-check form-check-inline mb-2">
+                                                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" @click="onTypeCar" id="inlineRadio1" value="1">
+                                                                    <label class="form-check-label">เก๋ง (SEDAN,HB,SUV,MPV,PPV)</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" @click="onTypeCar" id="inlineRadio2" value="2">
+                                                                    <label class="form-check-label">กระบะ (Truck)</label>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+
+                                                    <tr class="hd-f">
+                                                        <th>ห้องโดยสาร</th>
+                                                        <td>
+                                                            <select class="form-control" v-model="send.passengerType">
+                                                                <option value="0">= โปรดเลือกห้องโดยสาร =</option>
+                                                                <option value="1">มีแค็ป / C-Cab</option>
+                                                                <option value="2">ไม่มีแค็ป / B-Cab</option>
+                                                                <option value="3">4 ประตู / D-Cab</option>
                                                             </select>
-                                                            <select id="serie" class="form-control mt-3" v-model="for_serie" @change="onChangeSerie($event)">
-                                                                <option v-for="serie in select_serie" :value="serie">{{ serie }}</option>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="hd-f">
+                                                        <th>ระบบช่วงล่าง</th>
+                                                        <td>
+                                                            <select class="form-control" v-model="send.suspension">
+                                                                <option value="0">= โปรดเลือกระบบช่วงล่าง =</option>
+                                                                <option value="1">ตัวเตี้ย</option>
+                                                                <option value="2">ยกสูง</option>
                                                             </select>
-                                                            <select id="year" class="form-control mt-3" @change="onChangeSec($event)">
-                                                                <option v-for="year in select_year" :value="year">{{ year }}</option>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="hd-f">
+                                                        <th>ระบบขับเคลื่อน</th>
+                                                        <td>
+                                                            <select class="form-control" v-model="send.drive">
+                                                                <option value="0">= โปรดเลือกระบบขับเคลื่อน =</option>
+                                                                <option value="1">ขับเคลื่อน 2 ล้อ</option>
+                                                                <option value="2">ระบบขับเคลื่อน 4 ล้อ</option>
                                                             </select>
-                                                            <select id="section" v-model="for_section" class="form-control mt-3">
-                                                                <option  v-for="section in select_section"  :value="section.id">{{ section.name }}</option>
+                                                        </td>
+                                                    </tr>
+
+
+                                                    <tr>
+                                                        <th>เบาะโดยสาร</th>
+                                                        <td>
+                                                            <select class="form-control" v-model="send.seat">
+                                                                <option value="0">= โปรดเลือกจำนวนเบาะโดยสาร =</option>
+                                                                <option value="1">1 แถว</option>
+                                                                <option value="2">2 แถว</option>
+                                                                <option value="3">3 แถว</option>
+                                                                <option value="4">มากกว่า 3 แถว</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>ประตู</th>
+                                                        <td>
+                                                            <select class="form-control" v-model="send.door">
+                                                                <option value="0">= โปรดเลือกจำนวนประตู =</option>
+                                                                <option value="2">2 ประตู</option>
+                                                                <option value="3">3 ประตู</option>
+                                                                <option value="4">4 ประตู</option>
+                                                                <option value="5">5 ประตู</option>
                                                             </select>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <th>เกียร์</th>
                                                         <td>
-                                                            <select class="form-control" v-model="transmission">
+                                                            <select class="form-control" v-model="send.tranmission">
                                                                 <option value="0">= โปรดเลือกเกียร์ =</option>
                                                                 <option value="MT">เกียร์อัตโนมัติ</option>
                                                                 <option value="AT">เกียร์ธรรมดา</option>
@@ -153,17 +211,65 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
+                                                        <th>เชื้อเพลิง<br /><small>(เลือกได้มากกว่า 1)</small></th>
+                                                        <td>
+                                                            <div class="form-check mb-2">
+                                                                <input class="form-check-input" type="checkbox" @click="fuelType" value="1">
+                                                                <label class="form-check-label">
+                                                                    เบนซิน
+                                                                </label>
+                                                            </div>
+
+                                                            <div class="form-check mb-2">
+                                                                <input class="form-check-input" type="checkbox" @click="fuelType" value="2">
+                                                                <label class="form-check-label">
+                                                                    ดีเซล
+                                                                </label>
+                                                            </div>
+
+                                                            <div class="form-check mb-2">
+                                                                <input class="form-check-input" type="checkbox" @click="fuelType" value="3">
+                                                                <label class="form-check-label">
+                                                                    LPG
+                                                                </label>
+                                                            </div>
+
+                                                            <div class="form-check mb-2">
+                                                                <input class="form-check-input" type="checkbox" @click="fuelType" value="4">
+                                                                <label class="form-check-label">
+                                                                    NGV
+                                                                </label>
+                                                            </div>
+
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" @click="fuelType" value="5">
+                                                                <label class="form-check-label">
+                                                                    EV
+                                                                </label>
+                                                            </div>
+                                                            
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>ขนาดเครื่องยนต์ (CC.)</th>
+                                                        <td><input type="text" class="form-control" maxlength="4" v-model="send.engine"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>ปี รถยนต์</th>
+                                                        <td><input type="text" class="form-control" maxlength="4" v-model="send.year"></td>
+                                                    </tr>
+                                                    <tr>
                                                         <th>ราคาที่ยอมรับได้</th>
-                                                        <td><input type="text" class="form-control" v-model="price"></td>
+                                                        <td><input type="text" class="form-control" v-model="send.price"></td>
                                                     </tr>
                                                     <tr>
                                                         <th>ชื่อ ผู้ขาย</th>
-                                                        <td><input type="text" class="form-control" v-model="seller_name"></td>
+                                                        <td><input type="text" class="form-control" v-model="send.seller_name"></td>
                                                     </tr>
                                                     
                                                     <tr>
                                                         <th>เบอร์โทร ผู้ขาย</th>
-                                                        <td><input type="text" class="form-control" v-model="tel" maxlength="10"></td>
+                                                        <td><input type="text" class="form-control"  maxlength="10" v-model="send.tel"></td>
                                                     </tr>
                                                     
                                                 </tbody>
@@ -240,32 +346,22 @@
                     el: '#agent',
                     data () {
                         return {
-                            id: '',
-                            license: '',
-                            brand: '',
-                            serie: '',
-                            section: '',
-                            transmission: '',
-                            color: '',
-                            price: '',
-                            sales: '',
-                            sales_team: '',
-                            status: '',
-                            car_year: '',
-                            reg_year: '',
-                            transmission: '',
-                            option: '',
-                            vin: '',
-                            mileage: '',
-                            select: '',
-                            select_serie: '',
-                            select_year: '',
-                            select_section: '',
-                            for_serie: '',
-                            for_section: '',
-                            for_change: '0',
-                            tel: '',
-                            seller_name: '',
+                            send:{
+                                type: '0',
+                                seat: '0',
+                                door: '0',
+                                tranmission: '0',
+                                fuel: [],
+                                engine: '',
+                                price: '',
+                                seller_name: '',
+                                tel: '',
+                                /* if truck */
+                                passengerType: '0',
+                                suspension: '0',
+                                drive: '0',
+                                year: ''
+                            },
                             user: {
                                 id: '',
                             }
@@ -281,71 +377,81 @@
                                     }).then((value) => {
                                         window.location.href = "/home";
                                     });
-                                this.select = response.data.brand;
                                 this.user.id = response.data.user.id;
                             })
                     },
                     methods: {
-                        onChange(e) {
-                            axios.get("/sales/system/car_select.api.php?b="+e.target.value)
-                                .then(response => {
-                                    if(e.target.value == '0'){
-                                        $("#serie").css("display", "none");
-                                        $("#year").css("display", "none");
-                                        $("#section").css("display", "none");
-                                    }
-                                    this.select_serie = response.data.serie;
-                                    $("#serie").css("display", "block");
-                                    $("#year").css("display", "none");
-                                    $("#section").css("display", "none");
-                                })
-                        },
-                        onChangeSerie(e) {
-                            axios.get("/sales/system/car_select.api.php?s="+e.target.value)
-                                .then(response => {
-                                    this.select_year = response.data.year;
-                                    $("#year").css("display", "block");
-                                    $("#section").css("display", "none");
-                                })
-                        },
-                        onChangeSec(e) {
-                            axios.get("/sales/system/car_select.api.php?serie="+this.for_serie+'&t='+e.target.value)
-                                .then(response => {
-                                    this.select_section = response.data.section;
-                                    $("#section").css("display", "block");
-                                })
-                        },
-                        sendData(e) {
-                            e.preventDefault();
-                            axios.post('/sales/system/new_car.inc.php', {
-                                price: this.price,
-                                for_section: this.for_section,
-                                sales: this.sales,
-                                sales_team: this.sales_team,
-                                tel: this.tel,
-                                user_id: this.user.id,
-                                seller_name: this.seller_name
-                                
-                            }).then(res => {
-                                console.log(res);
-                                if(res.data.status == 200) 
-                                    swal("สำเร็จ", "เพิ่มสมาชิกเรียบร้อย", "success",{  
-                                        button: "ตกลง"
-                                    }).then((value) => {
-                                        window.location.href = "/sales/detail/"+res.data.id
-                                    });
+                        onTypeCar(e){
+                            if(e.target.value == '2'){
+                                $(".hd-f").css("display", "revert");
+                            } else if(e.target.value == '1') {
+                                $(".hd-f").css("display", "none");
+                            }
 
-                                if(res.data.status == 505) 
-                                    swal("ทำรายการไม่สำเร็จ", "อาจมีบางอย่างผิดปกติ โปรดตรวจสอบเงื่อนไขการสมัครสมาชิกให้ถูกต้อง และครบถ้วน หรือติดต่อเจ้าหน้าที่", "warning",{ 
-                                        button: "ตกลง"
-                                    }
-                                );
-                                if(res.data.status == 400) 
-                                    swal("ทำรายการไม่สำเร็จ", "สมาชิกไม่เข้าเงื่อนใขการสมัคร โปรดตรวจสอบคุณสมบัติอีกครั้ง (เป็นสมาชิก Paragon Family)", "warning",{ 
-                                        button: "ตกลง"
-                                    }
-                                );
-                            });
+                            if(e.target.value == '1'){
+                                this.send.type = '1';
+                            } else if(e.target.value == '2') {
+                                this.send.type = '2';
+                            }
+                        },
+                        fuelType(e){
+                            if (e.target.checked) {
+                                this.send.fuel.push(e.target.value);
+                            } else {
+                                const index = this.send.fuel.indexOf(e.target.value);
+                                if (index > -1) {
+                                    this.send.fuel.splice(index, 1);
+                                }
+                            }
+                        },
+                        sendData() {
+                            if(this.send.type == '0' || this.send.seat == '0' || this.send.door == '0' || this.send.tranmission == '0' || this.send.fuel.length == 0 || this.send.engine == '' || this.send.price == '' || this.send.seller_name == '' || this.send.tel == ''){
+                                swal("กรุณากรอกข้อมูลให้ครบถ้วน", "โปรดตรวจสอบข้อมูลให้ครบถ้วน", "warning",{ 
+                                    button: "ตกลง"
+                                });
+                            } else if(this.send.type == '2' && (this.send.passengerType == '0' || this.send.suspension == '0' || this.send.drive == '0')) {
+                                swal("กรุณากรอกข้อมูลให้ครบถ้วน", "โปรดตรวจสอบข้อมูลให้ครบถ้วน", "warning",{ 
+                                    button: "ตกลง"
+                                });
+                            } else {
+
+
+                                axios.post('/sales/system/new_car_up.inc.php', {
+                                    id: this.user.id,
+                                    type: this.send.type,
+                                    seat: this.send.seat,
+                                    door: this.send.door,
+                                    tranmission: this.send.tranmission,
+                                    fuel: this.send.fuel,
+                                    engine: this.send.engine,
+                                    price: this.send.price,
+                                    seller_name: this.send.seller_name,
+                                    tel: this.send.tel,
+                                    passengerType: this.send.passengerType,
+                                    suspension: this.send.suspension,
+                                    drive: this.send.drive,
+                                    year: this.send.year
+                                }).then(res => {
+                                    console.log(res);
+                                    if(res.data.status == 200) 
+                                        swal("สำเร็จ", "เพิ่มสมาชิกเรียบร้อย", "success",{  
+                                            button: "ตกลง"
+                                        }).then((value) => {
+                                            window.location.href = "/sales/detail/"+res.data.id
+                                        });
+
+                                    if(res.data.status == 505) 
+                                        swal("ทำรายการไม่สำเร็จ", "อาจมีบางอย่างผิดปกติ โปรดตรวจสอบเงื่อนไขการสมัครสมาชิกให้ถูกต้อง และครบถ้วน หรือติดต่อเจ้าหน้าที่", "warning",{ 
+                                            button: "ตกลง"
+                                        }
+                                    );
+                                    if(res.data.status == 400) 
+                                        swal("ทำรายการไม่สำเร็จ", "สมาชิกไม่เข้าเงื่อนใขการสมัคร โปรดตรวจสอบคุณสมบัติอีกครั้ง (เป็นสมาชิก Paragon Family)", "warning",{ 
+                                            button: "ตกลง"
+                                        }
+                                    );
+                                });
+                            }
                         }
                     }
                 });
