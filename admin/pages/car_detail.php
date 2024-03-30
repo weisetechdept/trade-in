@@ -107,7 +107,7 @@
 
                                     <div class="page-title-right">
                                         <ol class="breadcrumb m-0">
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">A77</a></li>
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Trade-in</a></li>
                                             <li class="breadcrumb-item active">สมาชิก</li>
                                         </ol>
                                     </div>
@@ -117,11 +117,65 @@
                         </div>
 
                         <div class="row">
-
                             <div class="col-lg-6 col-md-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="mb-2 font-size-18">ข้อมูลสมาชิก</h4>
+                                        <h4 class="mb-2 font-size-18">ข้อมูลจากเซลล์</h4>
+                                        <div class="table-responsive">
+                                            <table class="table mb-0">
+                                                <tbody>
+                                                    <tr>
+                                                        <th width="155px">รหัส ID</th>
+                                                        <td>{{ id }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th width="155px">ประเภทรถยนต์</th>
+                                                        <td>{{ typeCar }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>เบาะโดยสาร</th>
+                                                        <td>{{ seat }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>ประตู</th>
+                                                        <td>{{ door }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>เกียร์</th>
+                                                        <td>{{ transmission }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>เชื้อเพลิง</th>
+                                                        <td>{{ fuel }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>ปีรถยนต์</th>
+                                                        <td>{{ car_year }}</td>
+                                                    <tr>
+                                                        <th>ราคาที่ยอมรับได้</th>
+                                                        <td>{{ price }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>ชื่อผู้ขาย (ลูดค้า)</th>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>เบอร์โทรผู้ขาย</th>
+                                                        <td>{{ tel }}</td>
+                                                    </tr>
+                                                    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="mb-2 font-size-18">ข้อมูลรถยนต์</h4>
                                         <div class="table-responsive">
                                             <table class="table mb-0">
                                                 <tbody>
@@ -169,23 +223,6 @@
                                                         <td>{{ reg_year }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th>ราคา</th>
-                                                        <td>{{ price }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>สถานะ Vat</th>
-                                                        <td v-if="vat == '1'">มี Vat</td>
-                                                        <td v-if="vat == '0'">ไม่มี Vat</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>ราคาตั้งขาย</th>
-                                                        <td>{{ trade_price }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>ราคากลาง (TLT)</th>
-                                                        <td>{{ tlt_price }}</td>
-                                                    </tr>
-                                                    <tr>
                                                         <th>เพิ่มเติม</th>
                                                         <td>{{ option }}</td>
                                                     </tr>
@@ -212,10 +249,7 @@
                                                     
                                                 </tbody>
                                             </table>
-                                            <div class="form-group mt-3">
-                                                <h4 class="mb-2 font-size-18">จัดการข้อมูล</h4>
-                                                <a :href="'/admin/edit/'+id" type="submit" class="btn btn-outline-warning waves-effect waves-light mr-1">แก้ใข</a>
-                                            </div>
+                                           
                                         </div>
                                     </div>
                                 </div>
@@ -363,8 +397,60 @@
                                 </div>
                             </div>
                         </div>
+
+
+                        <div class="row">
+                            <div class="col-lg-6 col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="mb-2 font-size-18">ข้อมูลราคา</h4>
+                                        <div class="table-responsive">
+                                            <table class="table mb-0">
+                                                <tbody>
+                                                    
+                                                
+                                                    <tr>
+                                                        <th width="155px">ราคา</th>
+                                                        <td>{{ price }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>สถานะ Vat</th>
+                                                        <td v-if="vat == '1'">มี Vat</td>
+                                                        <td v-if="vat == '0'">ไม่มี Vat</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>ราคาตั้งขาย</th>
+                                                        <td>{{ trade_price }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>ราคากลาง (TLT)</th>
+                                                        <td>{{ tlt_price }}</td>
+                                                    </tr>
+                                                    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6 col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="mb-2 font-size-18">จัดการข้อมูล</h4>
+                                        <div class="table-responsive">
+                                            <a :href="'/admin/edit/'+id" type="submit" class="btn btn-outline-warning waves-effect waves-light mr-1">แก้ใข</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         
-                      </div>
+                        
+                    </div>
 
 
                         <div class="row">
@@ -570,6 +656,16 @@
                             cal_tltprice: '',
                             vat: '',
 
+                            typeCar: '',
+                            seat: '',
+                            door: '',
+                            fuel: '',
+                            engine: '',
+                            passengerType: '',
+                            suspension: '',
+                            drive: '',
+
+
                         }
                     },
                     mounted () {
@@ -613,6 +709,17 @@
                                 this.mileage = response.data.car.mileage;
                                 this.tel = response.data.car.tel;
                                 this.vat = response.data.car.vat;
+
+                                this.typeCar = response.data.car.type;
+                                this.seat = response.data.car.seat;
+                                this.door = response.data.car.door;
+                                this.fuel = response.data.car.fuel;
+                                this.engine = response.data.car.engine;
+                                this.passengerType = response.data.car.passengerType;
+                                this.suspension = response.data.car.suspension;
+                                this.drive = response.data.car.drive;
+
+                                
                              
                             }),
                             this.calDownpayment();

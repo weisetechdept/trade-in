@@ -138,6 +138,10 @@
                                                                     <input class="form-check-input" type="radio" name="inlineRadioOptions" @click="onTypeCar" id="inlineRadio2" value="2">
                                                                     <label class="form-check-label">กระบะ (Truck)</label>
                                                                 </div>
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" @click="onTypeCar" id="inlineRadio2" value="3">
+                                                                    <label class="form-check-label">รถตู้ หรืออื่นๆ</label>
+                                                                </div>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -244,7 +248,7 @@
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="checkbox" @click="fuelType" value="5">
                                                                 <label class="form-check-label">
-                                                                    EV
+                                                                    EV (ไฟฟ้า)
                                                                 </label>
                                                             </div>
                                                             
@@ -384,7 +388,7 @@
                         onTypeCar(e){
                             if(e.target.value == '2'){
                                 $(".hd-f").css("display", "revert");
-                            } else if(e.target.value == '1') {
+                            } else if(e.target.value == '1' || e.target.value == '3') {
                                 $(".hd-f").css("display", "none");
                             }
 
@@ -392,6 +396,8 @@
                                 this.send.type = '1';
                             } else if(e.target.value == '2') {
                                 this.send.type = '2';
+                            } else if(e.target.value == '3') {
+                                this.send.type = '3';
                             }
                         },
                         fuelType(e){
