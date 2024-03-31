@@ -95,6 +95,16 @@
             'seller_name' => $stock['cast_seller_name']
         );
 
+        $offer = $db->where('off_parent',$id)->get('offer');
+
+        foreach ($offer as $o) {
+            $api['offer'][] = array(
+                'price' => $o['off_price'],
+                'partner' => $o['off_vender'],
+                'datetime' => $o['off_datetime']
+            );
+        }
+
     }
 
     print_r(json_encode($api));

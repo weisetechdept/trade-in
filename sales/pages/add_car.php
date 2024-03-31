@@ -136,7 +136,7 @@
                                                                 </div><br />
                                                                 <div class="form-check form-check-inline mb-2">
                                                                     <input class="form-check-input" type="radio" name="inlineRadioOptions" @click="onTypeCar" id="inlineRadio2" value="2">
-                                                                    <label class="form-check-label">กระบะ (Truck)</label>
+                                                                    <label class="form-check-label">กระบะ <small>(Truck)</small></label>
                                                                 </div><br />
                                                                 <div class="form-check form-check-inline">
                                                                     <input class="form-check-input" type="radio" name="inlineRadioOptions" @click="onTypeCar" id="inlineRadio2" value="3">

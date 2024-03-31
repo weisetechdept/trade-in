@@ -150,7 +150,7 @@
                                                     </tr>
                                                     <tr>
                                                         <th>ปีรถยนต์</th>
-                                                        <td>{{ car_year }}</td>
+                                                        <td>{{ reg_year }}</td>
                                                     <tr>
                                                         <th>ราคาที่ยอมรับได้</th>
                                                         <td>{{ price }}</td>
@@ -170,7 +170,49 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="mb-2 font-size-18">ให้ราคา</h4>
+                                        <table class="table mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ราคา</th>
+                                                        <th>พันธมิตร</th>
+                                                        <th width="180px">วันที่</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr v-for="offer in offer.display">
+                                                        <td>{{ offer.price }}</td>
+                                                        <th>{{ offer.partner }}</th>
+                                                        <td>{{ offer.datetime }}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <h4 class="mb-2 font-size-18 mt-4">ส่งแจ้งเตือนให้ราคา</h4>
+                                                    <div>
+                                                        <div class="form-group">
+                                                            <label>ราคา</label>
+                                                            <input type="text" class="form-control" v-model="offer.price">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>พันธมิตร</label>
+                                                            <input type="text" class="form-control" v-model="offer.partner">
+                                                        </div>
+                                                        <input type="submit" class="btn btn-primary" @click="offerData" value="ส่ง">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
+
                         <div class="row">
                             <div class="col-lg-6 col-md-12">
                                 <div class="card">
@@ -216,10 +258,6 @@
                                                     </tr>
                                                     <tr>
                                                         <th>รุ่นปี</th>
-                                                        <td>{{ car_year }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>ปีจดทะเบียน</th>
                                                         <td>{{ reg_year }}</td>
                                                     </tr>
                                                     <tr>
@@ -254,6 +292,10 @@
                                     </div>
                                 </div>
                             </div>
+
+
+                            
+
                             <div class="col-lg-6 col-md-12">
                                 <div class="card">
                                     <div class="card-body">
@@ -655,7 +697,6 @@
                             cal_price: '',
                             cal_tltprice: '',
                             vat: '',
-
                             typeCar: '',
                             seat: '',
                             door: '',
@@ -664,10 +705,13 @@
                             passengerType: '',
                             suspension: '',
                             drive: '',
-
                             seller_name: '',
-
-
+                            
+                            offer:{
+                                price: '',
+                                partner: '',
+                                display: [],
+                            },
                         }
                     },
                     mounted () {
@@ -722,12 +766,51 @@
                                 this.drive = response.data.car.drive;
                                 this.seller_name = response.data.car.seller_name;
 
+                                this.offer.display = response.data.offer;
+
                                 
                              
                             }),
                             this.calDownpayment();
                     },
                     methods: {
+                        offerData() {
+                            swal({
+                                title: 'คุณแน่ใจหรือไม่ ?',
+                                text: "คุณต้องการส่งข้อมูลให้ลูกค้าหรือไม่ ?",
+                                icon: "info",
+                                buttons: true,
+                                dangerMode: true,
+                            }).then((willDelete) => {
+                                if (willDelete) {
+
+                                    axios.post('/admin/system/offer.ins.php', {
+                                        price: this.offer.price,
+                                        partner: this.offer.partner,
+                                        parent: this.id
+                                    }).then(res => {
+                                        if(res.data.status == 200) 
+                                            swal("สำเร็จ", "เพิ่มข้อมูลสำเร็จ", "success",{ 
+                                                button: "ตกลง"
+                                            }).then((value) => {
+                                                location.reload(true)
+                                            });
+                                        if(res.data.status == 400) 
+                                            swal("ทำรายการไม่สำเร็จ", "เพิ่มข้อมูลไม่สำเร็จ อาจมีบางอย่างผิดปกติ (error : 400)", "warning",{ 
+                                                button: "ตกลง"
+                                            }
+                                        );
+                                    });
+
+
+                                } else {
+                                    swal("ยกเลิกการส่งข้อมูลสำเร็จ", {
+                                        icon: "success",
+                                    });
+                                }
+                            });
+                            
+                        },
                         calDownpayment(e){
                             
                             var cal_down = this.cal_price - (this.cal_tltprice * (this.loanrate/100));
