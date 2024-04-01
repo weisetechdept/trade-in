@@ -110,7 +110,20 @@
                     $data_owner = $sales['first_name'].' - '.getTeam($value['cast_sales_parent_no']);
                 }
     
-                $api['data'][] = array($value['cast_id'],
+                $api['data'][] = array(
+                    $value['cast_id'],
+                    $value['cast_license'],
+                    $value['find_brand'].' '.$value['find_serie'].' '.$value['find_section'],
+                    $value['cast_color'],
+                    number_format($value['cast_price']),
+                    $data_owner,
+                    $value['cast_status'],
+                    DateThai($value['cast_datetime']),
+                    $thumbnail,
+                    $value['cast_year'],
+                    getTeam($value['cast_sales_parent_no'])
+                    /*
+                    $value['cast_id'],
                     $value['cast_license'],
                     $value['find_brand'].' '.$value['find_serie'].' '.$value['find_section'],
                     $value['cast_color'],
@@ -119,6 +132,7 @@
                     $value['cast_status'],
                     DateThai($value['cast_datetime']),
                     getTeam($value['cast_sales_parent_no'])
+                    */
                 );
             }
 
