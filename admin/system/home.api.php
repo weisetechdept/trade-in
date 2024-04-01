@@ -14,7 +14,9 @@
             $team_data = json_decode($t['detail']);
             if(in_array($uid,$team_data)){
                 return $t['name'];
-            } 
+            } else {
+                return 'ผจก. ทีม';
+            }
         }
     }
 
@@ -107,7 +109,7 @@
                     $data_owner = $value['cast_sales_parent'].' - '.$value['cast_sales_team'];
                 } else {
                     $sales = $db_nms->where('id', $value['cast_sales_parent_no'])->getOne('db_member');
-                    $data_owner = $sales['first_name'].' - '.getTeam($value['cast_sales_parent_no']);
+                    $data_owner = $sales['first_name'];
                 }
     
                 $api['data'][] = array(
