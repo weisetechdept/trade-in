@@ -12,9 +12,7 @@
         $team = $db_nms->get('db_user_group');
         foreach($team as $t){
             $team_data = json_decode($t['detail']);
-            if(in_array($uid,$team_data)){
-                return $t['name'];
-            }
+            return array_search($uid,$team_data);
         }
     }
 
