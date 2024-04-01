@@ -11,8 +11,11 @@
         global $db_nms;
         $team = $db_nms->get('db_user_group');
         foreach($team as $t){
-            $team_data = json_decode($t['detail']);
-            return array_search($uid,$team_data);
+            $tm = array_merge(json_decode($t['detail']),json_decode($t['leader']));
+            //$team_data = json_decode($t['detail']);
+            if(in_array($uid,$tm)){
+                return $t['name'];
+            } 
         }
     }
 
