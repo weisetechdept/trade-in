@@ -41,7 +41,7 @@
                 $data_owner = $value['cast_sales_parent'].' - '.$value['cast_sales_team'];
             } else {
                 $sales = $db_nms->where('id', $value['cast_sales_parent_no'])->getOne('db_member');
-                $data_owner = $sales['first_name'].' - '.getTeam($value['cast_sales_parent_no']);
+                $data_owner = $sales['first_name'];
             }
 
             $img = $db->where('cari_parent', $value['cast_id'])->where('cari_status', '1')->getOne('car_image');
@@ -61,7 +61,8 @@
                 $value['cast_status'],
                 DateThai($value['cast_datetime']),
                 $thumbnail,
-                $value['cast_year']
+                $value['cast_year'],
+                getTeam($value['cast_sales_parent_no'])
             );
         }
 
