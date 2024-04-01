@@ -28,6 +28,13 @@
                 <?php } elseif($_SESSION['survey'] == 1){ ?>  
                 <li><a href="/admin/survey" class=" waves-effect"><i class="feather-clipboard"></i><span>แบบสำรวจ</span></a></li>
                 <?php } ?>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="feather-bar-chart-2"></i><span>รายงาน</span></a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="#">รายงานทั่วไป</a></li>
+                        <li><a href="/admin/team-report">รายงานทีมขาย</a></li>
+                    </ul>
+                </li>
             </ul>
 
             

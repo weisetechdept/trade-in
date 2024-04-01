@@ -47,6 +47,10 @@
         require_once 'admin/pages/survey.php';
     });
 
+    $router->get( '/admin/team-report', function() {
+        require_once 'admin/pages/report-team.php'; 
+    });
+
     /* sales */
 
     $router->get( '/app', function() {
