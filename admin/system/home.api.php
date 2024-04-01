@@ -14,8 +14,6 @@
             $team_data = json_decode($t['detail']);
             if(in_array($uid,$team_data)){
                 return $t['name'];
-            } else {
-                return 'ผจก. ทีม';
             }
         }
     }
