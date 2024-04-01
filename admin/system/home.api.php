@@ -117,7 +117,8 @@
                     number_format($value['cast_price']),
                     $data_owner,
                     $value['cast_status'],
-                    DateThai($value['cast_datetime'])
+                    DateThai($value['cast_datetime']),
+                    getTeam($value['cast_sales_parent_no'])
                 );
             }
 
