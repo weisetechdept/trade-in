@@ -710,7 +710,7 @@
                             suspension: '',
                             drive: '',
                             seller_name: '',
-                            share_link: ''
+                            share_link: '',
                             
                             offer:{
                                 price: '',
@@ -773,8 +773,6 @@
 
                                 this.offer.display = response.data.offer;
                                 this.share_link = response.data.car.share_link;
-
-                                
                              
                             }),
                             this.calDownpayment();
