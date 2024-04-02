@@ -12,6 +12,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         @media (min-width: 576px) {
             .container {
@@ -94,7 +96,7 @@
                 <h3 class="mb-0">{{ detail.car_year }} {{ detail.brand }} {{ detail.section }}</h3>
 
                 <div class="share-button">
-                    <button class="btn btn-success">S</button>
+                    <button class="btn btn-success" data-sharer="line" :data-title="'พ่อสื่อออนไลน์ รหัส ID : '+ detail.id" :data-url="'/stock/'+ detail.link"><i class="fa-regular fa-share-from-square"></i></button>
                 </div>
                 
                 <div class="headline-des">
@@ -153,6 +155,10 @@
                             <th scope="row">เกียร์</th>
                             <td>{{ detail.transmission }}</td>
                         </tr>
+                        <tr>
+                            <th scope="row">สภาพรถ</th>
+                            <td>{{ detail.condition }}</td>
+                        </tr>
                     </tbody>
                 </table>
 
@@ -185,6 +191,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.1/axios.min.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sharer.js@latest/sharer.min.js"></script>
    
     <script>
         var detail = new Vue({
@@ -198,7 +206,6 @@
             mounted () {
                 axios.get('/public/system/detail.api.php?id=<?php echo $id ?>')
                     .then(response => (
-                        console.log(response.data),
                         this.img = response.data.img,
                         this.detail = response.data.detail
                     ))

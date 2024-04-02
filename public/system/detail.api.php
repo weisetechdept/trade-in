@@ -104,7 +104,8 @@
             'passengerType' => $stock['cast_passengerType'],
             'suspension' => $stock['cast_suspension'],
             'drive' => $driveOfCar,
-            'seller_name' => $stock['cast_seller_name']
+            'seller_name' => $stock['cast_seller_name'],
+            'link' => 'https://trade-in.toyotaparagon.com/stock/'.base64_encode($stock['cast_id'])
         );
 
     } else {
