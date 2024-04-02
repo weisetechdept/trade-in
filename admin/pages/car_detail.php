@@ -772,7 +772,7 @@
                                 this.seller_name = response.data.car.seller_name;
 
                                 this.offer.display = response.data.offer;
-                                this.share_link = response.data.share_link;
+                                this.share_link = response.data.car.share_link;
 
                                 
                              
