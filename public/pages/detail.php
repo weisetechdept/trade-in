@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <title>พ่อสื่อรถมือสอง</title>
+    <meta name="description" content="เราเป็นตัวกลางที่จะหาผู้ซื้อและผู้ขายรถยนต์มือสอง พ่อสื่อรถมือสอง">
     <link href="/public/assets/css/style.css" rel="stylesheet" type="text/css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +15,7 @@
     <style>
         @media (min-width: 576px) {
             .container {
-                max-width: 540px;
+                max-width: 768px;
             }
         }
         body {
@@ -61,8 +62,9 @@
     </style>
   </head>
   <body>
+    <div class="line-green"></div>
     <div class="container">
-        <div class="line-green"></div>
+        
         <div class="mt-4" id="detail">
             <div class="col-lg-12">
                 <h3>{{ detail.car_year }} {{ detail.brand }} {{ detail.section }}</h3>
@@ -118,7 +120,7 @@
                         <spam class="d-value">{{ detail.mileage }}</spam>
                     </div>
                     <div class="d-row">
-                        <span class="d-title">ระบบขับเคลื่อน</span>
+                        <span class="d-title">เกียร์</span>
                         <spam class="d-value">{{ detail.transmission }}</spam>
                     </div>
                 
