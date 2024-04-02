@@ -12,6 +12,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <style>
+        @media (min-width: 576px) {
+            .container {
+                max-width: 540px;
+            }
+        }
         body {
             font-family: 'Kanit', sans-serif;
             background-color: #000;
@@ -56,87 +61,89 @@
     </style>
   </head>
   <body>
-    <div class="line-green"></div>
-    <div class="mt-4" id="detail">
-        <div class="col-lg-6">
-            <h3>{{ detail.car_year }} {{ detail.brand }} {{ detail.section }}</h3>
-            <div class="headline-des">
-                <h4>รายละเอียด</h4>
-                <h4 class="car-id">รหัส ID : {{ detail.id }}</h4>
-            </div>
-            <h5>ราคาที่ลูดค้าต้องการ :</h5>
-
-            <div class="price-label">
-                <h2 class="price">฿ {{ detail.price }}</h2>
-            </div>
-
-            <div class="de-spec">
-                <div class="d-row">
-                    <span class="d-title">ยี่ห้อ</span>
-                    <spam class="d-value">{{ detail.brand }}</spam>
-                </div>
-                <div class="d-row">
-                    <span class="d-title">รุ่น</span>
-                    <spam class="d-value">{{ detail.section }}</spam>
-                </div>
-                <div class="d-row">
-                    <span class="d-title">ปี</span>
-                    <spam class="d-value">{{ detail.car_year }}</spam>
-                </div>
-                <div class="d-row">
-                    <span class="d-title">สี</span>
-                    <spam class="d-value">{{ detail.color }}</spam>
-                </div>
-                <div class="d-row">
-                    <span class="d-title">จำนวนประตู</span>
-                    <spam class="d-value">{{ detail.door }}</spam>
-                </div>
-                <div class="d-row">
-                    <span class="d-title">แถวที่นั่ง</span>
-                    <spam class="d-value">{{ detail.seat }}</spam>
-                </div>
-                <div class="d-row">
-                    <span class="d-title">ระบบขับเคลื่อน</span>
-                    <spam class="d-value">{{ detail.drive }}</spam>
-                </div>
-                <div class="d-row">
-                    <span class="d-title">เชื้อเพลิง</span>
-                    <spam class="d-value">{{ detail.fuel }}</spam>
-                </div>
-                <div class="d-row">
-                    <span class="d-title">ขนาดเครื่องยนต์ (CC.)</span>
-                    <spam class="d-value">{{ detail.engine }}</spam>
-                </div>
-                <div class="d-row">
-                    <span class="d-title">เลขไมล์</span>
-                    <spam class="d-value">{{ detail.mileage }}</spam>
-                </div>
-                <div class="d-row">
-                    <span class="d-title">ระบบขับเคลื่อน</span>
-                    <spam class="d-value">{{ detail.transmission }}</spam>
-                </div>
-               
-            </div>
-
-            <div class="spacer-single"></div>
-    <!--
-            <h4>Features</h4>
-            <ul class="ul-style-2">
-                <li>Bluetooth</li>
-                <li>Multimedia Player</li>
-                <li>Central Lock</li>
-                <li>Sunroof</li>
-            </ul>
-    -->
-        </div>
-        <div class="col-lg-6">
-            <h4>รูปภาพ</h4>
-        </div>
+    <div class="container">
         <div class="line-green"></div>
-        <div v-for="images in img" class="">
-            <img :src="images" style="width:100%;">
+        <div class="mt-4" id="detail">
+            <div class="col-lg-12">
+                <h3>{{ detail.car_year }} {{ detail.brand }} {{ detail.section }}</h3>
+                <div class="headline-des">
+                    <h4>รายละเอียด</h4>
+                    <h4 class="car-id">รหัส ID : {{ detail.id }}</h4>
+                </div>
+                <h5>ราคาที่ลูดค้าต้องการ :</h5>
+
+                <div class="price-label">
+                    <h2 class="price">฿ {{ detail.price }}</h2>
+                </div>
+
+                <div class="de-spec">
+                    <div class="d-row">
+                        <span class="d-title">ยี่ห้อ</span>
+                        <spam class="d-value">{{ detail.brand }}</spam>
+                    </div>
+                    <div class="d-row">
+                        <span class="d-title">รุ่น</span>
+                        <spam class="d-value">{{ detail.section }}</spam>
+                    </div>
+                    <div class="d-row">
+                        <span class="d-title">ปี</span>
+                        <spam class="d-value">{{ detail.car_year }}</spam>
+                    </div>
+                    <div class="d-row">
+                        <span class="d-title">สี</span>
+                        <spam class="d-value">{{ detail.color }}</spam>
+                    </div>
+                    <div class="d-row">
+                        <span class="d-title">จำนวนประตู</span>
+                        <spam class="d-value">{{ detail.door }}</spam>
+                    </div>
+                    <div class="d-row">
+                        <span class="d-title">แถวที่นั่ง</span>
+                        <spam class="d-value">{{ detail.seat }}</spam>
+                    </div>
+                    <div class="d-row">
+                        <span class="d-title">ระบบขับเคลื่อน</span>
+                        <spam class="d-value">{{ detail.drive }}</spam>
+                    </div>
+                    <div class="d-row">
+                        <span class="d-title">เชื้อเพลิง</span>
+                        <spam class="d-value">{{ detail.fuel }}</spam>
+                    </div>
+                    <div class="d-row">
+                        <span class="d-title">ขนาดเครื่องยนต์ (CC.)</span>
+                        <spam class="d-value">{{ detail.engine }}</spam>
+                    </div>
+                    <div class="d-row">
+                        <span class="d-title">เลขไมล์</span>
+                        <spam class="d-value">{{ detail.mileage }}</spam>
+                    </div>
+                    <div class="d-row">
+                        <span class="d-title">ระบบขับเคลื่อน</span>
+                        <spam class="d-value">{{ detail.transmission }}</spam>
+                    </div>
+                
+                </div>
+
+                <div class="spacer-single"></div>
+        <!--
+                <h4>Features</h4>
+                <ul class="ul-style-2">
+                    <li>Bluetooth</li>
+                    <li>Multimedia Player</li>
+                    <li>Central Lock</li>
+                    <li>Sunroof</li>
+                </ul>
+        -->
+            </div>
+            <div class="col-lg-6">
+                <h4>รูปภาพ</h4>
+            </div>
+            <div class="line-green"></div>
+            <div v-for="images in img" class="">
+                <img :src="images" style="width:100%;">
+            </div>
+            
         </div>
-           
     </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
