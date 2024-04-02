@@ -96,7 +96,7 @@
                 <h3 class="mb-0">{{ detail.car_year }} {{ detail.brand }} {{ detail.section }}</h3>
 
                 <div class="share-button">
-                    <button class="btn btn-success" data-sharer="line" :data-title="'พ่อสื่อออนไลน์ รหัส ID : '+ detail.id" :data-url="'/stock/'+ detail.link"><i class="fa-regular fa-share-from-square"></i></button>
+                    <button class="btn btn-success" data-sharer="line" :data-title="'พ่อสื่อออนไลน์ รหัส ID : '+ detail.id" :data-url="detail.link"><i class="fa-regular fa-share-from-square"></i></button>
                 </div>
                 
                 <div class="headline-des">
