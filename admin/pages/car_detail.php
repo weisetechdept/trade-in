@@ -222,6 +222,10 @@
                                             <table class="table mb-0">
                                                 <tbody>
                                                     <tr>
+                                                        <th width="155px">แชร์</th>
+                                                        <td>{{ share_link }}</td>
+                                                    </tr>
+                                                    <tr>
                                                         <th width="155px">รหัส ID</th>
                                                         <td>{{ id }}</td>
                                                     </tr>
@@ -706,6 +710,7 @@
                             suspension: '',
                             drive: '',
                             seller_name: '',
+                            share_link: ''
                             
                             offer:{
                                 price: '',
@@ -767,6 +772,7 @@
                                 this.seller_name = response.data.car.seller_name;
 
                                 this.offer.display = response.data.offer;
+                                this.share_link = response.data.share_link;
 
                                 
                              

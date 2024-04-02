@@ -108,6 +108,12 @@
         require_once 'sales/pages/car_mgr_detail.php';
     });
 
+    /* public */
+
+    $router->get( '/stock/(.*)', function($id) {
+        require_once 'public/pages/detail.php';
+    });
+
 
     $router->run();
     

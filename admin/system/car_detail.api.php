@@ -92,7 +92,8 @@
             'passengerType' => $stock['cast_passengerType'],
             'suspension' => $stock['cast_suspension'],
             'drive' => $stock['cast_drive'],
-            'seller_name' => $stock['cast_seller_name']
+            'seller_name' => $stock['cast_seller_name'],
+            'share_link' => 'https://trade-in.toyotaparagon.com/stock/'.base64_encode($stock['cast_id'])
         );
 
         $offer = $db->where('off_parent',$id)->get('offer');
