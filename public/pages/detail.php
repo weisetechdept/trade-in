@@ -59,6 +59,30 @@
             width: 110px;
             display: inline-block;
         }
+        table tr {
+            color: #fff;
+        }
+       
+        @media only screen and (max-width: 767px){
+            .container {
+                padding-left: 0px;
+                padding-right: 0px;
+            }
+        }
+
+        .share-button button {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            background-color: #fff;
+            color: #000;
+        }
+        .share-button {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 15px;
+        }
+        
     </style>
   </head>
   <body>
@@ -67,7 +91,12 @@
         
         <div class="mt-4" id="detail">
             <div class="col-lg-12">
-                <h3>{{ detail.car_year }} {{ detail.brand }} {{ detail.section }}</h3>
+                <h3 class="mb-0">{{ detail.car_year }} {{ detail.brand }} {{ detail.section }}</h3>
+
+                <div class="share-button">
+                    <button class="btn btn-success">S</button>
+                </div>
+                
                 <div class="headline-des">
                     <h4>รายละเอียด</h4>
                     <h4 class="car-id">รหัส ID : {{ detail.id }}</h4>
@@ -78,53 +107,54 @@
                     <h2 class="price">฿ {{ detail.price }}</h2>
                 </div>
 
-                <div class="de-spec">
-                    <div class="d-row">
-                        <span class="d-title">ยี่ห้อ</span>
-                        <spam class="d-value">{{ detail.brand }}</spam>
-                    </div>
-                    <div class="d-row">
-                        <span class="d-title">รุ่น</span>
-                        <spam class="d-value">{{ detail.section }}</spam>
-                    </div>
-                    <div class="d-row">
-                        <span class="d-title">ปี</span>
-                        <spam class="d-value">{{ detail.car_year }}</spam>
-                    </div>
-                    <div class="d-row">
-                        <span class="d-title">สี</span>
-                        <spam class="d-value">{{ detail.color }}</spam>
-                    </div>
-                    <div class="d-row">
-                        <span class="d-title">จำนวนประตู</span>
-                        <spam class="d-value">{{ detail.door }}</spam>
-                    </div>
-                    <div class="d-row">
-                        <span class="d-title">แถวที่นั่ง</span>
-                        <spam class="d-value">{{ detail.seat }}</spam>
-                    </div>
-                    <div class="d-row">
-                        <span class="d-title">ระบบขับเคลื่อน</span>
-                        <spam class="d-value">{{ detail.drive }}</spam>
-                    </div>
-                    <div class="d-row">
-                        <span class="d-title">เชื้อเพลิง</span>
-                        <spam class="d-value">{{ detail.fuel }}</spam>
-                    </div>
-                    <div class="d-row">
-                        <span class="d-title">ขนาดเครื่องยนต์ (CC.)</span>
-                        <spam class="d-value">{{ detail.engine }}</spam>
-                    </div>
-                    <div class="d-row">
-                        <span class="d-title">เลขไมล์</span>
-                        <spam class="d-value">{{ detail.mileage }}</spam>
-                    </div>
-                    <div class="d-row">
-                        <span class="d-title">เกียร์</span>
-                        <spam class="d-value">{{ detail.transmission }}</spam>
-                    </div>
-                
-                </div>
+                <table class="table table-sm">
+                    <tbody>
+                        <tr>
+                            <th scope="row">ยี่ห้อ</th>
+                            <td>{{ detail.brand }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">รุ่น</th>
+                            <td>{{ detail.section }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">ปี</th>
+                            <td>{{ detail.car_year }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">สี</th>
+                            <td>{{ detail.color }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">จำนวนประตู</th>
+                            <td>{{ detail.door }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">แถวที่นั่ง</th>
+                            <td>{{ detail.seat }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">ระบบขับเคลื่อน</th>
+                            <td>{{ detail.drive }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">เชื้อเพลิง</th>
+                            <td>{{ detail.fuel }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">ขนาดเครื่องยนต์ (CC.)</th>
+                            <td>{{ detail.engine }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">เลขไมล์</th>
+                            <td>{{ detail.mileage }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">เกียร์</th>
+                            <td>{{ detail.transmission }}</td>
+                        </tr>
+                    </tbody>
+                </table>
 
                 <div class="spacer-single"></div>
         <!--
