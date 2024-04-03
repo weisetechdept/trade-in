@@ -54,6 +54,7 @@
             'cast_passengerType' => $passengerType,
             'cast_suspension' => $suspension,
             'cast_drive' => $drive,
+            'link_public' => 0,
             'cast_status' => '0', 
             'cast_datetime' => date('Y-m-d H:i:s')
         );
