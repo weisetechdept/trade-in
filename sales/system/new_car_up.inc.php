@@ -46,6 +46,7 @@
             'cast_seller_name' => $seller_name,
             'cast_tel' => $tel,
             'cast_vat' => '0',
+
             'cast_type' => $type,
             'cast_seat' => $seat,
             'cast_door' => $door,
@@ -55,6 +56,7 @@
             'cast_suspension' => $suspension,
             'cast_drive' => $drive,
             'cast_link_public' => '0',
+            
             'cast_status' => '0', 
             'cast_datetime' => date('Y-m-d H:i:s')
         );
