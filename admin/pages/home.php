@@ -169,6 +169,7 @@
                                             <tr>
                                                 <th>รหัส</th>
                                                 <th>รูปภาพ</th>
+                                                <th>จำนวนรูป</th>
                                                 <th>ทะเบียน</th>
                                                 <th>ปี</th>
                                                 <th>รถยนต์</th>
@@ -183,6 +184,7 @@
                                         </thead>
                                         <tbody>
                                             <tr>
+                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -286,6 +288,7 @@
                         return '<img src="'+ data +'" class="car-thumb">';
                     }
                 },
+                {'data':'11'},
                 {'data':'1'},
                 {'data':'9'},
                 {'data':'2'},

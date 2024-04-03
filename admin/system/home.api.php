@@ -38,6 +38,10 @@
         
 
         foreach ($stock as $value) {
+
+            $img_count = $db->where('cari_parent',$value['cast_id'])->where('cari_status', '1')->getValue('car_image','count(*)');
+
+
             if(empty($value['cast_sales_parent_no'])){
                 $data_owner = $value['cast_sales_parent'].' - '.$value['cast_sales_team'];
             } else {
@@ -63,7 +67,8 @@
                 DateThai($value['cast_datetime']),
                 $thumbnail,
                 $value['cast_year'],
-                getTeam($value['cast_sales_parent_no'])
+                getTeam($value['cast_sales_parent_no']),
+                $img_count
             );
         }
 

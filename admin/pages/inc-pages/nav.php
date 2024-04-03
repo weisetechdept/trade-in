@@ -19,8 +19,7 @@
             <div class="dropdown d-inline-block ml-2">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img :src="sales_photo" class="rounded-circle header-profile-user" alt="Header Avatar">
-                    <span class="d-none d-sm-inline-block ml-1">{{ sales_name }}</span>
+                    <span class="d-none d-sm-inline-block ml-1">Admin</span>
                     <i class="mdi mdi-chevron-down d-none d-sm-inline-block"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
