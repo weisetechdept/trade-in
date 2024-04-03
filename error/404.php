@@ -9,10 +9,8 @@
     <meta content="MyraStudio" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <!-- App favicon -->
     <link rel="shortcut icon" href="/assets/images/favicon.ico">
 
-    <!-- App css -->
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/theme.min.css" rel="stylesheet" type="text/css" />
@@ -41,33 +39,24 @@
                                             <h1 class="h4 mb-3 mt-4">Page Not Found</h1>
                                             <p class="text-muted mb-4 w-75 m-auto">It's looking like you may have taken a wrong turn. Don't worry... it happens to the best of us. Here's a little tip that might help you get back on track.</p>
                                         </div>
-
-                                        <div class="row mt-4">
-                                            <div class="col-12 text-center">
-                                                <a href="/access" class="btn btn-success waves-effect waves-light"><i class="mdi mdi-home mr-2"></i>Back to login </a>
-                                            </div> <!-- end col -->
-                                        </div>
-                                        <!-- end row -->
-                                    </div> <!-- end .padding-5 -->
-                                </div> <!-- end col -->
-                            </div> <!-- end row -->
-                        </div> <!-- end .w-100 -->
-                    </div> <!-- end .d-flex -->
-                </div> <!-- end col-->
-            </div> <!-- end row -->
+                                        
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- end container -->
+        
     </div>
-    <!-- end page -->
 
-    <!-- jQuery  -->
     <script src="/assets/js/jquery.min.js"></script>
     <script src="/assets/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/js/metismenu.min.js"></script>
     <script src="/assets/js/waves.js"></script>
     <script src="/assets/js/simplebar.min.js"></script>
 
-    <!-- App js -->
     <script src="/assets/js/theme.js"></script>
 
 </body>

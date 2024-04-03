@@ -116,20 +116,6 @@
                                         </div>
 
                                         <div class="col-md-3">
-                                            <label>สถานะ</label>
-                                            <div class="input-group">
-                                                <select class="form-control" v-model="search.status">
-                                                    <option value="all">ทุกสถานะ</option>
-                                                    <option value="0">ไม่มีสถานะ</option>
-                                                    <option value="1">ติดตามลูกค้า</option>
-                                                    <option value="2">ไม่ได้สัมผัสรถ</option>
-                                                    <option value="3">ลูกค้าขายเอง / ขายที่อื่น</option>
-                                                    <option value="4">สำเร็จ</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-3">
                                             <button class="btn btn-primary search-btn" @click="searchData()" type="submit">ค้นหา</button>
                                         </div>
                                     </div>
@@ -140,7 +126,7 @@
                 </div>
 
                     <div class="row">
-                        <div class="col-10">
+                        <div class="col-9">
                             <div class="card">
                                 <div class="card-body">
                                     <table id="datatable" class="table dt-responsive nowrap">
@@ -150,7 +136,7 @@
                                                 <th>ไม่มีสถานะ</th>
                                                 <th>ติดตามลูกค้า</th>
                                                 <th>ไม่ได้สัมผัสรถ</th>
-                                                <th>ลูกค้าขายเอง / ขายที่อื่น</th>
+                                                <th>ขายที่อื่น</th>
                                                 <th>สำเร็จ</th>
                                                 <th>รวม</th>
                                             </tr>
@@ -229,7 +215,8 @@
     <!-- Datatables init -->
     <script>
         $('#datatable').DataTable({
-            order: [[ 0, "desc" ]],
+            pageLength: 50,
+            order: [[ 0, "asc" ]],
             responsive: true,
             dom: 'Blfrtip',
             buttons: [
@@ -249,7 +236,7 @@
             "drawCallback": function () {
                 $('.dataTables_paginate > .pagination').addClass('pagination-rounded');
             },
-            ajax: '/admin/system/report.api.php',
+            ajax: '/admin/system/report.api.php?get=count',
             "columns" : [
                 {'data':'0'},
                 {'data':'1'},
@@ -271,12 +258,6 @@
                     status: 'all'
                 }
             },
-            mounted() {
-                axios.get('/admin/system/home.api.php?get=count')
-                    .then(response => (
-                        this.count = response.data.count
-                    ));
-            },
             methods: {
                 searchData() {
                     swal({
@@ -287,7 +268,7 @@
                         closeOnClickOutside: false,
                         closeOnEsc: false
                     });
-                    $('#datatable').DataTable().ajax.url('/admin/system/home.api.php?get=search&start='+this.search.start+'&end='+this.search.end+'&status='+this.search.status).load(function() {
+                    $('#datatable').DataTable().ajax.url('/admin/system/report.api.php?get=search&start='+this.search.start+'&end='+this.search.end+'&status='+this.search.status).load(function() {
                         swal.close(); // Close the loading message
                     });
                     this.count = $('#datatable').DataTable().rows().count();

@@ -212,6 +212,8 @@
                         } else {
                             swal("Detail not found", "Please try again", "error",{
                                 button: "OK",
+                            }).then((value) => {
+                                window.location.href = '/404';
                             });
                         }
                     })
