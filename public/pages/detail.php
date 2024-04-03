@@ -205,10 +205,17 @@
             },
             mounted () {
                 axios.get('/public/system/detail.api.php?id=<?php echo $id ?>')
-                    .then(response => (
-                        this.img = response.data.img,
-                        this.detail = response.data.detail
-                    ))
+                    .then(response => {
+                        if (response.data.detail.share == 1) {
+                            this.img = response.data.img;
+                            this.detail = response.data.detail;
+                        } else {
+                            swal("Detail not found", "Please try again", "error",{
+                                button: "OK",
+                            });
+                        }
+                    })
+                    
             }
         });
 

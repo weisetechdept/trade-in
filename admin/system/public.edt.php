@@ -8,7 +8,7 @@
     $id = $request->id;
     $switchPublic = $request->switchPublic;
 
-    if($switchPublic == 'true'){
+    if($switchPublic == true){
         $switchPublic = 0;
     }else{
         $switchPublic = 1;

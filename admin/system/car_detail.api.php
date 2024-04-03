@@ -14,7 +14,7 @@
 
         $db->join('car_stock c', "f.find_id=c.cast_car", "RIGHT");
         $db->where('c.cast_id', $id);
-        $stock = $db->getOne("finance_data f", null, "f.find_id, f.find_brand, f.find_serie, f.find_section, f.find_color, f.find_price, f.find_status, c.cast_id, c.cast_license, c.cast_color, c.cast_price, c.cast_sales_parent, c.cast_sales_team, c.cast_status,cast_seller_name");
+        $stock = $db->getOne("finance_data f", null, "f.find_id, f.find_brand, f.find_serie, f.find_section, f.find_color, f.find_price, f.find_status, c.cast_id, c.cast_license, c.cast_color, c.cast_price, c.cast_sales_parent, c.cast_sales_team, c.cast_status,cast_seller_name,cast_link_public");
 
         if($stock['cast_type'] == '1'){
             $typeOfCar = 'เก๋ง (SEDAN,HB,SUV,MPV,PPV)';
@@ -61,6 +61,8 @@
         }
         $fuel = rtrim($fuel, ', ');
 
+       
+
 
         $api['car'] = array('id' => $stock['cast_id'],
             'license' => $stock['cast_license'],
@@ -93,7 +95,8 @@
             'suspension' => $stock['cast_suspension'],
             'drive' => $stock['cast_drive'],
             'seller_name' => $stock['cast_seller_name'],
-            'share_link' => 'https://trade-in.toyotaparagon.com/stock/'.base64_encode($stock['cast_id'])
+            'share_link' => 'https://trade-in.toyotaparagon.com/stock/'.base64_encode($stock['cast_id']),
+            'publicLink' => $stock['cast_link_public']
         );
 
         $offer = $db->where('off_parent',$id)->get('offer');

@@ -87,6 +87,12 @@
                 color: #555;
                 background-color: #efefef;
             }
+            .red-font {
+                color: red;
+            }
+            .green-font {
+                color: green;
+            }
         </style>
     </head>
 
@@ -216,12 +222,12 @@
                                         <h4 class="mb-2 font-size-18">การแชร์</h4>
                                         <div class="row">
                                             <div class="col-8">
-                                                <label>การแชร์ข้อมูลรถคันนี้</label>
+                                                <label>การแชร์ข้อมูลรถคันนี้ : <span class="red-font" v-if="switchPublic == 0">ยังไม่แชร์</span><span class="green-font" v-else-if="switchPublic == 1">แชร์</span></label>
                                                 <div class="input-group mb-3">
-                                                    <input type="checkbox" checked data-toggle="toggle" v-model="switchPublic" @change="">
+                                                    <button class="btn btn-outline-warning" @click="publicSwitch" type="button">เปลี่ยนสถานะการแชร์</button>
                                                 </div>
 
-                                                <div class="form-group">
+                                                <div class="form-group" v-if="switchPublic == 1">
                                                     <div class="input-group">
                                                         <input type="text" :value="share_link" id="myInput" class="form-control">
                                                         <div class="input-group-append">
@@ -683,7 +689,7 @@
                                 partner: '',
                                 display: [],
                             },
-                            switchPublic: false,
+                            switchPublic: false
                         }
                     },
                     mounted () {
@@ -740,16 +746,41 @@
 
                                 this.offer.display = response.data.offer;
                                 this.share_link = response.data.car.share_link;
+
+                                this.switchPublic = response.data.car.publicLink;
                              
                             }),
                             this.calDownpayment();
                     },
                     methods: {
                         publicSwitch(){
-                            axios.post('/admin/system/public.edt.php', {
-                                id: this.id,
-                                switchPublic: this.switchPublic
-                            })
+                            swal({
+                                title: 'คุณแน่ใจหรือไม่ ?',
+                                text: "คุณต้องการเปลี่ยนสถานะการแชร์ข้อมูลหรือไม่ ?",
+                                icon: "info",
+                                buttons: true,
+                                dangerMode: true,
+                            }).then((willDelete) => {
+                                if (willDelete) {
+                                    axios.post('/admin/system/public.edt.php', {
+                                        id: this.id,
+                                        switchPublic: this.switchPublic
+                                    }).then(res => {
+                                        if(res.data.status == 200) 
+                                            swal("สำเร็จ", "เปลี่ยนสถานะการแชร์ข้อมูลสำเร็จ", "success",{ 
+                                                button: "ตกลง"
+                                            }).then((value) => {
+                                                location.reload(true)
+                                            });
+
+                                        if(res.data.status == 400)
+                                            swal("ทำรายการไม่สำเร็จ", "เปลี่ยนสถานะการแชร์ข้อมูลไม่สำเร็จ อาจมีบางอย่างผิดปกติ (error : 400)", "warning",{ 
+                                                button: "ตกลง"
+                                            }
+                                        );
+                                    });
+                                } 
+                            });
                         },
                         offerData() {
                             swal({
