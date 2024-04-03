@@ -33,6 +33,8 @@
         <link href="/assets/css/theme.min.css" rel="stylesheet" type="text/css" />
         <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
 
+        <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+
         <style>
             body {
                 font-family: 'Chakra Petch', sans-serif;
@@ -209,6 +211,29 @@
                                             </div>
                                     </div>
                                 </div>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="mb-2 font-size-18">การแชร์</h4>
+                                        <div class="row">
+                                            <div class="col-8">
+                                                <label>การแชร์ข้อมูลรถคันนี้</label>
+                                                <div class="input-group mb-3">
+                                                    <input type="checkbox" checked data-toggle="toggle" v-model="switchPublic" @change="">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <input type="text" :value="share_link" id="myInput" class="form-control">
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-dark waves-effect waves-light" @click="copyLink" type="button">คัดลอก</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
 
                         </div>
@@ -221,10 +246,6 @@
                                         <div class="table-responsive">
                                             <table class="table mb-0">
                                                 <tbody>
-                                                    <tr>
-                                                        <th width="155px">แชร์</th>
-                                                        <td>{{ share_link }}</td>
-                                                    </tr>
                                                     <tr>
                                                         <th width="155px">รหัส ID</th>
                                                         <td>{{ id }}</td>
@@ -609,65 +630,10 @@
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
         <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 
 
         <script>
-                FilePond.parse(document.body);
-                FilePond.setOptions({
-                    server: {
-                        process: (fieldName, file, metadata, load, error, progress, abort, transfer, options) => {
-                            // fieldName is the name of the input field
-                            // file is the actual file object to send
-                            const formData = new FormData();
-                            formData.append(fieldName, file, file.name);
-
-                            const request = new XMLHttpRequest();
-                            request.open('POST', '/admin/system/multi_upload.php');
-
-                            // Should call the progress method to update the progress to 100% before calling load
-                            // Setting computable to false switches the loading indicator to infinite mode
-                            request.upload.onprogress = (e) => {
-                                progress(e.lengthComputable, e.loaded, e.total);
-                                axios.post('/admin/system/multi_upload.php', formData, {
-                                    headers: { 
-                                        'Content-Type': 'multipart/form-data'
-                                    }
-                                }).then(res => {
-                                    console.log(res.data);
-                                });
-                            };
-
-                            // Should call the load method when done and pass the returned server file id
-                            // this server file id is then used later on when reverting or restoring a file
-                            // so your server knows which file to return without exposing that info to the client
-                            request.onload = function () {
-                                if (request.status >= 200 && request.status < 300) {
-                                    // the load method accepts either a string (id) or an object
-                                    load(request.responseText);
-                                } else {
-                                    // Can call the error method if something is wrong, should exit after
-                                    error('oh no');
-                                }
-                            };
-
-                            request.send(formData);
-
-                            // Should expose an abort method so the request can be cancelled
-                            return {
-                                abort: () => {
-                                    // This function is entered if the user has tapped the cancel button
-                                    request.abort();
-
-                                    // Let FilePond know the request has been cancelled
-                                    abort();
-                                },
-                            };
-                        },
-                    },
-                });
-                
-
-
                 
                 var agent_detail = new Vue({
                     el: '#agent',
@@ -717,6 +683,7 @@
                                 partner: '',
                                 display: [],
                             },
+                            switchPublic: false,
                         }
                     },
                     mounted () {
@@ -778,6 +745,12 @@
                             this.calDownpayment();
                     },
                     methods: {
+                        publicSwitch(){
+                            axios.post('/admin/system/public.edt.php', {
+                                id: this.id,
+                                switchPublic: this.switchPublic
+                            })
+                        },
                         offerData() {
                             swal({
                                 title: 'คุณแน่ใจหรือไม่ ?',
@@ -830,6 +803,13 @@
                         formatPrice(value) {
                             let val = (value/1).toFixed(2).replace(',', '.')
                             return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                        },
+                        copyLink() {
+                            var copyText = document.getElementById("myInput");
+                            copyText.select();
+                            copyText.setSelectionRange(0, 99999);
+                            navigator.clipboard.writeText(copyText.value);
+                            alert("คัดลอกลิ้ง : " + copyText.value);
                         }
                     }
                 });

@@ -103,7 +103,7 @@
                     <h4>รายละเอียด</h4>
                     <h4 class="car-id">รหัส ID : {{ detail.id }}</h4>
                 </div>
-                <h5>ราคาที่ลูดค้าต้องการ :</h5>
+                <h5>ราคาที่ลูกค้าต้องการ :</h5>
 
                 <div class="price-label">
                     <h2 class="price">฿ {{ detail.price }}</h2>

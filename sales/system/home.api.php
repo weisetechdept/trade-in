@@ -5,7 +5,7 @@
     
     $user_id = $_SESSION['tin_user_id'];
 
-    $db->join('car_stock c', "f.find_id=c.cast_car", "INNER");
+    $db->join('car_stock c', "f.find_id=c.cast_car", "RIGHT");
     $stock = $db->where('c.cast_sales_parent_no',$user_id)->get("finance_data f", null ,"c.cast_id,c.cast_license,f.find_brand,f.find_serie,f.find_section,c.cast_color,c.cast_price,c.cast_sales_parent,c.cast_sales_team,c.cast_status");
 
     if(!empty($stock)){
@@ -18,7 +18,6 @@
             } else {
                 $thumbnail = 'https://dummyimage.com/600x400/c4c4c4/fff&text=no-image';
             }
-            
 
             $api['data'][] = array($value['cast_id'],
                 $value['cast_status'],
