@@ -84,6 +84,11 @@
             justify-content: flex-end;
             margin-bottom: 15px;
         }
+        .download-button {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 15px;
+        }
         
     </style>
   </head>
@@ -173,9 +178,13 @@
                 </ul>
         -->
             </div>
-            <div class="col-lg-6">
-                <h4>รูปภาพ</h4>
+            <div class="col-lg-12">
+                <div class="headline-des">
+                    <h4>รูปภาพ</h4>
+                    <button class="btn btn-success btn-sm mb-2" @click="downloadImg">ดาวน์โหลดรุปทั้งหมด</button>
+                </div>
             </div>
+
             <div class="line-green"></div>
             <div v-for="images in img" class="">
                 <img :src="images" style="width:100%;">
@@ -218,6 +227,30 @@
                         }
                     })
                     
+            },
+            methods: {
+                downloadImg() {
+                    const images = [
+                        'https://imagedelivery.net/FG9yH3i4rybjZWgNeKKJvA/35f79421-bc12-400f-7e0d-10ea44516600/resize500',
+                        'https://imagedelivery.net/FG9yH3i4rybjZWgNeKKJvA/785519d5-585f-4dde-75f4-fee2ae7ecb00/resize500',
+                        'https://imagedelivery.net/FG9yH3i4rybjZWgNeKKJvA/b1115133-94d0-4006-c282-1ae02d515f00/public'
+                    ];
+
+                    if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+                        // For iOS devices
+                        images.forEach(image => {
+                            const link = document.createElement('a');
+                            link.href = image;
+                            link.download = '';
+                            link.click();
+                        });
+                    } else {
+                        // For other mobile devices
+                        images.forEach(image => {
+                            window.open(image, '_blank');
+                        });
+                    }
+                }
             }
         });
 
