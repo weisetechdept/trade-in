@@ -15,7 +15,7 @@
     }
 
     $data = array(
-        'link_public' => $switchPublic
+        'cast_link_public' => $switchPublic
     );
 
     $id = $db->where('cast_id', $id)->update('car_stock', $data);
