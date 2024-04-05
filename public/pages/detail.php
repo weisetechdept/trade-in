@@ -130,7 +130,7 @@
                         </tr>
                         <tr>
                             <th scope="row">ปี</th>
-                            <td>{{ detail.car_year }}</td>
+                            <td>{{ detail.reg_year }}</td>
                         </tr>
                         <tr>
                             <th scope="row">สี</th>
