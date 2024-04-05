@@ -34,7 +34,7 @@
         
             $messages = array(
                 'type' => 'text',
-                'text' => '[พ่อสื่อ]รถยนต์ของคุณ '.$car['cast_seller_name'].' ได้รับประเมินราคา 100,000 บาท'
+                'text' => '[พ่อสื่อ]รถยนต์ของคุณ '.$car['cast_seller_name'].' ได้รับประเมินราคา '.$price.' บาท สามารถคุยรายละเอียดผ่านแชทได้เลยค่ะ'
             );
             $post = json_encode(array(
                 'to' => array($userId),
