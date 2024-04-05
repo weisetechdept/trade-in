@@ -32,7 +32,7 @@
 		error_reporting(E_ALL);
 
 		$sToken = "8PejR1DTTI8B8rEb8STbW2bZs8FDAtA21Ll7nBO7Hmf";
-		$sMessage = "มีรถเข้ามาใหม่ จากเซลล์ ".$sales." ทีม ".$team." ดูข้อมูล :";
+		$sMessage = "มีรถเข้ามาใหม่ จากเซลล์ ".$sales." ทีม ".$team;
 
 		$chOne = curl_init(); 
 		curl_setopt( $chOne, CURLOPT_URL, "https://notify-api.line.me/api/notify"); 
@@ -48,11 +48,15 @@
 		//Result error 
 		if(curl_error($chOne)) 
 		{ 
-			echo 'error:' . curl_error($chOne); 
+			//echo 'error:' . curl_error($chOne); 
+			echo json_encode(array('status' => '400'));
 		} 
 		else { 
+			/*
 			$result_ = json_decode($result, true); 
 			echo "status : ".$result_['status']; echo "message : ". $result_['message'];
+			*/
+			echo json_encode(array('status' => '200'));
 		} 
 		curl_close( $chOne );   
 ?>

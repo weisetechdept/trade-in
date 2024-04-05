@@ -491,7 +491,19 @@
                                 if (willDelete) {
                                     axios.post('/sales/system/sendNotify.api.php',{
                                         id: this.id,
-                                    })
+                                    }).then(res => {
+                                        if(res.data.status == 200) 
+                                            swal("สำเร็จ", "ส่งข้อมูลให้ทีมพ่อสื่อสำเร็จ", "success",{ 
+                                                button: "ตกลง"
+                                            }).then((value) => {
+                                                location.reload(true)
+                                            });
+                                        if(res.data.status == 400) 
+                                            swal("ทำรายการไม่สำเร็จ", "ส่งข้อมูลให้ทีมพ่อสื่อไม่สำเร็จ อาจมีบางอย่างผิดปกติ (error : 400)", "warning",{ 
+                                                button: "ตกลง"
+                                            }
+                                        );
+                                    });
                                 }
                             });
                         },
