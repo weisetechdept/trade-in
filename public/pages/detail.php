@@ -51,7 +51,7 @@
         .headline-des {
             display: flex;
             justify-content: space-between;
-            border-bottom: 1px solid #fff;
+            /* border-bottom: 1px solid #fff; */
             margin-bottom: 15px;
         }
         .car-id {
@@ -108,12 +108,12 @@
                     <h4>รายละเอียด</h4>
                     <h4 class="car-id">รหัส ID : {{ detail.id }}</h4>
                 </div>
+<!--
                 <h5>ราคาที่ลูกค้าต้องการ :</h5>
-
                 <div class="price-label">
-                    <h2 class="price">฿ {{ detail.price }}</h2>
+                    <h2 class="price">฿</h2>
                 </div>
-
+-->
                 <table class="table table-sm">
                     <tbody>
                         <tr>
@@ -122,6 +122,10 @@
                         </tr>
                         <tr>
                             <th scope="row">รุ่น</th>
+                            <td>{{ detail.serie }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">เกรด</th>
                             <td>{{ detail.section }}</td>
                         </tr>
                         <tr>
@@ -132,7 +136,7 @@
                             <th scope="row">สี</th>
                             <td>{{ detail.color }}</td>
                         </tr>
-                        <tr>
+                        <tr v-if="detail.type == 2">
                             <th scope="row">จำนวนประตู</th>
                             <td>{{ detail.door }}</td>
                         </tr>
@@ -140,7 +144,7 @@
                             <th scope="row">แถวที่นั่ง</th>
                             <td>{{ detail.seat }}</td>
                         </tr>
-                        <tr>
+                        <tr v-if="detail.type == 2">
                             <th scope="row">ระบบขับเคลื่อน</th>
                             <td>{{ detail.drive }}</td>
                         </tr>
@@ -181,7 +185,6 @@
             <div class="col-lg-12">
                 <div class="headline-des">
                     <h4>รูปภาพ</h4>
-                    <button class="btn btn-success btn-sm mb-2" @click="downloadImg">ดาวน์โหลดรุปทั้งหมด</button>
                 </div>
             </div>
 
@@ -229,28 +232,7 @@
                     
             },
             methods: {
-                downloadImg() {
-                    const images = [
-                        'https://imagedelivery.net/FG9yH3i4rybjZWgNeKKJvA/35f79421-bc12-400f-7e0d-10ea44516600/resize500',
-                        'https://imagedelivery.net/FG9yH3i4rybjZWgNeKKJvA/785519d5-585f-4dde-75f4-fee2ae7ecb00/resize500',
-                        'https://imagedelivery.net/FG9yH3i4rybjZWgNeKKJvA/b1115133-94d0-4006-c282-1ae02d515f00/public'
-                    ];
-
-                    if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
-                        // For iOS devices
-                        images.forEach(image => {
-                            const link = document.createElement('a');
-                            link.href = image;
-                            link.download = '';
-                            link.click();
-                        });
-                    } else {
-                        // For other mobile devices
-                        images.forEach(image => {
-                            window.open(image, '_blank');
-                        });
-                    }
-                }
+               
             }
         });
 
