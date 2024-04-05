@@ -210,7 +210,7 @@
                                             </table>
                                             <div class="form-group mt-3">
                                                 <h4 class="mb-2 font-size-18">จัดการข้อมูล</h4>
-                                                <a :href="'/sales/edit/'+id" type="submit" class="btn btn-outline-warning waves-effect waves-light mr-1">แก้ใข</a>
+                                                <a :href="'/sales/edit/'+id" type="submit" class="btn btn-outline-warning waves-effect waves-light mr-2">แก้ใข</a> <button type="button" class="btn btn-success waves-effect waves-light" @click="sendNotify">ส่งข้อมูลให้ทีมพ่อสื่อ</button>
                                             </div>
                                         </div>
                                     </div>
@@ -475,6 +475,26 @@
                             this.calDownpayment();
                     },
                     methods: {
+                        sendNotify(){
+                            swal({
+                                title: 'คุณแน่ใจหรือไม่ ?',
+                                text: "คุณต้องการส่งข้อมูลให้ทีมพ่อสื่อใช่หรือไม่ โปรดตรวจสอบข้อมูลให้ถูกต้อง",
+                                icon: "warning",
+                                buttons: {
+                                    cancel: "ยกเลิก",
+                                    confirm: {
+                                        text: "ดำเนินการต่อ",
+                                    }
+                                },
+                                dangerMode: true
+                            }).then((willDelete) => {
+                                if (willDelete) {
+                                    axios.post('/sales/system/sendNotify.api.php',{
+                                        id: this.id,
+                                    })
+                                }
+                            });
+                        },
                         calDownpayment(e){
                             
                             var cal_down = this.cal_price - (this.cal_tltprice * (this.loanrate/100));

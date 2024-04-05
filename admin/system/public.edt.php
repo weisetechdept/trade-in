@@ -6,6 +6,7 @@
     if($_SESSION['tin_admin'] != true){
         header("location: /404");
         exit();
+        
     } else {
 
         $request = json_decode(file_get_contents('php://input'));
