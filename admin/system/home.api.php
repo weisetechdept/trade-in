@@ -49,7 +49,7 @@
                 $data_owner = $sales['first_name'];
             }
 
-            $img = $db->where('cari_parent', $value['cast_id'])->where('cari_status', '1')->getOne('car_image');
+            $img = $db->where('cari_parent', $value['cast_id'])->where('cari_group', '11')->where('cari_status', '1')->getOne('car_image');
 
             if(!empty($img)){
                 $thumbnail = $img['cari_link'];
