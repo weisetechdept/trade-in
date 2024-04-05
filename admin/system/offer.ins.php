@@ -23,16 +23,18 @@
         $id = $db->insert('offer', $data);
         if ($id){
 
+            
+
             $car = $db->where('cast_id', $id)->getOne('car_stock');
 
-            $luid = $db_nms->where('id', $car['cast_sales_parent_no'])->getOne('db_member');
+            $luid = $db_nms->where('id', 271)->getOne('db_member');
 
             $access_token = 'GtacKYhQw2Y7U9Wzc8GeNUW32big3VZs4oeUU7U8wEtlPUDq1kLKQYBpD1HbwP/nFetgiLI0GA8pxPG7fAxvOYO001rJ6WXN4uNp7d+pxM43hKKZ1klmScK6z8jr3XJZno1X1AGGwwQWUP9lBjUuEAdB04t89/1O/w1cDnyilFU=';
             $userId = $luid['line_usrid'];
         
             $messages = array(
                 'type' => 'text',
-                'text' => '[พ่อสื่อ]คุณ '.$car['cast_seller_name'].' ได้รับประเมินราคา '.$price.' บาท คุยผ่านแชทได้เลยค่ะ'
+                'text' => '[พ่อสื่อ]รถยนต์ของคุณ '.$car['cast_seller_name'].' ได้รับประเมินราคา 100,000 บาท'
             );
             $post = json_encode(array(
                 'to' => array($userId),
