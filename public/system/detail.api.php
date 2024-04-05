@@ -63,6 +63,12 @@
                     }
                 }
                 $fuel = rtrim($fuel, ', ');
+
+                if(number_format($stock['cast_mileage']) == '0'){
+                    $mileage = 'ไม่มีข้อมูล';
+                } else {
+                    $mileage = number_format($stock['cast_mileage']);
+                }
     
     
                 $api['detail'] = array('id' => $stock['cast_id'],
@@ -82,7 +88,7 @@
                     'option' => $stock['cast_option'],
                     'condition' => $stock['cast_condition'],
                     'vin' => $stock['cast_vin'],
-                    'mileage' => number_format($stock['cast_mileage']),
+                    'mileage' => $mileage,
                     'tel' => '0'.$stock['cast_tel'],
                     'cal_price' => $stock['cast_price'],
                     'cal_tlt_price' => $stock['find_price'],
