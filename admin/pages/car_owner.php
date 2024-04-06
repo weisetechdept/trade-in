@@ -118,6 +118,7 @@
                         <div class="row">
 
                             <div class="col-lg-6 col-md-12" id="owner">
+
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="mb-2 font-size-18">ข้อมูลสมาชิก</h4>
@@ -126,20 +127,20 @@
                                                 <tbody>
                                                     <tr>
                                                         <th width="120px">รหัส ID</th>
-                                                        <td>{{ custData.id }}</td>
+                                                        <td>{{ id }}</td>
                                                     </tr>
                                                     <tr>
                                                         <th>ชื่อผู้ขาย</th>
-                                                        <td>{{ custData.seller_name }}</td>
+                                                        <td>{{ seller_name }}</td>
                                                     </tr>
                                                     <tr>
                                                         <th>รถยนต์</th>
-                                                        <td>{{ custData.car }}</td>
+                                                        <td>{{ car }}</td>
                                                     </tr>
                                                     <tr>
                                                         <th>เซลล์ผู้ดูแล</th>
                                                         <td>
-                                                            <div class="form-group" id="owner">
+                                                            <div class="form-group">
                                                                 <select class="form-control search-sales"></select>
                                                             </div>
                                                         </td>
@@ -148,11 +149,12 @@
                                                 </tbody>
                                             </table>
                                             <div class="form-group mt-3">
-                                                <button type="submit" class="btn btn-success waves-effect waves-light mr-1">บันทึก</button>
+                                                <button type="submit" class="btn btn-success waves-effect waves-light ml-2">บันทึก</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
 
 
@@ -222,19 +224,27 @@
                 el: '#owner',
                 data () {
                     return {
-                        custData: [],
-                        sales: ''
+                        sales: '0',
+                        id: '',
+                        seller_name: '',
+                        car: ''
                     }
                 },
                 mounted () {
-                    axios.post('/admin/system/car_owner.api.php').then(function(response) {
+                    axios.post('/admin/system/car_owner.api.php?id=<?php echo $id; ?>').then(function(response) {
+                      
                         $('.search-sales').select2({
-                            data: response.data
+                            data: response.data.sales
                         });
+
                         $('.search-sales').on('change', function(e) {
                             this.sales = e.target.value;
                         });
-                        
+
+                        //console.log(response.data);
+                        owner.id = response.data.custData.id,
+                        owner.seller_name = response.data.custData.seller_name,
+                        owner.car = response.data.custData.car
                     });
                 },
                 methods: {

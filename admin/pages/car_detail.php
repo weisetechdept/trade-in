@@ -325,7 +325,7 @@
                             </div>
 
 
-                            
+<!-- 
 
                             <div class="col-lg-6 col-md-12">
                                 <div class="card">
@@ -469,6 +469,8 @@
                                     </div>
                                 </div>
                             </div>
+-->
+
                         </div>
 
 
@@ -514,7 +516,7 @@
                                     <div class="card-body">
                                         <h4 class="mb-2 font-size-18">จัดการข้อมูล</h4>
                                         <div class="table-responsive">
-                                            <a :href="'/admin/edit/'+id" type="submit" class="btn btn-outline-warning waves-effect waves-light mr-1">แก้ใข</a> <a href="/admin/owner" type="submit" class="btn btn-outline-primary waves-effect waves-light mr-1">ย้ายผู้ดูแล</a>
+                                            <a :href="'/admin/edit/'+id" type="submit" class="btn btn-outline-warning waves-effect waves-light mr-1">แก้ใข</a> <a href="/admin/owner" type="submit" class="btn btn-outline-primary waves-effect waves-light mr-1">ย้ายผู้ดูแล</a> <a href="#" type="submit" class="btn btn-outline-danger waves-effect waves-light mr-1">ลบข้อมูล</a>
                                         </div>
                                     </div>
                                 </div>

@@ -51,7 +51,7 @@
         require_once 'admin/pages/report-team.php'; 
     });
 
-    $router->get( '/admin/owner', function() {
+    $router->get( '/admin/owner/(.*)', function($id) {
         require_once 'admin/pages/car_owner.php'; 
     });
 
