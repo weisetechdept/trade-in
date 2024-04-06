@@ -14,7 +14,7 @@
                 $tm = array_merge(json_decode($t['detail']),json_decode($t['leader']));
                 if(in_array($uid,$tm)){
                     return $t['name'];
-                } 
+                }  
             }
         }
 

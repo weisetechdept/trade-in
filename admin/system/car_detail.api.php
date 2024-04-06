@@ -8,6 +8,17 @@
         exit();
     }
 
+    function getTeam($uid){
+        global $db_nms;
+        $team = $db_nms->get('db_user_group');
+        foreach($team as $t){
+            $tm = array_merge(json_decode($t['detail']),json_decode($t['leader']));
+            if(in_array($uid,$tm)){
+                return $t['name'];
+            } 
+        }
+    }
+
     $id = $_GET['u'];
 
     if(!empty($id)){
@@ -62,7 +73,7 @@
         $fuel = rtrim($fuel, ', ');
 
        
-
+        $salesData = $db_nms->where('id',$stock['cast_sales_parent_no'])->getOne('db_member');
 
         $api['car'] = array('id' => $stock['cast_id'],
             'license' => $stock['cast_license'],
@@ -75,7 +86,7 @@
             'price' => number_format($stock['cast_price']),
             'trade_price' => number_format($stock['cast_trade_price']),
             'tlt_price' => number_format($stock['find_price']),
-            'sales' => $stock['cast_sales_parent'].' - '.$stock['cast_sales_team'],
+            'sales' =>  $salesData['first_name'].' '.$salesData['last_name'].' ทีม '.getTeam($stock['cast_sales_parent_no']),
             'status' => $stock['cast_status'],
             'transmission' => $stock['cast_transmission'],
             'option' => $stock['cast_option'],

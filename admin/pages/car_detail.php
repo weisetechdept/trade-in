@@ -77,7 +77,7 @@
                 border-style: dashed;
             }
             .car_img {
-                height: 300px;
+                height: 300px; 
                 object-fit: cover;
             }
             .swal-button--danger {
@@ -516,14 +516,12 @@
                                     <div class="card-body">
                                         <h4 class="mb-2 font-size-18">จัดการข้อมูล</h4>
                                         <div class="table-responsive">
-                                            <a :href="'/admin/edit/'+id" type="submit" class="btn btn-outline-warning waves-effect waves-light mr-1">แก้ใข</a> <a :href="'/admin/owner/'+id" type="submit" class="btn btn-outline-primary waves-effect waves-light mr-1">ย้ายผู้ดูแล</a> <a href="#" type="submit" class="btn btn-outline-danger waves-effect waves-light mr-1">ลบข้อมูล</a>
+                                            <a :href="'/admin/edit/'+id" type="submit" class="btn btn-outline-warning waves-effect waves-light mr-1">แก้ใข</a> <a :href="'/admin/owner/'+id" type="submit" class="btn btn-outline-primary waves-effect waves-light mr-1">ย้ายผู้ดูแล</a> <button @click="deleteData" type="submit" class="btn btn-outline-danger waves-effect waves-light mr-1">ลบข้อมูล</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        
                         
                     </div>
 
@@ -755,6 +753,36 @@
                             this.calDownpayment();
                     },
                     methods: {
+                        deleteData() {
+                            swal({
+                                title: 'คุณแน่ใจหรือไม่ ?',
+                                text: "คุณต้องการลบข้อมูลรถยนต์นี้หรือไม่ ?",
+                                icon: "warning",
+                                buttons: true,
+                                dangerMode: true,
+                            }).then((willDelete) => {
+                                if (willDelete) {
+                                    /*
+                                    axios.post('/admin/system/car_delete.php', {
+                                        id: this.id
+                                    }).then(res => {
+                                        if(res.data.status == 200) 
+                                            swal("สำเร็จ", "ลบข้อมูลสำเร็จ", "success",{ 
+                                                button: "ตกลง"
+                                            }).then((value) => {
+                                                window.location.href = "/admin/home";
+                                            });
+
+                                        if(res.data.status == 400)
+                                            swal("ทำรายการไม่สำเร็จ", "ลบข้อมูลไม่สำเร็จ อาจมีบางอย่างผิดปกติ (error : 400)", "warning",{ 
+                                                button: "ตกลง"
+                                            }
+                                        );
+                                    });
+                                    */
+                                } 
+                            });
+                        },
                         publicSwitch(){
                             swal({
                                 title: 'คุณแน่ใจหรือไม่ ?',
