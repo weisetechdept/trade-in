@@ -574,7 +574,7 @@
                                         <div class="card-body">
                                             <img :src="docs.link_500" width="100%" class="car_img">
                                             <a :href="docs.link_500" target="_blank" type="button" class="btn btn-sm btn-primary waves-effect waves-light mt-2" style="margin-top: 10px;">รูปขนาดเต็ม</a>
-                                            <button @click="sendDelete" :value="docs.id" type="button" class="btn btn-sm btn-danger waves-effect waves-light mt-2" style="margin-top: 10px;">ลบ</button>
+                                            <button @click="sendDelete" type="button" class="btn btn-sm btn-danger waves-effect waves-light mt-2" style="margin-top: 10px;">ลบ</button>
                                             <p class="mt-1">อัพโหลดเมื่อ : {{ docs.datetime }}</p>
                                         </div>
                                     </div>
@@ -762,8 +762,8 @@
                                 dangerMode: true,
                             }).then((willDelete) => {
                                 if (willDelete) {
-                                    /*
-                                    axios.post('/admin/system/car_delete.php', {
+                                    
+                                    axios.post('/admin/system/car_delete.api.php', {
                                         id: this.id
                                     }).then(res => {
                                         if(res.data.status == 200) 

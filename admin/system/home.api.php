@@ -33,7 +33,7 @@
     if($_GET['get'] == 'list'){
 
         $db->join('car_stock c', "f.find_id=c.cast_car", "RIGHT");
-        $stock = $db->get("finance_data f", null ,"c.cast_id,c.cast_license,f.find_brand,f.find_serie,f.find_section,c.cast_color,c.cast_price,c.cast_sales_parent,c.cast_sales_team,c.cast_status,cast_sales_parent_no,cast_datetime,cast_year");
+        $stock = $db->where('cast_status',array(0,1,2,3,4),'IN')->get("finance_data f", null ,"c.cast_id,c.cast_license,f.find_brand,f.find_serie,f.find_section,c.cast_color,c.cast_price,c.cast_sales_parent,c.cast_sales_team,c.cast_status,cast_sales_parent_no,cast_datetime,cast_year");
 
         
 
