@@ -74,6 +74,11 @@
 
        
         $salesData = $db_nms->where('id',$stock['cast_sales_parent_no'])->getOne('db_member');
+        if(empty($salesData)){
+            $salesData = 'ไม่ผู้ดูแล';
+        } else {
+            $salesData = $salesData['first_name'].' '.$salesData['last_name'].' - ทีม '.getTeam($stock['cast_sales_parent_no']);
+        }
 
         $api['car'] = array('id' => $stock['cast_id'],
             'license' => $stock['cast_license'],
@@ -86,7 +91,7 @@
             'price' => number_format($stock['cast_price']),
             'trade_price' => number_format($stock['cast_trade_price']),
             'tlt_price' => number_format($stock['find_price']),
-            'sales' =>  $salesData['first_name'].' '.$salesData['last_name'].' ทีม '.getTeam($stock['cast_sales_parent_no']),
+            'sales' =>  $salesData,
             'status' => $stock['cast_status'],
             'transmission' => $stock['cast_transmission'],
             'option' => $stock['cast_option'],
