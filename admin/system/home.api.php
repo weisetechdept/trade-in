@@ -59,7 +59,7 @@
 
             $api['data'][] = array($value['cast_id'],
                 $value['cast_license'],
-                $value['find_serie'].' '.substr($value['find_section'],0,20),
+                $value['find_serie'].' '.substr($value['find_section'],0,15).'...',
                 $value['cast_color'],
                 number_format($value['cast_price']),
                 $data_owner,
