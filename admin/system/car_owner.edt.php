@@ -12,8 +12,8 @@
         'cast_sales_parent_no' => $sales,
     );
 
-    $id = $db->where('cast_id',$id)->update('car_stock', $data);
-    if($id){
+    $upOwner = $db->where('cast_id',$id)->update('car_stock', $data);
+    if($upOwner){
         $api = array(
             'status' => 'success',
             'message' => 'บันทึกข้อมูลสำเร็จ',
