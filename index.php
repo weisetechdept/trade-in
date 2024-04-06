@@ -51,6 +51,10 @@
         require_once 'admin/pages/report-team.php'; 
     });
 
+    $router->get( '/admin/owner', function() {
+        require_once 'admin/pages/car_owner.php'; 
+    });
+
     /* sales */
 
     $router->get( '/app', function() {

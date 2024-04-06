@@ -514,7 +514,7 @@
                                     <div class="card-body">
                                         <h4 class="mb-2 font-size-18">จัดการข้อมูล</h4>
                                         <div class="table-responsive">
-                                            <a :href="'/admin/edit/'+id" type="submit" class="btn btn-outline-warning waves-effect waves-light mr-1">แก้ใข</a>
+                                            <a :href="'/admin/edit/'+id" type="submit" class="btn btn-outline-warning waves-effect waves-light mr-1">แก้ใข</a> <a href="/admin/owner" type="submit" class="btn btn-outline-primary waves-effect waves-light mr-1">ย้ายผู้ดูแล</a>
                                         </div>
                                     </div>
                                 </div>
@@ -783,40 +783,50 @@
                             });
                         },
                         offerData() {
-                            swal({
-                                title: 'คุณแน่ใจหรือไม่ ?',
-                                text: "คุณต้องการส่งข้อมูลให้ลูกค้าหรือไม่ ?",
-                                icon: "info",
-                                buttons: true,
-                                dangerMode: true,
-                            }).then((willDelete) => {
-                                if (willDelete) {
+                            if(this.offer.price == '' || this.offer.partner == ''){
+                                swal("ไม่สามารถทำรายการได้", "โปรดกรอกข้อมูลให้ครบถ้วน", "warning",{ 
+                                        button: "ตกลง"
+                                    }
+                                );
+                                return;
+                            } else {
 
-                                    axios.post('/admin/system/offer.ins.php', {
-                                        price: this.offer.price,
-                                        partner: this.offer.partner,
-                                        parent: this.id
-                                    }).then(res => {
-                                        if(res.data.status == 200) 
-                                            swal("สำเร็จ", "เพิ่มข้อมูลสำเร็จ", "success",{ 
-                                                button: "ตกลง"
-                                            }).then((value) => {
-                                                location.reload(true)
-                                            });
-                                        if(res.data.status == 400) 
-                                            swal("ทำรายการไม่สำเร็จ", "เพิ่มข้อมูลไม่สำเร็จ อาจมีบางอย่างผิดปกติ (error : 400)", "warning",{ 
-                                                button: "ตกลง"
-                                            }
-                                        );
-                                    });
+                                swal({
+                                    title: 'คุณแน่ใจหรือไม่ ?',
+                                    text: "คุณต้องการส่งข้อมูลให้ลูกค้าหรือไม่ ?",
+                                    icon: "info",
+                                    buttons: true,
+                                    dangerMode: true,
+                                }).then((willDelete) => {
+                                    if (willDelete) {
+
+                                        axios.post('/admin/system/offer.ins.php', {
+                                            price: this.offer.price,
+                                            partner: this.offer.partner,
+                                            parent: this.id
+                                        }).then(res => {
+                                            if(res.data.status == 200) 
+                                                swal("สำเร็จ", "เพิ่มข้อมูลสำเร็จ", "success",{ 
+                                                    button: "ตกลง"
+                                                }).then((value) => {
+                                                    location.reload(true)
+                                                });
+                                            if(res.data.status == 400) 
+                                                swal("ทำรายการไม่สำเร็จ", "เพิ่มข้อมูลไม่สำเร็จ อาจมีบางอย่างผิดปกติ (error : 400)", "warning",{ 
+                                                    button: "ตกลง"
+                                                }
+                                            );
+                                        });
 
 
-                                } else {
-                                    swal("ยกเลิกการส่งข้อมูลสำเร็จ", {
-                                        icon: "success",
-                                    });
-                                }
-                            });
+                                    } else {
+                                        swal("ยกเลิกการส่งข้อมูลสำเร็จ", {
+                                            icon: "success",
+                                        });
+                                    }
+                                });
+
+                            }
                             
                         },
                         calDownpayment(e){
