@@ -25,7 +25,7 @@
 
         $db->join('car_stock c', "f.find_id=c.cast_car", "RIGHT");
         $db->where('c.cast_id', $id);
-        $stock = $db->getOne("finance_data f", null, "f.find_id, f.find_brand, f.find_serie, f.find_section, f.find_color, f.find_price, f.find_status, c.cast_id, c.cast_license, c.cast_color, c.cast_price, c.cast_sales_parent, c.cast_sales_team, c.cast_status,cast_seller_name,cast_link_public");
+        $stock = $db->getOne("finance_data f", null, "f.find_id, f.find_brand, f.find_serie, f.find_section, f.find_color, f.find_price, f.find_status, c.cast_id, c.cast_license, c.cast_color, c.cast_price, c.cast_sales_parent, c.cast_sales_team, c.cast_status,cast_seller_name,cast_link_public,cast_sales_parent_no");
 
         if($stock['cast_type'] == '1'){
             $typeOfCar = 'เก๋ง (SEDAN,HB,SUV,MPV,PPV)';

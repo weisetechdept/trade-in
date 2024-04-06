@@ -885,7 +885,6 @@
                     }
                 });
 
-
                 var upload = new Vue({
                     el: '#form',
                     data () {
