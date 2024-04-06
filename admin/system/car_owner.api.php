@@ -3,6 +3,11 @@
     require_once '../../db-conn.php';
     date_default_timezone_set("Asia/Bangkok");
 
+    if($_SESSION['tin_admin'] != true){
+        header("location: /404");
+        exit();
+    }
+
         $id = $_GET['id'];
         
         $sales = $db_nms->where('verify',1)->where('status','user')->orderBy('id','ASC')->get('db_member');
