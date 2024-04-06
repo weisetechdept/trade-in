@@ -96,7 +96,7 @@
 
                 <div class="page-content">
                     <div class="container-fluid">
-                      <div id="agent">
+                      <div>
                         <div class="row">
                             <div class="col-12" >
                                 <div class="page-title-box d-flex align-items-center justify-content-between">
@@ -115,7 +115,7 @@
 
                         <div class="row">
 
-                            <div class="col-lg-6 col-md-12">
+                            <div class="col-lg-6 col-md-12" id="agent">
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="mb-2 font-size-18">ข้อมูลสมาชิก</h4>
@@ -173,6 +173,10 @@
                                     </div>
                                 </div>
                             </div>
+
+                            
+
+
                         </div>
                         
                       </div>
@@ -383,6 +387,8 @@
                         }
                     }
                 });
+
+               
                 
         </script>
 

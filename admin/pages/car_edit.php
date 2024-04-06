@@ -96,7 +96,7 @@
 
                 <div class="page-content">
                     <div class="container-fluid">
-                      <div id="agent">
+                      <div>
                         <div class="row">
                             <div class="col-12" >
                                 <div class="page-title-box d-flex align-items-center justify-content-between">
@@ -115,7 +115,7 @@
 
                         <div class="row">
 
-                            <div class="col-lg-6 col-md-12">
+                            <div class="col-lg-6 col-md-12" id="agent">
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="mb-2 font-size-18">ข้อมูลสมาชิก</h4>
@@ -240,6 +240,24 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-6" id="car_img">
+                                <div>
+                                    <div class="row" v-for="docs in img">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <img :src="docs.link_500" width="100%" class="car_img">
+                                                    <a :href="docs.link_500" target="_blank" type="button" class="btn btn-sm btn-primary waves-effect waves-light mt-2" style="margin-top: 10px;">รูปขนาดเต็ม</a>
+                                                    <p class="mt-1">อัพโหลดเมื่อ : {{ docs.datetime }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
                         </div>
                         
                       </div>
@@ -448,6 +466,22 @@
                                 );
                             });
                         }
+                    }
+                });
+
+
+                var docs = new Vue({
+                    el: '#car_img',
+                    data () {
+                        return {
+                            img: null
+                        }
+                    },
+                    mounted () {
+                        axios.get('/admin/system/img.api.php?u=<?php echo $cid; ?>')
+                          .then(response => (
+                              this.img = response.data.img
+                          ))
                     }
                 });
                 
