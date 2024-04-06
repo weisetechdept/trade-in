@@ -149,7 +149,7 @@
                                                 </tbody>
                                             </table>
                                             <div class="form-group mt-3">
-                                                <button type="submit" class="btn btn-success waves-effect waves-light ml-2">บันทึก</button>
+                                                <button type="submit" @click="editOwner" class="btn btn-success waves-effect waves-light ml-2">บันทึก</button>
                                             </div>
                                         </div>
                                     </div>
@@ -238,39 +238,64 @@
                         });
 
                         $('.search-sales').on('change', function(e) {
-                            this.sales = e.target.value;
+                            owner.sales = e.target.value;
                         });
 
                         //console.log(response.data);
                         owner.id = response.data.custData.id,
                         owner.seller_name = response.data.custData.seller_name,
                         owner.car = response.data.custData.car
+                        
                     });
                 },
                 methods: {
+                    onChange(e) {
+                        this.sales = e.target.value;
+                    },
                     editOwner() {
-                        swal({
-                            title: "คุณต้องการเปลี่ยนผู้ดูแลใช่หรือไม่?",
-                            text: "กรุณายืนยันการเปลี่ยนผู้ดูแล",
-                            icon: "warning",
-                            buttons: true,
-                            dangerMode: true,
-                        })
-                        .then((willDelete) => {
-                            if (willDelete) {
-                                axios.post('/admin/system/car_owner.edt.php').then(function (response) {
-                                    if(response.data.status == 'success'){
-                                        swal("เปลี่ยนผู้ดูแลสำเร็จ", {
-                                            icon: "success",
+
+                        if(this.sales == '0'){
+                            swal("กรุณาเลือกเซลล์ผู้ดูแล", {
+                                icon: "warning",
+                            });
+                            return;
+                        } else {
+
+                            swal({
+                                title: "คุณต้องการเปลี่ยนผู้ดูแลใช่หรือไม่?",
+                                text: "กรุณายืนยันการเปลี่ยนผู้ดูแล",
+                                icon: "warning",
+                                buttons: true,
+                                dangerMode: true,
+                            })
+                            .then((willDelete) => {
+                                if (willDelete) {
+                                        
+                                        axios.post('/admin/system/car_owner.edt.php', {
+                                            id: owner.id,
+                                            sales: owner.sales
+                                        }).then(function(response) {
+                                            if(response.data.status == 'success'){
+                                                swal("เปลี่ยนผู้ดูแลสำเร็จ", {
+                                                    icon: "success",
+                                                }).then((value) => {
+                                                    window.location.href = '/admin/detail/' + response.data.id;
+                                                });
+                                            } else {
+                                                swal("เปลี่ยนผู้ดูแลไม่สำเร็จ", {
+                                                    icon: "error",
+                                                });
+                                            }
                                         });
-                                    } else {
-                                        swal("เปลี่ยนผู้ดูแลไม่สำเร็จ");
-                                    }
-                                });
-                            } else {
-                                swal("ยกเลิกการเปลี่ยนผู้ดูแล");
-                            }
-                        });
+
+
+                                } else {
+                                    swal("ยกเลิกการเปลี่ยนผู้ดูแล");
+                                }
+                            });
+
+                        }
+                        
                     }
                 },
             });
