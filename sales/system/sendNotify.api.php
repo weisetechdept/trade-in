@@ -32,7 +32,7 @@
 		error_reporting(E_ALL);
 
 		$sToken = "8PejR1DTTI8B8rEb8STbW2bZs8FDAtA21Ll7nBO7Hmf";
-		$sMessage = "มีรถเข้ามาใหม่ จากเซลล์ ".$sales." ทีม ".$team;
+		$sMessage = "มีรถเข้ามาใหม่ จากเซลล์ ".$sales." ทีม ".$team.' , รหัสรถ ID : '.$stock['cast_id'];
 
 		$chOne = curl_init(); 
 		curl_setopt( $chOne, CURLOPT_URL, "https://notify-api.line.me/api/notify"); 
