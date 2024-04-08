@@ -199,29 +199,46 @@
                                                 </tbody>
                                             </table>
 
-                                            <div class="row">
-                                                <div class="col-6">
-                                                    <h4 class="mb-2 font-size-18 mt-4">ส่งแจ้งเตือนให้ราคา</h4>
-                                                    <div>
-                                                        <div class="form-group">
-                                                            <label>ราคา</label>
-                                                            <input type="text" class="form-control" v-model="offer.price">
+                                            <div id="accordion" class="custom-accordion mt-4 ">
+                                                <div class="card mb-0">
+                                                    <div class="card-header" id="headingOne">
+                                                        <h5 class="m-0 font-size-15">
+                                                            <a class="d-block pt-2 pb-2 text-dark" data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                                ส่งแจ้งเตือนให้ราคา <span class="float-right"><i class="mdi mdi-chevron-down accordion-arrow"></i></span>
+                                                            </a>
+                                                        </h5>
+                                                    </div>
+                                                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                                                        <div class="card-body">
+
+                                                            <div class="row">
+                                                                <div class="col-12 col-md-6">
+                                                                    <div>
+                                                                        <div class="form-group">
+                                                                            <label>ราคา</label>
+                                                                            <input type="text" class="form-control" v-model="offer.price">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label>พันธมิตร</label>
+                                                                            <input type="text" class="form-control" v-model="offer.partner">
+                                                                        </div>
+                                                                        <input type="submit" class="btn btn-primary" @click="offerData" value="ส่ง">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label>พันธมิตร</label>
-                                                            <input type="text" class="form-control" v-model="offer.partner">
-                                                        </div>
-                                                        <input type="submit" class="btn btn-primary" @click="offerData" value="ส่ง">
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> 
                                     </div>
+
                                 </div>
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="mb-2 font-size-18">การแชร์</h4>
                                         <div class="row">
-                                            <div class="col-8">
+                                            <div class="col-12 col-lg-8">
                                                 <label>การแชร์ข้อมูลรถคันนี้ : <span class="red-font" v-if="switchPublic == 0">ยังไม่แชร์</span><span class="green-font" v-else-if="switchPublic == 1">แชร์</span></label>
                                                 <div class="input-group mb-3">
                                                     <button class="btn btn-outline-warning" @click="publicSwitch" type="button">เปลี่ยนสถานะการแชร์</button>
@@ -231,7 +248,7 @@
                                                     <div class="input-group">
                                                         <input type="text" :value="share_link" id="myInput" class="form-control">
                                                         <div class="input-group-append">
-                                                            <button class="btn btn-dark waves-effect waves-light" @click="copyLink" type="button">คัดลอก</button>
+                                                            <button class="btn btn-dark waves-effect waves-light" @click="copyLink" type="button">คัดลอก</button> <button class="btn btn-success" type="button" data-sharer="line" :data-title="'พ่อสื่อออนไลน์ รหัส ID : '+ share_link" :data-url="share_link">แชร์ผ่านไลน์</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -305,7 +322,7 @@
                                                     </tr>
                                                     <tr>
                                                         <th>เบอร์โทรศัพท์</th>
-                                                        <td>{{ tel }}</td>
+                                                        <td>{{ tel }} <a :href="'tel:'+tel" class="btn btn-outline-success ml-2">โทร</a></td>
                                                     </tr>
                                                     <tr>
                                                         <th>สถานะ</th>
@@ -637,6 +654,8 @@
 
         <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
         <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/sharer.js@latest/sharer.min.js"></script>
 
 
         <script>
