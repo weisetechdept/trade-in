@@ -119,7 +119,7 @@
 
         foreach ($offer as $o) {
             $api['offer'][] = array(
-                'price' => $o['off_price'],
+                'price' => number_format($o['off_price']),
                 'partner' => $o['off_vender'],
                 'datetime' => $o['off_datetime']
             );

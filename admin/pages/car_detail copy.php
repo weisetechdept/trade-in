@@ -16,8 +16,10 @@
         <meta content="A77" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
+        <!-- App favicon -->
         <link rel="shortcut icon" href="/assets/images/favicon.ico">
 
+        <!-- Plugins css -->
         <link href="/assets/plugins/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
         <link href="/assets/plugins/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
         <link href="/assets/plugins/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
@@ -25,6 +27,7 @@
 
         <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@100;200;300;400;500;600;700;800&family=Kanit:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+        <!-- App css -->
         <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
         <link href="/assets/css/theme.min.css" rel="stylesheet" type="text/css" />
@@ -245,7 +248,7 @@
                                                         <input type="text" :value="share_link" id="myInput" class="form-control">
                                                         <div class="input-group-append">
                                                             <button class="btn btn-dark waves-effect waves-light" @click="copyLink" type="button">คัดลอก</button> 
-                                                            <button class="btn btn-success" data-sharer="line" :data-title="'พ่อสื่อออนไลน์ รหัส ID : '+ share_link" :data-url="share_link">แชร์ผ่านไลน์</button>
+                                                            <button class="btn btn-success" type="button" data-sharer="line" :data-title="'พ่อสื่อออนไลน์ รหัส ID : '+ share_link" :data-url="share_link">แชร์ผ่านไลน์</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -338,6 +341,153 @@
                                 </div>
                             </div>
 
+
+<!-- 
+
+                            <div class="col-lg-6 col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="mb-2 font-size-18">คำนวณยอดผ่อน</h4>
+                                        
+                                        <div class="row">
+                                            <div class="col-md-6 col-xl-6">
+                                                <div class="card bg-success border-success">
+                                                    <div class="card-body">
+                                                        <div class="mb-2">
+                                                            <h5 class="card-title mb-0 text-white">ผ่อน / เดือน (รวม VAT)</h5>
+                                                        </div>
+                                                        <div class="row d-flex align-items-center mb-2">
+                                                            <div class="col-8">
+                                                                <h2 class="d-flex align-items-center text-white mb-0">
+                                                                    {{ formatPrice((((this.loan + (((this.loan * this.interestrate)/100) * this.period)) * 1.07) / (this.period * 12)).toFixed(2)) }}
+                                                                </h2>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xl-6">
+                                                <div class="card bg-secondary border-secondary">
+                                                    <div class="card-body">
+                                                        <div class="mb-2">
+                                                            <h5 class="card-title mb-0 text-white">ผ่อน / เดือน (ไม่รวม VAT)</h5>
+                                                        </div>
+                                                        <div class="row d-flex align-items-center mb-2">
+                                                            <div class="col-8">
+                                                                <h2 class="d-flex align-items-center text-white mb-0">
+                                                                    {{ formatPrice(((this.loan + (((this.loan * this.interestrate)/100) * this.period)) / (this.period * 12)).toFixed(2)) }}
+                                                                </h2>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 col-xl-6">
+                                                <div class="card bg-primary border-primary">
+                                                    <div class="card-body">
+                                                        <div class="mb-2">
+                                                            <h5 class="card-title mb-0 text-white">ระยะเวลาผ่อน</h5>
+                                                        </div>
+                                                        <div class="row d-flex align-items-center mb-2">
+                                                            <div class="col-8">
+                                                                <h2 class="d-flex align-items-center text-white mb-0">
+                                                                    {{ period * 12 }}
+                                                                </h2>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xl-6">
+                                                <div class="card bg-warning border-warning">
+                                                    <div class="card-body">
+                                                        <div class="mb-2">
+                                                            <h5 class="card-title mb-0 text-white">เงินดาวน์</h5>
+                                                        </div>
+                                                        <div class="row d-flex align-items-center mb-2">
+                                                            <div class="col-8">
+                                                                <h2 class="d-flex align-items-center text-white mb-0">
+                                                                    {{ formatPrice(downpayment.toFixed(2)) }}
+                                                                </h2>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <table class="table mb-0">
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">เรทการกู้</th>
+                                                    <td><select class="form-control" v-model="loanrate" @change="calDownpayment($event)" :value="loanrate">
+                                                        <option value="100">100%</option>
+                                                        <option value="95">95%</option>
+                                                        <option value="90">90%</option>
+                                                        <option value="85">85%</option>
+                                                        <option value="80">80%</option>
+                                                        <option value="75">75%</option>
+                                                        <option value="70">70%</option>
+                                                        <option value="65">65%</option>
+                                                        <option value="60">60%</option>
+                                                        <option value="55">55%</option>
+                                                        <option value="50">50%</option>
+                                                    </select></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">ดอกเบี้ย</th>
+                                                    <td><input class="form-control" v-model="interestrate" :value="interestrate"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">ระยะเวลาผ่อน </th>
+                                                    <td>
+                                                        <select class="form-control" v-model="period" :value="period">
+                                                            <option value="3">36</option>
+                                                            <option value="4">48</option>
+                                                            <option value="5">60</option>
+                                                            <option value="6">72</option>
+                                                            <option value="7">84</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    <br />
+                                    <p>
+                                        <button class="btn btn-outline-info ml-1" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                            รายละเอียดการคำนวณ
+                                        </button>
+                                    </p>
+                                <div class="collapse" id="collapseExample">
+                                    <div class="card card-body">
+                                        ราคาขาย : {{ price }} บาท<br />
+                                        ราคากลาง (TLT) : {{ tlt_price }} บาท<br />
+                                        เรทการกู้ : {{ loanrate }} %<br />
+                                        ดาวน์ : {{ formatPrice(downpayment.toFixed(2)) }} บาท<br />
+                                        ยอดจัด : {{ formatPrice(loan.toFixed(2)) }} บาท<br />
+                                        ดอกเบี้ย : {{ interestrate }} %<br />
+                                        ดอกเบี้ยต่อปี : {{ formatPrice(((loan * interestrate)/100).toFixed(2)) }} บาท<br />
+                                        ระยะเวลาผ่อน : {{ period }} ปี ({{ period * 12 }} เดือน)<br />
+                                        ดอกเบี้ยตลอดอายุสัญญา : {{ formatPrice((((loan * interestrate)/100) * period).toFixed(2)) }} บาท<br />
+                                        ยอดสินเชื่อรวมดอกเบี้ย : {{ formatPrice((loan + (((loan * interestrate)/100) * period)).toFixed(2)) }} บาท<br />
+                                        ราคาภาษีมูลค่าเพิ่ม (VAT) : {{ formatPrice(((loan + (((loan * interestrate)/100) * period)) * 0.07).toFixed(2)) }} บาท<br />
+                                        ยอดรวมสินเชื่อหลัง VAT : {{ formatPrice(((loan + (((loan * interestrate)/100) * period)) * 1.07).toFixed(2)) }} บาท<br />
+                                        ยอดผ่อนต่อเดือน : {{ formatPrice((((this.loan + (((this.loan * this.interestrate)/100) * this.period)) * 1.07) / (this.period * 12)).toFixed(2)) }} บาท<br />
+                                    </div>
+                                </div>
+                        
+                                        
+                                    </div>
+                                </div>
+                            </div>
+-->
+
                         </div>
 
 
@@ -393,36 +543,46 @@
                     </div>
 
 
-                    
-
-                        <div class="row" id="multiUpload">
+                        <div class="row">
                             <div class="col-lg-6 col-md-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="mb-2 font-size-18">อัพโหลดรูป (V.Beta)</h4>
-
-                                            <div class="form-group">
-                                                <select class="form-control" v-model="group" id="exampleFormControlSelect1">
-                                                    <option value="0">= เลือกประเภทรูป =</option>
-                                                    <option value="10">รูปภายนอกรถยนต์</option>
-                                                    <option value="20">รูปภายในรถยนต์</option>
-                                                    <option value="30">รูปเอกสารรถยนต์</option>
-                                                </select>
-                                            </div>
-                                      
-                                            <div class="row">
-                                                <div class="col form-group">
-                                                    <input type="file" class="form-control py-1" id="uploadfiles" ref="uploadfiles" multiple />
+                                        <h4 class="mb-2 font-size-18">อัพโหลดรูปหน้าปก</h4>
+                                        <div id="form">
+                                          <form @submit.prevent="sendData">
+                                                <div class="form-group">
+                                                    <select class="form-control" v-model="group" id="exampleFormControlSelect1">
+                                                        <option value="0">เลือกประเภทรูป</option>
+                                                        <option value="1">รูปหน้าปก</option>
+                                                        <option value="2">รูปอื่นๆ</option>
+                                                    </select>
                                                 </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="button" @click='uploadFile()' class="btn btn-primary waves-effect waves-light">อัพโหลด</button>
-                                            </div>
-
+                                                <div class="form-group">
+                                                    <input type="file" name="file_upload" id="file_upload" @change="onFileChange">
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="submit" class="btn btn-primary waves-effect waves-light">อัพโหลด</button>
+                                                </div>
+                                          </form>
+                                      </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+<!--
+                        <div class="row">
+                            <div class="col-lg-6 col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="mb-2 font-size-18">อัพโหลดรูปรถยนต์</h4>
+                                        <div class="form-group">
+                                            <input type="file" class="filepond">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+-->
 
                         <div id="car_img">
                             <div class="row" v-for="docs in img">
@@ -466,12 +626,14 @@
     
         <div class="menu-overlay"></div>
 
+        <!-- jQuery  -->
         <script src="/assets/js/jquery.min.js"></script>
         <script src="/assets/js/bootstrap.bundle.min.js"></script>
         <script src="/assets/js/metismenu.min.js"></script>
         <script src="/assets/js/waves.js"></script>
         <script src="/assets/js/simplebar.min.js"></script>
 
+        <!-- third party js -->
         <script src="/assets/plugins/datatables/jquery.dataTables.min.js"></script>
         <script src="/assets/plugins/datatables/dataTables.bootstrap4.js"></script>
         <script src="/assets/plugins/datatables/dataTables.responsive.min.js"></script>
@@ -494,77 +656,6 @@
 
         <script src="https://cdn.jsdelivr.net/npm/sharer.js@latest/sharer.min.js"></script>
         <script>
-
-                var uploadMul = new Vue({
-                    el: '#multiUpload',
-                    data () {
-                        return {
-                            file: "",
-                            filenames: [],
-                            id: '<?php echo $cid; ?>',
-                            group: '0'
-                            
-                        }
-                    },
-                    methods: {
-                        uploadFile: function(){
-                            if(this.$refs.uploadfiles.files.length <= 0 || this.group == 0){
-                                swal("เกิดข้อผิดพลาดบางอย่าง", "กรุณาเลือกไฟล์ที่ต้องการอัพโหลด และประเภทของรูป", "warning",{ 
-                                    button: "ตกลง"
-                                });
-                                return;
-                            } else {
-                                swal({
-                                    title: 'คุณแน่ใจหรือไม่ ?',
-                                    text: "คุณต้องการอัพโหลดไฟล์ที่เลือกหรือไม่ ?",
-                                    icon: "info",
-                                    buttons: true,
-                                    dangerMode: true,
-                                }).then((willDelete) => {
-                                    if (willDelete) {
-
-                                        swal("กรุณารอสักครู่", "ระบบกำลังอัพโหลดไฟล์", "info", {
-                                            button: false
-                                        })
-
-                                        var el = this;
-                                        let formData = new FormData();
-                                        var files = this.$refs.uploadfiles.files;
-                                        var totalfiles = this.$refs.uploadfiles.files.length;
-                                        for (var index = 0; index < totalfiles; index++) {
-                                            formData.append("files[]", files[index]);
-                                        }
-                                        formData.append('id', this.id);
-                                        formData.append('group', this.group);
-
-                                        axios.post('/admin/system/multi_upload.api.php', formData,
-                                        {
-                                            headers: {
-                                                'Content-Type': 'multipart/form-data'
-                                            }
-                                        })
-                                        .then(function (response) {
-                                            console.log(response);
-                                            swal.close();
-                                            if(response.data.status == 200) 
-                                                swal("สำเร็จ", "อัพโหลดรูปสำเร็จ", "success",{ 
-                                                    button: "ตกลง"
-                                                }).then((value) => {
-                                                    location.reload(true)
-                                                });
-                                        })
-                                        .catch(function (error) {
-                                            console.log(error);
-                                        }); 
-
-                                    } 
-                                });
-                            }
-                        }
-                            
-                    }
-                });
-
                 var agent_detail = new Vue({
                     el: '#agent',
                     data () {
@@ -807,7 +898,83 @@
                         }
                     }
                 });
-               
+
+                var upload = new Vue({
+                    el: '#form',
+                    data () {
+                        return {
+                            file_upload: null,
+                            group: '0'
+                        }
+                    },
+                    methods: {
+                        onFileChange(e) {
+                            this.file_upload = e.target.files[0];
+                        },
+                        sendData() {
+                            var a = this.file_upload;
+                            var b = this.group;
+
+                            if ((a == null || a == "" || b == "0" || b == null || b == "")) {
+                                swal("ไม่สามารถทำรายการได้", "โปรดเลือกไฟล์เอกสารที่ต้องการทำรายการ", "warning",{ 
+                                        button: "ตกลง"
+                                    }
+                                );
+                            } else {
+                                var formData = new FormData();
+                                formData.append('file_upload', this.file_upload);
+                            
+                                swal({
+                                    title: "กำลังอัพโหลด...",
+                                    text: "โปรดรอสักครู่ ระบบกำลังอัพโหลดเอกสารของคุณ",
+                                    icon: "info",
+                                    buttons: false,
+                                    closeOnClickOutside: false,
+                                    closeOnEsc: false
+                                });
+
+                                axios.post('/admin/system/cfimg.api.php', formData, {
+                                    headers: { 
+                                        'Content-Type': 'multipart/form-data'
+                                    }
+                                }).then(res => {
+                                    var cfimg_id =  res.data.result.id;
+                                    var cfimg_link_500 =  res.data.result.variants[0];
+                                    var cfimg_link =  res.data.result.variants[1];
+
+                                    if(res.data.success == true) 
+                                        axios.post('/admin/system/upload_img.ins.php',{
+                                            aimg_img_id: cfimg_id,
+                                            aimg_link:  cfimg_link,
+                                            aimg_link_500: cfimg_link_500,
+                                            aimg_parent: <?php echo $cid; ?>,
+                                            aimg_group: this.group
+                                        }).then(res => {
+                                            if(res.data.status == 200) 
+                                                swal("สำเร็จ", "อัพโหลดเอกสารสำเร็จ", "success",{ 
+                                                    button: "ตกลง"
+                                                }).then((value) => {
+                                                    location.reload(true)
+                                                });
+                                            if(res.data.status == 400) 
+                                                swal("ทำรายการไม่สำเร็จ", "อัพโหลดเอกสารไม่สำเร็จ อาจมีบางอย่างผิดปกติ (error : 400)", "warning",{ 
+                                                    button: "ตกลง"
+                                                }
+                                            );
+                                        });
+
+                                    if(res.data.success == false) 
+                                        swal("ทำรายการไม่สำเร็จ", "อัพโหลดเอกสารไม่สำเร็จ อาจมีบางอย่างผิดปกติ", "warning",{ 
+                                            button: "ตกลง"
+                                        }
+                                    );
+                                });
+                            }
+
+                            
+                        }
+                    }
+                });
 
                 var docs = new Vue({
                     el: '#car_img',
