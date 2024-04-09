@@ -182,7 +182,7 @@
                                                         <td><input type="text" class="form-control" v-model="mileage"></td>
                                                     </tr>
                                                     <tr>
-                                                        <th>ราคา</th>
+                                                        <th>ราคาที่ยอมรับได้</th>
                                                         <td><input type="text" class="form-control" v-model="price"></td>
                                                     </tr>
                                                     <tr>

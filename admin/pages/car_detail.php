@@ -359,7 +359,7 @@
                                                 <tbody>
                                                 
                                                     <tr>
-                                                        <th width="155px">ราคา</th>
+                                                        <th width="155px">ราคาที่ยอมรับได้</th>
                                                         <td>{{ price }}</td>
                                                     </tr>
                                                     <tr>
