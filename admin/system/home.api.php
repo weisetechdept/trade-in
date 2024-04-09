@@ -75,7 +75,7 @@
     } 
 
     if($_GET['get'] == 'count'){
-        $count = $db->getValue('car_stock','count(*)');
+        $count = $db->where('cart_status',array(0,1,2,3,4),"IN")->getValue('car_stock','count(*)');
         $api['count'] = $count;
     }
 
