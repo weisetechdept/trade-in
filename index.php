@@ -52,7 +52,7 @@
     });
 
     $router->get( '/admin/g-report', function() {
-        require_once 'admin/pages/g-team.php'; 
+        require_once 'admin/pages/g-report.php'; 
     });
 
     $router->get( '/admin/trast', function() {
