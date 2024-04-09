@@ -335,6 +335,7 @@
                                                         <td v-if="status == '2'"><span class="badge badge-soft-success">ไม่ได้สัมผัสรถ</span></td>
                                                         <td v-if="status == '3'"><span class="badge badge-soft-success">ลูกค้าขายเอง / ขายที่อื่น</span></td>
                                                         <td v-if="status == '4'"><span class="badge badge-soft-success">สำเร็จ</span></td>
+                                                        <td v-if="status == '10'"><span class="badge badge-soft-danger">ลบ</span></td>
                                                     </tr>
                                                     
                                                 </tbody>
