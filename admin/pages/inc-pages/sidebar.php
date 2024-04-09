@@ -22,6 +22,7 @@
                     <ul class="sub-menu" aria-expanded="true">
                         <li><a href="/admin/home">รถยนต์ทั้งหมด</a></li>
                         <li><a href="/admin/add">เพิ่มรถยนต์ใหม่</a></li>
+                        <li><a href="/admin/trast">รถยนต์ที่ถูกลบ</a></li>
                     </ul>
                 </li>
                 <li>
