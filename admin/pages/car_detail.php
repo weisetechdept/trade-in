@@ -437,7 +437,7 @@
                                             <img :src="docs.link_500" width="100%" class="car_img">
                                             
                                             <a :href="docs.link_500" target="_blank" type="button" class="btn btn-sm btn-outline-primary waves-effect waves-light mt-2" style="margin-top: 10px;">รูปขนาดเต็ม</a>
-                                            <button @click="sendDelete" type="button" class="btn btn-sm btn-outline-danger waves-effect waves-light mt-2" style="margin-top: 10px;">ลบ</button>
+                                            <button @click="sendDelete" :value="docs.id" type="button" class="btn btn-sm btn-outline-danger waves-effect waves-light mt-2" style="margin-top: 10px;">ลบ</button>
                                             
                                             <div class="btn-right" v-if="docs.thumb == '0'">
                                                 <button type="button" class="btn btn-sm btn-warning waves-effect waves-light mt-2" style="margin-top: 10px;" :value="docs.id" @click="upThumb">ตั้งเป็นรูปหน้าปก</button>
@@ -859,8 +859,7 @@
                                 } 
                             });
                         },
-                        sendDelete(e){
-                            e.preventDefault();
+                        sendDelete(e){ 
                             swal({
                                 title: 'คุณแน่ใจหรือไม่ ?',
                                 text: "คุณต้องการลบรูปภาพใช่หรือไม่ โปรดตรวจสอบข้อมูลให้ถูกต้อง",
@@ -875,6 +874,7 @@
                             })
                             .then((willDelete) => {
                                 if (willDelete) {
+
                                     axios.post('/admin/system/img_del.api.php', {
                                         id: e.target.value
                                     }).then(res => {
@@ -884,13 +884,13 @@
                                             }).then((value) => {
                                                 location.reload();
                                             });
-
-                                        if(res.data.status == 505) 
+                                        if(res.data.status == 505)
                                             swal("ทำรายการไม่สำเร็จ", "อาจมีบางอย่างผิดปกติ โปรดตรวจสอบเงื่อนไขการสมัครสมาชิกให้ถูกต้อง และครบถ้วน หรือติดต่อเจ้าหน้าที่", "warning",{ 
                                                 button: "ตกลง"
                                             }
                                         );
                                     });
+                                    
                                 } else {
                                     swal("Your imaginary file is safe!");
                                 }
