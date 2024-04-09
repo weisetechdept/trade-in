@@ -28,7 +28,7 @@
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="feather-bar-chart-2"></i><span>รายงาน</span></a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="#">รายงานทั่วไป</a></li>
+                        <li><a href="/admin/g-report">รายงานทั่วไป</a></li>
                         <li><a href="/admin/team-report">รายงานทีมขาย</a></li>
                     </ul>
                 </li>

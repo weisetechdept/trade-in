@@ -51,6 +51,10 @@
         require_once 'admin/pages/report-team.php'; 
     });
 
+    $router->get( '/admin/g-report', function() {
+        require_once 'admin/pages/g-team.php'; 
+    });
+
     $router->get( '/admin/trast', function() {
         require_once 'admin/pages/trast.php'; 
     });
