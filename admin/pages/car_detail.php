@@ -439,7 +439,7 @@
                                             <a :href="docs.link_500" target="_blank" type="button" class="btn btn-sm btn-outline-primary waves-effect waves-light mt-2" style="margin-top: 10px;">รูปขนาดเต็ม</a>
                                             <button @click="sendDelete" type="button" class="btn btn-sm btn-outline-danger waves-effect waves-light mt-2" style="margin-top: 10px;">ลบ</button>
                                             
-                                            <div class="btn-right" v-if="docs.img_group !== '9'">
+                                            <div class="btn-right" v-if="docs.thumb == '0'">
                                                 <button type="button" class="btn btn-sm btn-warning waves-effect waves-light mt-2" style="margin-top: 10px;" :value="docs.id" @click="upThumb">ตั้งเป็นรูปหน้าปก</button>
                                             </div>
 
@@ -824,7 +824,8 @@
                     mounted () {
                         axios.get('/admin/system/img.api.php?u=<?php echo $cid; ?>')
                           .then(response => (
-                              this.img = response.data.img
+                              this.img = response.data.img,
+                              console.log(response.data.img)
                           ))
                     },
                     methods: {

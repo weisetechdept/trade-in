@@ -33,7 +33,7 @@
     if($_GET['get'] == 'list'){
 
         $db->join('car_stock c', "f.find_id=c.cast_car", "RIGHT");
-        $stock = $db->where('cast_status',array(0,1,2,3,4),'IN')->get("finance_data f", null ,"c.cast_id,c.cast_license,f.find_brand,f.find_serie,f.find_section,c.cast_color,c.cast_price,c.cast_sales_parent,c.cast_sales_team,c.cast_status,cast_sales_parent_no,cast_datetime,cast_year");
+        $stock = $db->where('cast_status',array(0,1,2,3,4),'IN')->get("finance_data f", null ,"c.cast_id,c.cast_license,f.find_brand,f.find_serie,f.find_section,c.cast_color,c.cast_price,c.cast_sales_parent,c.cast_sales_team,c.cast_status,cast_sales_parent_no,cast_datetime,cast_year,cast_thumb");
 
         
 
@@ -49,7 +49,7 @@
                 $data_owner = $sales['first_name'];
             }
 
-            $img = $db->where('cari_parent', $value['cast_id'])->where('cari_group', '10')->where('cari_status', '1')->getOne('car_image');
+            $img = $db->where('cari_id', $value['cast_thumb'])->getOne('car_image');
 
             if(!empty($img)){
                 $thumbnail = $img['cari_link'];
@@ -72,7 +72,7 @@
             );
         }
 
-    }
+    } 
 
     if($_GET['get'] == 'count'){
         $count = $db->getValue('car_stock','count(*)');

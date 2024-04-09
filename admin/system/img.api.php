@@ -22,7 +22,7 @@
 
     $db->join("car_stock c", "c.cast_id=i.cari_parent", "LEFT");
     $db->where("c.cast_id",$_GET['u'])->where('i.cari_status',1);
-    $img = $db->get("car_image i", null, "i.cari_link , i.cari_link_500, i.cari_group, i.cari_parent, i.cari_status, i.cari_datetime,i.cari_id");
+    $img = $db->get("car_image i", null, "i.cari_link , i.cari_link_500, i.cari_group, i.cari_parent, i.cari_status, i.cari_datetime,i.cari_id,c.cast_thumb");
 
     
     foreach ($img as $value) {
@@ -36,12 +36,14 @@
 
                 $group = 'ภายนอก';
         }
+
+        $thumb_status = $value['cari_id'] == $value['cast_thumb'] ? '1' : '0';
         
         $api['img'][] = array('link' => $value['cari_link'],
         'link_500' => $value['cari_link_500'],
         'id' => $value['cari_id'],
         'group' => $group,
-        'img_group' => $value['cari_group'],
+        'thumb' => $thumb_status,
         'datetime' => DateThai($value['cari_datetime']));
         
     }
