@@ -10,7 +10,7 @@
 
         $id = $_GET['id'];
         
-        $sales = $db_nms->where('verify',1)->where('status','user')->orderBy('id','ASC')->get('db_member');
+        $sales = $db_nms->where('verify',1)->where('status',array('user','leader'),'IN')->orderBy('id','ASC')->get('db_member');
         
         function getTeam($uid){
             global $db_nms;
@@ -45,9 +45,15 @@
                 $nickname = ' ( '.$s['nickname'].' )';
             }
 
+            if($s['status'] = 'leader'){
+                $leader = ' (ผจก.ทีม)';
+            } else {
+                $leader = '';
+            }
+
             $api['sales'][] = array(
                 'id' => $s['id'],
-                'text' => $s['first_name'].' '.$s['last_name'].''.$nickname.' ทีม '.getTeam($s['id'])
+                'text' => $s['first_name'].' '.$s['last_name'].''.$nickname.' ทีม '.getTeam($s['id']).''.$leader
             );
         }
     
