@@ -751,6 +751,12 @@
                                     }
                                 );
                                 return;
+                            } else if(this.sales == 'ไม่ผู้ดูแล'){
+                                swal("ไม่สามารถทำรายการได้", "ยังไม่มีเซลล์ผู้ดูแลลูกค้า", "warning",{ 
+                                        button: "ตกลง"
+                                    }
+                                );
+                                return;
                             } else {
 
                                 swal({
