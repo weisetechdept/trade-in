@@ -31,10 +31,26 @@
                             $st4,
                             $st0 + $st1 + $st2 + $st3 + $st4, 
                         );
+
+                        $allst0 += $st0;
+                        $allst1 += $st1;
+                        $allst2 += $st2;
+                        $allst3 += $st3;
+                        $allst4 += $st4;
+                        $allst += $st0 + $st1 + $st2 + $st3 + $st4;
     
                     }
     
                 }
+                $api['data'][] = array(
+                    'รวม',
+                    $allst0,
+                    $allst1,
+                    $allst2,
+                    $allst3,
+                    $allst4,
+                    $allst,
+                );
     
             } elseif($_GET['get'] == 'search'){
                 $start = $_GET['start'].' 00:00:00';
@@ -63,10 +79,26 @@
                             $st4,
                             $st0 + $st1 + $st2 + $st3 + $st4, 
                         );
+
+                        $allst0 += $st0;
+                        $allst1 += $st1;
+                        $allst2 += $st2;
+                        $allst3 += $st3;
+                        $allst4 += $st4;
+                        $allst += $st0 + $st1 + $st2 + $st3 + $st4;
     
                     }
     
                 }
+                $api['data'][] = array(
+                    'รวม',
+                    $allst0,
+                    $allst1,
+                    $allst2,
+                    $allst3,
+                    $allst4,
+                    $allst,
+                );
             }
             echo json_encode($api);
 
