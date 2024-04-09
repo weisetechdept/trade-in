@@ -236,17 +236,9 @@
                     'data': '6',
                     sortable: false,
                     "render": function ( data, type, full, meta ) {
-                        if(data == '0'){
-                            return '<span class="badge badge-soft-primary">ไม่มีสถานะ</span>';
-                        } else if(data == '1'){
-                            return '<span class="badge badge-soft-primary">ติดตามลูกค้า</span>';
-                        } else if(data == '2') {
-                            return '<span class="badge badge-soft-warning">ไม่ได้สัมผัสรถ</span>';
-                        } else if(data == '3') {
-                            return '<span class="badge badge-soft-danger">ลูกค้าขายเอง / ขายที่อื่น</span>';
-                        } else if(data == '4') {
-                            return '<span class="badge badge-soft-success">สำเร็จ</span>';
-                        } 
+                        if(data == '10'){
+                            return '<span class="badge badge-soft-danger">ลบ</span>';
+                        }
                     }
                 },
                 {'data':'7'},
