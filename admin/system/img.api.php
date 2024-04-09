@@ -26,10 +26,21 @@
 
     
     foreach ($img as $value) {
+
+        if($value['cari_group'] == '10' || 
+            $value['cari_group'] == '11' ||
+            $value['cari_group'] == '12' ||
+            $value['cari_group'] == '13' ||
+            $value['cari_group'] == '14')
+        {
+
+                $group = 'ภายนอก';
+        }
         
         $api['img'][] = array('link' => $value['cari_link'],
         'link_500' => $value['cari_link_500'],
         'id' => $value['cari_id'],
+        'group' => $group,
         'datetime' => DateThai($value['cari_datetime']));
         
     }

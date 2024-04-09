@@ -89,6 +89,13 @@
             .green-font {
                 color: green;
             }
+            .file-upload {
+                border: 0;
+                padding: 0;
+            }
+            .btn-right {
+                float: right;
+            }
         </style>
     </head>
 
@@ -349,7 +356,6 @@
                                         <div class="table-responsive">
                                             <table class="table mb-0">
                                                 <tbody>
-                                                    
                                                 
                                                     <tr>
                                                         <th width="155px">ราคา</th>
@@ -392,9 +398,6 @@
                         
                     </div>
 
-
-                    
-
                         <div class="row" id="multiUpload">
                             <div class="col-lg-6 col-md-12">
                                 <div class="card">
@@ -404,15 +407,17 @@
                                             <div class="form-group">
                                                 <select class="form-control" v-model="group" id="exampleFormControlSelect1">
                                                     <option value="0">= เลือกประเภทรูป =</option>
-                                                    <option value="10">รูปภายนอกรถยนต์</option>
-                                                    <option value="20">รูปภายในรถยนต์</option>
-                                                    <option value="30">รูปเอกสารรถยนต์</option>
+                                                    <option value="10">รูปภายนอกรถยนต์ (Code: 10)</option>
+                                                    <option value="20">รูปภายในรถยนต์ (Code: 20)</option>
+                                                    <option value="30">รูปเอกสารรถยนต์ (Code: 30)</option>
+                                                    <option value="40">รูปห้องเครื่อง ช่วงล่าง ใต้ท้องรถ (Code: 40)</option>
+                                                    <option value="50">รูปตำหนิรถยนต์แต่ละจุด (Code: 50)</option>
                                                 </select>
                                             </div>
                                       
                                             <div class="row">
-                                                <div class="col form-group">
-                                                    <input type="file" class="form-control py-1" id="uploadfiles" ref="uploadfiles" multiple />
+                                                <div class="col form-group mt-2">
+                                                    <input type="file" class="form-control file-upload" id="uploadfiles" ref="uploadfiles" multiple />
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -430,9 +435,14 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <img :src="docs.link_500" width="100%" class="car_img">
-                                            <a :href="docs.link_500" target="_blank" type="button" class="btn btn-sm btn-primary waves-effect waves-light mt-2" style="margin-top: 10px;">รูปขนาดเต็ม</a>
-                                            <button @click="sendDelete" type="button" class="btn btn-sm btn-danger waves-effect waves-light mt-2" style="margin-top: 10px;">ลบ</button>
-                                            <p class="mt-1">อัพโหลดเมื่อ : {{ docs.datetime }}</p>
+                                            
+                                            <a :href="docs.link_500" target="_blank" type="button" class="btn btn-sm btn-outline-primary waves-effect waves-light mt-2" style="margin-top: 10px;">รูปขนาดเต็ม</a>
+                                            <button @click="sendDelete" type="button" class="btn btn-sm btn-outline-danger waves-effect waves-light mt-2" style="margin-top: 10px;">ลบ</button>
+                                            <div class="btn-right">
+                                                <button type="button" class="btn btn-sm btn-warning waves-effect waves-light mt-2" style="margin-top: 10px;">ตั้งเป็นรูปหน้าปก</button>
+                                            </div>
+
+                                            <p class="mt-2 mb-0">อัพโหลดเมื่อ : {{ docs.datetime }}, หมวดหมู่: {{ docs.group }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -458,7 +468,6 @@
                 </footer>
 
             </div>
-        
 
         </div>
     
@@ -791,7 +800,6 @@
                                 this.downpayment = cal_down
                             }
                             this.loan = (this.cal_price - this.downpayment)
-                        
                             
                         },
                         formatPrice(value) {
