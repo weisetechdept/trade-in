@@ -66,9 +66,6 @@
             object-fit: cover;
             border-radius: 5px;
         }
-        .text-ct {
-            text-align: center;
-        }
     </style>
 </head>
 
@@ -189,7 +186,7 @@
                                             <tr>
                                                 <td></td>
                                                 <td></td>
-                                                <td class="text-ct"></td>
+                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
