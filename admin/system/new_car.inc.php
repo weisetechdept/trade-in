@@ -43,6 +43,7 @@
             'cast_suspension' => '',
             'cast_drive' => '',
             'cast_link_public' => '0',
+            'cast_thumb' => '0',
 
             'cast_status' => '0', 
             'cast_datetime' => date('Y-m-d H:i:s') 

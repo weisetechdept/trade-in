@@ -438,8 +438,9 @@
                                             
                                             <a :href="docs.link_500" target="_blank" type="button" class="btn btn-sm btn-outline-primary waves-effect waves-light mt-2" style="margin-top: 10px;">รูปขนาดเต็ม</a>
                                             <button @click="sendDelete" type="button" class="btn btn-sm btn-outline-danger waves-effect waves-light mt-2" style="margin-top: 10px;">ลบ</button>
-                                            <div class="btn-right">
-                                                <button type="button" class="btn btn-sm btn-warning waves-effect waves-light mt-2" style="margin-top: 10px;">ตั้งเป็นรูปหน้าปก</button>
+                                            
+                                            <div class="btn-right" v-if="docs.img_group !== '9'">
+                                                <button type="button" class="btn btn-sm btn-warning waves-effect waves-light mt-2" style="margin-top: 10px;" :value="docs.id" @click="upThumb">ตั้งเป็นรูปหน้าปก</button>
                                             </div>
 
                                             <p class="mt-2 mb-0">อัพโหลดเมื่อ : {{ docs.datetime }}, หมวดหมู่: {{ docs.group }}</p>
@@ -470,8 +471,6 @@
             </div>
 
         </div>
-    
-
     
         <div class="menu-overlay"></div>
 
@@ -767,7 +766,6 @@
                                     dangerMode: true,
                                 }).then((willDelete) => {
                                     if (willDelete) {
-
                                         axios.post('/admin/system/offer.ins.php', {
                                             price: this.offer.price,
                                             partner: this.offer.partner,
@@ -785,20 +783,15 @@
                                                 }
                                             );
                                         });
-
-
                                     } else {
                                         swal("ยกเลิกการส่งข้อมูลสำเร็จ", {
                                             icon: "success",
                                         });
                                     }
                                 });
-
                             }
-                            
                         },
                         calDownpayment(e){
-                            
                             var cal_down = this.cal_price - (this.cal_tltprice * (this.loanrate/100));
                             if(cal_down < 0){
                                 this.downpayment = 0
@@ -806,7 +799,6 @@
                                 this.downpayment = cal_down
                             }
                             this.loan = (this.cal_price - this.downpayment)
-                            
                         },
                         formatPrice(value) {
                             let val = (value/1).toFixed(2).replace(',', '.')
@@ -821,7 +813,6 @@
                         }
                     }
                 });
-               
 
                 var docs = new Vue({
                     el: '#car_img',
@@ -837,6 +828,36 @@
                           ))
                     },
                     methods: {
+                        upThumb(e){
+                            swal({
+                                title: 'คุณแน่ใจหรือไม่ ?',
+                                text: "คุณต้องการตั้งรูปนี้เป็นรูปหน้าปกหรือไม่ ?",
+                                icon: "info",
+                                buttons: true,
+                                dangerMode: true,
+                            }).then((willDelete) => {
+                                if (willDelete) {
+                                    
+                                    axios.post('/admin/system/setThumb.api.php', {
+                                        id: e.target.value
+                                    }).then(res => {
+                                        if(res.data.status == 200) 
+                                            swal("สำเร็จ", "ตั้งรูปหน้าปกสำเร็จ", "success",{ 
+                                                button: "ตกลง"
+                                            }).then((value) => {
+                                                location.reload(true)
+                                            });
+
+                                        if(res.data.status == 400)
+                                            swal("ทำรายการไม่สำเร็จ", "ตั้งรูปหน้าปกไม่สำเร็จ อาจมีบางอย่างผิดปกติ (error : 400)", "warning",{ 
+                                                button: "ตกลง"
+                                            }
+                                        );
+                                    });
+                                    
+                                } 
+                            });
+                        },
                         sendDelete(e){
                             e.preventDefault();
                             swal({

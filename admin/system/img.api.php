@@ -41,6 +41,7 @@
         'link_500' => $value['cari_link_500'],
         'id' => $value['cari_id'],
         'group' => $group,
+        'img_group' => $value['cari_group'],
         'datetime' => DateThai($value['cari_datetime']));
         
     }
