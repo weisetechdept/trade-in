@@ -45,7 +45,7 @@
                 $nickname = ' ( '.$s['nickname'].' )';
             }
 
-            if($s['status'] = 'leader'){
+            if($s['status'] == 'leader'){
                 $leader = ' (ผจก.ทีม)';
             } else {
                 $leader = '';
