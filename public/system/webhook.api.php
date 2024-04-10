@@ -63,11 +63,11 @@ date_default_timezone_set("Asia/Bangkok");
         $arrPostData['messages'][0]['text'] = "สวัสดีคุณ กรุณาเลือกประเภทรถยนต์";
 
         $data = array(
-          'user_nickname' => '0',
+          'user_nickname' => 'user-'.rand(100000,999999),
           'user_line_uid' => $arrJson['events'][0]['source']['userId'],
-          'user_line_img' => '2',
-          'user_permission' => '3',
-          'user_status' => '4',
+          'user_line_img' => '/assets/images/public/avatar-images.png',
+          'user_permission' => 'user',
+          'user_status' => '1',
           'user_datetime' => date('Y-m-d H:i:s')
         );
         $db->insert('user', $data);
