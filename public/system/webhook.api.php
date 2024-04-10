@@ -15,6 +15,9 @@ date_default_timezone_set("Asia/Bangkok");
   $arrHeader[] = "Authorization: Bearer {$strAccessToken}";
 
   if($arrJson['events'][0]['message']['text'] == "[ระบบ] ประเมินราคา"){
+
+
+/*
       $arrPostData = array();
       $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
       $arrPostData['messages'][0]['type'] = "template";
@@ -42,24 +45,35 @@ date_default_timezone_set("Asia/Bangkok");
                   "type" => "message",
                   "label" => "รถกระบะ",
                   "text" => "รถกระบะ"
-              ),
-              array(
-                  "type" => "message",
-                  "label" => "รถตู้",
-                  "text" => "รถตู้"
               )
           )
       );
+*/
+      $uid = $arrJson['events'][0]['source']['userId'];
+      $chk = $db->where('user_line_uid', $uid)->get('user');
+      if($chk){
+        $arrPostData = array();
+        $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
+        $arrPostData['messages'][0]['type'] = "text";
+        $arrPostData['messages'][0]['text'] = "สวัสดีคุณ ".$chk[0]['user_nickname']." กรุณาเลือกประเภทรถยนต์";
+      } else {
+        $arrPostData = array();
+        $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
+        $arrPostData['messages'][0]['type'] = "text";
+        $arrPostData['messages'][0]['text'] = "สวัสดีคุณ กรุณาเลือกประเภทรถยนต์";
 
-      $data = array(
-        'user_nickname' => '0',
-        'user_line_uid' => $arrJson['events'][0]['source']['userId'],
-        'user_line_img' => '2',
-        'user_permission' => '3',
-        'user_status' => '4',
-        'user_datetime' => date('Y-m-d H:i:s')
-      );
-      $db->insert('user', $data);
+        $data = array(
+          'user_nickname' => '0',
+          'user_line_uid' => $arrJson['events'][0]['source']['userId'],
+          'user_line_img' => '2',
+          'user_permission' => '3',
+          'user_status' => '4',
+          'user_datetime' => date('Y-m-d H:i:s')
+        );
+        $db->insert('user', $data);
+      }
+
+      
       
   }
 
