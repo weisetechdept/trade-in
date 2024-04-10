@@ -50,6 +50,16 @@ date_default_timezone_set("Asia/Bangkok");
               )
           )
       );
+
+      $data = array(
+        'user_nickname' => '0',
+        'user_line_uid' => $arrJson['events'][0]['source']['userId'],
+        'user_line_img' => '2',
+        'user_permission' => '3',
+        'user_status' => '4',
+        'user_datetime' => date('Y-m-d H:i:s')
+      );
+      $db->insert('user', $data);
       
   }
 
@@ -71,16 +81,6 @@ date_default_timezone_set("Asia/Bangkok");
   curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
   $result = curl_exec($ch);
   curl_close ($ch);
-
-  $data = array(
-    'user_nickname' => '0',
-    'user_line_uid' => '1',
-    'user_line_img' => '2',
-    'user_permission' => '3',
-    'user_status' => '4',
-    'user_datetime' => date('Y-m-d H:i:s')
-  );
-  $db->insert('user', $data);
 
 ?>
 
