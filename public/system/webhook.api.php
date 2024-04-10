@@ -64,10 +64,6 @@ date_default_timezone_set("Asia/Bangkok");
         
 
       } else {
-        $arrPostData = array();
-        $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
-        $arrPostData['messages'][0]['type'] = "text";
-        $arrPostData['messages'][0]['text'] = "สวัสดีคุณ กรุณาเลือกประเภทรถยนต์";
 
         $pp = $db_nms->where('line_usrid', $uid)->where('verify',1)->getOne('db_member');
         if($pp){
@@ -87,7 +83,16 @@ date_default_timezone_set("Asia/Bangkok");
           'user_status' => '1',
           'user_datetime' => date('Y-m-d H:i:s')
         );
-        $db->insert('user', $data);
+        $update = $db->insert('user', $data);
+
+        if($update){
+          $arrPostData = array();
+          $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
+          $arrPostData['messages'][0]['type'] = "text";
+          $arrPostData['messages'][0]['text'] = "สวัสดีคุณ ".$name;
+        } else {
+
+        }
         
       }
 
