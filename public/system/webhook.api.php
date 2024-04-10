@@ -4,44 +4,73 @@ session_start();
 require_once '../../db-conn.php';
 date_default_timezone_set("Asia/Bangkok");
  
-$strAccessToken = "IZd/+LM0eFbZBGVq67BcM6AC8MDkZSi7/DsikGWU45/a2moikJuzGP77d8J3w1UOFcc98ku2MmnnQwnKwYOyAWvkuMScEfxrImfS5NrC+nRX/bzJNehiCX9PwezVE3St1i81+6WuMUj90anooQivAAdB04t89/1O/w1cDnyilFU=";
-$content = file_get_contents('php://input');
-$arrJson = json_decode($content, true);
- 
-$strUrl = "https://api.line.me/v2/bot/message/reply";
- 
-$arrHeader = array();
-$arrHeader[] = "Content-Type: application/json";
-$arrHeader[] = "Authorization: Bearer {$strAccessToken}";
+  $strAccessToken = "IZd/+LM0eFbZBGVq67BcM6AC8MDkZSi7/DsikGWU45/a2moikJuzGP77d8J3w1UOFcc98ku2MmnnQwnKwYOyAWvkuMScEfxrImfS5NrC+nRX/bzJNehiCX9PwezVE3St1i81+6WuMUj90anooQivAAdB04t89/1O/w1cDnyilFU=";
+  $content = file_get_contents('php://input');
+  $arrJson = json_decode($content, true);
+  
+  $strUrl = "https://api.line.me/v2/bot/message/reply";
+  
+  $arrHeader = array();
+  $arrHeader[] = "Content-Type: application/json";
+  $arrHeader[] = "Authorization: Bearer {$strAccessToken}";
 
-if($arrJson['events'][0]['message']['text'] == "[ระบบ] ประเมินราคา"){
+  if($arrJson['events'][0]['message']['text'] == "[ระบบ] ประเมินราคา"){
+      $arrPostData = array();
+      $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
+      $arrPostData['messages'][0]['type'] = "template";
+      $arrPostData['messages'][0]['altText'] = "this is a buttons template";
+      $arrPostData['messages'][0]['template'] = array(
+          "type" => "buttons",
+          "thumbnailImageUrl" => "https://www.tradingonline.co.th/linebot/img/linebot.jpg",
+          "imageAspectRatio" => "rectangle",
+          "imageSize" => "cover",
+          "imageBackgroundColor" => "#FFFFFF",
+          "title" => "ประเมินราคา",
+          "text" => "กรุณาเลือกประเภทรถยนต์",
+          "defaultAction" => array(
+              "type" => "uri",
+              "label" => "View detail",
+              "uri" => "https://www.tradingonline.co.th/linebot/img/linebot.jpg"
+          ),
+          "actions" => array(
+              array(
+                  "type" => "message",
+                  "label" => "รถเก๋ง",
+                  "text" => "รถเก๋ง"
+              ),
+              array(
+                  "type" => "message",
+                  "label" => "รถกระบะ",
+                  "text" => "รถกระบะ"
+              ),
+              array(
+                  "type" => "message",
+                  "label" => "รถตู้",
+                  "text" => "รถตู้"
+              )
+          )
+      );
+      
+  }
 
-   
+  /*
+  if($arrJson['events'][0]['message']['text'] == "[ระบบ] ประเมินราคา"){
     $arrPostData = array();
     $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
     $arrPostData['messages'][0]['type'] = "text";
     $arrPostData['messages'][0]['text'] = "สวัสดี ID คุณคือ ".$arrJson['events'][0]['source']['userId'];
-    
-}
-
-/*
-if($arrJson['events'][0]['message']['text'] == "[ระบบ] ประเมินราคา"){
-  $arrPostData = array();
-  $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
-  $arrPostData['messages'][0]['type'] = "text";
-  $arrPostData['messages'][0]['text'] = "สวัสดี ID คุณคือ ".$arrJson['events'][0]['source']['userId'];
-}
- */
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL,$strUrl);
-curl_setopt($ch, CURLOPT_HEADER, false);
-curl_setopt($ch, CURLOPT_POST, true);
-curl_setopt($ch, CURLOPT_HTTPHEADER, $arrHeader);
-curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($arrPostData));
-curl_setopt($ch, CURLOPT_RETURNTRANSFER,true);
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-$result = curl_exec($ch);
-curl_close ($ch);
+  }
+  */
+  $ch = curl_init();
+  curl_setopt($ch, CURLOPT_URL,$strUrl);
+  curl_setopt($ch, CURLOPT_HEADER, false);
+  curl_setopt($ch, CURLOPT_POST, true);
+  curl_setopt($ch, CURLOPT_HTTPHEADER, $arrHeader);
+  curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($arrPostData));
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER,true);
+  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+  $result = curl_exec($ch);
+  curl_close ($ch);
 
 ?>
 
