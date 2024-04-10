@@ -92,7 +92,6 @@ date_default_timezone_set("Asia/Bangkok");
             $arrPostData['messages'][0]['type'] = "text";
             $arrPostData['messages'][0]['text'] = "สวัสดีคุณ ".$name." การลงทะเบียนเสร็จสิ้น";
 
-            $arrPostData['replyToken'] = $arrJson['events'][1]['replyToken'];
             $arrPostData['messages'][1]['type'] = "template";
             $arrPostData['messages'][1]['altText'] = "this is a buttons template";
             $arrPostData['messages'][1]['template'] = array(
