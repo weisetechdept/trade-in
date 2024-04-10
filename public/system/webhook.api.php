@@ -15,32 +15,20 @@ $arrHeader[] = "Content-Type: application/json";
 $arrHeader[] = "Authorization: Bearer {$strAccessToken}";
 
 if($arrJson['events'][0]['message']['text'] == "[ระบบ] ประเมินราคา"){
-  $arrPostData = array();
 
-  $usrid = $arrJson['events'][0]['source']['userId'];
-  $chk = $db->where('user_line_uid', $uid)->getOne('user');
-  if(empty($chk)) {
+    $usrid = $arrJson['events'][0]['source']['userId'];
     $data = array(
       'user_nickname' => 'rand-'.rand(100000, 999999),
-      'user_line_uid' => $uid,
-      'user_line_img' => '',
-      'user_permission' => 0,
-      'user_status' => 1,
+      'user_line_uid' => '00000',
+      'user_line_img' => '000000',
+      'user_permission' => '0',
+      'user_status' => '1',
       'user_created' => date('Y-m-d H:i:s')
     );
     $update = $db->insert('user', $data);
-    if($update) {
-      $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
-      $arrPostData['messages'][0]['type'] = "text";
-      $arrPostData['messages'][0]['text'] = "สวัสดี ID คุณคือ ".$arrJson['events'][0]['source']['userId'];
-    } else {
-      $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
-      $arrPostData['messages'][0]['type'] = "text";
-      $arrPostData['messages'][0]['text'] = "ไม่สามารถเพิ่มข้อมูลได้";
-    }
+    
   }
 
-}
 /*
 if($arrJson['events'][0]['message']['text'] == "[ระบบ] ประเมินราคา"){
   $arrPostData = array();
