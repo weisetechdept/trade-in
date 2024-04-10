@@ -15,12 +15,10 @@ $arrHeader[] = "Content-Type: application/json";
 $arrHeader[] = "Authorization: Bearer {$strAccessToken}";
 
 if($arrJson['events'][0]['message']['text'] == "[ระบบ] ประเมินราคา"){
+
   $usrid = $arrJson['events'][0]['source']['userId'];
-
   $chk = $db->where('user_line_uid', $uid)->getOne('user');
-  if($chk) {
-
-  } else {
+  if(empty($chk)) {
     $data = array(
       'user_nickname' => 'rand-'.rand(100000, 999999),
       'user_line_uid' => $uid,
@@ -37,6 +35,7 @@ if($arrJson['events'][0]['message']['text'] == "[ระบบ] ประเม�
       $arrPostData['messages'][0]['text'] = "สวัสดี ID คุณคือ ".$arrJson['events'][0]['source']['userId'];
     }
   }
+
 }
  /*
 if($arrJson['events'][0]['message']['text'] == "[ระบบ] ประเมินราคา"){
@@ -56,34 +55,6 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER,true);
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 $result = curl_exec($ch);
 curl_close ($ch);
- 
-
-/*
-$strAccessToken = "f646b9c74b0bfb183672962f69a15399";
- 
-$strUrl = "https://api.line.me/v2/bot/message/push";
- 
-$arrHeader = array();
-$arrHeader[] = "Content-Type: application/json";
-$arrHeader[] = "Authorization: Bearer {$strAccessToken}";
- 
-$arrPostData = array();
-$arrPostData['to'] = "USER_ID";
-$arrPostData['messages'][0]['type'] = "text";
-$arrPostData['messages'][0]['text'] = "นี้คือการทดสอบ Push Message";
- 
- 
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL,$strUrl);
-curl_setopt($ch, CURLOPT_HEADER, false);
-curl_setopt($ch, CURLOPT_POST, true);
-curl_setopt($ch, CURLOPT_HTTPHEADER, $arrHeader);
-curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($arrPostData));
-curl_setopt($ch, CURLOPT_RETURNTRANSFER,true);
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-$result = curl_exec($ch);
-curl_close ($ch);
-*/
 
 ?>
 
