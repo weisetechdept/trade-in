@@ -1,7 +1,27 @@
 <?php
+
+session_start();
+require_once '../../db-conn.php';
+date_default_timezone_set("Asia/Bangkok");
+
+function login($uid) {
+  global $db;
+  $chk = $db->where('user_line_uid', $uid)->getOne('user');
+  if($chk) {
+
+  } else {
+    $data = array(
+      'user_nickname' => 'rand-'.rand(100000, 999999),
+      'user_line_uid' => $uid,
+      'user_line_img' => '',
+      'user_permission' => 0,
+      'user_status' => 1,
+      'user_created' => date('Y-m-d H:i:s')
+    );
+  }
+}
  
 $strAccessToken = "IZd/+LM0eFbZBGVq67BcM6AC8MDkZSi7/DsikGWU45/a2moikJuzGP77d8J3w1UOFcc98ku2MmnnQwnKwYOyAWvkuMScEfxrImfS5NrC+nRX/bzJNehiCX9PwezVE3St1i81+6WuMUj90anooQivAAdB04t89/1O/w1cDnyilFU=";
- 
 $content = file_get_contents('php://input');
 $arrJson = json_decode($content, true);
  
@@ -10,14 +30,22 @@ $strUrl = "https://api.line.me/v2/bot/message/reply";
 $arrHeader = array();
 $arrHeader[] = "Content-Type: application/json";
 $arrHeader[] = "Authorization: Bearer {$strAccessToken}";
+
+if($arrJson['events'][0]['message']['text'] == "[ระบบ] ประเมินราคา"){
  
+  $usrid = $arrJson['events'][0]['source']['userId'];
+
+
+}
+
+ /*
 if($arrJson['events'][0]['message']['text'] == "[ระบบ] ประเมินราคา"){
   $arrPostData = array();
   $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
   $arrPostData['messages'][0]['type'] = "text";
   $arrPostData['messages'][0]['text'] = "สวัสดี ID คุณคือ ".$arrJson['events'][0]['source']['userId'];
 }
- 
+ */
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL,$strUrl);
 curl_setopt($ch, CURLOPT_HEADER, false);
