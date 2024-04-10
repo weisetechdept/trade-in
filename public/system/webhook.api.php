@@ -69,15 +69,26 @@ date_default_timezone_set("Asia/Bangkok");
         $arrPostData['messages'][0]['type'] = "text";
         $arrPostData['messages'][0]['text'] = "สวัสดีคุณ กรุณาเลือกประเภทรถยนต์";
 
+        $pp = $db_nms->where('line_usrid', $uid)->where('verify',1)->getOne('db_member');
+        if($pp){
+            $name = $pp['first_name'].' '.$pp['last_name'];
+            $permission = 'sales';
+        } else {
+            $name = 'user-'.rand(100000,999999);
+            $permission = 'user';
+
+        }
+
         $data = array(
-          'user_nickname' => 'user-'.rand(100000,999999),
+          'user_nickname' => $name,
           'user_line_uid' => $arrJson['events'][0]['source']['userId'],
           'user_line_img' => '/assets/images/public/avatar-images.png',
-          'user_permission' => 'user',
+          'user_permission' => $permission,
           'user_status' => '1',
           'user_datetime' => date('Y-m-d H:i:s')
         );
         $db->insert('user', $data);
+        
       }
 
       
