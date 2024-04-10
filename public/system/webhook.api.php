@@ -114,11 +114,9 @@ date_default_timezone_set("Asia/Bangkok");
             $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
             $arrPostData['messages'][0]['type'] = "text";
             $arrPostData['messages'][0]['text'] = "การลงทะเบียนเสร็จสิ้น กดปุ่มอีกครั้งเพื่อเริ่มประเมินราคารถยนต์ของคุณ";
-            $arrPostData['messages'][0]['emojis'][0] = array(
-              "index" => 0,
-              "productId" => "5ac2213e040ab15980c9b447",
-              "emojiId" => "038"
-            );
+            $arrPostData['messages'][0]['emojis'][0]['index'] = 0;
+            $arrPostData['messages'][0]['emojis'][0]['productId'] = "5ac2213e040ab15980c9b447";
+            $arrPostData['messages'][0]['emojis'][0]['emojiId'] = "038";
 
         } else {
           $arrPostData = array();
