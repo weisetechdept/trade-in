@@ -52,10 +52,17 @@ date_default_timezone_set("Asia/Bangkok");
       $uid = $arrJson['events'][0]['source']['userId'];
       $chk = $db->where('user_line_uid', $uid)->get('user');
       if($chk){
+
+        $pp = $db_nms->where('line_usrid', $uid)->where('status',1)->getOne('db_member');
+
+
         $arrPostData = array();
         $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
         $arrPostData['messages'][0]['type'] = "text";
-        $arrPostData['messages'][0]['text'] = "สวัสดีคุณ ".$chk[0]['user_nickname']." กรุณาเลือกประเภทรถยนต์";
+        $arrPostData['messages'][0]['text'] = "สวัสดีคุณ ".$pp['first_name'].' '.$pp['last_name']." กรุณาเลือกประเภทรถยนต์";
+
+        
+
       } else {
         $arrPostData = array();
         $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
