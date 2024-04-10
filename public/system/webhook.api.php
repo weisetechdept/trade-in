@@ -78,7 +78,7 @@ date_default_timezone_set("Asia/Bangkok");
     'user_line_img' => '2',
     'user_permission' => '3',
     'user_status' => '4',
-    'user_datetime' => '5'
+    'user_datetime' => date('Y-m-d H:i:s')
   );
   $db->insert('user', $data);
 
