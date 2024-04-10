@@ -16,17 +16,7 @@ $arrHeader[] = "Authorization: Bearer {$strAccessToken}";
 
 if($arrJson['events'][0]['message']['text'] == "[ระบบ] ประเมินราคา"){
 
-    $usrid = $arrJson['events'][0]['source']['userId'];
-    $data = array(
-      'user_nickname' => 'rand-'.rand(100000, 999999),
-      'user_line_uid' => '00000',
-      'user_line_img' => '000000',
-      'user_permission' => '0',
-      'user_status' => '1',
-      'user_created' => date('Y-m-d H:i:s')
-    );
-    $update = $db->insert('user', $data);
-
+   
     $arrPostData = array();
     $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
     $arrPostData['messages'][0]['type'] = "text";
