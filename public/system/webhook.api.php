@@ -53,7 +53,7 @@ date_default_timezone_set("Asia/Bangkok");
       $chk = $db->where('user_line_uid', $uid)->get('user');
       if($chk){
 
-        $pp = $db_nms->where('line_usrid', $uid)->where('status',1)->getOne('db_member');
+        $pp = $db_nms->where('line_usrid', $uid)->where('verify',1)->getOne('db_member');
 
 
         $arrPostData = array();
