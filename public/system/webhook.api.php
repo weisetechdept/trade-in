@@ -33,12 +33,9 @@ $arrHeader[] = "Content-Type: application/json";
 $arrHeader[] = "Authorization: Bearer {$strAccessToken}";
 
 if($arrJson['events'][0]['message']['text'] == "[ระบบ] ประเมินราคา"){
- 
   $usrid = $arrJson['events'][0]['source']['userId'];
-
-
+  login($usrid);
 }
-
  /*
 if($arrJson['events'][0]['message']['text'] == "[ระบบ] ประเมินราคา"){
   $arrPostData = array();
