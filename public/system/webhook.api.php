@@ -86,12 +86,47 @@ date_default_timezone_set("Asia/Bangkok");
         $update = $db->insert('user', $data);
 
         if($update){
+
+            $arrPostData = array();
+            $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
+            $arrPostData['messages'][0]['type'] = "text";
+            $arrPostData['messages'][0]['text'] = "สวัสดีคุณ ".$name." การลงทะเบียนเสร็จสิ้น";
+
+            $arrPostData['replyToken'] = $arrJson['events'][1]['replyToken'];
+            $arrPostData['messages'][1]['type'] = "template";
+            $arrPostData['messages'][1]['altText'] = "this is a buttons template";
+            $arrPostData['messages'][1]['template'] = array(
+                "type" => "buttons",
+                "thumbnailImageUrl" => "https://www.tradingonline.co.th/linebot/img/linebot.jpg",
+                "imageAspectRatio" => "rectangle",
+                "imageSize" => "cover",
+                "imageBackgroundColor" => "#FFFFFF",
+                "title" => "ประเมินราคา",
+                "text" => "กรุณาเลือกประเภทรถยนต์",
+                "defaultAction" => array(
+                    "type" => "uri",
+                    "label" => "View detail",
+                    "uri" => "https://www.tradingonline.co.th/linebot/img/linebot.jpg"
+                ),
+                "actions" => array(
+                    array(
+                        "type" => "message",
+                        "label" => "รถเก๋ง",
+                        "text" => "รถเก๋ง"
+                    ),
+                    array(
+                        "type" => "message",
+                        "label" => "รถกระบะ",
+                        "text" => "รถกระบะ"
+                    )
+                )
+            );
+
+        } else {
           $arrPostData = array();
           $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
           $arrPostData['messages'][0]['type'] = "text";
-          $arrPostData['messages'][0]['text'] = "สวัสดีคุณ ".$name;
-        } else {
-
+          $arrPostData['messages'][0]['text'] = "เกิดข้อผิดพลาดในการลงทะเบียน โปรดลองใหม่อีกครั้ง";
         }
         
       }
