@@ -18,6 +18,7 @@ function login($uid) {
       'user_status' => 1,
       'user_created' => date('Y-m-d H:i:s')
     );
+    $db->insert('user', $data);
   }
 }
  
