@@ -55,13 +55,36 @@ date_default_timezone_set("Asia/Bangkok");
 
         $pp = $db_nms->where('line_usrid', $uid)->where('verify',1)->getOne('db_member');
 
-
         $arrPostData = array();
         $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
-        $arrPostData['messages'][0]['type'] = "text";
-        $arrPostData['messages'][0]['text'] = "สวัสดีคุณ ".$pp['first_name'].' '.$pp['last_name']." กรุณาเลือกประเภทรถยนต์";
-
-        
+        $arrPostData['messages'][0]['type'] = "template";
+        $arrPostData['messages'][0]['altText'] = "Main Menu";
+        $arrPostData['messages'][0]['template'] = array(
+          "type" => "buttons",
+          "thumbnailImageUrl" => "https://www.tradingonline.co.th/linebot/img/linebot.jpg",
+          "imageAspectRatio" => "rectangle",
+          "imageSize" => "cover",
+          "imageBackgroundColor" => "#FFFFFF",
+          "title" => "ประเมินราคา",
+          "text" => "กรุณาเลือกประเภทรถยนต์",
+          "defaultAction" => array(
+              "type" => "uri",
+              "label" => "View detail",
+              "uri" => "https://www.tradingonline.co.th/linebot/img/linebot.jpg"
+          ),
+          "actions" => array(
+              array(
+                  "type" => "message",
+                  "label" => "รถเก๋ง",
+                  "text" => "รถเก๋ง"
+              ),
+              array(
+                  "type" => "message",
+                  "label" => "รถกระบะ",
+                  "text" => "รถกระบะ"
+              )
+          )
+        );
 
       } else {
 
@@ -90,35 +113,13 @@ date_default_timezone_set("Asia/Bangkok");
             $arrPostData = array();
             $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
             $arrPostData['messages'][0]['type'] = "text";
-            $arrPostData['messages'][0]['text'] = "สวัสดีคุณ ".$name." การลงทะเบียนเสร็จสิ้น";
-
-            $arrPostData['messages'][1]['type'] = "template";
-            $arrPostData['messages'][1]['altText'] = "this is a buttons template";
-            $arrPostData['messages'][1]['template'] = array(
-                "type" => "buttons",
-                "thumbnailImageUrl" => "https://www.tradingonline.co.th/linebot/img/linebot.jpg",
-                "imageAspectRatio" => "rectangle",
-                "imageSize" => "cover",
-                "imageBackgroundColor" => "#FFFFFF",
-                "title" => "ประเมินราคา",
-                "text" => "กรุณาเลือกประเภทรถยนต์",
-                "defaultAction" => array(
-                    "type" => "uri",
-                    "label" => "View detail",
-                    "uri" => "https://www.tradingonline.co.th/linebot/img/linebot.jpg"
-                ),
-                "actions" => array(
-                    array(
-                        "type" => "message",
-                        "label" => "รถเก๋ง",
-                        "text" => "รถเก๋ง"
-                    ),
-                    array(
-                        "type" => "message",
-                        "label" => "รถกระบะ",
-                        "text" => "รถกระบะ"
-                    )
-                )
+            $arrPostData['messages'][0]['text'] = "การลงทะเบียนเสร็จสิ้น กดปุ่มอีกครั้งเพื่อเริ่มประเมินราคารถยนต์ของคุณ";
+            $arrPostData['messages'][0]['emojis'] = array(
+              array(
+                "index" => 0,
+                "productId" => "5ac2213e040ab15980c9b447",
+                "emojiId" => "038"
+              )
             );
 
         } else {
