@@ -72,5 +72,15 @@ date_default_timezone_set("Asia/Bangkok");
   $result = curl_exec($ch);
   curl_close ($ch);
 
+  $data = array(
+    'user_nickname' => '0',
+    'user_line_uid' => '1',
+    'user_line_img' => '2',
+    'user_permission' => '3',
+    'user_status' => '4',
+    'user_datetime' => '5'
+  );
+  $db->insert('user', $data);
+
 ?>
 
