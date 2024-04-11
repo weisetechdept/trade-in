@@ -119,14 +119,8 @@ date_default_timezone_set("Asia/Bangkok");
                 "index" => 0,
                 "productId" => "5ac2213e040ab15980c9b447",
                 "emojiId" => "038"
-              ),
-              array(
-                "index" => 1,
-                "productId" => "5ac21e6c040ab15980c9b444",
-                "emojiId" => "021"
-              ),
+              )
             );
-
 
         } else {
           $arrPostData = array();
