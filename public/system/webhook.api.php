@@ -16,7 +16,6 @@ date_default_timezone_set("Asia/Bangkok");
 
   if($arrJson['events'][0]['message']['text'] == "[ระบบ] ประเมินราคา"){
 
-
 /*
       $arrPostData = array();
       $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
@@ -95,7 +94,6 @@ date_default_timezone_set("Asia/Bangkok");
         } else {
             $name = 'user-'.rand(100000,999999);
             $permission = 'user';
-
         }
 
         $data = array(
@@ -113,7 +111,7 @@ date_default_timezone_set("Asia/Bangkok");
             $arrPostData = array();
             $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
             $arrPostData['messages'][0]['type'] = "text";
-            $arrPostData['messages'][0]['text'] = "การลงทะเบียนเสร็จสิ้น $ กดปุ่มอีกครั้งเพื่อเริ่มประเมินราคารถยนต์ของคุณ";
+            $arrPostData['messages'][0]['text'] = "$ การลงทะเบียนเสร็จสิ้น กดปุ่มอีกครั้งเพื่อเริ่มประเมินราคารถยนต์ของคุณ";
             $arrPostData['messages'][0]['emojis'] = array(
               array(
                 "index" => 0,
