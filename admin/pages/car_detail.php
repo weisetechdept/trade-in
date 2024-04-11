@@ -96,6 +96,9 @@
             .btn-right {
                 float: right;
             }
+            .f-right {
+                float: right;
+            }
         </style>
     </head>
 
@@ -261,8 +264,60 @@
                                     </div>
                                 </div>
 
-                            </div>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="mb-2 font-size-18">การนัดหมาย</h4>
+                                        <table class="table mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>รายละเอียด</th>
+                                                        <th>วันที่นัดหมาย</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr v-for="offer in offer.display">
+                                                        <td></td>
+                                                        <th></th>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
 
+                                            <div id="accordion" class="custom-accordion mt-4 ">
+                                                <div class="card mb-0">
+                                                    <div class="card-header" id="headingOne">
+                                                        <h5 class="m-0 font-size-15">
+                                                            <a class="d-block pt-2 pb-2 text-dark" data-toggle="collapse" href="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
+                                                            เริ่มการนัดหมาย <span class="float-right"><i class="mdi mdi-chevron-down accordion-arrow"></i></span>
+                                                            </a>
+                                                        </h5>
+                                                    </div>
+                                                    <div id="collapseTwo" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                                                        <div class="card-body">
+
+                                                            <div class="row">
+                                                                <div class="col-12 col-md-6">
+                                                                    <div>
+                                                                        <div class="form-group">
+                                                                            <label>วันที่นัดหมาย</label>
+                                                                            <input type="datetime-local" class="form-control" min="<?php echo date('Y-m-d')?>T00:00" />
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label>รายลัเอียด</label>
+                                                                            <textarea type="text" class="form-control"></textarea>
+                                                                        </div>
+                                                                        <input type="submit" class="btn btn-primary" @click="addEvent" value="เพิ่มนัดหมาย">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
 
                         <div class="row">
@@ -326,7 +381,7 @@
                                                     </tr>
                                                     <tr>
                                                         <th>เบอร์โทรศัพท์</th>
-                                                        <td>{{ tel }} <a :href="'tel:'+tel" class="btn btn-outline-success ml-2">โทร</a></td>
+                                                        <td>{{ tel }} <a :href="'tel:'+tel" class="btn btn-outline-success ml-2 f-right">โทร</a></td>
                                                     </tr>
                                                     <tr>
                                                         <th>สถานะ</th>
@@ -510,7 +565,7 @@
                         return {
                             file: "",
                             filenames: [],
-                            id: '<?php echo $cid; ?>',
+                            id: <?php echo $cid; ?>,
                             group: '0'
                             
                         }
@@ -622,6 +677,11 @@
                                 partner: '',
                                 display: [],
                             },
+                            events: {
+                                datetime: '',
+                                detail: ''
+                                id: <?php echo $cid; ?>
+                            },
                             switchPublic: false
                         }
                     },
@@ -685,6 +745,38 @@
                             this.calDownpayment();
                     },
                     methods: {
+                        addEvent() {
+                            swal({
+                                title: 'คุณแน่ใจหรือไม่ ?',
+                                text: "คุณต้องการเพิ่มข้อมูลการนัดหมายหรือไม่ ?",
+                                icon: "info",
+                                buttons: true,
+                                dangerMode: true,
+                            }).then((willDelete) => {
+                                if(willDelete){
+                                    /*
+                                    axios.post('/admin/system/event.ins.php', {
+                                        datetime: this.events.datetime,
+                                        detail: this.events.detail,
+                                        id: this.events.id
+                                    }).then(res => {
+                                        if(res.data.status == 200) 
+                                            swal("สำเร็จ", "เพิ่มข้อมูลสำเร็จ", "success",{ 
+                                                button: "ตกลง"
+                                            }).then((value) => {
+                                                location.reload(true)
+                                            });
+                                        if(res.data.status == 400) 
+                                            swal("ทำรายการไม่สำเร็จ", "เพิ่มข้อมูลไม่สำเร็จ อาจมีบางอย่างผิดปกติ (error : 400)", "warning",{ 
+                                                button: "ตกลง"
+                                            }
+                                        );
+                                    });
+                                    */
+                                }
+                                
+                            })
+                        },
                         deleteData() {
                             swal({
                                 title: 'คุณแน่ใจหรือไม่ ?',

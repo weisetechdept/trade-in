@@ -16,9 +16,10 @@
             <ul class="metismenu list-unstyled" id="side-menu">
                 
                 <li class="menu-title">เมนู</li>
+                <li><a href="/admin/event" class=" waves-effect"><i class="feather-book-open"></i><span>การนัดหมาย</span></a></li>
                 <?php if($_SESSION['survey'] == 0){ ?>
                 <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="fas fa-address-book"></i><span>รถยนต์</span></a>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="feather-truck"></i><span>รถยนต์</span></a>
                     <ul class="sub-menu" aria-expanded="true">
                         <li><a href="/admin/home">รถยนต์ทั้งหมด</a></li>
                         <li><a href="/admin/add">เพิ่มรถยนต์ใหม่</a></li>

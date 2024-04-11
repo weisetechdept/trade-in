@@ -63,6 +63,10 @@
         require_once 'admin/pages/car_owner.php'; 
     });
 
+    $router->get( '/admin/event', function() {
+        require_once 'admin/pages/event.php';
+    });
+
     /* sales */
 
     $router->get( '/app', function() {
@@ -100,11 +104,6 @@
         require_once 'sales/pages/survey.php';
     });
 
-    /* sales */
-
-    $router->get( '/trade', function() {
-        require_once 'frontend/pages/trade.php';
-    });
 
     /* mgr */
 
@@ -124,6 +123,10 @@
 
     $router->get( '/stock/(.*)', function($id) {
         require_once 'public/pages/detail.php';
+    });
+
+    $router->get( '/trade', function() {
+        require_once 'frontend/pages/trade.php';
     });
 
 
