@@ -86,10 +86,6 @@ date_default_timezone_set("Asia/Bangkok");
           )
         );
 
-      } elseif($arrJson['events'][0]['message']['text'] == "รถยนต์ของฉัน") {
-
-        
-
       } else {
 
         $pp = $db_nms->where('line_usrid', $uid)->where('verify',1)->getOne('db_member');
@@ -121,6 +117,11 @@ date_default_timezone_set("Asia/Bangkok");
             $arrPostData['messages'][0]['emojis'] = array(
               array(
                 "index" => 0,
+                "productId" => "5ac2213e040ab15980c9b447",
+                "emojiId" => "038"
+              ),
+              array(
+                "index" => 1,
                 "productId" => "5ac21e6c040ab15980c9b444",
                 "emojiId" => "021"
               ),
