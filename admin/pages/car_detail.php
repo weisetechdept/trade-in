@@ -96,9 +96,6 @@
             .btn-right {
                 float: right;
             }
-            .f-right {
-                float: right;
-            }
         </style>
     </head>
 
@@ -305,7 +302,7 @@
                                                                             <label>รายลัเอียด</label>
                                                                             <textarea type="text" class="form-control"></textarea>
                                                                         </div>
-                                                                        <input type="submit" class="btn btn-primary" @click="addEvent" value="เพิ่มนัดหมาย">
+                                                                        <input type="submit" class="btn btn-primary" @click="offerData" value="ส่งราคา">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -381,7 +378,7 @@
                                                     </tr>
                                                     <tr>
                                                         <th>เบอร์โทรศัพท์</th>
-                                                        <td>{{ tel }} <a :href="'tel:'+tel" class="btn btn-outline-success ml-2 f-right">โทร</a></td>
+                                                        <td>{{ tel }} <a :href="'tel:'+tel" class="btn btn-outline-success ml-2">โทร</a></td>
                                                     </tr>
                                                     <tr>
                                                         <th>สถานะ</th>
@@ -565,7 +562,7 @@
                         return {
                             file: "",
                             filenames: [],
-                            id: <?php echo $cid; ?>,
+                            id: '<?php echo $cid; ?>',
                             group: '0'
                             
                         }
@@ -679,8 +676,8 @@
                             },
                             events: {
                                 datetime: '',
-                                detail: ''
-                                id: <?php echo $cid; ?>
+                                detail: '',
+                                id:''
                             },
                             switchPublic: false
                         }
@@ -745,38 +742,6 @@
                             this.calDownpayment();
                     },
                     methods: {
-                        addEvent() {
-                            swal({
-                                title: 'คุณแน่ใจหรือไม่ ?',
-                                text: "คุณต้องการเพิ่มข้อมูลการนัดหมายหรือไม่ ?",
-                                icon: "info",
-                                buttons: true,
-                                dangerMode: true,
-                            }).then((willDelete) => {
-                                if(willDelete){
-                                    /*
-                                    axios.post('/admin/system/event.ins.php', {
-                                        datetime: this.events.datetime,
-                                        detail: this.events.detail,
-                                        id: this.events.id
-                                    }).then(res => {
-                                        if(res.data.status == 200) 
-                                            swal("สำเร็จ", "เพิ่มข้อมูลสำเร็จ", "success",{ 
-                                                button: "ตกลง"
-                                            }).then((value) => {
-                                                location.reload(true)
-                                            });
-                                        if(res.data.status == 400) 
-                                            swal("ทำรายการไม่สำเร็จ", "เพิ่มข้อมูลไม่สำเร็จ อาจมีบางอย่างผิดปกติ (error : 400)", "warning",{ 
-                                                button: "ตกลง"
-                                            }
-                                        );
-                                    });
-                                    */
-                                }
-                                
-                            })
-                        },
                         deleteData() {
                             swal({
                                 title: 'คุณแน่ใจหรือไม่ ?',
