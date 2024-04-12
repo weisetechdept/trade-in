@@ -614,9 +614,6 @@
                                                     location.reload(true)
                                                 });
                                         })
-                                        .catch(function (error) {
-                                            console.log(error);
-                                        }); 
 
                                     } 
                                 });
