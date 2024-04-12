@@ -18,8 +18,7 @@
 
         if($price == '' || $for_section == '' || $sales == '' || $sales_team == '' || $tel == ''){
             
-            echo json_encode(array('status' => '505'));
-            exit();
+            $api = array('status' => '400');
 
         } else {
 
@@ -58,12 +57,14 @@
             );
             $id = $db->insert('car_stock', $data);
             if ($id){
-                echo json_encode(array('status' => '200','id' => $id));
+                $api = array('status' => '200');
             } else {
-                echo json_encode(array('status' => '505'));
+                $api = array('status' => '505');
             }
 
         }
+
+        echo json_encode($api);
 
         
       

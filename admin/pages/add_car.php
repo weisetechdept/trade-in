@@ -341,6 +341,7 @@
                                 this.sales = '';
                                 this.sales_team = '';
                                 this.tel = '';
+                                this.for_section = '';
                                 
                                 if(res.data.status == 200) 
                                     swal("สำเร็จ", "เพิ่มสมาชิกเรียบร้อย", "success",{ 
