@@ -879,8 +879,7 @@
                     mounted () {
                         axios.get('/admin/system/img.api.php?u=<?php echo $cid; ?>')
                           .then(response => (
-                              this.img = response.data.img,
-                              //console.log(response.data.img)
+                              this.img = response.data.img
                           ))
                     },
                     methods: {
