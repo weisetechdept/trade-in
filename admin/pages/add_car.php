@@ -336,7 +336,12 @@
                                 tel: this.tel
                                 
                             }).then(res => {
-                                console.log(res);
+                                //console.log(res);
+                                this.price = '';
+                                this.sales = '';
+                                this.sales_team = '';
+                                this.tel = '';
+                                
                                 if(res.data.status == 200) 
                                     swal("สำเร็จ", "เพิ่มสมาชิกเรียบร้อย", "success",{ 
                                         button: "ตกลง"
