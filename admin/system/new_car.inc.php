@@ -57,7 +57,7 @@
             );
             $id = $db->insert('car_stock', $data);
             if ($id){
-                $api = array('status' => '200');
+                $api = array('status' => '200','id' => $id);
             } else {
                 $api = array('status' => '505');
             }

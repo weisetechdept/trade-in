@@ -247,7 +247,7 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.1/axios.min.js"></script>
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
 
         <script>
@@ -334,9 +334,39 @@
                                 });
                             } else {
 
-                                swal("กรุณารอสักครู่", "ระบบกำลังอัพโหลดไฟล์", "info", {
-                                            button: false
-                                        })
+                                axios.post('/admin/system/new_car.inc.php', {
+                                    price: this.price,
+                                    for_section: this.for_section,
+                                    sales: this.sales,
+                                    sales_team: this.sales_team,
+                                    tel: this.tel
+                                    
+                                }).then(res => {
+                                    //console.log(res);
+                                    this.price = '';
+                                    this.sales = '';
+                                    this.sales_team = '';
+                                    this.tel = '';
+                                    this.for_section = '';
+                                    
+                                    if(res.data.status == 200) 
+                                        swal("สำเร็จ", "เพิ่มสมาชิกเรียบร้อย", "success",{ 
+                                            button: "ตกลง"
+                                        }).then((value) => {
+                                            window.location.href = "/admin/detail/"+res.data.id
+                                        });
+
+                                    if(res.data.status == 505) 
+                                        swal("ทำรายการไม่สำเร็จ", "อาจมีบางอย่างผิดปกติ โปรดตรวจสอบเงื่อนไขการสมัครสมาชิกให้ถูกต้อง และครบถ้วน หรือติดต่อเจ้าหน้าที่", "warning",{ 
+                                            button: "ตกลง"
+                                        }
+                                    );
+                                    if(res.data.status == 400) 
+                                        swal("ทำรายการไม่สำเร็จ", "สมาชิกไม่เข้าเงื่อนใขการสมัคร โปรดตรวจสอบคุณสมบัติอีกครั้ง (เป็นสมาชิก Paragon Family)", "warning",{ 
+                                            button: "ตกลง"
+                                        }
+                                    );
+                                });
                             }
                             
                         }
