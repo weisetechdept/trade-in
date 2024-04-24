@@ -3,12 +3,12 @@
     date_default_timezone_set("Asia/Bangkok");
 
     if(isset($_POST['password'])){
-        if($_POST['password'] == "1474413ab"){
+        if($_POST['password'] == "abs1474413abs"){
             $_SESSION['tin_admin'] = true;
             $_SESSION['survey'] = 0;
             header("location: /admin/home");
             exit();
-        }elseif($_POST['password'] == "55512345"){
+        }elseif($_POST['password'] == "55512345ab"){
             $_SESSION['tin_admin'] = true;
             $_SESSION['survey'] = 1;
             header("location: /admin/survey");
