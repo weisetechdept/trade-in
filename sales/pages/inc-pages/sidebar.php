@@ -1,16 +1,7 @@
 <div class="vertical-menu">
 
     <div data-simplebar class="h-100">
-
-        <div class="navbar-brand-box">
-            <a href="/admin/home" class="logo">
-                <span>
-                    Trade-In
-                </span>
-            </a>
-        </div>
-
-    
+        
         <div id="sidebar-menu">
             
             <ul class="metismenu list-unstyled" id="side-menu">

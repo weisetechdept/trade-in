@@ -27,7 +27,7 @@
                 $thumbnail
             );
             
-        }
+        } 
     } else {
         $api['data'] = '';
     }

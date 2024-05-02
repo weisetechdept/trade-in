@@ -209,7 +209,7 @@
                         return '<img src="'+ data +'" class="car-thumb">';
                     }
                 },
-                { 
+                {
                     'data': '1',
                     sortable: false,
                     "render": function ( data, type, full, meta ) {
@@ -223,6 +223,8 @@
                             return '<span class="badge badge-soft-danger">ขายที่อื่น</span>';
                         } else if(data == '4') {
                             return '<span class="badge badge-soft-success">สำเร็จ</span>';
+                        } else if(data == '10') {
+                            return '<span class="badge badge-soft-danger">ลบ</span>';
                         } 
                     }
                 },
