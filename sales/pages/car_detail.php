@@ -208,6 +208,7 @@
                                                         <td v-if="status == '2'"><span class="badge badge-soft-success">ไม่ได้สัมผัสรถ</span></td>
                                                         <td v-if="status == '3'"><span class="badge badge-soft-success">ลูกค้าขายเอง / ขายที่อื่น</span></td>
                                                         <td v-if="status == '4'"><span class="badge badge-soft-success">สำเร็จ</span></td>
+                                                        <td v-if="status == '10'"><span class="badge badge-soft-danger">ลบ</span></td>
                                                     </tr>
                                                     
                                                 </tbody>
@@ -485,14 +486,25 @@
                                             onUploadProgress: function(progressEvent) {
                                                 var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
                                                 swal({
-                                                    title: 'กำลังอัพโหลด',
-                                                    text: 'ระบบกำลังอัพโหลดไฟล์ ' + percentCompleted + '%',
-                                                    icon: 'info',
-                                                    buttons: false,
+                                                    title: "กำลังอัพโหลด",
+                                                    text: "Please wait",
+                                                    icon: "info",
+                                                    showConfirmButton: false,
+                                                    allowOutsideClick: false,
                                                     closeOnClickOutside: false,
-                                                    closeOnEsc: false,
+                                                    closeOnEsc: false
                                                 });
                                             }
+                                        })
+                                        .then(function (response) {
+                                            console.log(response);
+                                            swal.close();
+                                            if(response.data.status == 200) 
+                                                swal("สำเร็จ", "อัพโหลดรูปสำเร็จ", "success",{ 
+                                                    button: "ตกลง"
+                                                }).then((value) => {
+                                                    location.reload(true)
+                                                });
                                         })
                                         .then(function (response) {
                                             console.log(response);
