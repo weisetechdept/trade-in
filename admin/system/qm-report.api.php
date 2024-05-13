@@ -67,15 +67,22 @@
     $managers = array();
     foreach ($results as $value) {
         $manager = $value->manager;
+
         if (!isset($managers[$manager])) {
             $managers[$manager] = 0;
         }
+        
         $managers[$manager]++;
 
-        
+        if($value->input01 == "ซื้อรถคันแรก"){
+            $objBuy[$manager]['first'] += 1;
+        } elseif($value->input01 == "ซื้อรถเพิ่มเติม"){
+            $objBuy[$manager]['addon'] += 1;
+        } elseif($value->input01 == "ซื้อรถเพื่อทดแทน"){
+            $objBuy[$manager]['replace'] += 1;
+        }
         
     }
-    
 
     foreach ($managers as $manager => $count) {
 
@@ -86,11 +93,27 @@
         
         $per = number_format(($trade / $count) * 100).'%';
 
-        $api['count'][] = array('team' => $manager, 'value' => $count,'trade' => $trade,'percentage' => $per,'obj' => $objBuy);
+        $api['count'][] = array('team' => $manager,
+                                'value' => $count,'trade' => $trade,'percentage' => $per,
+                                'objFirst' => empty($objBuy[$manager]['first']) ? 0 : $objBuy[$manager]['first'],
+                                'objAddon' => empty($objBuy[$manager]['addon']) ? 0 : $objBuy[$manager]['addon'],
+                                'objReplace' => empty($objBuy[$manager]['replace']) ? 0 : $objBuy[$manager]['replace']
+        );
+
         $all += $count;
         $trade_all += $trade;
+        $first_all += $objBuy[$manager]['first'];
+        $addon_all += $objBuy[$manager]['addon'];
+        $replace_all += $objBuy[$manager]['replace'];
     }
 
-    $api['count'][] = array('team' => 'All', 'value' => $all,'trade' => $trade_all,'percentage' => number_format(($trade_all / $all) * 100).'%');
+    $api['count'][] = array('team' => 'All',
+                            'value' => $all,
+                            'trade' => $trade_all,
+                            'percentage' => number_format(($trade_all / $all) * 100).'%',
+                            'objFirst' => $first_all,
+                            'objAddon' => $addon_all,
+                            'objReplace' => $replace_all
+                        );
 
     echo json_encode($api);

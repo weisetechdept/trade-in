@@ -60,6 +60,9 @@
             object-fit: cover;
             border-radius: 5px;
         }
+        .gray {
+            background-color: #f9f9f9;
+        }
     </style>
 </head>
 
@@ -139,9 +142,21 @@
                                             <td>ได้ประเมินราคา</td>
                                             <td v-for="c in count">{{ c.trade }}</td>
                                         </tr>
-                                        <tr>
+                                        <tr class="gray">
                                             <td>%</td>
                                             <td v-for="c in count">{{ c.percentage }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>ซื้อรถคันแรก</td>
+                                            <td v-for="c in count">{{ c.objFirst }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>ซื้อรถทดแทน</td>
+                                            <td v-for="c in count">{{ c.objReplace }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>ซื้อเพิ่มเติม</td>
+                                            <td v-for="c in count">{{ c.objAddon }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -180,7 +195,7 @@
                                             <td>{{ type.addon }}</td>
                                             <td>{{ type.addon_per }}</td>
                                         </tr>
-                                        <tr>
+                                        <tr class="gray">
                                             <td>รวม</td>
                                             <td>{{ type.all }}</td>
                                             <td>100%</td>
