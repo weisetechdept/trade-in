@@ -152,23 +152,38 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-4">
                         <div class="card">
                             <div class="card-body">
 
                                 <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>ประเภท</th>
+                                            <th>จำนวน</th>
+                                            <th>%</th>
+                                        </tr>
+                                    </thead>
                                     <tbody>
                                         <tr>
-                                            <td>ซื้อรถคันแรก</td>
+                                            <td width="150px">ซื้อรถคันแรก</td>
                                             <td>{{ type.first }}</td>
+                                            <td>{{ type.first_per }}</td>
                                         </tr>
                                         <tr>
                                             <td>ซื้อรถทดแทน</td>
                                             <td>{{ type.replace }}</td>
+                                            <td>{{ type.replace_per }}</td>
                                         </tr>
                                         <tr>
                                             <td>ซื้อเพิ่มเติม</td>
                                             <td>{{ type.addon }}</td>
+                                            <td>{{ type.addon_per }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>รวม</td>
+                                            <td>{{ type.all }}</td>
+                                            <td>100%</td>
                                         </tr>
                                     </tbody>
                                 </table>

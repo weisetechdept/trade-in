@@ -55,7 +55,12 @@
     $api['type'] = array(
         'first' => $a,
         'addon' => $b,
-        'replace' => $c
+        'replace' => $c,
+        'all' => $a + $b + $c,
+        'first_per' => number_format(($a / ($a + $b + $c)) * 100).'%',
+        'addon_per' => number_format(($b / ($a + $b + $c)) * 100).'%',
+        'replace_per' => number_format(($c / ($a + $b + $c)) * 100).'%',
+
     );
 
     // Count by manager
@@ -66,8 +71,11 @@
             $managers[$manager] = 0;
         }
         $managers[$manager]++;
+
+        
         
     }
+    
 
     foreach ($managers as $manager => $count) {
 
@@ -75,10 +83,10 @@
                     ->where('cast_datetime', array($start, $end), 'BETWEEN')
                     ->where('cast_status', array(1,2,3,4),'IN')
                     ->getValue('car_stock', 'count(*)');
-
+        
         $per = number_format(($trade / $count) * 100).'%';
 
-        $api['count'][] = array('team' => $manager, 'value' => $count,'trade' => $trade,'percentage' => $per);
+        $api['count'][] = array('team' => $manager, 'value' => $count,'trade' => $trade,'percentage' => $per,'obj' => $objBuy);
         $all += $count;
         $trade_all += $trade;
     }
