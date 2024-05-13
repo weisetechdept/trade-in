@@ -39,10 +39,10 @@
     [model] => B-CAB 4x2 2.4 Entry cab&chassis Audioless [color] => 040 S.White [sale] => Jaruwan_T [manager] => G 
     [receiptdate] => 2024-01-04T00:00:00.000Z [advancepay] => 5000 [downpayment] => 181400 [cartype] => GUN122R-BTFLXT3/4A 
     [jobstatus] => Sold [reservation_no] => 101661220/010 [input01] => ซื้อรถคันแรก ) 
-  
+    */
+
     foreach ($results as $value) {
         //echo $value->input01 . "<br>";
-
         if ($value->input01 == "ซื้อรถคันแรก") {
             $a += 1;
         } elseif($value->input01 == "ซื้อรถเพิ่มเติม"){
@@ -52,10 +52,11 @@
         }
     }
 
-    echo "ซื้อรถคันแรก = " . $a . "<br>";
-    echo "ซื้อรถเพิ่มเติม = " . $b . "<br>";
-    echo "ซื้อรถเพื่อทดแทน = " . $c . "<br>";
-*/
+    $api['type'] = array(
+        'first' => $a,
+        'addon' => $b,
+        'replace' => $c
+    );
 
     // Count by manager
     $managers = array();
@@ -67,8 +68,6 @@
         $managers[$manager]++;
         
     }
-
-    //print_r($managers);
 
     foreach ($managers as $manager => $count) {
 
@@ -85,7 +84,5 @@
     }
 
     $api['count'][] = array('team' => 'All', 'value' => $all,'trade' => $trade_all,'percentage' => number_format(($trade_all / $all) * 100).'%');
-
-    //sort($api['count']);
 
     echo json_encode($api);

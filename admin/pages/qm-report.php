@@ -117,41 +117,70 @@
                     </div>
                 </div>
 
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
 
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>สถานะล่าสุด</th>
-                                                <th v-for="c in count">{{ c.team }}</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>ยอดจองรถใหม่</td>
-                                                <td v-for="c in count">{{ c.value }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>ได้ประเมินราคา</td>
-                                                <td v-for="c in count">{{ c.trade }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>%</td>
-                                                <td v-for="c in count">{{ c.percentage }}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
 
-                                </div> 
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>สถานะล่าสุด</th>
+                                            <th v-for="c in count">{{ c.team }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>ยอดจองรถใหม่</td>
+                                            <td v-for="c in count">{{ c.value }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>ได้ประเมินราคา</td>
+                                            <td v-for="c in count">{{ c.trade }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>%</td>
+                                            <td v-for="c in count">{{ c.percentage }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td>ซื้อรถคันแรก</td>
+                                            <td>{{ type.first }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>ซื้อรถทดแทน</td>
+                                            <td>{{ type.replace }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>ซื้อเพิ่มเติม</td>
+                                            <td>{{ type.addon }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
+                </div>
 
                 </div>
             </div>
+
+
 
             <footer class="footer">
                 <div class="container-fluid">
@@ -193,6 +222,7 @@
             el: '#count',
             data: {
                 count: [],
+                type: [],
                 search: {
                     start: '<?php echo date('Y-m-01'); ?>',
                     end: '<?php echo date('Y-m-d'); ?>',
@@ -201,8 +231,9 @@
             },
             mounted() {
                 axios.get('/admin/system/qm-report.api.php?start=<?php echo date('Y-m-01'); ?>&end=<?php echo date('Y-m-d'); ?>').then(res => {
-                    //console.log(res.data);
+                    console.log(res.data);
                     this.count = res.data.count;
+                    this.type = res.data.type;
                 });
             },
             methods: {
