@@ -258,6 +258,7 @@
                     });
                     axios.get('/admin/system/qm-report.api.php?start=' + this.search.start + '&end=' + this.search.end).then(res => {
                         this.count = res.data.count;
+                        this.type = res.data.type;
                         swal.close();
                     });
                 },
