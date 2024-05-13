@@ -167,23 +167,57 @@
                                     <table id="datatable" class="table dt-responsive nowrap">
                                         <thead>
                                             <tr>
-                                                <th>รหัส</th>
-                                                <th>รูปภาพ</th>
-                                                <th>จำนวนรูป</th>
-                                                <th>ทะเบียน</th>
-                                                <th>ปี</th>
-                                                <th>รถยนต์</th>
-                                                <th>สี</th>
-                                                <th>ราคาที่รับได้</th>
-                                                <th>เซลล์</th>
-                                                <th>ทีม</th>
-                                                <th>สถานะ</th>
-                                                <th>วันที่ส่ง</th>
-                                                <th>จัดการ</th>
+                                                <th>Date EM</th>
+                                                <th>Date finish</th>
+                                                <th>ชื่อลูกค้าที่ให้ดูรถ</th>
+                                                <th>ชื่อลูกค้าที่จองรถใหม่</th>
+                                                <th>Date B/K New Car</th>
+                                                <th>Estimator</th>
+                                                <th>Team</th>
+                                                <th>Branch</th>
+                                                <th>Sales</th>
+                                                <th>Plate</th>
+                                                <th>Brand</th>
+                                                <th>Model</th>
+                                                <th>Version</th>
+                                                <th>Option</th>
+                                                <th>Chassis No.</th>
+                                                <th>Gear</th>
+                                                <th>Colour</th>
+                                                <th>Year</th>
+                                                <th>KM.</th>
+                                                <th>Grade</th>
+                                                <th>Sale Price</th>
+                                                <th>C/S Price</th>
+                                                <th>Sure Price</th>
+                                                <th>Price Finish</th>
+                                                <th>Customer Name</th>
+                                                <th>Tel.</th>
+                                                <th>Condition</th>
+                                                <th>Finish By</th>
+                                                <th>New Car Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -282,12 +316,8 @@
             },
             ajax: '/admin/system/home.api.php?get=list',
             "columns" : [
-                {'data':'0'},
-                {'data':'8',
-                    "render": function ( data, type, full, meta ) {
-                        return '<img src="'+ data +'" class="car-thumb">';
-                    }
-                },
+                {'data':'7'},
+                {'data':''},
                 {'data':'11'},
                 {'data':'1'},
                 {'data':'9'},
@@ -314,13 +344,23 @@
                     }
                 },
                 {'data':'7'},
-                { 
-                    'data': '0',
-                    sortable: false,
-                    "render": function ( data, type, full, meta ) {
-                        return '<a href="/admin/detail/'+data+'" class="btn btn-sm btn-outline-primary editBtn" role="button"><span class="mdi mdi-account-edit"></span> ดูข้อมูล</a>';
-                    }
-                }
+                {'data': '0'},
+                {'data':'11'},
+                {'data':'1'},
+                {'data':'9'},
+                {'data':'2'},
+                {'data':'3'},
+                {'data':'4'},
+                {'data':'5'},
+                {'data':'11'},
+                {'data':'1'},
+                {'data':'9'},
+                {'data':'2'},
+                {'data':'3'},
+                {'data':'4'},
+                {'data':'5'},
+                {'data':'10'},
+                {'data':'10'}
             ],
         });
 

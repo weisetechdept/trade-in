@@ -31,6 +31,7 @@
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="/admin/g-report">รายงานทั่วไป</a></li>
                         <li><a href="/admin/team-report">รายงานทีมขาย</a></li>
+                        <li><a href="/admin/qm-report">รายงานเปรียบเทียบ</a></li>
                     </ul>
                 </li>
                 <li><a href="/admin/extension" class=" waves-effect"><i class="feather-box"></i><span>ส่วนขยาย</span></a></li>
