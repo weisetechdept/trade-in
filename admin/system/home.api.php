@@ -108,10 +108,20 @@
         $stock = $db->where('cast_datetime', array($start, $end), 'BETWEEN')->where('cast_status',$status,"IN")->get("finance_data f", null ,"c.cast_id,c.cast_license,f.find_brand,f.find_serie,f.find_section,c.cast_color,c.cast_price,c.cast_sales_parent,c.cast_sales_team,c.cast_status,cast_sales_parent_no,cast_datetime");
 
         if(empty($stock)){
+
             $api['data'] = [];
+
         } else {
 
             foreach ($stock as $value) {
+                $t = getTeam($value['cast_sales_parent_no']);
+
+                if($_GET['team'] != 'all'){
+                    if($t != $_GET['team']){
+                        continue;
+                    }
+                }
+
                 if(empty($value['cast_sales_parent_no'])){
                     $data_owner = $value['cast_sales_parent'].' - '.$value['cast_sales_team'];
                 } else {
@@ -138,18 +148,8 @@
                     DateThai($value['cast_datetime']),
                     $thumbnail,
                     $value['cast_year'],
-                    getTeam($value['cast_sales_parent_no'])
-                    /*
-                    $value['cast_id'],
-                    $value['cast_license'],
-                    $value['find_brand'].' '.$value['find_serie'].' '.$value['find_section'],
-                    $value['cast_color'],
-                    number_format($value['cast_price']),
-                    $data_owner,
-                    $value['cast_status'],
-                    DateThai($value['cast_datetime']),
-                    getTeam($value['cast_sales_parent_no'])
-                    */
+                    $t
+        
                 );
             }
 

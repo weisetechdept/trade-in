@@ -348,8 +348,7 @@
                 axios.get('/admin/system/home.api.php?get=count')
                     .then(response => (
                         this.count = response.data.count,
-                        this.team = response.data.$team,
-                        console.log(response.data)
+                        this.team = response.data.team
                     ));
             },
             methods: {
@@ -362,7 +361,7 @@
                         closeOnClickOutside: false,
                         closeOnEsc: false
                     });
-                    $('#datatable').DataTable().ajax.url('/admin/system/home.api.php?get=search&start='+this.search.start+'&end='+this.search.end+'&status='+this.search.status).load(function() {
+                    $('#datatable').DataTable().ajax.url('/admin/system/home.api.php?get=search&start='+this.search.start+'&end='+this.search.end+'&status='+this.search.status+'&team='+this.search.team).load(function() {
                         swal.close(); // Close the loading message
                     });
                     this.count = $('#datatable').DataTable().rows().count();
