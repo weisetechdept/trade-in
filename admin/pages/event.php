@@ -103,15 +103,13 @@
                                         <thead>
                                             <tr>
                                                 <th>รหัส</th>
-                                                <th>รูปภาพ</th>
-                                                <th>จำนวนรูป</th>
-                                                <th>ทะเบียน</th>
-                                                <th>ปี</th>
+                                                <th>รายละเอียด</th>
+                                                <th>วันที่นัดหมาย</th>
+                                                <th>ลูกค้า</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
