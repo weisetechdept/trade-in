@@ -159,7 +159,7 @@
                                         </div>
 
                                         <div class="col-md-3">
-                                            <button class="btn btn-primary" @click="searchData()" type="submit">ค้นหา</button>
+                                            <button class="btn btn-primary mt-1" @click="searchData()" type="submit">ค้นหา</button>
                                         </div>
                                     </div>
                           
