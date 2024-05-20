@@ -152,9 +152,9 @@
 
                                         <div class="col-md-3">
                                             <label>ทีม</label>
-                                            <select class="form-control">
+                                            <select class="form-control" v-model="search.team">
                                                 <option value="all">ทุกทีม</option>
-                                                <option v-for="t in team" :value="t.name" v-model="search.team">{{ t.name }}</option>
+                                                <option v-for="t in team" :value="t.name">{{ t.name }}</option>
                                             </select>
                                         </div>
 
@@ -340,7 +340,7 @@
                     start: '<?php echo date('Y-m-01'); ?>',
                     end: '<?php echo date('Y-m-d'); ?>',
                     status: 'all',
-                    team: 'A'
+                    team: 'all'
                 },
                 team: []
             },
