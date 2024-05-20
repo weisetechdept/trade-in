@@ -175,7 +175,7 @@
 
     <script>
         $('#datatable').DataTable({
-            order: [[ 2, "desc" ]],
+            order: [[ 2, "asc" ]],
             responsive: true,
             "language": {
                 "paginate": {
