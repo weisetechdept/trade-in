@@ -340,7 +340,7 @@
                     start: '<?php echo date('Y-m-01'); ?>',
                     end: '<?php echo date('Y-m-d'); ?>',
                     status: 'all',
-                    team: 'all'
+                    team: 'A'
                 },
                 team: []
             },
@@ -361,7 +361,7 @@
                         closeOnClickOutside: false,
                         closeOnEsc: false
                     });
-                    $('#datatable').DataTable().ajax.url('/admin/system/home.api.php?get=search&start='+this.search.start+'&end='+this.search.end+'&status='+this.search.status+'&team=A').load(function() {
+                    $('#datatable').DataTable().ajax.url('/admin/system/home.api.php?get=search&start='+this.search.start+'&end='+this.search.end+'&status='+this.search.status+'&team='+this.search.team).load(function() {
                         swal.close(); // Close the loading message
                     });
                     this.count = $('#datatable').DataTable().rows().count();
