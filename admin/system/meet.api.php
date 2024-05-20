@@ -19,7 +19,7 @@
 
     if($_GET['action'] == 'fetch'){
 
-        $variable = $db->get('event');
+        $variable = $db->where('even_status',0)->get('event');
         foreach ($variable as $value) {
             $api['data'][] = array(
                 $value['even_id'],
@@ -28,7 +28,7 @@
                 $value['even_parent']
             );
         }
-        
+
     }
 
     echo json_encode($api);
