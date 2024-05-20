@@ -151,9 +151,9 @@
                             $img_count
                         );
 
+                    } else {
+                        $api['data'] = [];
                     }
-
-                
                
             }
 
