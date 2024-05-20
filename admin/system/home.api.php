@@ -77,6 +77,9 @@
     if($_GET['get'] == 'count'){
         $count = $db->where('cast_status',array(0,1,2,3,4),"IN")->getValue('car_stock','count(*)');
         $api['count'] = $count;
+
+        $team = $db_nms->where('department',8)->get('db_user_group',null,'name');
+        $api['team'] = $team;
     }
 
 

@@ -151,7 +151,15 @@
                                         </div>
 
                                         <div class="col-md-3">
-                                            <button class="btn btn-primary search-btn" @click="searchData()" type="submit">ค้นหา</button>
+                                            <label>ทีม</label>
+                                            <select class="form-control">
+                                                <option value="all">ทุกทีม</option>
+                                                <option v-for="t in team" :value="t.name" v-model="search.team">{{ t.name }}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <button class="btn btn-primary" @click="searchData()" type="submit">ค้นหา</button>
                                         </div>
                                     </div>
                           
@@ -331,13 +339,17 @@
                 search: {
                     start: '<?php echo date('Y-m-01'); ?>',
                     end: '<?php echo date('Y-m-d'); ?>',
-                    status: 'all'
-                }
+                    status: 'all',
+                    team: 'all'
+                },
+                team: []
             },
             mounted() {
                 axios.get('/admin/system/home.api.php?get=count')
                     .then(response => (
-                        this.count = response.data.count
+                        this.count = response.data.count,
+                        this.team = response.data.$team,
+                        console.log(response.data)
                     ));
             },
             methods: {
