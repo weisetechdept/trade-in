@@ -351,6 +351,12 @@
                         this.team = response.data.team
                     ));
             },
+            watch: {
+                count(){
+                    this.count = $('#datatable').DataTable().rows().count();
+                }
+                
+            },
             methods: {
                 searchData() {
                     swal({
@@ -364,7 +370,7 @@
                     $('#datatable').DataTable().ajax.url('/admin/system/home.api.php?get=search&start='+this.search.start+'&end='+this.search.end+'&status='+this.search.status+'&team='+this.search.team).load(function() {
                         swal.close(); // Close the loading message
                     });
-                    this.count = $('#datatable').DataTable().rows().count();
+                    
                 }
             }
         });

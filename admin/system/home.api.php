@@ -107,6 +107,8 @@
         $db->join('car_stock c', "f.find_id=c.cast_car", "RIGHT");
         $stock = $db->where('cast_datetime', array($start, $end), 'BETWEEN')->where('cast_status',$status,"IN")->get("finance_data f", null ,"c.cast_id,c.cast_license,f.find_brand,f.find_serie,f.find_section,c.cast_color,c.cast_price,c.cast_sales_parent,c.cast_sales_team,c.cast_status,cast_sales_parent_no,cast_datetime");
 
+        $ct = 0;
+
         if(empty($stock)){
 
             $api['data'] = [];
@@ -150,6 +152,8 @@
                             $t,
                             $img_count
                         );
+                        $ct++;
+
 
                     } else {
                         if($t == $_GET['team']){
@@ -167,10 +171,12 @@
                                 $t,
                                 $img_count
                             );
+                            $ct++;
                         }
                     }
                
             }
+            $api['count'] = $ct;
 
         }
         
