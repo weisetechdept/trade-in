@@ -810,7 +810,7 @@
 
                             } else {
 
-                                axios.post('/admin/system/meet.ins.php', {
+                                axios.post('/admin/system/meet.ins.php?action=event', {
                                     date: this.bookData.date,
                                     detail: this.bookData.detail,
                                     parent: this.id

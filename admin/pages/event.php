@@ -193,7 +193,7 @@
             "drawCallback": function () {
                 $('.dataTables_paginate > .pagination').addClass('pagination-rounded');
             },
-            ajax: '',
+            ajax: '/admin/system/meet.api.php?action=fetch',
             "columns" : [
                 {'data':'0'},
                 {'data':'1'},
