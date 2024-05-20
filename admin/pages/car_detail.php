@@ -296,13 +296,13 @@
                                                                     <div>
                                                                         <div class="form-group">
                                                                             <label>วันที่นัดหมาย</label>
-                                                                            <input type="datetime-local" class="form-control" min="<?php echo date('Y-m-d')?>T00:00" />
+                                                                            <input type="datetime-local" v-model="bookData.date" class="form-control" min="<?php echo date('Y-m-d')?>T00:00" />
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label>รายลัเอียด</label>
-                                                                            <textarea type="text" class="form-control"></textarea>
+                                                                            <textarea type="text" v-model="bookData.detail" class="form-control"></textarea>
                                                                         </div>
-                                                                        <input type="submit" class="btn btn-primary" @click="offerData" value="ส่งราคา">
+                                                                        <input type="submit" class="btn btn-primary" @click="meetData" value="นัดหมาย">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -676,7 +676,11 @@
                                 detail: '',
                                 id:''
                             },
-                            switchPublic: false
+                            switchPublic: false,
+                            bookData: {
+                                date: '',
+                                detail: ''
+                            },
                         }
                     },
                     mounted () {
@@ -797,6 +801,26 @@
                                     });
                                 } 
                             });
+                        },
+                        meetData() {
+                            if(this.bookData.detail == '' || this.bookData.date == ''){
+                                
+                                swal("ไม่สามารถทำรายการได้", "โปรดกรอกข้อมูลให้ครบถ้วน", "warning",{ 
+                                        button: "ตกลง"
+                                    }
+                                );
+
+                            } else {
+
+                                axios.post('/admin/system/meet.ins.php', {
+                                    date: this.bookData.date,
+                                    detail: this.bookData.detail,
+                                    parent: this.id
+                                }).then(res => {
+                                    console.log(res.data);
+                                })
+                                
+                            }
                         },
                         offerData() {
                             if(this.offer.price == '' || this.offer.partner == ''){
