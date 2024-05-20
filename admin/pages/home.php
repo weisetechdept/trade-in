@@ -353,7 +353,8 @@
             },
             watch: {
                 count: function() {
-                    this.count = $('#datatable').DataTable().rows().count();
+                    var table = new DataTable('#datatable');
+                    this.count = table.row().count();
                 }
             },
             methods: {
