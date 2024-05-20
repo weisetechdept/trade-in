@@ -98,7 +98,7 @@
 
                 <div class="row" id="count">
 
-                    <div class="col-9">
+                    <div class="col-12 col-md-9">
                         <div class="card">
                             <div class="card-body">
                                 
@@ -124,7 +124,7 @@
                 </div>
 
                     <div class="row">
-                        <div class="col-9">
+                        <div class="col-12 col-md-9">
                             <div class="card">
                                 <div class="card-body">
                                     <table id="datatable" class="table dt-responsive nowrap">
