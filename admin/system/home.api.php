@@ -152,7 +152,22 @@
                         );
 
                     } else {
-                        $api['data'] = [];
+                        if($t == $_GET['team']){
+                            $api['data'][] = array(
+                                $value['cast_id'],
+                                $value['cast_license'],
+                                $value['find_brand'].' '.$value['find_serie'].' '.$value['find_section'],
+                                $value['cast_color'],
+                                number_format($value['cast_price']),
+                                $data_owner,
+                                $value['cast_status'],
+                                DateThai($value['cast_datetime']),
+                                $thumbnail,
+                                $value['cast_year'],
+                                $t,
+                                $img_count
+                            );
+                        }
                     }
                
             }
