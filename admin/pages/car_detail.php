@@ -272,7 +272,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr v-for="e in event">
+                                                    <tr v-for="e in events">
                                                         <td>{{ e.detail }}</td>
                                                         <th>{{ e.date }}</th>
                                                     </tr>
@@ -680,8 +680,8 @@
                     },
                     mounted () {
                         axios.get('/admin/system/meet.api.php?id=<?php echo $cid; ?>').then(response => {
-                            console.log(response.data);
                             this.events = response.data;
+                            
                         }),
                         axios.get('/admin/system/car_detail.api.php?u=<?php echo $cid; ?>')
                             .then(response => {
