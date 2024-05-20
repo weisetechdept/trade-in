@@ -681,7 +681,6 @@
                     mounted () {
                         axios.get('/admin/system/meet.api.php?id=<?php echo $cid; ?>').then(response => {
                             this.events = response.data;
-                            
                         }),
                         axios.get('/admin/system/car_detail.api.php?u=<?php echo $cid; ?>')
                             .then(response => {
@@ -816,17 +815,21 @@
                                     detail: this.bookData.detail,
                                     parent: this.id
                                 }).then(res => {
-                                    if(res.data.status == 'success') 
+                                    if(res.data.status == 'success') {
                                         swal("สำเร็จ", "เพิ่มข้อมูลสำเร็จ", "success",{ 
                                             button: "ตกลง"
                                         }).then((value) => {
                                             location.reload(true)
                                         });
-                                    else(res.data.status == 'error') 
+                                    } 
+                                    if(res.data.status == 'error') {
                                         swal("ทำรายการไม่สำเร็จ", "เพิ่มข้อมูลไม่สำเร็จ อาจมีบางอย่างผิดปกติ (error : 400)", "warning",{ 
                                             button: "ตกลง"
-                                        }
-                                    );
+                                            }
+                                        );
+                                    }
+                                    
+                                    
                                 })
                                 
                             }

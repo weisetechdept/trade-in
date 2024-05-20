@@ -24,9 +24,9 @@
     
         $insMeet = $db->insert('event', $data);
         if($insMeet){
-            $api = array('status' => 'success', 'message' => 'เพิ่มข้อมูลสำเร็จ');
+            $api = array('status' => 'success');
         } else {
-            $api = array('status' => 'error', 'message' => 'เพิ่มข้อมูลไม่สำเร็จ');
+            $api = array('status' => 'error');
         }
 
     }
