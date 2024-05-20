@@ -361,11 +361,12 @@
                         closeOnClickOutside: false,
                         closeOnEsc: false
                     });
+
                     $('#datatable').DataTable().ajax.url('/admin/system/home.api.php?get=search&start='+this.search.start+'&end='+this.search.end+'&status='+this.search.status+'&team='+this.search.team).load(function() {
                         swal.close();
-                        this.count = $('#datatable').DataTable().rows().count(); // Close the loading message
+                    }).then(function() {
+                        this.count = 0;
                     });
-                    
                 }
             }
         });
