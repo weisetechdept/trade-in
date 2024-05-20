@@ -117,7 +117,7 @@
                 $img_count = $db->where('cari_parent',$value['cast_id'])->where('cari_status', '1')->getValue('car_image','count(*)');
                 $t = getTeam($value['cast_sales_parent_no']);
 
-                if($_GET['team'] == 'all'){
+    
 
                     if(empty($value['cast_sales_parent_no'])){
                         $data_owner = $value['cast_sales_parent'].' - '.$value['cast_sales_team'];
@@ -135,6 +135,7 @@
                     }
 
                     if($_GET['team'] == 'all'){
+
                         $api['data'][] = array(
                             $value['cast_id'],
                             $value['cast_license'],
@@ -149,9 +150,10 @@
                             $t,
                             $img_count
                         );
+
                     }
 
-                } 
+                
                
             }
 
