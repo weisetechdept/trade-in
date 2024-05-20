@@ -272,9 +272,9 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr v-for="offer in offer.display">
-                                                        <td></td>
-                                                        <th></th>
+                                                    <tr v-for="e in event">
+                                                        <td>{{ e.detail }}</td>
+                                                        <th>{{ e.date }}</th>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -665,17 +665,12 @@
                             drive: '',
                             seller_name: '',
                             share_link: '',
-                            
                             offer:{
                                 price: '',
                                 partner: '',
                                 display: [],
                             },
-                            events: {
-                                datetime: '',
-                                detail: '',
-                                id:''
-                            },
+                            events: [],
                             switchPublic: false,
                             bookData: {
                                 date: '',
@@ -684,6 +679,10 @@
                         }
                     },
                     mounted () {
+                        axios.get('/admin/system/meet.api.php?id=<?php echo $cid; ?>').then(response => {
+                            console.log(response.data);
+                            this.events = response.data;
+                        }),
                         axios.get('/admin/system/car_detail.api.php?u=<?php echo $cid; ?>')
                             .then(response => {
                                 if(response.data.status == 404) 
@@ -804,7 +803,7 @@
                         },
                         meetData() {
                             if(this.bookData.detail == '' || this.bookData.date == ''){
-                                
+
                                 swal("ไม่สามารถทำรายการได้", "โปรดกรอกข้อมูลให้ครบถ้วน", "warning",{ 
                                         button: "ตกลง"
                                     }
@@ -817,7 +816,17 @@
                                     detail: this.bookData.detail,
                                     parent: this.id
                                 }).then(res => {
-                                    console.log(res.data);
+                                    if(res.data.status == 'success') 
+                                        swal("สำเร็จ", "เพิ่มข้อมูลสำเร็จ", "success",{ 
+                                            button: "ตกลง"
+                                        }).then((value) => {
+                                            location.reload(true)
+                                        });
+                                    else(res.data.status == 'error') 
+                                        swal("ทำรายการไม่สำเร็จ", "เพิ่มข้อมูลไม่สำเร็จ อาจมีบางอย่างผิดปกติ (error : 400)", "warning",{ 
+                                            button: "ตกลง"
+                                        }
+                                    );
                                 })
                                 
                             }
