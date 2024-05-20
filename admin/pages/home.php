@@ -363,10 +363,11 @@
                     });
 
                     $('#datatable').DataTable().ajax.url('/admin/system/home.api.php?get=search&start='+this.search.start+'&end='+this.search.end+'&status='+this.search.status+'&team='+this.search.team).load(function() {
-                        swal.close();
-                    }).then(function() {
-                        this.count = 0;
+                        swal.close().then(function() {
+                            this.count = $('#datatable').DataTable().rows().count();
+                        })
                     });
+
                 }
             }
         });
