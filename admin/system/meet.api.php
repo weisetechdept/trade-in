@@ -19,13 +19,14 @@
 
     if($_GET['action'] == 'fetch'){
 
-        $variable = $db->where('even_status',0)->get('event');
+        $db->join('user u', 'u.user_id = e.even_parent', 'RIGHT');
+        $variable = $db->where('even_status',0)->get('event e');
         foreach ($variable as $value) {
             $api['data'][] = array(
                 $value['even_id'],
                 $value['even_detail'],
                 $value['even_date'],
-                $value['even_parent']
+                'คุณ '.$value['cast_seller_name'].' ID '.$value['even_parent'],
             );
         }
 
