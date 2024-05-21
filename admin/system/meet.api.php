@@ -36,12 +36,24 @@
         $variable = $db->where('even_status',0)->get('event e');
 
         foreach ($variable as $value) {
+
+            $db->join('car_image i', 'i.cari_id = s.cast_thumb','RIGHT');
+            $img = $db->getOne('car_stock s');
+
+            if($img['cast_thumb'] == '0'){
+                $thumb = 'https://dummyimage.com/600x400/c4c4c4/fff&text=no-image';
+            } else {
+                $thumb = $img['cari_link'];
+            }
+
             $api['data'][] = array(
                 $value['even_id'],
                 $value['even_detail'],
                 DateThai($value['even_date']),
                 'คุณ '.$value['cast_seller_name'].', ID '.$value['even_parent'],
-                'AA'
+                'AA',
+                $thumb,
+                $value['cast_id']
             );
         }
 

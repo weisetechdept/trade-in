@@ -61,7 +61,7 @@
         }
         .car-thumb {
             width: 130px;
-            height: 100px;
+            height: 85px;
             object-fit: cover;
             border-radius: 5px;
         }
@@ -102,14 +102,18 @@
                                     <table id="datatable" class="table dt-responsive nowrap">
                                         <thead>
                                             <tr>
+                                                <th>รูป</th>
                                                 <th>วันที่นัดหมาย</th>
                                                 <th>รายละเอียด</th>
                                                 <th>ลูกค้า</th>
                                                 <th>ผู้รับผิดชอบ</th>
+                                                <th>จัดการ</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
+                                                <td></td>
+                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -193,10 +197,21 @@
             },
             ajax: '/admin/system/meet.api.php?action=fetch',
             "columns" : [
+                {'data':'5',
+                    "render": function ( data, type, full, meta ) {
+                        return '<img src="'+ data +'" class="car-thumb">';
+                    }
+                },
                 {'data':'2'},
                 {'data':'1'},
                 {'data':'3'},
-                {'data':'4'}
+                {'data':'4'},
+                {'data':'6',
+                    "render": function ( data, type, full, meta ) {
+                        return '<a href="/admin/detail/'+ data +'" class="btn btn-primary btn-sm">ดูข้อมูล</a>';
+                    }
+                }
+
             ],
         });
 
