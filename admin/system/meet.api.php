@@ -17,7 +17,7 @@
     }
 
     if($_GET['action'] == 'event'){
-        $variable = $db->get('event');
+        $variable = $db->where('even_parent',$_GET['id'])->get('event');
         foreach ($variable as $value) {
 
             $api[] = array(
@@ -38,7 +38,7 @@
         foreach ($variable as $value) {
 
             $db->join('car_image i', 'i.cari_id = s.cast_thumb','RIGHT');
-            $img = $db->getOne('car_stock s');
+            $img = $db->where('cast_id',$value['cast_id'])->getOne('car_stock s');
 
             if($img['cast_thumb'] == '0'){
                 $thumb = 'https://dummyimage.com/600x400/c4c4c4/fff&text=no-image';
@@ -50,7 +50,7 @@
                 $value['even_id'],
                 $value['even_detail'],
                 DateThai($value['even_date']),
-                'คุณ '.$value['cast_seller_name'].', ID '.$value['even_parent'],
+                'คุณ '.$value['cast_seller_name'].' (ID '.$value['even_parent'].')',
                 'AA',
                 $thumb,
                 $value['cast_id']

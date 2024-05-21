@@ -679,7 +679,7 @@
                         }
                     },
                     mounted () {
-                        axios.get('/admin/system/meet.api.php?id=<?php echo $cid; ?>').then(response => {
+                        axios.get('/admin/system/meet.api.php?action=event&id=<?php echo $cid; ?>').then(response => {
                             this.events = response.data;
                         }),
                         axios.get('/admin/system/car_detail.api.php?u=<?php echo $cid; ?>')
