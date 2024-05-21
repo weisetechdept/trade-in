@@ -32,7 +32,7 @@
 
     if($_GET['action'] == 'fetch'){
 
-        $db->join('car_stock u', 'u.cast_id = e.even_parent', 'RIGHT');
+        $db->join('car_stock u', 'u.cast_id = e.even_parent','RIGHT');
         $variable = $db->where('even_status',0)->get('event e');
 
         foreach ($variable as $value) {
