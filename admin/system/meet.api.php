@@ -34,6 +34,7 @@
 
         $db->join('car_stock u', 'u.cast_id = e.even_parent', 'RIGHT');
         $variable = $db->where('even_status',0)->get('event e');
+
         foreach ($variable as $value) {
             $api['data'][] = array(
                 $value['even_id'],
@@ -43,6 +44,7 @@
                 'AA'
             );
         }
+
 
     }
 
