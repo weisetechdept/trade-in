@@ -3,6 +3,19 @@
     require_once '../../db-conn.php';
     date_default_timezone_set("Asia/Bangkok");
 
+    function DateThai($strDate)
+    {
+        $strYear = date("Y",strtotime($strDate))+543;
+		$strMonth= date("n",strtotime($strDate));
+		$strDay= date("j",strtotime($strDate));
+		$strHour= date("H",strtotime($strDate));
+		$strMinute= date("i",strtotime($strDate));
+		$strSeconds= date("s",strtotime($strDate));
+		$strMonthCut = Array("","ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค.");
+		$strMonthThai=$strMonthCut[$strMonth];
+		return "$strDay $strMonthThai $strYear, $strHour:$strMinute น.";
+    }
+
     if($_GET['action'] == 'event'){
         $variable = $db->get('event');
         foreach ($variable as $value) {
@@ -19,14 +32,15 @@
 
     if($_GET['action'] == 'fetch'){
 
-        $db->join('user u', 'u.user_id = e.even_parent', 'RIGHT');
+        $db->join('car_stock u', 'u.cast_id = e.even_parent', 'RIGHT');
         $variable = $db->where('even_status',0)->get('event e');
         foreach ($variable as $value) {
             $api['data'][] = array(
                 $value['even_id'],
                 $value['even_detail'],
-                $value['even_date'],
-                'คุณ '.$value['cast_seller_name'].' ID '.$value['even_parent'],
+                DateThai($value['even_date']),
+                'คุณ '.$value['cast_seller_name'].', ID '.$value['even_parent'],
+                'AA'
             );
         }
 

@@ -102,10 +102,10 @@
                                     <table id="datatable" class="table dt-responsive nowrap">
                                         <thead>
                                             <tr>
-                                                <th>รหัส</th>
-                                                <th>รายละเอียด</th>
                                                 <th>วันที่นัดหมาย</th>
+                                                <th>รายละเอียด</th>
                                                 <th>ลูกค้า</th>
+                                                <th>ผู้รับผิดชอบ</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -193,10 +193,10 @@
             },
             ajax: '/admin/system/meet.api.php?action=fetch',
             "columns" : [
-                {'data':'0'},
-                {'data':'1'},
                 {'data':'2'},
+                {'data':'1'},
                 {'data':'3'},
+                {'data':'4'}
             ],
         });
 
