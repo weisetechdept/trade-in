@@ -298,11 +298,24 @@
                                                                             <label>วันที่นัดหมาย</label>
                                                                             <input type="datetime-local" v-model="bookData.date" class="form-control" min="<?php echo date('Y-m-d')?>T00:00" />
                                                                         </div>
+
+                                                                        <div class="form-group">
+                                                                            <label>ผู้รับผิดชอบ</label>
+                                                                            <select class="form-control">
+                                                                                <option value="ติดตามลูกค้า">= เลือกผู้ดูแล =</option>
+                                                                                <option value="1">คุณปิ้น</option>
+                                                                                <option value="2">คุณต๋อม</option>
+                                                                                <option value="3">คุณแอ๊ะ</option>
+                                                                                <option value="4">คุณโย่ง (ทดสอบ)</option>
+                                                                            </select>
+                                                                        </div>
+
                                                                         <div class="form-group">
                                                                             <label>รายลัเอียด</label>
                                                                             <textarea type="text" v-model="bookData.detail" class="form-control"></textarea>
                                                                         </div>
                                                                         <input type="submit" class="btn btn-primary" @click="meetData" value="นัดหมาย">
+
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -473,6 +486,7 @@
                                                     <input type="file" class="form-control file-upload" id="uploadfiles" ref="uploadfiles" multiple />
                                                 </div>
                                             </div>
+
                                             <div class="form-group">
                                                 <button type="button" @click='uploadFile()' class="btn btn-primary waves-effect waves-light">อัพโหลด</button>
                                             </div>
