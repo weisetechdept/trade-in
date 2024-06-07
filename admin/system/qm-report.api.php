@@ -57,9 +57,9 @@
         'addon' => $b,
         'replace' => $c,
         'all' => $a + $b + $c,
-        'first_per' => number_format(($a / ($a + $b + $c)) * 100).'%',
-        'addon_per' => number_format(($b / ($a + $b + $c)) * 100).'%',
-        'replace_per' => number_format(($c / ($a + $b + $c)) * 100).'%',
+        'first_per' => number_format(($a / ($a + $b + $c)) * 100,2,".","").'%',
+        'addon_per' => number_format(($b / ($a + $b + $c)) * 100,2,".","").'%',
+        'replace_per' => number_format(($c / ($a + $b + $c)) * 100,2,".","").'%',
 
     );
 
@@ -94,10 +94,10 @@
         $per = number_format(($trade / $count) * 100).'%';
 
         $api['count'][] = array('team' => $manager,
-                                'value' => $count,'trade' => $trade,'percentage' => $per,
-                                'objFirst' => empty($objBuy[$manager]['first']) ? 0 : $objBuy[$manager]['first'],
-                                'objAddon' => empty($objBuy[$manager]['addon']) ? 0 : $objBuy[$manager]['addon'],
-                                'objReplace' => empty($objBuy[$manager]['replace']) ? 0 : $objBuy[$manager]['replace']
+            'value' => $count,'trade' => $trade,'percentage' => $per,
+            'objFirst' => empty($objBuy[$manager]['first']) ? 0 : $objBuy[$manager]['first'],
+            'objAddon' => empty($objBuy[$manager]['addon']) ? 0 : $objBuy[$manager]['addon'],
+            'objReplace' => empty($objBuy[$manager]['replace']) ? 0 : $objBuy[$manager]['replace']
         );
 
         $all += $count;
