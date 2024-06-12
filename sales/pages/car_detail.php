@@ -379,11 +379,10 @@
                                     <div class="card-body">
 
                                        
-                                            <div class="row">
-                                                <div class="col form-group mt-2">
-                                                    <input type="file" class="form-control file-upload" id="cfupload" ref="cfupload"  multiple />
-                                                </div>
-                                            </div>
+                                    <p><input multiple type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style=""></p>
+                                    <p class="cont"></p>
+
+
                                     </div>
                                 </div>
                             </div>
@@ -491,42 +490,20 @@
                     },
                     mounted() {
 
-                        const inputElement = document.querySelector('#cfupload');
-                        const pond = FilePond.create(inputElement);
-                        pond.on('addfile', (error, file) => {
-                            if (!error) {
-
-                                // File added successfully, do something with the file
-                                //console.log(file);
-                                const formData = new FormData();
-                                formData.append('file', file.file);
-                                axios.post('https://api.cloudflare.com/client/v4/accounts/1adf66719c0e0ef72e53038acebcc018/images/v1', formData, {
-                                    headers: {
-                                        'Content-Type': 'multipart/form-data',
-                                        'X-Auth-Email': 'weisedev.dept@gmail.com',
-                                        'X-Auth-Key': 'x2skj57v2poPW8UxIQGqBACBxkJ4Glg42lVhbDPe'
-                                    }
-                                })
-                                .then(response => {
-                                    // Handle the response from Cloudflare Images API
-                                    console.log(response);
-
-                                })
-                                .catch(error => {
-                                    // Handle the error
-                                    console.log(error);
-                                });
-
-                            } else {
-                                // Error adding file, handle the error
-                                //console.log(error);
+                        var loadFile = function(event) {
+                            for (let i = 0; i < event.target.files.length; i++) {
+                                var image = document.createElement('img');
+                                image.src = URL.createObjectURL(event.target.files[i]);
+                                image.id = "output";
+                                image.width = "200";
+                                document.querySelector(".cont").appendChild(image);
                             }
-
-                        });
-
+                        };
                     
                     },
                     methods: {
+                        
+
                         uploadFile: function(){
                             if(this.$refs.uploadfiles.files.length <= 0 || this.group == 0){
                                 swal("เกิดข้อผิดพลาดบางอย่าง", "กรุณาเลือกไฟล์ที่ต้องการอัพโหลด และประเภทของรูป", "warning",{ 
