@@ -350,8 +350,10 @@
                                       
                                             <div class="row">
                                                 <div class="col form-group mt-2">
-                                                    <input type="file" class="form-control file-upload" name="uploadfiles" id="uploadfiles" ref="uploadfiles" multiple accept="image/*">
+                                                    <input type="file" class="form-control file-upload" ref="uploadfiles" multiple accept="image/*" max="5">
                                                 </div>
+                                            </div>
+                                            </div>
                                             </div>
 
                                             <div class="form-group mb-0">
@@ -381,12 +383,6 @@
                         </div>
                     </div>
                 </div>
-
-                <form action="/action_page.php">
-  <label for="files">Select files:</label>
-  <input type="file" id="files" name="files" multiple><br><br>
-  <input type="submit">
-</form>
 
                 <footer class="footer">
                     <div class="container-fluid">
