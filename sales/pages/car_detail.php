@@ -350,7 +350,7 @@
                                       
                                             <div class="row">
                                                 <div class="col form-group mt-2">
-                                                    <input type="file" class="form-control file-upload" id="uploadfiles" ref="uploadfiles" multiple="multiple" accept="image/jpeg,image/png" />
+                                                    <input type="file" class="form-control file-upload" id="uploadfiles" ref="uploadfiles" accept="image/*" />
                                                 </div>
                                             </div>
 
