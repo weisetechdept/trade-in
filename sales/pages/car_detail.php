@@ -350,10 +350,8 @@
                                       
                                             <div class="row">
                                                 <div class="col form-group mt-2">
-                                                    <input type="file" class="form-control file-upload" id="uploadfiles" ref="uploadfiles" multiple accept="image/*" max="5">
+                                                    <input type="file" class="form-control file-upload" name="uploadfiles" id="uploadfiles" ref="uploadfiles" multiple accept="image/*">
                                                 </div>
-                                            </div>
-                                            </div>
                                             </div>
 
                                             <div class="form-group mb-0">
