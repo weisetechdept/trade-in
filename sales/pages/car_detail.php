@@ -371,7 +371,7 @@
                                 <div class="card">
                                     <div class="card-body">
 
-                                        <input type="file" id="file-upload" accept="image/*" capture @change="setImage" />
+                                        <input type="file" id="file-upload" accept="image/*" capture @change="setImage" multiple/>
 
                                     </div>
                                 </div>
