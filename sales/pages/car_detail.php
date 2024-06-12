@@ -363,6 +363,22 @@
                             </div>
                         </div>
 
+                        
+
+
+                    <div class="row" id="multiUpload">
+                            <div class="col-lg-6 col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        
+                                        <input type="file" id="file-input" multiple>
+                                        <div id="preview-container"></div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                             <div id="car_img">
                                 <div class="row" v-for="docs in img">
                                     <div class="col-lg-6 col-md-12">
@@ -380,10 +396,6 @@
 
                         </div>
                     </div>
-
-                    <input type="file" id="file-input" multiple>
-    <div id="preview-container"></div>
-
 
                 </div>
 
