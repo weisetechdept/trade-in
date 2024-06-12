@@ -350,9 +350,10 @@
                                       
                                             <div class="row">
                                                 <div class="col form-group mt-2">
-                                                    <input type="file" class="form-control file-upload" id="uploadfiles" ref="uploadfiles" multiple />
+                                                    <input type="file" class="form-control file-upload" name="uploadfiles" id="uploadfiles" ref="uploadfiles" multiple accept="image/*">
                                                 </div>
                                             </div>
+
                                             <div class="form-group mb-0">
                                                 <button type="button" @click='uploadFile()' class="btn btn-primary waves-effect waves-light mb-2">อัพโหลด</button>
                                             </div>
@@ -380,6 +381,12 @@
                         </div>
                     </div>
                 </div>
+
+                <form action="/action_page.php">
+  <label for="files">Select files:</label>
+  <input type="file" id="files" name="files" multiple><br><br>
+  <input type="submit">
+</form>
 
                 <footer class="footer">
                     <div class="container-fluid">
@@ -486,13 +493,12 @@
                                             onUploadProgress: function(progressEvent) {
                                                 var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
                                                 swal({
-                                                    title: "กำลังอัพโหลด",
-                                                    text: "Please wait",
-                                                    icon: "info",
-                                                    showConfirmButton: false,
-                                                    allowOutsideClick: false,
+                                                    title: 'กำลังอัพโหลด',
+                                                    text: 'กรุณารอสักครู่...',
+                                                    buttons: false,
                                                     closeOnClickOutside: false,
-                                                    closeOnEsc: false
+                                                    closeOnEsc: false,
+                                                    icon: '/assets/images/Spin.gif'
                                                 });
                                             }
                                         })
