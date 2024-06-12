@@ -34,6 +34,13 @@
         <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
         <link href="/assets/css/theme.min.css" rel="stylesheet" type="text/css" />
         <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+        <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
+        <link href="https://unpkg.com/filepond-plugin-image-edit/dist/filepond-plugin-image-edit.css" rel="stylesheet">
+        <link href="https://unpkg.com/filepond-plugin-image-crop/dist/filepond-plugin-image-crop.css" rel="stylesheet">
+        <link href="https://unpkg.com/filepond-plugin-image-transform/dist/filepond-plugin-image-transform.css" rel="stylesheet">
+        <link href="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.css" rel="stylesheet">
+        <link href="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.css" rel="stylesheet">
+
 
         <style>
             body {
@@ -350,7 +357,7 @@
                                       
                                             <div class="row">
                                                 <div class="col form-group mt-2">
-                                                    <input type="file" class="form-control file-upload" name="files[]" id="uploadfiles" ref="uploadfiles"  multiple />
+                                                    <input type="file" class="form-control file-upload" id="uploadfiles" ref="uploadfiles"  multiple />
                                                 </div>
                                             </div>
 
@@ -372,7 +379,11 @@
                                     <div class="card-body">
 
                                        
-
+                                            <div class="row">
+                                                <div class="col form-group mt-2">
+                                                    <input type="file" class="form-control file-upload" id="cfupload" ref="cfupload"  multiple />
+                                                </div>
+                                            </div>
                                     </div>
                                 </div>
                             </div>
@@ -450,7 +461,20 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.1/axios.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/filepond/4.31.1/filepond.min.js"></script>
+        <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.js"></script>
+        <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.min.js"></script>
+        <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.min.js"></script>
+        <script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.min.js"></script>
+        <script src="https://unpkg.com/filepond-plugin-image-crop/dist/filepond-plugin-image-crop.min.js"></script>
+        <script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.min.js"></script>
+        <script src="https://unpkg.com/filepond-plugin-image-transform/dist/filepond-plugin-image-transform.min.js"></script>
+        <script src="https://unpkg.com/filepond-plugin-image-edit/dist/filepond-plugin-image-edit.min.js"></script>
+        <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.js"></script>
+
         <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+        <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+
 
 
         <script>
@@ -464,6 +488,43 @@
                             id: '<?php echo $cid; ?>',
                             group: '0'
                         }
+                    },
+                    mounted() {
+
+                        const inputElement = document.querySelector('#cfupload');
+                        const pond = FilePond.create(inputElement);
+                        pond.on('addfile', (error, file) => {
+                            if (!error) {
+
+                                // File added successfully, do something with the file
+                                //console.log(file);
+                                const formData = new FormData();
+                                formData.append('file', file.file);
+                                axios.post('https://api.cloudflare.com/client/v4/accounts/1adf66719c0e0ef72e53038acebcc018/images/v1', formData, {
+                                    headers: {
+                                        'Content-Type': 'multipart/form-data',
+                                        'X-Auth-Email': 'weisedev.dept@gmail.com',
+                                        'X-Auth-Key': 'x2skj57v2poPW8UxIQGqBACBxkJ4Glg42lVhbDPe'
+                                    }
+                                })
+                                .then(response => {
+                                    // Handle the response from Cloudflare Images API
+                                    console.log(response);
+
+                                })
+                                .catch(error => {
+                                    // Handle the error
+                                    console.log(error);
+                                });
+
+                            } else {
+                                // Error adding file, handle the error
+                                //console.log(error);
+                            }
+
+                        });
+
+                    
                     },
                     methods: {
                         uploadFile: function(){
