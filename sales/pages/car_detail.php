@@ -350,41 +350,7 @@
                                       
                                             <div class="row">
                                                 <div class="col form-group mt-2">
-                                                    <input type="file" class="form-control file-upload" id="uploadfiles" ref="uploadfiles" multiple />
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group mb-0">
-                                                <button type="button" @click='uploadFile()' class="btn btn-primary waves-effect waves-light mb-2">อัพโหลด</button>
-                                            </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-6 col-md-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="mb-2 font-size-18">อัพโหลดรูป (อัพได้ครั้งละหลายรูป)</h4>
-
-                                            <p class="red">สามารถอัพโหลดรูปได้ครั้งละไม่เกิน 5 รูป</p>
-
-                                            <div class="form-group">
-                                                <select class="form-control" v-model="group" id="exampleFormControlSelect1">
-                                                    <option value="0">= เลือกประเภทรูป =</option>
-                                                    <option value="10">รูปภายนอกรถยนต์ (Code: 10)</option>
-                                                    <option value="20">รูปภายในรถยนต์ (Code: 20)</option>
-                                                    <option value="30">รูปเอกสารรถยนต์ (Code: 30)</option>
-                                                    <option value="40">รูปห้องเครื่อง ช่วงล่าง ใต้ท้องรถ (Code: 40)</option>
-                                                    <option value="50">รูปตำหนิรถยนต์แต่ละจุด (Code: 50)</option>
-                                                </select>
-                                            </div>
-                                      
-                                            <div class="row">
-                                                <div class="col form-group mt-2">
-                                                    <input type="file" id="files" name="files" multiple>
+                                                    <input type="file" class="form-control file-upload" id="uploadfiles" ref="uploadfiles" multiple="multiple" accept="image/jpeg,image/png" />
                                                 </div>
                                             </div>
 
