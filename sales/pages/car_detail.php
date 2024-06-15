@@ -425,53 +425,58 @@
                     },
                     methods: {
                         uploadFile() {
-                            var el = this;
-                            var formData = new FormData();
-                            var files = [this.$refs.uploadAndroid1.files[0], this.$refs.uploadAndroid2.files[0], this.$refs.uploadAndroid3.files[0], this.$refs.uploadAndroid4.files[0], this.$refs.uploadAndroid5.files[0]];
-                            var totalfiles = files.length;
-                            for (var index = 0; index < totalfiles; index++) {
-                                formData.append("files[]", files[index]);
-                            }
-                            formData.append('id', '<?php echo $cid; ?>');
-                            formData.append('group', this.group);
+                            var f = this.$refs.uploadAndroid1.files.length + this.$refs.uploadAndroid2.files.length + this.$refs.uploadAndroid3.files.length + this.$refs.uploadAndroid4.files.length + this.$refs.uploadAndroid5.files.length;
+                            if(f <= 0){
+                                swal("เกิดข้อผิดพลาดบางอย่าง", "กรุณาเลือกรูปเพื่ออัพโหลด", "warning",{ 
+                                    button: "ตกลง"
+                                });
+                                return;
+                            } else if(this.group == 0) {
+                                swal("เกิดข้อผิดพลาดบางอย่าง", "กรุณาเลือกประเภทของรูป", "warning",{ 
+                                    button: "ตกลง"
+                                });
+                            } else {
 
-                            axios.post('/sales/system/multi_upload.api.php', formData,
-                            {
-                                headers: {
-                                    'Content-Type': 'multipart/form-data'
-                                },
-                                onUploadProgress: function(progressEvent) {
-                                    var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                                    swal({
-                                        title: 'กำลังอัพโหลด',
-                                        text: 'กรุณารอสักครู่...',
-                                        buttons: false,
-                                        closeOnClickOutside: false,
-                                        closeOnEsc: false,
-                                        icon: '/assets/images/Spin.gif'
-                                    });
+                                var el = this;
+                                var formData = new FormData();
+                                var files = [this.$refs.uploadAndroid1.files[0], this.$refs.uploadAndroid2.files[0], this.$refs.uploadAndroid3.files[0], this.$refs.uploadAndroid4.files[0], this.$refs.uploadAndroid5.files[0]];
+                                var totalfiles = files.length;
+                                for (var index = 0; index < totalfiles; index++) {
+                                    formData.append("files[]", files[index]);
                                 }
-                            })
-                            .then(function (response) {
-                                console.log(response);
-                                swal.close();
-                                if(response.data.status == 200) 
-                                    swal("สำเร็จ", "อัพโหลดรูปสำเร็จ", "success",{ 
-                                        button: "ตกลง"
-                                    }).then((value) => {
-                                        location.reload(true)
-                                    });
-                            })
-                            .then(function (response) {
-                                console.log(response);
-                                swal.close();
-                                if(response.data.status == 200) 
-                                    swal("สำเร็จ", "อัพโหลดรูปสำเร็จ", "success",{ 
-                                        button: "ตกลง"
-                                    }).then((value) => {
-                                        location.reload(true)
-                                    });
-                            })
+                                formData.append('id', '<?php echo $cid; ?>');
+                                formData.append('group', this.group);
+
+                                axios.post('/sales/system/multi_upload.api.php', formData,
+                                {
+                                    headers: {
+                                        'Content-Type': 'multipart/form-data'
+                                    },
+                                    onUploadProgress: function(progressEvent) {
+                                        var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                                        swal({
+                                            title: 'กำลังอัพโหลด',
+                                            text: 'กรุณารอสักครู่...',
+                                            buttons: false,
+                                            closeOnClickOutside: false,
+                                            closeOnEsc: false,
+                                            icon: '/assets/images/Spin.gif'
+                                        });
+                                    }
+                                })
+                                .then(function (response) {
+                                    
+                                    swal.close();
+                                    if(response.data.status == 200) 
+                                        swal("สำเร็จ", "อัพโหลดรูปสำเร็จ", "success",{ 
+                                            button: "ตกลง"
+                                        }).then((value) => {
+                                            location.reload(true)
+                                        });
+                                })
+
+                            }
+                            
                         }
             
                     }
