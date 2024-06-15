@@ -46,7 +46,6 @@
             'cast_seller_name' => $seller_name,
             'cast_tel' => $tel,
             'cast_vat' => '0',
-
             'cast_type' => $type,
             'cast_seat' => $seat,
             'cast_door' => $door,

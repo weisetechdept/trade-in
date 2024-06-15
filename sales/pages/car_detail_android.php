@@ -104,18 +104,6 @@
                 border: 0;
                 padding: 0;
             }
-            .warning-android {
-                padding: 10px;
-                margin-bottom: 20px;
-                border: dashed 1px red;
-            }
-            .warning-android h5 {
-                color: red;
-                font-weight: 400;
-            }
-            #multiAndroid {
-                display: none;
-            }
         </style>
     </head>
 
@@ -130,145 +118,106 @@
 
                 <div class="page-content">
                     <div class="container-fluid">
-                        <div id="agent">
-                            <div class="row">
-                                <div class="col-12" >
-                                    <div class="page-title-box d-flex align-items-center justify-content-between">
-                                        <h4 class="mb-0 font-size-18">รถยนต์รหัส</h4>
+                      <div id="agent">
+                        <div class="row">
+                            <div class="col-12" >
+                                <div class="page-title-box d-flex align-items-center justify-content-between">
+                                    <h4 class="mb-0 font-size-18">รถยนต์รหัส</h4>
 
-                                        <div class="page-title-right">
-                                            <ol class="breadcrumb m-0">
-                                                <li class="breadcrumb-item"><a href="javascript: void(0);">Trade-in</a></li>
-                                                <li class="breadcrumb-item active">รถยนต์</li>
-                                            </ol>
-                                        </div>
-                                        
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Trade-in</a></li>
+                                            <li class="breadcrumb-item active">รถยนต์</li>
+                                        </ol>
                                     </div>
+                                    
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="row">
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h4 class="mb-2 font-size-18">ข้อมูลสมาชิก</h4>
-                                            <div class="table-responsive">
-                                                <table class="table mb-0">
-                                                    <tbody>
-                                                        <tr>
-                                                            <th width="155px">รหัส ID</th>
-                                                            <td>{{ id }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>เลขไมล์</th>
-                                                            <td>{{ mileage }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>ยี่ห้อ</th>
-                                                            <td>{{ brand }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>ซีรี่</th>
-                                                            <td>{{ serie }}</td>
-                                                        <tr>
-                                                            <th>รุ่น</th>
-                                                            <td>{{ section }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>เกียร์</th>
-                                                            <td>{{ transmission }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>สี</th>
-                                                            <td>{{ color }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>รุ่นปี</th>
-                                                            <td>{{ car_year }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>ราคา</th>
-                                                            <td>{{ price }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>เพิ่มเติม</th>
-                                                            <td>{{ option }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>สภาพ</th>
-                                                            <td>{{ condition }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>ชื่อ ผู้ขาย</th>
-                                                            <td>{{ sellername }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>เบอร์โทรศัพท์ ผู้ขาย</th>
-                                                            <td>{{ tel }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>สถานะ</th>
-                                                            <td v-if="status == '0'"><span class="badge badge-soft-success">ไม่มีสถานะ.</span></td>
-                                                            <td v-if="status == '1'"><span class="badge badge-soft-success">ติดตามลูกค้า</span></td>
-                                                            <td v-if="status == '2'"><span class="badge badge-soft-success">ไม่ได้สัมผัสรถ</span></td>
-                                                            <td v-if="status == '3'"><span class="badge badge-soft-success">ลูกค้าขายเอง / ขายที่อื่น</span></td>
-                                                            <td v-if="status == '4'"><span class="badge badge-soft-success">สำเร็จ</span></td>
-                                                            <td v-if="status == '10'"><span class="badge badge-soft-danger">ลบ</span></td>
-                                                        </tr>
-                                                        
-                                                    </tbody>
-                                                </table>
-                                                <div class="form-group mt-3">
-                                                    <h4 class="mb-2 font-size-18">จัดการข้อมูล</h4>
-                                                    <a :href="'/sales/edit/'+id" type="submit" class="btn btn-outline-warning waves-effect waves-light mr-2">แก้ใข</a> <button type="button" class="btn btn-success waves-effect waves-light" @click="sendNotify">ส่งข้อมูลให้ทีมพ่อสื่อ</button>
-                                                </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="mb-2 font-size-18">ข้อมูลสมาชิก</h4>
+                                        <div class="table-responsive">
+                                            <table class="table mb-0">
+                                                <tbody>
+                                                    <tr>
+                                                        <th width="155px">รหัส ID</th>
+                                                        <td>{{ id }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>เลขไมล์</th>
+                                                        <td>{{ mileage }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>ยี่ห้อ</th>
+                                                        <td>{{ brand }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>ซีรี่</th>
+                                                        <td>{{ serie }}</td>
+                                                    <tr>
+                                                        <th>รุ่น</th>
+                                                        <td>{{ section }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>เกียร์</th>
+                                                        <td>{{ transmission }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>สี</th>
+                                                        <td>{{ color }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>รุ่นปี</th>
+                                                        <td>{{ car_year }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>ราคา</th>
+                                                        <td>{{ price }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>เพิ่มเติม</th>
+                                                        <td>{{ option }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>สภาพ</th>
+                                                        <td>{{ condition }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>ชื่อ ผู้ขาย</th>
+                                                        <td>{{ sellername }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>เบอร์โทรศัพท์ ผู้ขาย</th>
+                                                        <td>{{ tel }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>สถานะ</th>
+                                                        <td v-if="status == '0'"><span class="badge badge-soft-success">ไม่มีสถานะ.</span></td>
+                                                        <td v-if="status == '1'"><span class="badge badge-soft-success">ติดตามลูกค้า</span></td>
+                                                        <td v-if="status == '2'"><span class="badge badge-soft-success">ไม่ได้สัมผัสรถ</span></td>
+                                                        <td v-if="status == '3'"><span class="badge badge-soft-success">ลูกค้าขายเอง / ขายที่อื่น</span></td>
+                                                        <td v-if="status == '4'"><span class="badge badge-soft-success">สำเร็จ</span></td>
+                                                        <td v-if="status == '10'"><span class="badge badge-soft-danger">ลบ</span></td>
+                                                    </tr>
+                                                    
+                                                </tbody>
+                                            </table>
+                                            <div class="form-group mt-3">
+                                                <h4 class="mb-2 font-size-18">จัดการข้อมูล</h4>
+                                                <a :href="'/sales/edit/'+id" type="submit" class="btn btn-outline-warning waves-effect waves-light mr-2">แก้ใข</a> <button type="button" class="btn btn-success waves-effect waves-light" @click="sendNotify">ส่งข้อมูลให้ทีมพ่อสื่อ</button>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h4 class="mb-2 font-size-18">ราคาจากพันธมิตร</h4>
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>ลำดับ</th>
-                                                        <th>ราคา</th>
-                                                        <th>เวลา</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr v-for="off in offer">
-                                                        <td>{{ off.no }}</td>
-                                                        <td>{{ off.price }}</td>
-                                                        <td>{{ off.date }}</td>
-                                                    </tr>
-                                                </tbody>
-
-                                            </table>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row" id="btnAndroid">
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="warning-android">
-                                        <h5>สำหรับ Android ที่อัพโหลดรูปไม่ได้ ให้ใช้งานระบบสำหรับ Android (โดยคลิกปุ่มด้านล่าง)</h5>
-                                        <button type="button" @click="androidUpload" class="btn btn-danger waves-effect btn-block">ระบบกำลังอัพโหลดสำหรับ Android</button>
                                     </div>
                                 </div>
                             </div>
                             
                         </div>
-
-                    
+                        
+                    </div>
 
                     <div class="row" id="multiUpload">
                         <div class="col-lg-6 col-md-12">
@@ -297,62 +246,6 @@
 
                                         <div class="form-group mb-0">
                                             <button type="button" @click='uploadFile()' class="btn btn-primary waves-effect waves-light mb-2">อัพโหลด</button>
-                                        </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row" id="multiAndroid">
-                        <div class="col-lg-6 col-md-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="mb-3 font-size-18">อัพโหลดรูปสำหรับ Android</h4>
-
-                                        <div class="form-group">
-                                            <select class="form-control" v-model="group" id="exampleFormControlSelect1">
-                                                <option value="0">= เลือกประเภทรูป =</option>
-                                                <option value="10">รูปภายนอกรถยนต์ (Code: 10)</option>
-                                                <option value="20">รูปภายในรถยนต์ (Code: 20)</option>
-                                                <option value="30">รูปเอกสารรถยนต์ (Code: 30)</option>
-                                                <option value="40">รูปห้องเครื่อง ช่วงล่าง ใต้ท้องรถ (Code: 40)</option>
-                                                <option value="50">รูปตำหนิรถยนต์แต่ละจุด (Code: 50)</option>
-                                            </select>
-                                        </div>
-                                        
-                                        <div class="row">
-                                            <div class="col form-group">
-                                                <p class="red">สามารถอัพโหลดรูปอย่างน้อย 1 รูป และไม่เกิน 5 รูปต่อครั้ง</p>
-                                                <div class="mb-4">
-                                                    <p class="mb-2">รูปที่ 1</p>
-                                                    <input type="file" class="form-control file-upload" id="uploadAndroid1" ref="uploadAndroid1">
-                                                </div>
-
-                                                <div class="mb-4">
-                                                    <p class="mb-2">รูปที่ 2</p>
-                                                    <input type="file" class="form-control file-upload" id="uploadAndroid2" ref="uploadAndroid2">
-                                                </div>
-
-                                                <div class="mb-4">
-                                                    <p class="mb-2">รูปที่ 3</p>
-                                                    <input type="file" class="form-control file-upload" id="uploadAndroid3" ref="uploadAndroid3">
-                                                </div>
-                                                
-                                                <div class="mb-4">
-                                                    <p class="mb-2">รูปที่ 4</p>
-                                                    <input type="file" class="form-control file-upload" id="uploadAndroid4" ref="uploadAndroid4">
-                                                </div>
-
-                                                <div class="mb-4">
-                                                    <p class="mb-2">รูปที่ 5</p>
-                                                    <input type="file" class="form-control file-upload" id="uploadAndroid5" ref="uploadAndroid5">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <button type="button" @click='uploadFile()' class="btn btn-block btn-primary waves-effect waves-light mb-2">อัพโหลด</button>
                                         </div>
 
                                 </div>
@@ -412,71 +305,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
 
         <script>
-            
-                var uploadAndroid = new Vue({
-                    el: '#multiAndroid',
-                    data () {
-                        return {
-                            file: "",
-                            filenames: [],
-                            id: '<?php echo $cid; ?>',
-                            group: '0'
-                        }
-                    },
-                    methods: {
-                        uploadFile() {
-                            var el = this;
-                            var formData = new FormData();
-                            var files = [this.$refs.uploadAndroid1.files[0], this.$refs.uploadAndroid2.files[0], this.$refs.uploadAndroid3.files[0], this.$refs.uploadAndroid4.files[0], this.$refs.uploadAndroid5.files[0]];
-                            var totalfiles = files.length;
-                            for (var index = 0; index < totalfiles; index++) {
-                                formData.append("files[]", files[index]);
-                            }
-                            formData.append('id', '<?php echo $cid; ?>');
-                            formData.append('group', this.group);
-
-                            axios.post('/sales/system/multi_upload.api.php', formData,
-                            {
-                                headers: {
-                                    'Content-Type': 'multipart/form-data'
-                                },
-                                onUploadProgress: function(progressEvent) {
-                                    var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                                    swal({
-                                        title: 'กำลังอัพโหลด',
-                                        text: 'กรุณารอสักครู่...',
-                                        buttons: false,
-                                        closeOnClickOutside: false,
-                                        closeOnEsc: false,
-                                        icon: '/assets/images/Spin.gif'
-                                    });
-                                }
-                            })
-                            .then(function (response) {
-                                console.log(response);
-                                swal.close();
-                                if(response.data.status == 200) 
-                                    swal("สำเร็จ", "อัพโหลดรูปสำเร็จ", "success",{ 
-                                        button: "ตกลง"
-                                    }).then((value) => {
-                                        location.reload(true)
-                                    });
-                            })
-                            .then(function (response) {
-                                console.log(response);
-                                swal.close();
-                                if(response.data.status == 200) 
-                                    swal("สำเร็จ", "อัพโหลดรูปสำเร็จ", "success",{ 
-                                        button: "ตกลง"
-                                    }).then((value) => {
-                                        location.reload(true)
-                                    });
-                            })
-                        }
-            
-                    }
-                });
-
                 var uploadMul = new Vue({
                     el: '#multiUpload',
                     data () {
@@ -598,20 +426,18 @@
                             cal_tltprice: '',
                             vat: '',
                             sellername: '',
-                            offer: [],
                         }
                     },
                     mounted () {
                         axios.get('/sales/system/car_detail.api.php?u=<?php echo $cid; ?>')
                             .then(response => {
-                                console.log(response.data.offer);
                                 if(response.data.status == 404) 
                                     swal("เกิดข้อผิดพลาดบางอย่าง", "อาจมีบางอย่างผิดปกติ (error : 404)", "warning",{ 
                                         button: "ตกลง"
                                     }).then((value) => {
                                         window.location.href = "/sales/home";
                                     });
-                                this.offer = response.data.offer;
+                                
                                 this.cal_price = response.data.car.cal_price;
                                 this.cal_tltprice = response.data.car.cal_tlt_price;
                                 var cal_down = this.cal_price - (this.cal_tltprice * (this.loanrate/100));
@@ -643,15 +469,11 @@
                                 this.tel = response.data.car.tel;
                                 this.vat = response.data.car.vat;
                                 this.sellername = response.data.car.sellername;
+                             
                             }),
                             this.calDownpayment();
                     },
                     methods: {
-                        androidUpload(){
-                            $('#multiAndroid').show();
-                            $('#multiUpload').hide();
-                            $('#btnAndroid').hide();
-                        },
                         sendNotify(){
                             swal({
                                 title: 'คุณแน่ใจหรือไม่ ?',
