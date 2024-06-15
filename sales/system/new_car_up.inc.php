@@ -58,12 +58,10 @@
             'cast_passengerType' => $passengerType,
             'cast_suspension' => $suspension,
             'cast_drive' => $drive,
-
-            'casr_pv' => $pv,
+            'cast_pv' => $pv,
             'cast_fin' => $fin,
             'cast_loan' => $loan,
             'cast_ready' => $ready,
-            
             'cast_link_public' => '0',
             'cast_thumb' => '0',
             'cast_status' => '0', 
