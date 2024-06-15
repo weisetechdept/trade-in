@@ -24,6 +24,10 @@
         $suspension = $request->suspension; 
         $drive = $request->drive; 
         $year = $request->year;
+        $pv = $request->pv;
+        $fin = $request->fin;
+        $loan = $request->loan;
+        $ready = $request->ready;
 
         $user_id = $_SESSION['tin_user_id'];
         $usr = $db_nms->where('id', $user_id)->getOne('db_member');
@@ -54,6 +58,12 @@
             'cast_passengerType' => $passengerType,
             'cast_suspension' => $suspension,
             'cast_drive' => $drive,
+
+            'casr_pv' => $pv,
+            'cast_fin' => $fin,
+            'cast_loan' => $loan,
+            'cast_ready' => $ready,
+            
             'cast_link_public' => '0',
             'cast_thumb' => '0',
             'cast_status' => '0', 

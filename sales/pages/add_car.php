@@ -279,9 +279,9 @@
                                                         <td><input type="text" class="form-control"  maxlength="10" v-model="send.tel"></td>
                                                     </tr>
 
-                                                    <tr class="hd-fc">
+                                                    <tr>
                                                         <th>ปัจจุบันรถอยู่จังหวัดใด<br /><small>(เพื่อให้พันธมิตรเข้าไปดูรถจริง)</small></th>
-                                                        <td><select class="form-control">
+                                                        <td><select v-model="send.pv" class="form-control">
                                                                 <option value="0">= เลือกจังหวัด =</option>
                                                                     <option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
                                                                     <option value="กระบี่">กระบี่ </option>
@@ -365,10 +365,10 @@
                                                         </td>
                                                     </tr>
 
-                                                    <tr class="hd-fc">
+                                                    <tr>
                                                         <th>สถานะไฟแนนซ์</th>
                                                         <td>
-                                                            <select @change="onFinance" class="form-control">
+                                                            <select @change="onFinance" v-model="send.fin" class="form-control">
                                                                 <option value="0">= โปรดเลือกสถานะไฟแนนซ์ =</option>
                                                                 <option value="1">ติดไฟแนนซ์</option>
                                                                 <option value="2">ปลอดภาระ / ไม่ติดไฟแนนซ์</option>
@@ -378,13 +378,13 @@
 
                                                     <tr class="hd-fc">
                                                         <th>ยอดคงเหลือ</th>
-                                                        <td><input type="text" class="form-control" maxlength="10"></td>
+                                                        <td><input type="text" class="form-control"  v-model="send.loan" maxlength="10"></td>
                                                     </tr>
                                                     
-                                                    <tr class="hd-fc">
+                                                    <tr>
                                                         <th>ความพร้อมปล่อยรถ</th>
                                                         <td>
-                                                            <select class="form-control">
+                                                            <select class="form-control"  v-model="send.ready">
                                                                 <option value="0">= เลือกความพร้อม =</option>
                                                                 <option value="1">พร้อมปล่อยรถทันที</option>
                                                                 <option value="2">รอจบรถใหม่ก่อน</option>
@@ -480,7 +480,11 @@
                                 passengerType: '0',
                                 suspension: '0',
                                 drive: '0',
-                                year: ''
+                                year: '',
+                                pv: '',
+                                fin: '',
+                                loan: '',
+                                ready: ''
                             },
                             user: {
                                 id: '',
@@ -542,8 +546,11 @@
                                 swal("กรุณากรอกข้อมูลให้ครบถ้วน", "โปรดตรวจสอบข้อมูลให้ครบถ้วน", "warning",{ 
                                     button: "ตกลง"
                                 });
+                            } else if(this.send.fin == '1' && this.send.loan == ''){
+                                swal("กรุณากรอกข้อมูลให้ครบถ้วน", "ใส่จำนวนยอดคงเหลือไฟแนนซ์", "warning",{ 
+                                    button: "ตกลง"
+                                })
                             } else {
-
 
                                 axios.post('/sales/system/new_car_up.inc.php', {
                                     id: this.user.id,
@@ -559,7 +566,11 @@
                                     passengerType: this.send.passengerType,
                                     suspension: this.send.suspension,
                                     drive: this.send.drive,
-                                    year: this.send.year
+                                    year: this.send.year,
+                                    pv: this.send.pv,
+                                    fin: this.send.fin,
+                                    loan: this.send.loan,
+                                    ready: this.send.ready
                                 }).then(res => {
                                     console.log(res.data);
                                     if(res.data.status == 200) 
