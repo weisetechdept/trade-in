@@ -42,8 +42,17 @@
             $offno++;
         }
 
+        if($stock['cast_fin'] == 1){
+            $p_fin = 'ติดไฟแนนซ์ '.$stock['cast_loan'];
+        } else {
+            $p_fin = 'ปลอดภาระ';
+        }
 
-
+        if($stock['cast_ready'] == 1){
+            $p_ready = 'พร้อมขายทันที';
+        } else {
+            $p_ready = 'รอรถใหม่จบก่อน';
+        }
 
         $api['car'] = array('id' => $stock['cast_id'],
             'license' => $stock['cast_license'],
@@ -68,6 +77,10 @@
             'cal_tlt_price' => $stock['find_price'],
             'vat' => $stock['cast_vat'],
             'sellername' => $stock['cast_seller_name'],
+
+            'pv' => $stock['cast_pv'],
+            'fin' => $p_fin,
+            'ready' => $p_ready
         );
 
     }

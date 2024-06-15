@@ -116,6 +116,9 @@
             #multiAndroid {
                 display: none;
             }
+            .gray_bg {
+                background-color: #f1f1f1;
+            }
         </style>
     </head>
 
@@ -205,6 +208,18 @@
                                                         <tr>
                                                             <th>เบอร์โทรศัพท์ ผู้ขาย</th>
                                                             <td>{{ tel }}</td>
+                                                        </tr>
+                                                        <tr class="gray_bg">
+                                                            <th>รถอยู่จังหวัด</th>
+                                                            <td>{{ pv }}</td>
+                                                        </tr>
+                                                        <tr class="gray_bg">
+                                                            <th>สถานะไฟแนนซ์</th>
+                                                            <td>{{ fin }}</td>
+                                                        </tr>
+                                                        <tr class="gray_bg">
+                                                            <th>ความพร้อมปล่อยรถ</th>
+                                                            <td>{{ ready }}</td>
                                                         </tr>
                                                         <tr>
                                                             <th>สถานะ</th>
@@ -603,13 +618,17 @@
                             cal_tltprice: '',
                             vat: '',
                             sellername: '',
+                            pv: '',
+                            fin: '',
+                            ready: '',
                             offer: [],
+
                         }
                     },
                     mounted () {
                         axios.get('/sales/system/car_detail.api.php?u=<?php echo $cid; ?>')
                             .then(response => {
-                                console.log(response.data.offer);
+                                console.log(response.data);
                                 if(response.data.status == 404) 
                                     swal("เกิดข้อผิดพลาดบางอย่าง", "อาจมีบางอย่างผิดปกติ (error : 404)", "warning",{ 
                                         button: "ตกลง"
@@ -648,6 +667,10 @@
                                 this.tel = response.data.car.tel;
                                 this.vat = response.data.car.vat;
                                 this.sellername = response.data.car.sellername;
+                                this.pv = response.data.car.pv;
+                                this.fin = response.data.car.fin;
+                                this.ready = response.data.car.ready;
+
                             }),
                             this.calDownpayment();
                     },
