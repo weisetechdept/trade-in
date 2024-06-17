@@ -5,7 +5,7 @@
     if($_SESSION['tin_login'] != true){
         header("location: /404");
         exit();
-    }
+    } else {
     
 ?>
 <!DOCTYPE html>
@@ -887,3 +887,5 @@
     </body>
     
 </html>
+
+<?php } ?>
