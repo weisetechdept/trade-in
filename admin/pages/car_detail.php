@@ -96,6 +96,9 @@
             .btn-right {
                 float: right;
             }
+            .t-imp {
+                background-color: #f1f1f1;
+            }
         </style>
     </head>
 
@@ -174,16 +177,19 @@
                                                         <th>เบอร์โทรผู้ขาย</th>
                                                         <td>{{ tel }}</td>
                                                     </tr>
-                                                    <tr>
-                                                        <th>เบอร์โทรผู้ขาย</th>
+                                                    
+                                                    <tr class="t-imp">
+                                                        <th>ปัจจุบันรถอยู่จังหวัดใด</th>
                                                         <td></td>
                                                     </tr>
-                                                    <tr>
-                                                        <th>เบอร์โทรผู้ขาย</th>
+
+                                                    <tr class="t-imp">
+                                                        <th>สถานะไฟแนนซ์</th>
                                                         <td></td>
                                                     </tr>
-                                                    <tr>
-                                                        <th>เบอร์โทรผู้ขาย</th>
+
+                                                    <tr class="t-imp">
+                                                        <th>ความพร้อมปล่อยรถ</th>
                                                         <td></td>
                                                     </tr>
                                                     
