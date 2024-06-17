@@ -439,6 +439,7 @@
                         }
                     },
                     methods: {
+
                         uploadFile() {
                             var f = this.$refs.uploadAndroid1.files.length + this.$refs.uploadAndroid2.files.length + this.$refs.uploadAndroid3.files.length + this.$refs.uploadAndroid4.files.length + this.$refs.uploadAndroid5.files.length;
                             if(f <= 0){
@@ -680,7 +681,8 @@
                             $('#multiUpload').hide();
                             $('#btnAndroid').hide();
                         },
-                        sendNotify(){
+                        sendNotify() {
+                            
                             swal({
                                 title: 'คุณแน่ใจหรือไม่ ?',
                                 text: "คุณต้องการส่งข้อมูลให้ทีมพ่อสื่อใช่หรือไม่ โปรดตรวจสอบข้อมูลให้ถูกต้อง",
@@ -711,6 +713,7 @@
                                     });
                                 }
                             });
+                            
                         },
                         calDownpayment(e){
                             
