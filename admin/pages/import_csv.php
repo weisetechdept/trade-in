@@ -3,7 +3,7 @@
     if($_SESSION['tin_admin'] != true){
         header("location: /404");
         exit();
-    }
+    } else {
 ?>
 <!doctype html>
 <html lang="en">
@@ -42,3 +42,4 @@
         </div>
     </body>
 </html>
+<?php } ?>
