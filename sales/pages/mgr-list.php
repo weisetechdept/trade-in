@@ -8,7 +8,7 @@
     */
     if($_SESSION['tin_permission'] !== 'leader') {
         header("location: /404");
-    } else {
+    } 
     $get = $_GET['get'];
 ?>
 <!DOCTYPE html>
@@ -379,4 +379,3 @@
 </body>
 
 </html>
-<?php } ?>

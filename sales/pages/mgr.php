@@ -4,7 +4,7 @@
     if($_SESSION['tin_admin'] != true){
         header("location: /404");
         exit();
-    } else {
+    }
     
 ?>
 <!DOCTYPE html>
@@ -400,5 +400,3 @@
 </body>
 
 </html>
-
-<?php } ?>
