@@ -6,9 +6,10 @@
         exit();
     }
     */
-    if($_SESSION['tin_permission'] !== 'leader') {
+    if($_SESSION['tin_login'] != true){
         header("location: /404");
-    } 
+        exit();
+    } else { 
     $get = $_GET['get'];
 ?>
 <!DOCTYPE html>
@@ -379,3 +380,4 @@
 </body>
 
 </html>
+<?php } ?>
