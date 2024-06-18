@@ -2,7 +2,7 @@
     session_start();
     require_once '../../db-conn.php';
     date_default_timezone_set("Asia/Bangkok");
-
+ 
     function DateThai($strDate)
     {
         $strYear = date("Y",strtotime($strDate))+543;
@@ -33,7 +33,7 @@
     if($_GET['action'] == 'fetch'){
 
         $db->join('car_stock u', 'u.cast_id = e.even_parent','RIGHT');
-        $variable = $db->where('even_status',0)->get('event e');
+        $variable = $db->where('even_status',0)->where('even_date',date('Y-m-d'),">=")->get('event e');
 
         foreach ($variable as $value) {
 
