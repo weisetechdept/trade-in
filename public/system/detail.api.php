@@ -72,13 +72,13 @@
 
                 if($stock['cast_fin'] == '1'){
                     $fin = 'ติดไฟแนนซ์ - '. number_format($stock['cast_loan']).' บาท';
-                } else {
+                } elseif($stock['cast_fin'] == '2') {
                     $fin = 'ปลอดภาระ';
                 }
         
                 if($stock['cast_ready'] == '1'){
                     $ready = 'พร้อมขายทันที';
-                } else {
+                } elseif($stock['cast_ready'] == '2') {
                     $ready = 'รอรถใหม่จบก่อน';
                 }
     
