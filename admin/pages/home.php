@@ -61,8 +61,8 @@
             margin-top: 27px;
         }
         .car-thumb {
-            width: 130px;
-            height: 100px;
+            width: 85px;
+            height: 60px;
             object-fit: cover;
             border-radius: 5px;
         }
@@ -175,9 +175,9 @@
                                     <table id="datatable" class="table dt-responsive nowrap">
                                         <thead>
                                             <tr>
-                                                <th>รหัส</th>
-                                                <th>รูปภาพ</th>
-                                                <th>จำนวนรูป</th>
+                                                <th width="45px">รหัส</th>
+                                                <th width="65px">รูปภาพ</th>
+                                                <th width="45px">รูป</th>
                                                 <th>ทะเบียน</th>
                                                 <th>ปี</th>
                                                 <th>รถยนต์</th>
@@ -297,13 +297,13 @@
                     }
                 },
                 {'data':'11'},
+                {'data':'5'},
+                {'data':'10'},
                 {'data':'1'},
                 {'data':'9'},
                 {'data':'2'},
                 {'data':'3'},
                 {'data':'4'},
-                {'data':'5'},
-                {'data':'10'},
                 { 
                     'data': '6',
                     sortable: false,
