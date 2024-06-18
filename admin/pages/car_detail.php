@@ -411,6 +411,7 @@
                                                         <th>เบอร์โทรศัพท์</th>
                                                         <td>{{ tel }} <a :href="'tel:'+tel" class="btn btn-outline-success ml-2">โทร</a></td>
                                                     </tr>
+
                                                     <tr>
                                                         <th>สถานะ</th>
                                                         <td v-if="status == '0'"><span class="badge badge-soft-success">ไม่มีสถานะ.</span></td>

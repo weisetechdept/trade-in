@@ -43,7 +43,7 @@
         }
 
         if($stock['cast_fin'] == 1){
-            $p_fin = 'ติดไฟแนนซ์ '.$stock['cast_loan'];
+            $p_fin = 'ติดไฟแนนซ์ '.number_format($stock['cast_loan']).' บาท';
         } elseif($stock['cast_fin'] == 2) {
             $p_fin = 'ปลอดภาระ';
         }

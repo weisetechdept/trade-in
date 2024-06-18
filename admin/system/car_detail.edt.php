@@ -33,6 +33,10 @@
         $condition = $request->condition;
         $trade_price = $request->trade_price;
         $vat = $request->vat;
+        $pv = $request->pv;
+        $fin = $request->fin;
+        $loan = $request->loan;
+        $ready = $request->ready;
 
         $change = array();
         if($for_change != '0'){
@@ -54,6 +58,10 @@
             'cast_sales_parent' => $sales,
             'cast_sales_team' => $sales_team,
             'cast_vat' => $vat,
+            'cast_pv' => $pv,
+            'cast_fin' => $fin,
+            'cast_loan' => $loan,
+            'cast_ready' => $ready
 
         );
         $data = array_merge($orifinal,$change);
