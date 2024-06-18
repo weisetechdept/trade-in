@@ -175,15 +175,15 @@
                     <tbody>
                         <tr>
                             <th scope="row" width="170px">ปัจจุบันรถอยู่จังหวัด</th>
-                            <td>{{ detail.brand }}</td>
+                            <td>{{ detail.pv }}</td>
                         </tr>
                         <tr>
                             <th scope="row">สถานะไฟแนนซ์</th>
-                            <td>{{ detail.serie }}</td>
+                            <td>{{ detail.fin }}</td>
                         </tr>
                         <tr>
                             <th scope="row">ความพร้อมปล่อยรถ</th>
-                            <td>{{ detail.section }}</td>
+                            <td>{{ detail.ready }}</td>
                         </tr>
                     </tbody>
                 </table>

@@ -69,6 +69,18 @@
                 } else {
                     $mileage = number_format($stock['cast_mileage']);
                 }
+
+                if($stock['cast_fin'] == '1'){
+                    $fin = 'ติดไฟแนนซ์ - '. number_format($stock['cast_loan']).' บาท';
+                } else {
+                    $fin = 'ปลอดภาระ';
+                }
+        
+                if($stock['cast_ready'] == '1'){
+                    $ready = 'พร้อมขายทันที';
+                } else {
+                    $ready = 'รอรถใหม่จบก่อน';
+                }
     
     
                 $api['detail'] = array('id' => $stock['cast_id'],
@@ -104,6 +116,10 @@
                     'seller_name' => $stock['cast_seller_name'],
                     'link' => 'https://trade-in.toyotaparagon.com/stock/'.base64_encode($stock['cast_id']),
                     'share' => $stock['cast_link_public'],
+                    'pv' => $stock['cast_pv'],
+                    'fin' => $fin,
+                    'loan' => $stock['cast_loan'],
+                    'ready' => $ready
                 );
 
                 $db->join('car_image i','c.cast_id = i.cari_parent','LEFT');
