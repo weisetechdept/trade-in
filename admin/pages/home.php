@@ -177,8 +177,8 @@
                                             <tr>
                                                 <th width="45px">รหัส</th>
                                                 <th width="65px">รูปภาพ</th>
-                                                <th width="45px">รูป</th>
-                                                <th>ทีม</th>
+                                                <th width="35px">รูป</th>
+                                                <th width="35px">ทีม</th>
                                                 <th>เซลล์</th>
                                                 
                                                 <th>ทะเบียน</th>
