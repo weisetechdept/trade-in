@@ -174,7 +174,7 @@
                                                     <tr class="yell-bg">
                                                         <th>ปัจจุบันรถอยู่จังหวัดใด</th>
                                                         <td>
-                                                            <select class="form-control">
+                                                            <select v-model="pv" class="form-control">
                                                                 <option value="0">= เลือกจังหวัด =</option>
                                                                 <option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
                                                                 <option value="กระบี่">กระบี่ </option>
@@ -260,7 +260,7 @@
 
                                                     <tr class="yell-bg">
                                                         <th>สถานะไฟแนนซ์</th>
-                                                        <td><select class="form-control">
+                                                        <td><select v-model="fin" class="form-control">
                                                                 <option value="0">= โปรดเลือกสถานะไฟแนนซ์ =</option>
                                                                 <option value="1">ติดไฟแนนซ์</option>
                                                                 <option value="2">ปลอดภาระ / ไม่ติดไฟแนนซ์</option>
@@ -268,15 +268,15 @@
                                                         </td>
                                                     </tr>
 
-                                                    <tr class="gray-bg">
-                                                        <th>ยอดคงเหลือ</th>
-                                                        <td><input type="text" class="form-control" maxlength="10"></td>
+                                                    <tr class="yell-bg">
+                                                        <th>ยอดคงเหลือไฟแนนซ์</th>
+                                                        <td><input v-model="loan" type="text" class="form-control" maxlength="10"></td>
                                                     </tr>
 
                                                     <tr class="yell-bg">
                                                         <th>ความพร้อมปล่อยรถ</th>
                                                         <td>
-                                                            <select class="form-control">
+                                                            <select v-model="ready" class="form-control">
                                                                 <option value="0">= เลือกความพร้อม =</option>
                                                                 <option value="1">พร้อมปล่อยรถทันที</option>
                                                                 <option value="2">รอจบรถใหม่ก่อน</option>
@@ -393,6 +393,10 @@
                             tel: '',
                             condition: '',
                             vat: '',
+                            pv:'',
+                            fin:'',
+                            loan:'',
+                            ready:''
                         }
                     },
                     mounted () {
@@ -428,6 +432,10 @@
                                 this.tel = response.data.car.tel;
                                 this.sales_team = response.data.car.sale_team;
                                 this.vat = response.data.car.vat;
+                                this.pv = response.data.car.pv;
+                                this.fin = response.data.car.fin;
+                                this.loan = response.data.car.loan;
+                                this.ready = response.data.car.ready;
                             })
                     },
                     methods: {
@@ -486,6 +494,10 @@
                                 tel: this.tel,
                                 sales_team: this.sales_team,
                                 vat: this.vat,
+                                pv: this.pv,
+                                fin: this.fin,
+                                loan: this.loan,
+                                ready: this.ready
                                 
                             }).then(res => {
                                 console.log(res);

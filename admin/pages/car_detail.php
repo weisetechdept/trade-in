@@ -180,17 +180,17 @@
                                                     
                                                     <tr class="t-imp">
                                                         <th>ปัจจุบันรถอยู่จังหวัดใด</th>
-                                                        <td></td>
+                                                        <td>{{ pv }}</td>
                                                     </tr>
 
                                                     <tr class="t-imp">
                                                         <th>สถานะไฟแนนซ์</th>
-                                                        <td></td>
+                                                        <td>{{ fin }}</td>
                                                     </tr>
 
                                                     <tr class="t-imp">
                                                         <th>ความพร้อมปล่อยรถ</th>
-                                                        <td></td>
+                                                        <td>{{ ready }}</td>
                                                     </tr>
                                                     
                                                 </tbody>
@@ -708,6 +708,9 @@
                                 date: '',
                                 detail: ''
                             },
+                            pv: '',
+                            fin:'',
+                            ready:'',
                         }
                     },
                     mounted () {
@@ -768,6 +771,9 @@
                                 this.share_link = response.data.car.share_link;
 
                                 this.switchPublic = response.data.car.publicLink;
+                                this.pv = response.data.car.pv;
+                                this.fin = response.data.car.fin;
+                                this.ready = response.data.car.ready;
                              
                             }),
                             this.calDownpayment();

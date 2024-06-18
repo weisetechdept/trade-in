@@ -40,6 +40,10 @@
                 'mileage' => $stock['cast_mileage'],
                 'tel' => '0'.$stock['cast_tel'],
                 'vat' => $stock['cast_vat'],
+                'pv' => $stock['cast_pv'],
+                'fin' => $stock['cast_fin'],
+                'loan' => $stock['cast_loan'],
+                'ready' => $stock['cast_ready']
             );
 
             $brand = $db->get('finance_data');

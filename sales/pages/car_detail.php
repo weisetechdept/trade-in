@@ -671,6 +671,7 @@
                                 this.pv = response.data.car.pv;
                                 this.fin = response.data.car.fin;
                                 this.ready = response.data.car.ready;
+                                
 
                             }),
                             this.calDownpayment();

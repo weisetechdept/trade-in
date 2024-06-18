@@ -80,6 +80,18 @@
             $salesData = $salesData['first_name'].' '.$salesData['last_name'].' - ทีม '.getTeam($stock['cast_sales_parent_no']);
         }
 
+        if($stock['cast_fin'] == '1'){
+            $fin = 'ติดไฟแนนซ์ - '. number_format($stock['cast_loan']).' บาท';
+        } else {
+            $fin = 'ปลอดภาระ';
+        }
+
+        if($stock['cast_ready'] == '1'){
+            $ready = 'พร้อมขายทันที';
+        } else {
+            $ready = 'รอรถใหม่จบก่อน';
+        }
+
         $api['car'] = array('id' => $stock['cast_id'],
             'license' => $stock['cast_license'],
             'brand' => $stock['find_brand'],
@@ -112,7 +124,11 @@
             'drive' => $stock['cast_drive'],
             'seller_name' => $stock['cast_seller_name'],
             'share_link' => 'https://trade-in.toyotaparagon.com/stock/'.base64_encode($stock['cast_id']),
-            'publicLink' => $stock['cast_link_public']
+            'publicLink' => $stock['cast_link_public'],
+            'pv' => $stock['cast_pv'],
+            'fin' => $fin,
+            'loan' => $stock['cast_loan'],
+            'ready' => $ready
         );
 
         $offer = $db->where('off_parent',$id)->get('offer');
