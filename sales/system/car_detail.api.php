@@ -44,13 +44,13 @@
 
         if($stock['cast_fin'] == 1){
             $p_fin = 'ติดไฟแนนซ์ '.$stock['cast_loan'];
-        } else {
+        } elseif($stock['cast_fin'] == 2) {
             $p_fin = 'ปลอดภาระ';
         }
 
         if($stock['cast_ready'] == 1){
             $p_ready = 'พร้อมขายทันที';
-        } else {
+        } elseif($stock['cast_ready'] == 2) {
             $p_ready = 'รอรถใหม่จบก่อน';
         }
 
