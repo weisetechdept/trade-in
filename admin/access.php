@@ -64,7 +64,10 @@
                                             <div class="form-group">
                                                 <input type="password" class="form-control form-control-user" name="password" placeholder="Password">
                                             </div>
-                                            <button type="submit" class="btn btn-success btn-block waves-effect waves-light"> Log In </button>
+                                            <div class="row">
+                                                <div class="col"><button type="submit" class="btn btn-primary btn-block waves-effect waves-light mb-4"><span class="mdi mdi-login"></span> Log In </button></div>
+                                                <div class="col"><button type="submit" class="btn btn-success btn-block waves-effect waves-light"><span class="mdi mdi-chat"></span> Log In with Line </button></div>
+                                            </div>
                                         </form>
                                         
                                     </div> 

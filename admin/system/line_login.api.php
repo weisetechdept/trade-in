@@ -6,7 +6,7 @@
      $request = json_decode(file_get_contents('php://input'));
      $uid = $request->userId;
 
-     $admin = $db->where('user_line_uid')->where('user_permission',$uid)->getOne('user');
+     $admin = $db->where('user_line_uid',$uid)->where('user_permission','admin')->getOne('user');
 
      if($admin){
         $_SESSION['tin_admin'] = true;

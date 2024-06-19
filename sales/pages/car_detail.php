@@ -119,6 +119,19 @@
             .gray_bg {
                 background-color: #f1f1f1;
             }
+            .survey {
+                background: #dbefff;
+                font-size: 16px;
+            }
+            .q2 {
+                display: none;
+            }
+            .q3 {
+                display: none;
+            }
+            .q4 {
+                display: none;
+            }
         </style>
     </head>
 
@@ -134,10 +147,67 @@
                 <div class="page-content">
                     <div class="container-fluid">
                         <div id="agent">
+
+<div id="question">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h4 class="mb-2 font-size-18">คำถามเกี่ยวกับลูกค้า {{ sellername }}</h4>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="card survey">
+                                        <div class="card-body">
+
+                                        <div class="q1">
+                                            <p>ลูกค้าของท่าน<b>พอใจในราคา</b>ที่ได้รับจากพันธมิตรหรือไม่?</p>
+                                            <div class="row">
+                                                <div class="col"><button @click="trueQ1" class="btn btn-success btn-block">พอใจ</button></div>
+                                                <div class="col"><button @click="falseQ1" class="btn btn-danger btn-block">ยังไม่พอใจ</button></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="q2">
+                                            <p>ลูกค้าของท่านได้ทำการขายรถให้กับ<b>พันธมิตรของเรา</b>หรือไม่?</p>
+                                            <div class="row mb-3">
+                                                <div class="col"><button @click="trueQ2" class="btn btn-success btn-block">ขาย</button></div>
+                                                <div class="col"><button @click="falseQ2" class="btn btn-danger btn-block">ไม่ได้ขาย</button></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col"><button @click="sameQ2" class="btn btn-warning btn-block">ลูกค้ากำลังตัดสินใจ</button></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="q3">
+                                            <p>ท่านได้ค่าคอมมิชชั่นจากการขายรถให้กับพันธมิตรของเราหรือไม่?</p>
+                                            <div class="row">
+                                                <div class="col"><button @click="trueQ3" class="btn btn-success btn-block">ใช่ ฉันได้รับ</button></div>
+                                                <div class="col"><button @click="falseQ3" class="btn btn-danger btn-block">ไม่ได้รับ</button></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="q4">
+                                            <p>ลูกค้าของท่านได้จองรถใหม่กับคุณหรือไม่?</p>
+                                            <div class="row mb-3">
+                                                <div class="col"><button @click="trueQ4" class="btn btn-success btn-block">ได้จอง</button></div>
+                                                <div class="col"><button @click="falseQ4" class="btn btn-danger btn-block">ไม่ได้จอง</button></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col"><button @click="sameQ4" class="btn btn-info btn-block">ไม่ได้สนใจรถใหม่ แค่อยากขายรถเก่า</button></div>
+                                            </div>
+                                        </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+</div>
+
                             <div class="row">
                                 <div class="col-12" >
                                     <div class="page-title-box d-flex align-items-center justify-content-between">
-                                        <h4 class="mb-0 font-size-18">รถยนต์รหัส</h4>
+                                        <h4 class="mb-0 font-size-18">รถยนต์รหัส {{ id }}</h4>
 
                                         <div class="page-title-right">
                                             <ol class="breadcrumb m-0">
@@ -677,6 +747,45 @@
                             this.calDownpayment();
                     },
                     methods: {
+
+                        trueQ1() {
+                            $('.q1').hide();
+                            $('.q2').show();
+                        },
+                        falseQ1() {
+                            $('.q1').hide();
+                            $('.q2').show();
+                        },
+                        trueQ2() {
+                            $('.q2').hide();
+                            $('.q3').show();
+                        },
+                        falseQ2(){
+                            $('.q2').hide();
+                            $('.q3').show();
+                        },
+                        sameQ2(){
+                            $('.q2').hide();
+                            $('.q3').show();
+                        },
+                        trueQ3() {
+                            $('.q3').hide();
+                            $('.q4').show();
+                        },
+                        falseQ3(){
+                            $('.q3').hide();
+                            $('.q4').show();
+                        },
+                        trueQ4() {
+                            $('#question').hide();
+                        },
+                        falseQ4(){
+                            $('#question').hide();
+                        },
+                        sameQ4(){
+                            $('#question').hide();
+                        },
+                        
                         androidUpload(){
                             $('#multiAndroid').show();
                             $('#multiUpload').hide();
