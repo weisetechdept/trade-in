@@ -66,10 +66,16 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col"><button type="submit" class="btn btn-primary btn-block waves-effect waves-light mb-4"><span class="mdi mdi-login"></span> Log In </button></div>
-                                                <div class="col"><button type="submit" class="btn btn-success btn-block waves-effect waves-light"><span class="mdi mdi-chat"></span> Log In with Line </button></div>
+                                                
                                             </div>
                                         </form>
-                                        
+
+                                        <div class="row">
+                                            <div class="col">
+                                                <a type="submit" href="/admin/line_login.php" class="btn btn-success btn-block waves-effect waves-light" style="color: #fff;"><span class="mdi mdi-chat"></span> Log In with Line </a>
+                                            </div>
+                                        </div>
+
                                     </div> 
                                 </div> 
                             </div>
