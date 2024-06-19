@@ -37,38 +37,30 @@
 			liff.init({ liffId: "2003233824-pbzEJ81J" }, () => {
 				if (liff.isLoggedIn()) {
 						liff.getProfile().then(profile => {
-							console.log(profile);
+							//console.log(profile);
                             
-                            /*
-							axios.post('/sales/system/auth.api.php', {
+							axios.post('/admin/system/line_login.api.php', {
 								userId: profile.userId,
 							}).then(response => {
-                                console.log(response.data);
+                                //console.log(response.data);
 
 								if(response.data.status == '200'){
-									if(response.data.permission == 'user'){
-										window.location.href = "/sales/home";
-									} else if(response.data.permission == 'leader') {
-										window.location.href = "/mgr/home";
-									} else {
-										window.location.href = "/404";
-									}
-								}
-								if(response.data.status == '400'){
-									swal("ท่านยังไม่ได้ลงทะเบียน", "โปรดติดต่อผู้ดูแลระบบ", "warning",{ 
+                                    window.location.href = "/admin/home";
+								} else if(response.data.status == '400'){
+									swal("เกิดข้อผิดพลาด", responsive.data.message, "warning",{ 
 											button: "ตกลง"
 										}
 									);
 								}
 
 							});
-							*/
 
 						}).catch(err => console.error(err));
 				} else {
 					liff.login();
 				}
 			}, err => console.error(err.code, error.message));
+            
         </script>
 	</body>
 </html>
