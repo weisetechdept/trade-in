@@ -41,6 +41,7 @@
 							axios.post('/admin/system/line_login.api.php', {
 								userId: profile.userId,
 								userImg: profile.pictureUrl
+
 							}).then(response => {
 
 								if(response.data.status == '200'){
@@ -53,7 +54,6 @@
 									);
 
 								}
-
 							});
 
 						}).catch(err => console.error(err));
