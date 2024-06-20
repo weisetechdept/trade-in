@@ -37,18 +37,14 @@
 			liff.init({ liffId: "2003233824-pbzEJ81J" }, () => {
 				if (liff.isLoggedIn()) {
 						liff.getProfile().then(profile => {
-							//console.log(profile);
                             
 							axios.post('/admin/system/line_login.api.php', {
 								userId: profile.userId,
-								userImg: profile.pictureUrl,
+								userImg: profile.pictureUrl
 							}).then(response => {
-                                //console.log(response.data);
 
 								if(response.data.status == '200'){
-
                                     window.location.href = "/admin/home";
-
 								} else if(response.data.status == '400'){
 
 									swal("เกิดข้อผิดพลาด", responsive.data.message, "warning",{ 
