@@ -5,7 +5,7 @@
 
     $request = json_decode(file_get_contents('php://input'));
 
-    if(empty($request->lineUid)){
+    if(empty($request->nameSys) || empty($request->lineUid) || empty($request->lineImg)){
         $api = array('status' => 'error', 'message' => 'กรุณากรอกข้อมูลให้ครบถ้วน');
   
     } else {
@@ -17,7 +17,7 @@
         $data = array(
             'user_nickname' => $name,
             'user_line_uid' => $uid,
-            'user_line_profile' => $profile,
+            'user_line_img' => $profile,
             'user_permission' => 'amdin',
             'user_status' => '0',
             'user_datetime' => date('Y-m-d H:i:s')
