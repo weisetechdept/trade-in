@@ -172,6 +172,8 @@
                                 if(response.data.status == 'success'){
                                     swal("สำเร็จ", "บันทึกข้อมูลเรียบร้อย รอการอนุมัติจากผู้ดูแลระบบ", "success",{ 
                                         button: "ตกลง"
+                                    }).then(() => {
+                                        window.location.href = '/access';
                                     });
                                 } else {
                                     swal("เกิดข้อผิดพลาด", "กรุณาลองใหม่อีกครั้ง", "error",{ 
