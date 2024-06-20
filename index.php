@@ -75,6 +75,10 @@
         require_once 'admin/pages/member.php';
     });
 
+    $router->get( '/admin-regis', function() {
+        require_once 'admin/pages/member-regis.php';
+    });
+
     $router->get( '/admin/logout', function() {
         require_once 'admin/logout.php';
     });

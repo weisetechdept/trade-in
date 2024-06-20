@@ -7,7 +7,7 @@
         $api = array('status' => 'error', 'message' => 'Permission denied');
     } else {
 
-        $member = $db->get('user');
+        $member = $db->where('user_permission','admin')->get('user');
         foreach ($member as $value) {
             $api['data'][] = array(
                 $value['user_id'],

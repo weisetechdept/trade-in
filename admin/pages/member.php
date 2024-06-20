@@ -101,9 +101,23 @@
                     </div>  
 
                     <div class="row">
+                        <div class="col-12 col-md-3 col-lg-3 mb-1">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" value="<?php echo $_SERVER['HTTP_HOST']; ?>/admin-regis" id="myInput" class="form-control">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-dark waves-effect waves-light" type="button">ลิ้งเพิ่มผู้ดูแล</button> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-12 col-lg-8">
                             <div class="card">
                                 <div class="card-body">
+                                    
                                     <table id="datatable" class="table dt-responsive nowrap">
                                         <thead>
                                             <tr>
