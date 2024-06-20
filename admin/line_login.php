@@ -58,8 +58,6 @@
 								}
 							});
 
-							
-
 						}).catch(err => console.error(err));
 				} else {
 					liff.login();
