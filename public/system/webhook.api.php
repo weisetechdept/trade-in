@@ -60,27 +60,27 @@ date_default_timezone_set("Asia/Bangkok");
         $arrPostData['messages'][0]['altText'] = "Main Menu";
         $arrPostData['messages'][0]['template'] = array(
           "type" => "buttons",
-          "thumbnailImageUrl" => "https://www.tradingonline.co.th/linebot/img/linebot.jpg",
+          "thumbnailImageUrl" => "",
           "imageAspectRatio" => "rectangle",
           "imageSize" => "cover",
           "imageBackgroundColor" => "#FFFFFF",
-          "title" => "ประเมินราคา",
-          "text" => "กรุณาเลือกประเภทรถยนต์",
+          "title" => "พ่อสื่อเมนู",
+          "text" => "กรุณาเลือกเมนูที่ต้องการ",
           "defaultAction" => array(
               "type" => "uri",
               "label" => "View detail",
-              "uri" => "https://www.tradingonline.co.th/linebot/img/linebot.jpg"
+              "uri" => ""
           ),
           "actions" => array(
               array(
                   "type" => "message",
-                  "label" => "รถเก๋ง",
-                  "text" => "รถเก๋ง"
+                  "label" => "รถทั้งหมดของคุณ",
+                  "uri" => "https://trade-in.toyotaparagon.com/app?way=list"
               ),
               array(
                   "type" => "message",
-                  "label" => "รถยนต์ของฉัน",
-                  "text" => "รถยนต์ของฉัน"
+                  "label" => "เพิ่มรถยนต์ใหม่",
+                  "uri" => "https://trade-in.toyotaparagon.com/app"
               )
           )
         );

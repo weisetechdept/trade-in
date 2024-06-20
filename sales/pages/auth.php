@@ -44,9 +44,11 @@
 							}).then(response => { 
 								console.log(response.data);
 								if(response.data.status == '200'){
-									//if(response.data.permission == 'user'){
+									<?php if(empty($_GET['way'])){ ?>
 										window.location.href = "/sales/add-car";
-									//}
+									<?php } elseif($_GET['way'] == 'list') { ?>
+										window.location.href = "/sales/home";
+									<?php } ?>
 								}
 								if(response.data.status == '400'){
 									swal("ท่านยังไม่ได้ลงทะเบียน", "โปรดติดต่อผู้ดูแลระบบ", "warning",{ 
