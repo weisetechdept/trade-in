@@ -28,7 +28,7 @@ date_default_timezone_set("Asia/Bangkok");
         $arrPostData['messages'][0]['altText'] = "Main Menu";
         $arrPostData['messages'][0]['template'] = array(
           "type" => "buttons",
-          "thumbnailImageUrl" => "https://example.com/bot/images/image.jpg",
+          "thumbnailImageUrl" => "https://trade-in.toyotaparagon.com/public/assets/images/APIMENU.jpg",
           "imageAspectRatio" => "rectangle",
           "imageSize" => "cover",
           "imageBackgroundColor" => "#FFFFFF",
@@ -37,7 +37,7 @@ date_default_timezone_set("Asia/Bangkok");
           "defaultAction" => array(
               "type" => "uri",
               "label" => "View detail",
-              "uri" => "https://example.com/bot/images/image.jpg"
+              "uri" => "https://trade-in.toyotaparagon.com/public/assets/images/APIMENU.jpg"
           ),
           "actions" => array(
               array(

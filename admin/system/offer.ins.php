@@ -57,6 +57,33 @@
                 $result = curl_exec($ch);
             }
 
+            function sendMsgNew($line_uid,$cust_name,$price) {
+                $access_token = 'IZd/+LM0eFbZBGVq67BcM6AC8MDkZSi7/DsikGWU45/a2moikJuzGP77d8J3w1UOFcc98ku2MmnnQwnKwYOyAWvkuMScEfxrImfS5NrC+nRX/bzJNehiCX9PwezVE3St1i81+6WuMUj90anooQivAAdB04t89/1O/w1cDnyilFU=';
+                $userId = $line_uid;
+            
+                $messages = array(
+                    'type' => 'text',
+                    'text' => '[พ่อสื่อ] คุณ '.$cust_name.' ได้รับประเมินราคา '.$price.' บาท หากได้คำตอบจากลูกค้า กรุณาแจ้งทีมงานทราบด้วยค่ะ'
+                );
+                $post = json_encode(array(
+                    'to' => array($userId),
+                    'messages' => array($messages),
+                ));
+
+                $url = 'https://api.line.me/v2/bot/message/multicast';
+                $headers = array('Content-Type: application/json', 'Authorization: Bearer '.$access_token);
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, "https://api.line.me/v2/bot/message/multicast");
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+                curl_setopt($ch, CURLOPT_FAILONERROR, true);
+
+                $result = curl_exec($ch);
+            }
+
             $mgr = $db_nms->where('id', $_SESSION['tin_admin_id'])->getOne('db_member');
 
             $request = json_decode(file_get_contents('php://input'));
@@ -79,6 +106,8 @@
                 $luid = $db_nms->where('id', $car['cast_sales_parent_no'])->getOne('db_member');
 
                 sendMsg($luid['line_usrid'],$car['cast_seller_name'],number_format($price));
+                sleep(3);
+                sendMsgNew($luid['line_usrid'],$car['cast_seller_name'],number_format($price));
                 sleep(3);
                 sendMsg(getTeamMgr($car['cast_sales_parent_no']),$car['cast_seller_name'],number_format($price));
 
