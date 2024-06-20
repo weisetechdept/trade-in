@@ -176,13 +176,13 @@
                                         window.location.href = '/access';
                                     });
                                 } else {
-                                    swal("เกิดข้อผิดพลาด", "กรุณาลองใหม่อีกครั้ง", "error",{ 
+                                    swal("เกิดข้อผิดพลาด", response.data.message, "error",{ 
                                         button: "ตกลง"
                                     });
                                 }
 
                             }).catch(err => {
-                                swal("เกิดข้อผิดพลาด", "กรุณาลองใหม่อีกครั้ง", "error",{ 
+                                swal("เกิดข้อผิดพลาด", response.data.message, "error",{ 
                                     button: "ตกลง"
                                 });
 
