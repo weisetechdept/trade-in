@@ -40,7 +40,7 @@
 
 							console.log(profile);
 
-							/*
+							
                             
 							axios.post('/admin/system/line_login.api.php', {
 								userId: profile.userId,
@@ -60,7 +60,7 @@
 								}
 							});
 
-							*/
+							
 
 						}).catch(err => console.error(err));
 				} else {

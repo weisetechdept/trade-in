@@ -5,15 +5,7 @@
 
      $request = json_decode(file_get_contents('php://input'));
 
-    if(empty($request->userId) || empty($request->userImg)){
-        $api = array(
-            'status' => '400',
-            'message' => 'Permission Denied'
-        );
-        echo json_encode($api);
-        exit();
-
-    } else {
+   
 
         $uid = $request->userId;
         $userImg = $request->userImg;
@@ -51,7 +43,7 @@
             );
         }
 
-    }
+    
 
      
 
