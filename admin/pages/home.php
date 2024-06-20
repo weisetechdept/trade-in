@@ -66,6 +66,10 @@
             object-fit: cover;
             border-radius: 5px;
         }
+        .badge-soft-unknow {
+            background-color: #f6b9f7;
+            color: #fff;
+        }
     </style>
 </head>
 
@@ -310,7 +314,7 @@
                     sortable: false,
                     "render": function ( data, type, full, meta ) {
                         if(data == '0'){
-                            return '<span class="badge badge-soft-primary">ไม่มีสถานะ</span>';
+                            return '<span class="badge badge-soft-unknow">ไม่มีสถานะ</span>';
                         } else if(data == '1'){
                             return '<span class="badge badge-soft-primary">ติดตามลูกค้า</span>';
                         } else if(data == '2') {

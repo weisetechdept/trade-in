@@ -10,7 +10,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Trade-In List</title>
+    <title>Trade-In Admin List</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta content="A77" name="description" />
     <meta content="A77" name="author" />
@@ -101,7 +101,7 @@
                     </div>  
 
                     <div class="row">
-                        <div class="col-8">
+                        <div class="col-12 col-lg-8">
                             <div class="card">
                                 <div class="card-body">
                                     <table id="datatable" class="table dt-responsive nowrap">
