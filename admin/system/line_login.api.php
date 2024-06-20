@@ -20,7 +20,7 @@
 
         $admin = $db->where('user_line_uid',$uid)->where('user_permission','admin')->where('user_status','1')->getOne('user');
 
-        if(!empty($admin)){
+        if($admin){
 
             $update = array(
                 'user_line_img' => $userImg
