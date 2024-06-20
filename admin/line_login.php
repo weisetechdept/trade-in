@@ -37,6 +37,10 @@
 			liff.init({ liffId: "2003233824-pbzEJ81J" }, () => {
 				if (liff.isLoggedIn()) {
 						liff.getProfile().then(profile => {
+
+							console.log(profile);
+
+							/*
                             
 							axios.post('/admin/system/line_login.api.php', {
 								userId: profile.userId,
@@ -55,6 +59,8 @@
 
 								}
 							});
+
+							*/
 
 						}).catch(err => console.error(err));
 				} else {
