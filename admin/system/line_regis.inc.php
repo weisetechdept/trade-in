@@ -5,7 +5,7 @@
 
     $request = json_decode(file_get_contents('php://input'));
 
-    if(empty($request->nameSys) || empty($request->lineUid)){
+    if(empty($request->lineUid)){
         $api = array('status' => 'error', 'message' => 'กรุณากรอกข้อมูลให้ครบถ้วน');
   
     } else {
