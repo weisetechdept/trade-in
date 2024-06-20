@@ -71,6 +71,10 @@
         require_once 'admin/pages/event.php';
     });
 
+    $router->get( '/admin/member', function() {
+        require_once 'admin/pages/member.php';
+    });
+
     /* sales */
 
     $router->get( '/app', function() {
