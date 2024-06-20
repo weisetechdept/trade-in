@@ -38,10 +38,6 @@
 				if (liff.isLoggedIn()) {
 						liff.getProfile().then(profile => {
 
-							console.log(profile);
-
-							
-                            
 							axios.post('/admin/system/line_login.api.php', {
 								userId: profile.userId,
 								userImg: profile.pictureUrl
@@ -49,10 +45,12 @@
 							}).then(response => {
 
 								if(response.data.status == '200'){
+
                                     window.location.href = "/admin/home";
+
 								} else if(response.data.status == '400'){
 
-									swal("เกิดข้อผิดพลาด", responsive.data.message, "warning",{ 
+									swal("เกิดข้อผิดพลาด", response.data.message, "warning",{ 
 											button: "ตกลง"
 										}
 									);
