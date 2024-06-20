@@ -60,7 +60,7 @@ date_default_timezone_set("Asia/Bangkok");
         $arrPostData['messages'][0]['altText'] = "Main Menu";
         $arrPostData['messages'][0]['template'] = array(
           "type" => "buttons",
-          "thumbnailImageUrl" => "",
+          "thumbnailImageUrl" => "https://example.com/bot/images/image.jpg",
           "imageAspectRatio" => "rectangle",
           "imageSize" => "cover",
           "imageBackgroundColor" => "#FFFFFF",
@@ -69,16 +69,16 @@ date_default_timezone_set("Asia/Bangkok");
           "defaultAction" => array(
               "type" => "uri",
               "label" => "View detail",
-              "uri" => ""
+              "uri" => "https://example.com/bot/images/image.jpg"
           ),
           "actions" => array(
               array(
-                  "type" => "message",
+                  "type" => "uri",
                   "label" => "รถทั้งหมดของคุณ",
                   "uri" => "https://trade-in.toyotaparagon.com/app?way=list"
               ),
               array(
-                  "type" => "message",
+                  "type" => "uri",
                   "label" => "เพิ่มรถยนต์ใหม่",
                   "uri" => "https://trade-in.toyotaparagon.com/app"
               )
