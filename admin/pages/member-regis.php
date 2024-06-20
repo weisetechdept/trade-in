@@ -73,7 +73,7 @@
         <div class="main-content">
 
             <div class="page-content">
-                <div class="container-fluid">
+                <div class="container-fluid" v-if="lineUid !== ''">
 
                     <div class="row">
                         <div class="col-12">
@@ -89,10 +89,10 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="avatar-line">
-                                        <img src="/assets/images/users/avatar-1.jpg" alt="" class="avatar">
+                                        <img :src="lineImg" alt="" class="avatar">
                                     </div>
                                     <div>
-                                        <p>ชื่อไลน์ของคุณ : </p>
+                                        <p>ชื่อไลน์ของคุณ : {{ lineName }}</p>
                                     </div>
                                     <div class="form-group">
                                         <input type="text" class="form-control" placeholder="ชื่อของคุณที่ใช้งานระบบ">
@@ -126,36 +126,38 @@
 
     <script src="https://static.line-scdn.net/liff/edge/versions/2.9.0/sdk.js"></script>
     <script>
-			liff.init({ liffId: "2003233824-RwQD0nL0" }, () => {
-				if (liff.isLoggedIn()) {
-						liff.getProfile().then(profile => {
-                            console.log(profile);
-                            /*
-							axios.post('/admin/system/line_login.api.php', {
-								userId: profile.userId,
-								userImg: profile.pictureUrl
-							}).then(response => {
+            var regis = new Vue({
+                el: '#layout-wrapper',
+                data: {
+                    lineName: '',
+                    lineImg: '/assets/images/users/avatar-1.jpg',
+                    lineUid: '',
+                    nameSys: ''
+                },
+                mounted() {
+                    this.lineLogin();
+                },
+                methods: {
 
-								if(response.data.status == '200'){
-                                    window.location.href = "/admin/home";
-								} else if(response.data.status == '400'){
+                    lineLogin() {
+                        liff.init({ liffId: "2003233824-RwQD0nL0" }, () => {
+                            if (liff.isLoggedIn()) {
+                                liff.getProfile().then(profile => {
+                                    
+                                    this.lineName = profile.displayName;
+                                    this.lineImg = profile.pictureUrl;
+                                    this.lineUid = profile.userId;
+                                    
+                                }).catch(err => console.error(err));
+                            } else {
+                                liff.login();
+                            }
+                        }, err => console.error(err.code, error.message));
+                    }
 
-									swal("เกิดข้อผิดพลาด", responsive.data.message, "warning",{ 
-											button: "ตกลง"
-										}
-									);
+                }
+            });
 
-								}
-
-							});
-                            */
-
-						}).catch(err => console.error(err));
-				} else {
-					liff.login();
-				}
-			}, err => console.error(err.code, error.message));
-            
         </script>
 
     <script src="/assets/js/theme.js"></script>
