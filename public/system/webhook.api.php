@@ -14,40 +14,8 @@ date_default_timezone_set("Asia/Bangkok");
   $arrHeader[] = "Content-Type: application/json";
   $arrHeader[] = "Authorization: Bearer {$strAccessToken}";
 
-  if($arrJson['events'][0]['message']['text'] == "[ระบบ] ประเมินราคา"){
+  if($arrJson['events'][0]['message']['text'] == "[ระบบ] พ่อสื่อเมนู"){
 
-/*
-      $arrPostData = array();
-      $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
-      $arrPostData['messages'][0]['type'] = "template";
-      $arrPostData['messages'][0]['altText'] = "this is a buttons template";
-      $arrPostData['messages'][0]['template'] = array(
-          "type" => "buttons",
-          "thumbnailImageUrl" => "https://www.tradingonline.co.th/linebot/img/linebot.jpg",
-          "imageAspectRatio" => "rectangle",
-          "imageSize" => "cover",
-          "imageBackgroundColor" => "#FFFFFF",
-          "title" => "ประเมินราคา",
-          "text" => "กรุณาเลือกประเภทรถยนต์",
-          "defaultAction" => array(
-              "type" => "uri",
-              "label" => "View detail",
-              "uri" => "https://www.tradingonline.co.th/linebot/img/linebot.jpg"
-          ),
-          "actions" => array(
-              array(
-                  "type" => "message",
-                  "label" => "รถเก๋ง",
-                  "text" => "รถเก๋ง"
-              ),
-              array(
-                  "type" => "message",
-                  "label" => "รถกระบะ",
-                  "text" => "รถกระบะ"
-              )
-          )
-      );
-*/
       $uid = $arrJson['events'][0]['source']['userId'];
       $chk = $db->where('user_line_uid', $uid)->get('user');
       if($chk){
@@ -85,7 +53,10 @@ date_default_timezone_set("Asia/Bangkok");
           )
         );
 
-      } else {
+      } 
+      
+      /*
+       else {
 
         $pp = $db_nms->where('line_usrid', $uid)->where('verify',1)->getOne('db_member');
         if($pp){
@@ -129,7 +100,7 @@ date_default_timezone_set("Asia/Bangkok");
         
       }
 
-      
+      */
       
   }
 
