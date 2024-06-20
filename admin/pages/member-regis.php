@@ -95,8 +95,8 @@
                                         <p>ชื่อไลน์ของคุณ : {{ lineName }}</p>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="ชื่อของคุณที่ใช้งานระบบ">
-                                        <button class="btn btn-primary mt-2">บันทึก</button>
+                                        <input type="text" class="form-control" v-model="nameSys" placeholder="ชื่อของคุณที่ใช้งานระบบ">
+                                        <button class="btn btn-primary mt-2" @click="sendData">บันทึก</button>
                                     </div>
 
                                 </div> 
@@ -153,8 +153,41 @@
                                 liff.login();
                             }
                         }, err => console.error(err.code, error.message));
-                    }
+                    },
+                    sendData () {
+                        if(this.lineName == '' || this.lineUid == '' || this.nameSys == ''){
+                            swal("เกิดข้อผิดพลาด", "กรุณากรอกชื่อของคุณที่ใช้งานระบบ", "warning",{ 
+                                    button: "ตกลง"
+                                }
+                            );
 
+                        } else {
+
+                            axios.post('/admin/system/line_regis.inc.php', {
+                                lineUid: this.lineUid,
+                                lineImg: this.lineImg,
+                                nameSys: this.nameSys
+                            }).then(response => {
+
+                                if(response.data.status == 'success'){
+                                    swal("สำเร็จ", "บันทึกข้อมูลเรียบร้อย รอการอนุมัติจากผู้ดูแลระบบ", "success",{ 
+                                        button: "ตกลง"
+                                    });
+                                } else {
+                                    swal("เกิดข้อผิดพลาด", "กรุณาลองใหม่อีกครั้ง", "error",{ 
+                                        button: "ตกลง"
+                                    });
+                                }
+
+                            }).catch(err => {
+                                swal("เกิดข้อผิดพลาด", "กรุณาลองใหม่อีกครั้ง", "error",{ 
+                                    button: "ตกลง"
+                                });
+
+                            });
+
+                        }
+                    }
                 }
             });
 
