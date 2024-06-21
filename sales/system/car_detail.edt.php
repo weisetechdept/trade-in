@@ -3,7 +3,7 @@
         require_once '../../db-conn.php';
         date_default_timezone_set("Asia/Bangkok");
         
-        if($_SESSION['tin_admin'] != true){
+        if($_SESSION['tin_admin'] != true || $_SESSION['tin_login'] != true){
             echo json_encode(array('status' => '404', 'message' => 'Permission Denied'));
         } else {
 
