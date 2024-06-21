@@ -3,9 +3,8 @@
         require_once '../../db-conn.php';
         date_default_timezone_set("Asia/Bangkok");
         
-        if($_SESSION['tin_admin'] != true || $_SESSION['tin_login'] != true){
-            echo json_encode(array('status' => '404', 'message' => 'Permission Denied'));
-        } else {
+        if($_SESSION['tin_admin'] == true || $_SESSION['tin_login'] == true)
+        {
 
             $request = json_decode(file_get_contents('php://input'));
 
@@ -66,6 +65,8 @@
                 echo json_encode(array('status' => '505'));
             }
 
+        } else {
+            echo json_encode(array('status' => '404', 'message' => 'Permission Denied'));
         }
         
 
