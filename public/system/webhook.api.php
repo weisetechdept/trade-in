@@ -19,7 +19,7 @@ date_default_timezone_set("Asia/Bangkok");
       $uid = $arrJson['events'][0]['source']['userId'];
 
       $chk = $db->where('user_line_uid', $uid)->get('user');
-      if($chk){
+      if(!$chk){
         $chk = $db_nms->where('line_usrid', $uid)->get('db_member');
       }
 
