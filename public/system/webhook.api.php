@@ -17,7 +17,12 @@ date_default_timezone_set("Asia/Bangkok");
   if($arrJson['events'][0]['message']['text'] == "[ระบบ] พ่อสื่อเมนู"){
 
       $uid = $arrJson['events'][0]['source']['userId'];
+
       $chk = $db->where('user_line_uid', $uid)->get('user');
+      if($chk){
+        $chk = $db_nms->where('line_usrid', $uid)->get('db_member');
+      }
+
       if($chk){
 
         $pp = $db_nms->where('line_usrid', $uid)->where('verify',1)->getOne('db_member');

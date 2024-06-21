@@ -10,7 +10,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Trade-In Admin List</title>
+    <title>Trade-In Partner List</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta content="A77" name="description" />
     <meta content="A77" name="author" />
@@ -100,13 +100,13 @@
                         </div>
                     </div>  
 
-                    <div class="row" id="member">
+                    <div class="row" id="partner">
                         <div class="col-12 col-md-3 col-lg-3 mb-1">
                             <div class="form-group">
                                 <div class="input-group">
-                                    <input type="text" value="https://<?php echo $_SERVER['HTTP_HOST']; ?>/admin-regis" id="myInput" class="form-control">
+                                    <input type="text" value="https://<?php echo $_SERVER['HTTP_HOST']; ?>" id="myInput" class="form-control">
                                     <div class="input-group-append">
-                                        <button class="btn btn-dark waves-effect waves-light" @click="copyLink" type="button">ลิ้งเพิ่มผู้ดูแล</button> 
+                                        <button class="btn btn-dark waves-effect waves-light" @click="copyLink" type="button">ลิ้งเพิ่มพันธมิตร</button> 
                                     </div>
                                 </div>
                             </div>
@@ -201,8 +201,8 @@
 
     <!-- Datatables init -->
     <script>
-        var member = new Vue({
-            el: '#member',
+        var partner = new Vue({
+            el: '#partner',
             data: {
             },
             methods: {

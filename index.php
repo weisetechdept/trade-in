@@ -83,6 +83,10 @@
         require_once 'admin/logout.php';
     });
 
+    $router->get( '/admin/partner', function() {
+        require_once 'admin/pages/partner.php';
+    });
+
     /* sales */
 
     $router->get( '/app', function() {

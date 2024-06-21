@@ -30,7 +30,8 @@
 
                 $_SESSION['tin_admin'] = true;
                 $_SESSION['user_id_admin'] = $admin['user_id'];
-                $_SESSION['adname_name'] = $admin['user_nickname']; 
+                $_SESSION['adname_name'] = $admin['user_nickname'];
+                $_SESSION['adname_img'] = $userImg;
                 
                 $api = array(
                     'status' => '200',

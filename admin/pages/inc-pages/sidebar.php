@@ -34,7 +34,8 @@
                         <li><a href="/admin/qm-report">รายงานเปรียบเทียบ</a></li>
                     </ul>
                 </li>
-                <li><a href="/admin/member" class=" waves-effect"><i class="feather-users"></i><span>จัดการสมาชิก</span></a></li>
+                <li><a href="/admin/member" class=" waves-effect"><i class="feather-user"></i><span>จัดการสมาชิก</span></a></li>
+                <li><a href="/admin/partner" class=" waves-effect"><i class="feather-users"></i><span>พันธมิตร</span></a></li>
                 <li><a href="/admin/extension" class=" waves-effect"><i class="feather-box"></i><span>ส่วนขยาย</span></a></li>
                 <?php } elseif($_SESSION['survey'] == 1){ ?>  
                 <li><a href="/admin/survey" class=" waves-effect"><i class="feather-clipboard"></i><span>แบบสำรวจ</span></a></li>

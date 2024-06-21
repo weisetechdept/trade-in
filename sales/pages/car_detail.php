@@ -148,7 +148,7 @@
                     <div class="container-fluid">
                         <div id="agent">
 
-<div id="question" style="display:none">
+<div id="question" style="display:none;">
                             <div class="row">
                                 <div class="col-12">
                                     <h4 class="mb-2 font-size-18">คำถามเกี่ยวกับลูกค้า {{ sellername }}</h4>
