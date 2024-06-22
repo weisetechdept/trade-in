@@ -29,49 +29,66 @@
                 }
             }
 
+            function sendOffer($carid,$uid,$img,$price,$partner) {
 
-            function sendOffer($img) {
-                $arrPostData = array();
-                $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
-                $arrPostData['messages'][0]['type'] = "template";
-                $arrPostData['messages'][0]['altText'] = "ให้ราคาจากพันธมิตร";
-                $arrPostData['messages'][0]['template'] = array(
-                "type" => "buttons",
-                "thumbnailImageUrl" => $img,
-                "imageAspectRatio" => "rectangle",
-                "imageSize" => "cover",
-                "imageBackgroundColor" => "#FFFFFF",
-                "title" => "พ่อสื่อเมนู",
-                "text" => "กรุณาเลือกเมนูที่ต้องการ",
-                "defaultAction" => array(
-                    "type" => "uri",
-                    "label" => "View detail",
-                    "uri" => $img
-                ),
-                "actions" => array(
-                    array(
-                        "type" => "uri",
-                        "label" => "ดูข้อมูลรถยนต์",
-                        "uri" => "https://trade-in.toyotaparagon.com/app?way=list"
-                    ),
-                    array(
-                        "type" => "message",
-                        "label" => "ติดต่อพ่อสื่อ",
-                        "text" => "ID : 00000 ต้องการติดต่อพ่อสื่อ, รอสักครู่..."
+                $access_token = 'IZd/+LM0eFbZBGVq67BcM6AC8MDkZSi7/DsikGWU45/a2moikJuzGP77d8J3w1UOFcc98ku2MmnnQwnKwYOyAWvkuMScEfxrImfS5NrC+nRX/bzJNehiCX9PwezVE3St1i81+6WuMUj90anooQivAAdB04t89/1O/w1cDnyilFU=';
+                $userId = $uid;
+        
+                $messages = array(
+                    'type' => 'template',
+                    'altText' => 'ให้ราคาจากพันธมิตร',
+                    'template' => array(
+                        "type" => "buttons",
+                        "thumbnailImageUrl" => $img,
+                        "imageAspectRatio" => "rectangle",
+                        "imageSize" => "cover",
+                        "imageBackgroundColor" => "#FFFFFF",
+                        "title" => "เสนอราคาจากพันธมิตร",
+                        "text" => "พันธมิตรประเมิน ".number_format($price)." บาท ต้องการคุยรายละเอียดกดปุ่มด้านล่าง",
+                        "defaultAction" => array(
+                            "type" => "uri",
+                            "label" => "View detail",
+                            "uri" => $img
+                        ),
+                        "actions" => array(
+                            array(
+                                "type" => "message",
+                                "label" => "คุยรายละเอียดคันนี้",
+                                "text" => "ID : ".$carid." ต้องการติดต่อพ่อสื่อ, รอสักครู่..."
+                            ),
+                            array(
+                                "type" => "uri",
+                                "label" => "ดูข้อมูลรถยนต์",
+                                "uri" => "https://trade-in.toyotaparagon.com/app?way=car&id=".$carid
+                            )
+                        )
                     )
-                )
                 );
-    
+        
+                $post = json_encode(array(
+                    'to' => array($userId),
+                    'messages' => array($messages),
+                ));
+        
+                $url = 'https://api.line.me/v2/bot/message/multicast';
+                $headers = array('Content-Type: application/json', 'Authorization: Bearer '.$access_token);
                 $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL,$strUrl);
-                curl_setopt($ch, CURLOPT_HEADER, false);
-                curl_setopt($ch, CURLOPT_POST, true);
-                curl_setopt($ch, CURLOPT_HTTPHEADER, $arrHeader);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($arrPostData));
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER,true);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                curl_setopt($ch, CURLOPT_URL, "https://api.line.me/v2/bot/message/multicast");
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+                curl_setopt($ch, CURLOPT_FAILONERROR, true);
+        
                 $result = curl_exec($ch);
-                curl_close ($ch);
+        
+                if(curl_error($ch)){
+                    echo 'error:' . curl_error($ch);
+                } else {
+                    echo $result;
+                }
+                
             }
         
 
@@ -150,14 +167,17 @@
                 
                 $car = $db->where('cast_id', $id)->getOne('car_stock');
                 $luid = $db_nms->where('id', $car['cast_sales_parent_no'])->getOne('db_member');
+                $img = $db->where('cari_parent',$car['cast_id'])->getOne('car_image');
 
-                sendMsg($luid['line_usrid'],$car['cast_seller_name'],number_format($price));
+                //sendMsg($luid['line_usrid'],$car['cast_seller_name'],number_format($price));
+                //sleep(3);
+                sendOffer($car['cast_id'],$luid['line_usrid'],$img['cari_link'],$price,'');
                 sleep(3);
                 sendMsgNew($luid['line_usrid'],$car['cast_seller_name'],number_format($price));
                 sleep(3);
                 sendMsg(getTeamMgr($car['cast_sales_parent_no']),$car['cast_seller_name'],number_format($price));
-                sleep(3);
-                sendOffer('https://imagedelivery.net/FG9yH3i4rybjZWgNeKKJvA/648405f4-7923-472b-405a-3cb15a44b800/resize500');
+                
+                
 
                 echo json_encode(array('status' => '200','id' => $id));
             } else {
