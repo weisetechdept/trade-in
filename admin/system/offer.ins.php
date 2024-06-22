@@ -3,6 +3,7 @@
         require_once '../../db-conn.php';
         date_default_timezone_set("Asia/Bangkok");
 
+
         if($_SESSION['tin_admin'] != true){
 
             header("location: /404");
@@ -28,6 +29,50 @@
                 }
             }
 
+
+            function sendOffer($img) {
+                $arrPostData = array();
+                $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
+                $arrPostData['messages'][0]['type'] = "template";
+                $arrPostData['messages'][0]['altText'] = "ให้ราคาจากพันธมิตร";
+                $arrPostData['messages'][0]['template'] = array(
+                "type" => "buttons",
+                "thumbnailImageUrl" => $img,
+                "imageAspectRatio" => "rectangle",
+                "imageSize" => "cover",
+                "imageBackgroundColor" => "#FFFFFF",
+                "title" => "พ่อสื่อเมนู",
+                "text" => "กรุณาเลือกเมนูที่ต้องการ",
+                "defaultAction" => array(
+                    "type" => "uri",
+                    "label" => "View detail",
+                    "uri" => $img
+                ),
+                "actions" => array(
+                    array(
+                        "type" => "uri",
+                        "label" => "ดูข้อมูลรถยนต์",
+                        "uri" => "https://trade-in.toyotaparagon.com/app?way=list"
+                    ),
+                    array(
+                        "type" => "message",
+                        "label" => "ติดต่อพ่อสื่อ",
+                        "text" => "ID : 00000 ต้องการติดต่อพ่อสื่อ, รอสักครู่..."
+                    )
+                )
+                );
+    
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL,$strUrl);
+                curl_setopt($ch, CURLOPT_HEADER, false);
+                curl_setopt($ch, CURLOPT_POST, true);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $arrHeader);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($arrPostData));
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER,true);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                $result = curl_exec($ch);
+                curl_close ($ch);
+            }
         
 
             function sendMsg($line_uid,$cust_name,$price) {
@@ -55,6 +100,7 @@
                 curl_setopt($ch, CURLOPT_FAILONERROR, true);
 
                 $result = curl_exec($ch);
+                
             }
 
             function sendMsgNew($line_uid,$cust_name,$price) {
@@ -110,6 +156,8 @@
                 sendMsgNew($luid['line_usrid'],$car['cast_seller_name'],number_format($price));
                 sleep(3);
                 sendMsg(getTeamMgr($car['cast_sales_parent_no']),$car['cast_seller_name'],number_format($price));
+                sleep(3);
+                sendOffer('https://imagedelivery.net/FG9yH3i4rybjZWgNeKKJvA/648405f4-7923-472b-405a-3cb15a44b800/resize500');
 
                 echo json_encode(array('status' => '200','id' => $id));
             } else {

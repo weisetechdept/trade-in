@@ -48,7 +48,10 @@
 										window.location.href = "/sales/add-car";
 									<?php } elseif($_GET['way'] == 'list') { ?>
 										window.location.href = "/sales/home";
+									<?php } elseif($_GET['way'] == 'car') {?>
+										window.location.href = "/sales/detail/<?php echo $_GET['id'];?>";
 									<?php } ?>
+
 								}
 								if(response.data.status == '400'){
 									swal("ท่านยังไม่ได้ลงทะเบียน", "โปรดติดต่อผู้ดูแลระบบ", "warning",{ 
