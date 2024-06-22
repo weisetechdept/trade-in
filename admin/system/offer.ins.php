@@ -119,7 +119,7 @@
                 $result = curl_exec($ch);
                 
             }
-
+/*
             function sendMsgNew($line_uid,$cust_name,$price) {
                 $access_token = 'IZd/+LM0eFbZBGVq67BcM6AC8MDkZSi7/DsikGWU45/a2moikJuzGP77d8J3w1UOFcc98ku2MmnnQwnKwYOyAWvkuMScEfxrImfS5NrC+nRX/bzJNehiCX9PwezVE3St1i81+6WuMUj90anooQivAAdB04t89/1O/w1cDnyilFU=';
                 $userId = $line_uid;
@@ -146,7 +146,7 @@
 
                 $result = curl_exec($ch);
             }
-
+*/
             $mgr = $db_nms->where('id', $_SESSION['tin_admin_id'])->getOne('db_member');
 
             $request = json_decode(file_get_contents('php://input'));
@@ -169,15 +169,11 @@
                 $luid = $db_nms->where('id', $car['cast_sales_parent_no'])->getOne('db_member');
                 $img = $db->where('cari_parent',$car['cast_id'])->getOne('car_image');
 
-                //sendMsg($luid['line_usrid'],$car['cast_seller_name'],number_format($price));
-                //sleep(3);
+                sendMsg($luid['line_usrid'],$car['cast_seller_name'],number_format($price));
+                sleep(3);
                 sendOffer($car['cast_id'],$luid['line_usrid'],$img['cari_link'],$price,'');
                 sleep(3);
-                sendMsgNew($luid['line_usrid'],$car['cast_seller_name'],number_format($price));
-                sleep(3);
                 sendMsg(getTeamMgr($car['cast_sales_parent_no']),$car['cast_seller_name'],number_format($price));
-                
-                
 
                 echo json_encode(array('status' => '200','id' => $id));
             } else {
