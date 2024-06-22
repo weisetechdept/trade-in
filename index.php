@@ -149,6 +149,12 @@
         require_once 'frontend/pages/trade.php';
     });
 
+    /* Partner */
+
+    $router->get( '/partner/register', function() {
+        require_once 'partner/pages/register.php';
+    });
+
 
     $router->run();
     
