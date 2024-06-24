@@ -896,6 +896,11 @@
                                     dangerMode: true,
                                 }).then((willDelete) => {
                                     if (willDelete) {
+                                        
+                                        swal("กรุณารอสักครู่", "ระบบกำลังส่งข้อมูล", "info", {
+                                            button: false
+                                        })
+
                                         axios.post('/admin/system/offer.ins.php', {
                                             price: this.offer.price,
                                             partner: this.offer.partner,
