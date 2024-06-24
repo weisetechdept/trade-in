@@ -80,12 +80,6 @@
             curl_setopt($ch, CURLOPT_FAILONERROR, true);
     
             $result = curl_exec($ch);
-    
-            if(curl_error($ch)){
-                echo 'error:' . curl_error($ch);
-            } else {
-                echo $result;
-            }
             
         }
     
