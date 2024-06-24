@@ -6,7 +6,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>รถมือสอง</title>
+    <title>พันธมิตรรถมือสอง</title>
     <meta name="description" content="เราเป็นตัวกลางที่จะหาผู้ซื้อและผู้ขายรถยนต์มือสอง รถมือสอง">
     <link href="/public/assets/css/style.css" rel="stylesheet" type="text/css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,6 +19,9 @@
             .container {
                 max-width: 480px;
             }
+        }
+        html {
+            background-color: #000;
         }
         body {
             font-family: 'Kanit', sans-serif;
@@ -70,6 +73,13 @@
                 padding-left: 0px;
                 padding-right: 0px;
             }
+            .col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-auto, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-auto, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto {
+                position: relative;
+                width: 100%;
+                min-height: 1px;
+                padding-right: 30px;
+                padding-left: 30px;
+            }
         }
         .share-button button {
             border-radius: 50%;
@@ -104,47 +114,41 @@
   </head>
   <body>
     <div class="line-green"></div>
-    <div class="container">
-        <div class="col profile">
-            <img src="https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/default-avatar-profile-picture-male-icon.png" class="profile-avatar">
+
+        <div class="container" id="detail">
+
+            <div class="col profile">
+                <img :src="profile.userImg" class="profile-avatar">
+            </div>
+            
+            <div class="col from-register">
+
+                <div class="form-group">
+                    <label for="car-id">ชื่อธุรกิจของคุณ</label>
+                    <input type="text" maxlength="96" v-model="send.bus_name" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="car-id">ชื่อจริง (ผู้ใช้งาน)</label>
+                    <input type="text" maxlength="64" v-model="send.pt_fname" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="car-id">นามสกุล (ผู้ใช้งาน)</label>
+                    <input type="text" maxlength="64" v-model="send.pt_lname" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="car-id">เบอร์โทรศัพท์</label>
+                    <input type="text" id="numbers-only" maxlength="10" v-model="send.tel" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-success" @click="sendData">สมัครสมาชิก</button>
+                </div>
+
+            </div>
         </div>
-        <div class="col from-register">
-
-            <div class="form-group">
-                <label for="car-id">ชื่อธุรกิจของคุณ</label>
-                <input type="text" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="car-id">ชื่อจริง (ผู้ใช้งาน)</label>
-                <input type="text" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="car-id">นามสกุล (ผู้ใช้งาน)</label>
-                <input type="text" class="form-control">
-            </div>
-
-            <div class="form-group">
-                <label for="car-id">เบอร์โทรศัพท์</label>
-                <input type="text" class="form-control">
-            </div>
-
-            <div class="condition">
-                <p><strong>เงื่อนไขการใช้งาน</strong></p>
-                <p>
-                    1. ขอสงวนสิทธิ์ผู้ใช้งานต้องเป็นผู้ประกอบการที่มีสถานประกอบการจริงเท่านั้น<br />
-                    2. ข้อมูลการลงทะเบียนจะถูกตรวจสอบก่อนทำการเปิดใช้งาน<br />
-                    3. ข้อมูลที่กรอกจะถูกใช้เพื่อการติดต่อกับผู้ใช้งานเท่านั้น<br />
-                    4. ข้อมูลการประเมินราคาจะถูกส่งให้กับผู้ประสานงานซื้อขายรถยนต์<br />
-                </p>
-                
-            </div>
-
-            <div class="form-group">
-                <button class="btn btn-success">บันทึก</button>
-            </div>
-
-        </div>
-    </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -155,18 +159,61 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sharer.js@latest/sharer.min.js"></script>
-   
+    <script src="https://static.line-scdn.net/liff/edge/versions/2.9.0/sdk.js"></script>
     <script>
+     
         var detail = new Vue({
             el: '#detail',
             data () {
                 return {
+                    profile: {
+                        userImg: ''
+                    },
+                    send: {
+                        userId: '',
+                        bus_name: '',
+                        pt_fname: '',
+                        pt_lname: '',
+                        tel: ''
+                    }
                 }
             },
             mounted () {
-                    
+                this.getLineLogin();
+                this.numOnly();
             },
             methods: {
+                getLineLogin() {
+
+                    liff.init({ liffId: "2003233824-jgPyN2mN" }, () => {
+                        if (liff.isLoggedIn()) {
+                                liff.getProfile().then(profile => {
+
+                                this.send.userId = profile.userId;
+                                this.profile.userImg = profile.pictureUrl;
+
+                            }).catch(err => console.error(err));
+                        } else {
+                            liff.login();
+                        }
+                    }, err => console.error(err.code, error.message));
+
+                },
+                numOnly() {
+                    var inputField = document.querySelector('#numbers-only');
+
+                    inputField.onkeydown = function(event) {
+                        if(isNaN(event.key) && event.key !== 'Backspace') {
+                            event.preventDefault();
+                        }
+                    };
+                },
+                sendData() {
+                    if(this.send.bus_name == '' || this.send.bus_name == null || this.send.pt_fname == '' || this.send.pt_fname == null || this.send.pt_lname == '' || this.send.pt_lname == null || this.send.tel == '' || this.send.tel == null) {
+                        swal("กรุณากรอกข้อมูลให้ครบถ้วน", "", "warning");
+                        return;
+                    }
+                }
                
             }
         });
