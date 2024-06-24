@@ -40,7 +40,9 @@
             'pv' => $stock['cast_pv'],
             'fin' => $stock['cast_fin'],
             'loan' => $stock['cast_loan'],
-            'ready' => $stock['cast_ready']
+            'ready' => $stock['cast_ready'],
+            'cust_name' => $stock['cast_seller_name'],
+            'cust_tel' => '0'.$stock['cast_tel']
         );
 
         $brand = $db->get('finance_data');

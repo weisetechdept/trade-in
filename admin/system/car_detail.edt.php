@@ -37,6 +37,9 @@
         $fin = $request->fin;
         $loan = $request->loan;
         $ready = $request->ready;
+        $cust_seller_name = $request->cust_name;
+        $cust_tel = $request->cust_tel;
+
 
         $change = array();
         if($for_change != '0'){
@@ -61,7 +64,9 @@
             'cast_pv' => $pv,
             'cast_fin' => $fin,
             'cast_loan' => $loan,
-            'cast_ready' => $ready
+            'cast_ready' => $ready,
+            'cast_seller_name' => $cust_seller_name,
+            'cast_tel' => $cust_tel
 
         );
         $data = array_merge($orifinal,$change);
