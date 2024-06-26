@@ -110,6 +110,9 @@
         .from-register {
             padding-bottom: 60px;
         }
+        .swal-text {
+            text-align: center;
+        }
     </style>
   </head>
   <body>
@@ -191,6 +194,8 @@
                                     
                                 this.send.userId = profile.userId;
                                 this.profile.userImg = profile.pictureUrl;
+                                console.log(this.send);
+
 
                             }).catch(err => console.error(err));
                         } else {
