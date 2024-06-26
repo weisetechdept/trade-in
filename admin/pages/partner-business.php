@@ -87,12 +87,12 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box d-flex align-items-center justify-content-between">
-                                <h4 class="mb-0 font-size-18">จัดการสมาชิก (พันธมิตร)</h4>
+                                <h4 class="mb-0 font-size-18">จัดการบริษัทพันธมิตร</h4>
 
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
                                         <li class="breadcrumb-item"><a href="javascript: void(0);">Trade-in</a></li>
-                                        <li class="breadcrumb-item active">สมาชิก</li>
+                                        <li class="breadcrumb-item active">บริษัทพันธมิตร</li>
                                     </ol>
                                 </div>
                                 
@@ -101,16 +101,7 @@
                     </div>  
 
                     <div class="row" id="partner">
-                        <div class="col-12 col-md-3 col-lg-3 mb-1">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <input type="text" value="https://<?php echo $_SERVER['HTTP_HOST']; ?>/partner/register" id="myInput" class="form-control">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-dark waves-effect waves-light" @click="copyLink" type="button">ลิ้งเพิ่มพันธมิตร</button> 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
 
                     <div class="row">
@@ -130,12 +121,10 @@
                                                 <th>แมชชิ่ง</th>
                                                 <th>สถานะ</th>
                                                 <th>วันที่สมัคร</th>
-                                                <th>จัดการ</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -277,12 +266,7 @@
                         }
                     }
                 },
-                {'data':'8'},
-                {'data':'0',
-                    'render': function(data){
-                        return '<a href="/admin/partner/'+data+'" class="btn btn-outline-info btn-sm">ดูข้อมูล</a>';
-                    }
-                },
+                {'data':'8'}
             ],
         });
         

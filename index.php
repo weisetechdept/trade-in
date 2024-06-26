@@ -87,6 +87,10 @@
         require_once 'admin/pages/partner.php';
     });
 
+    $router->get( '/admin/business', function() {
+        require_once 'admin/pages/partner-business.php';
+    });
+
     /* sales */
 
     $router->get( '/app', function() {
@@ -155,6 +159,9 @@
         require_once 'partner/pages/register.php';
     });
 
+    $router->get( '/partner/welcome', function() {
+        require_once 'partner/pages/welcome.php';
+    });
 
     $router->run();
     

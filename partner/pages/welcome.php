@@ -98,18 +98,6 @@
             justify-content: flex-end;
             margin-bottom: 15px;
         }
-        .profile-avatar {
-            width: 165px;
-            height: 165px;
-            border-radius: 50%;
-        }
-        .profile {
-            margin: 60px 0 30px 0;
-            text-align: center;
-        }
-        .from-register {
-            padding-bottom: 60px;
-        }
         .swal-text {
             text-align: center;
         }
@@ -119,38 +107,10 @@
     <div class="line-green"></div>
 
         <div class="container" id="detail">
-
-            <div class="col profile">
-                <img :src="profile.userImg" class="profile-avatar">
+            <div class="mt-4">
+                ขอบคุณที่สมัครสมาชิกกับเรา...
             </div>
-
-            <div class="col from-register">
-
-                <div class="form-group">
-                    <label for="car-id">ชื่อธุรกิจของคุณ</label>
-                    <input type="text" maxlength="96" v-model="send.bus_name" class="form-control">
-                </div>
-
-                <div class="form-group">
-                    <label for="car-id">ชื่อจริง (ภาษาไทย)</label>
-                    <input type="text" maxlength="64" v-model="send.pt_fname" placeholder="(**ไม่ต้องใส่คำนำหน้าชื่อ)" class="form-control">
-                </div>
-
-                <div class="form-group">
-                    <label for="car-id">นามสกุล (ภาษาไทย)</label>
-                    <input type="text" maxlength="64" v-model="send.pt_lname" class="form-control">
-                </div>
-
-                <div class="form-group">
-                    <label for="car-id">เบอร์โทรศัพท์</label>
-                    <input type="text" id="numbers-only" maxlength="10" v-model="send.tel" class="form-control">
-                </div>
-
-                <div class="form-group mt-5" style="text-align: center;">
-                    <button class="btn btn-success" @click="sendData">สมัครสมาชิก</button>
-                </div>
-
-            </div>
+            
         </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -169,76 +129,12 @@
             el: '#detail',
             data () {
                 return {
-                    profile: {
-                        userImg: ''
-                    },
-                    send: {
-                        userId: '',
-                        bus_name: '',
-                        pt_fname: '',
-                        pt_lname: '',
-                        tel: ''
-                    }
                 }
             },
             mounted () {
-                this.getLineLogin();
-                this.numOnly();
+
             },
             methods: {
-                getLineLogin() {
-
-                    liff.init({ liffId: "2003233824-jgPyN2mN" }, () => {
-                        if (liff.isLoggedIn()) {
-                                liff.getProfile().then(profile => {
-                                    
-                                this.send.userId = profile.userId;
-                                this.profile.userImg = profile.pictureUrl;
-
-                            }).catch(err => console.error(err));
-                        } else {
-                            liff.login();
-                        }
-                    }, err => console.error(err.code, error.message));
-
-                },
-                numOnly() {
-                    var inputField = document.querySelector('#numbers-only');
-
-                    inputField.onkeydown = function(event) {
-                        if(isNaN(event.key) && event.key !== 'Backspace') {
-                            event.preventDefault();
-                        }
-                    };
-                },
-                sendData() {
-                    if(this.send.bus_name == '' || this.send.pt_fname == '' || this.send.pt_lname == '' || this.send.tel.length < 9 || this.send.tel == '' || this.send.userId == ''){
-                        swal("ไม่สามารถทำรายการได้", "กรุณากรอกข้อมูลให้ถูกต้องครบถ้วน ก่อนทำการสมัครสมาชิก", "warning");
-                    } else {
-                        axios.post('/partner/system/register.inc.php',{
-
-                            uid: this.send.userId,
-                            img_profile: this.profile.userImg,
-                            bus_name: this.send.bus_name,
-                            pt_fname: this.send.pt_fname,
-                            pt_lname: this.send.pt_lname,
-                            tel: this.send.tel
-
-                        }).then(res => {
-                            if(res.data.status == 200){
-                                
-                                swal("สมัครสมาชิกสำเร็จ", "ขอบคุณที่สมัครสมาชิกกับเรา หากมีการตรวจสอบข้อมูลแล้วเสร็จระบบจะแจ้งผลการสมัครผ่าน Line OA นี้", "success",{ 
-                                    button: "ตกลง"
-                                }).then((value) => {
-                                    window.location.href = '/partner/welcome';
-                                });
-
-                            } else if(res.data.status == 400) {
-                                swal("ไม่สามารถทำรายการได้", res.data.message, "warning");
-                            }
-                        }).catch(err => console.error(err));
-                    }
-                }
                
             }
         });
