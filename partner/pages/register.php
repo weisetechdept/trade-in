@@ -146,7 +146,7 @@
                     <input type="text" id="numbers-only" maxlength="10" v-model="send.tel" class="form-control">
                 </div>
 
-                <div class="form-group">
+                <div class="form-group mt-3" style="text-align: center;">
                     <button class="btn btn-success" @click="sendData">สมัครสมาชิก</button>
                 </div>
 
@@ -214,12 +214,8 @@
                     };
                 },
                 sendData() {
-                    if(this.send.bus_name == '' || this.send.pt_fname == '' || this.send.pt_lname == '' || this.send.tel.length < 9 || this.send.tel == ''){
+                    if(this.send.bus_name == '' || this.send.pt_fname == '' || this.send.pt_lname == '' || this.send.tel.length < 9 || this.send.tel == '' || this.send.userId == ''){
                         swal("ไม่สามารถทำรายการได้", "กรุณากรอกข้อมูลให้ถูกต้องครบถ้วน ก่อนทำการสมัครสมาชิก", "warning");
-                        return;
-                    } else if(this.send.userId == '' || this.send.userId == null ) {
-                        swal("กรุณาเข้าสู้ระบบ", "โปรดเข้าสูระบบด้วย Line Login ก่อนจึงจะสามารถทำรายการได้", "warning");
-                        return;
                     } else {
                         axios.post('/partner/system/register.inc.php', 
                             uid = this.send.userId,
