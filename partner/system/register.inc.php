@@ -12,7 +12,7 @@
     $pt_tel = $request->tel;
 
     if($uid == '' || $img_profile == '' || $bus_name == '' || $pt_fname == '' || $pt_lname == '' || $pt_tel == ''){
-        
+
         $api = array('status' => '400', 'msg' => 'Data not complete');
         exit();
 
@@ -21,6 +21,7 @@
         $data = array(
             'part_fname' => $pt_fname,
             'part_lname' => $pt_lname,
+            'part_tel' => $pt_tel,
             'part_bus_name' => $bus_name,
             'part_bus_id' => '0',
             'part_line_uid' => $uid,

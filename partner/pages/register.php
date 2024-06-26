@@ -214,7 +214,7 @@
                     };
                 },
                 sendData() {
-                    if(this.send.bus_name == '' || this.send.bus_name == null || this.send.pt_fname == '' || this.send.pt_fname == null || this.send.pt_lname == '' || this.send.pt_lname == null || this.send.tel.length < 9 || this.send.tel.length > 10 || this.send.tel == '' || this.send.tel == null){
+                    if(this.send.bus_name == '' || this.send.pt_fname == '' || this.send.pt_lname == '' || this.send.tel.length < 9 || this.send.tel == ''){
                         swal("ไม่สามารถทำรายการได้", "กรุณากรอกข้อมูลให้ถูกต้องครบถ้วน ก่อนทำการสมัครสมาชิก", "warning");
                         return;
                     } else if(this.send.userId == '' || this.send.userId == null ) {
