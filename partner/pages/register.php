@@ -188,13 +188,9 @@
                     liff.init({ liffId: "2003233824-jgPyN2mN" }, () => {
                         if (liff.isLoggedIn()) {
                                 liff.getProfile().then(profile => {
-
-
-
+                                    
                                 this.send.userId = profile.userId;
                                 this.profile.userImg = profile.pictureUrl;
-                                console.log(this.send.userId);
-                                console.log(this.profile.userImg);
 
 
                             }).catch(err => console.error(err));
