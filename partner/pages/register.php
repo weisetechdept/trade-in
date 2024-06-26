@@ -132,12 +132,12 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="car-id">ชื่อจริง (ผู้ใช้งาน)</label>
-                    <input type="text" maxlength="64" v-model="send.pt_fname" class="form-control">
+                    <label for="car-id">ชื่อจริง (ภาษาไทย)</label>
+                    <input type="text" maxlength="64" v-model="send.pt_fname" placeholder="ไม่ต้องใส่คำนำหน้าชื่อ" class="form-control">
                 </div>
 
                 <div class="form-group">
-                    <label for="car-id">นามสกุล (ผู้ใช้งาน)</label>
+                    <label for="car-id">นามสกุล (ภาษาไทย)</label>
                     <input type="text" maxlength="64" v-model="send.pt_lname" class="form-control">
                 </div>
 
@@ -146,7 +146,7 @@
                     <input type="text" id="numbers-only" maxlength="10" v-model="send.tel" class="form-control">
                 </div>
 
-                <div class="form-group mt-3" style="text-align: center;">
+                <div class="form-group mt-5" style="text-align: center;">
                     <button class="btn btn-success" @click="sendData">สมัครสมาชิก</button>
                 </div>
 
@@ -228,7 +228,10 @@
 
                         }).then(res => {
                             if(res.data.status == 200){
-                                swal("สมัครสมาชิกสำเร็จ", "ขอบคุณที่สมัครสมาชิกกับเรา หากมีการตรวจสอบข้อมูลแล้วเสร็จระบบจะแจ้งผลการสมัครผ่าน Line OA นี้", "success");
+                                swal("สมัครสมาชิกสำเร็จ", "ขอบคุณที่สมัครสมาชิกกับเรา หากมีการตรวจสอบข้อมูลแล้วเสร็จระบบจะแจ้งผลการสมัครผ่าน Line OA นี้", "success")
+                                .then(() => {
+                                    liff.closeWindow();
+                                });
 
                             } else if(res.data.status == 400) {
                                 swal("ไม่สามารถทำรายการได้", res.data.message, "warning");
