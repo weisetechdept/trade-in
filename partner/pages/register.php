@@ -133,7 +133,7 @@
 
                 <div class="form-group">
                     <label for="car-id">ชื่อจริง (ภาษาไทย)</label>
-                    <input type="text" maxlength="64" v-model="send.pt_fname" placeholder="ไม่ต้องใส่คำนำหน้าชื่อ" class="form-control">
+                    <input type="text" maxlength="64" v-model="send.pt_fname" placeholder="(**ไม่ต้องใส่คำนำหน้าชื่อ)" class="form-control">
                 </div>
 
                 <div class="form-group">
