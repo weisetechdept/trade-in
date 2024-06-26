@@ -192,7 +192,6 @@
                                 this.send.userId = profile.userId;
                                 this.profile.userImg = profile.pictureUrl;
 
-
                             }).catch(err => console.error(err));
                         } else {
                             liff.login();
@@ -211,11 +210,27 @@
                 },
                 sendData() {
                     if(this.send.bus_name == '' || this.send.bus_name == null || this.send.pt_fname == '' || this.send.pt_fname == null || this.send.pt_lname == '' || this.send.pt_lname == null || this.send.tel.length < 9 || this.send.tel.length > 10 || this.send.tel == '' || this.send.tel == null){
-                        swal("กรุณากรอกข้อมูลให้ครบถ้วน", "", "warning");
+                        swal("ไม่สามารถทำรายการได้", "กรุณากรอกข้อมูลให้ถูกต้องครบถ้วน ก่อนทำการสมัครสมาชิก", "warning");
                         return;
                     } else if(this.send.userId == '' || this.send.userId == null ) {
                         swal("กรุณาเข้าสู้ระบบ", "โปรดเข้าสูระบบด้วย Line Login ก่อนจึงจะสามารถทำรายการได้", "warning");
                         return;
+                    } else {
+                        axios.post('/partner/system/register.inc.php', 
+                            uid = this.send.userId,
+                            img_profile = this.profile.userImg,
+                            bus_name = this.send.bus_name,
+                            pt_fname = this.send.pt_fname,
+                            pt_lname = this.send.pt_lname,
+                            tel = this.send.tel
+                        ).then(res => {
+                            if(res.data.status == 200){
+                                swal("สมัครสมาชิกสำเร็จ", "ขอบคุณที่สมัครสมาชิกกับเรา หากมีการตรวจสอบข้อมูลแล้วเสร็จระบบจะแจ้งผลการสมัครผ่าน Line OA นี้", "success");
+
+                            } else if(res.data.status == 400) {
+                                swal("ไม่สามารถทำรายการได้", res.data.message, "warning");
+                            }
+                        }).catch(err => console.error(err));
                     }
                 }
                
