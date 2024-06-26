@@ -210,10 +210,10 @@
                     };
                 },
                 sendData() {
-                    if(this.send.bus_name == '' || this.send.bus_name == null || this.send.pt_fname == '' || this.send.pt_fname == null || this.send.pt_lname == '' || this.send.pt_lname == null || this.send.tel.length < 9 || this.send.tel.length > 10 || this.send.tel == '' || this.send.tel == null) {
+                    if(this.send.bus_name == '' || this.send.bus_name == null || this.send.pt_fname == '' || this.send.pt_fname == null || this.send.pt_lname == '' || this.send.pt_lname == null || this.send.tel.length < 9 || this.send.tel.length > 10 || this.send.tel == '' || this.send.tel == null){
                         swal("กรุณากรอกข้อมูลให้ครบถ้วน", "", "warning");
                         return;
-                    } else if(this.send.userId == '' || this.send.userId == null || ) {
+                    } else if(this.send.userId == '' || this.send.userId == null ) {
                         swal("กรุณาเข้าสู้ระบบ", "โปรดเข้าสูระบบด้วย Line Login ก่อนจึงจะสามารถทำรายการได้", "warning");
                         return;
                     }
