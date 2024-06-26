@@ -120,7 +120,7 @@
             <div class="col profile">
                 <img :src="profile.userImg" class="profile-avatar">
             </div>
-            
+
             <div class="col from-register">
 
                 <div class="form-group">
@@ -189,8 +189,13 @@
                         if (liff.isLoggedIn()) {
                                 liff.getProfile().then(profile => {
 
+
+
                                 this.send.userId = profile.userId;
                                 this.profile.userImg = profile.pictureUrl;
+                                console.log(this.send.userId);
+                                console.log(this.profile.userImg);
+
 
                             }).catch(err => console.error(err));
                         } else {
@@ -209,8 +214,11 @@
                     };
                 },
                 sendData() {
-                    if(this.send.bus_name == '' || this.send.bus_name == null || this.send.pt_fname == '' || this.send.pt_fname == null || this.send.pt_lname == '' || this.send.pt_lname == null || this.send.tel == '' || this.send.tel == null) {
+                    if(this.send.bus_name == '' || this.send.bus_name == null || this.send.pt_fname == '' || this.send.pt_fname == null || this.send.pt_lname == '' || this.send.pt_lname == null || this.send.tel.length < 9 || this.send.tel.length > 10 || this.send.tel == '' || this.send.tel == null) {
                         swal("กรุณากรอกข้อมูลให้ครบถ้วน", "", "warning");
+                        return;
+                    } else if(this.send.userId == '' || this.send.userId == null || ) {
+                        swal("กรุณาเข้าสู้ระบบ", "โปรดเข้าสูระบบด้วย Line Login ก่อนจึงจะสามารถทำรายการได้", "warning");
                         return;
                     }
                 }
