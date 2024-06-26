@@ -218,13 +218,13 @@
                         swal("ไม่สามารถทำรายการได้", "กรุณากรอกข้อมูลให้ถูกต้องครบถ้วน ก่อนทำการสมัครสมาชิก", "warning");
                     } else {
                         axios.post('/partner/system/register.inc.php',{
-                            
-                            uid = this.send.userId,
-                            img_profile = this.profile.userImg,
-                            bus_name = this.send.bus_name,
-                            pt_fname = this.send.pt_fname,
-                            pt_lname = this.send.pt_lname,
-                            tel = this.send.tel
+
+                            uid: this.send.userId,
+                            img_profile: this.profile.userImg,
+                            bus_name: this.send.bus_name,
+                            pt_fname: this.send.pt_fname,
+                            pt_lname: this.send.pt_lname,
+                            tel: this.send.tel
 
                         }).then(res => {
                             if(res.data.status == 200){
