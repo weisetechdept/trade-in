@@ -35,7 +35,7 @@
         if($inc){
             $api = array('status' => '200');
         }else{
-            $api = array('status' => '400', 'msg' => 'Error');
+            $api = array('status' => '400', 'message' => $db->getLastError());
         }
 
     }

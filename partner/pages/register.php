@@ -217,14 +217,16 @@
                     if(this.send.bus_name == '' || this.send.pt_fname == '' || this.send.pt_lname == '' || this.send.tel.length < 9 || this.send.tel == '' || this.send.userId == ''){
                         swal("ไม่สามารถทำรายการได้", "กรุณากรอกข้อมูลให้ถูกต้องครบถ้วน ก่อนทำการสมัครสมาชิก", "warning");
                     } else {
-                        axios.post('/partner/system/register.inc.php', 
+                        axios.post('/partner/system/register.inc.php',{
+                            
                             uid = this.send.userId,
                             img_profile = this.profile.userImg,
                             bus_name = this.send.bus_name,
                             pt_fname = this.send.pt_fname,
                             pt_lname = this.send.pt_lname,
                             tel = this.send.tel
-                        ).then(res => {
+
+                        }).then(res => {
                             if(res.data.status == 200){
                                 swal("สมัครสมาชิกสำเร็จ", "ขอบคุณที่สมัครสมาชิกกับเรา หากมีการตรวจสอบข้อมูลแล้วเสร็จระบบจะแจ้งผลการสมัครผ่าน Line OA นี้", "success");
 
