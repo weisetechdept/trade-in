@@ -91,6 +91,11 @@
         require_once 'admin/pages/partner-business.php';
     });
 
+    $router->get( '/admin/pt/detail/(.*)', function($id) {
+        require_once 'admin/pages/partner-detail.php';
+    });
+
+
     /* sales */
 
     $router->get( '/app', function() {

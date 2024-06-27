@@ -272,15 +272,18 @@
                     'render': function(data){
                         if(data == 1){
                             return '<span class="badge badge-success">ใช้งาน</span>';
-                        }else{
+                        }else if(data == 10){
                             return '<span class="badge badge-danger">ระงับ</span>';
+                        }else if(data == 0){
+                            return '<span class="badge badge-warning">รออนุมัติ</span>';
+                        
                         }
                     }
                 },
                 {'data':'8'},
                 {'data':'0',
                     'render': function(data){
-                        return '<a href="/admin/partner/'+data+'" class="btn btn-outline-info btn-sm">ดูข้อมูล</a>';
+                        return '<a href="/admin/pt/detail/'+data+'" class="btn btn-outline-info btn-sm">ดูข้อมูล</a>';
                     }
                 },
             ],
