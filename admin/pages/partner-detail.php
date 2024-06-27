@@ -174,10 +174,57 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h3 class="card-title">จัดการ</h3>
-                                    <button type="button" class="btn btn-outline-warning mr-2">แก้ไข</button>
-                                    <button type="button" @click="verify" class="btn btn-outline-info mr-2">นำเข้าบริษัท</button>
-                                    <button type="button" @click="verify" class="btn btn-success mr-2">อนุมัติสมาชิก</button>
+                                    <button type="button" class="btn btn-outline-warning waves-effect waves-light mr-1" data-toggle="modal" data-target="#exampleModal">แก้ใข</button>
+                                    <button type="button" @click="verify" class="btn btn-success mr-1">อนุมัติสมาชิก</button>
                                 </div> 
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">แก้ใขข้อมูล</h5>
+                                    <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+
+                                    <div class="form-group">
+                                        <label for="name">ชื่อ</label>
+                                        <input type="text" class="form-control" id="name" v-model="partner.name">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="name">นามสกุล</label>
+                                        <input type="text" class="form-control" id="name" v-model="partner.name">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="tel">เบอร์โทร</label>
+                                        <input type="text" class="form-control" id="tel" v-model="partner.tel">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="tel">กลุ่มพัมธมิตร</label>
+                                        <select class="form-control" v-model="partner.group">
+                                            <option value="0">Basic</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="tel">บริษัท</label>
+                                        <select class="form-control" v-model="partner.group">
+                                            <option value="0">Basic</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary waves-effect waves-light">บันทึกการแก้ใข</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -260,6 +307,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.1/axios.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
+    <script src="/assets/js/theme.js"></script>
     <!-- third party js ends -->
 
     <!-- Datatables init -->
