@@ -95,6 +95,10 @@
         require_once 'admin/pages/partner-detail.php';
     });
 
+    $router->get( '/admin/add-business', function() {
+        require_once 'admin/pages/partner-add-business.php';
+    });
+
 
     /* sales */
 

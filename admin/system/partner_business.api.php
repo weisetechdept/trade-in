@@ -7,19 +7,18 @@
         $api = array('status' => 'error', 'message' => 'Permission denied');
     } else {
 
-        $member = $db->get('partner');
+        $busi = $db->get('partner_bus');
 
-        foreach ($member as $value) {
+        foreach ($busi as $value) {
+
+            $count_mem = $db->where('part_bus_id',$value['busi_id'])->getValue('partner','count(*)');
+
             $api['data'][] = array(
-                $value['part_id'],
-                $value['part_line_img'],
-                $value['part_fname'].' '.$value['part_lname'],
-                $value['part_bus_name'],
-                $value['part_tel'],
-                $value['part_bus_id'],
-                $value['part_group'],
-                $value['part_status'],
-                date('d/m/Y H:i:s', strtotime($value['part_datetime']))
+                $value['busi_id'],
+                $value['busi_name'],
+                $value['busi_status'],
+                date('d/m/Y H:i:s', strtotime($value['busi_datetime'])),
+                $count_mem
             );
         }
 

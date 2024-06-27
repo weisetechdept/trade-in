@@ -70,6 +70,9 @@
             width: 35px;
             border-radius: 50%;
         }
+        .swal-footer {
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -87,12 +90,12 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box d-flex align-items-center justify-content-between">
-                                <h4 class="mb-0 font-size-18">จัดการบริษัทพันธมิตร</h4>
+                                <h4 class="mb-0 font-size-18">เพิ่มบริษัทพันธมิตร</h4>
 
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
                                         <li class="breadcrumb-item"><a href="javascript: void(0);">Trade-in</a></li>
-                                        <li class="breadcrumb-item active">บริษัทพันธมิตร</li>
+                                        <li class="breadcrumb-item active">เพิ่มบริษัทพันธมิตร</li>
                                     </ol>
                                 </div>
                                 
@@ -101,36 +104,20 @@
                     </div>  
 
                     <div class="row" id="partner">
-                        <div class="col-12 mb-3">
-                            <a href="/admin/add-business" class="btn btn-primary">เพิ่มบริษัทพันธมิตร</a>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12 col-lg-8">
+                        <div class="col-12 col-lg-5">
                             <div class="card">
                                 <div class="card-body">
+
                                     
-                                    <table id="datatable" class="table dt-responsive nowrap">
-                                        <thead>
-                                            <tr>
-                                                <th width="35px">รหัส</th>
-                                                <th>ชื่อบริษัท - เต้นท์</th>
-                                                <th width="85px">จำนวนสมาชิก</th>
-                                                <th width="45px">สถานะ</th>
-                                                <th width="150px">วันที่เริ่มใช้งาน</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <div class="form-group">
+                                        <label for="busi_name">ชื่อธุระกิจ บริษัท หรือชื่อเต้นท์</label>
+                                        <input type="text" class="form-control" id="busi_name" v-model="busi_name">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button class="btn btn-primary" @click="addBusiness">เพิ่มบริษัท</button>
+                                        
+                                    </div>
 
                                 </div> 
                             </div>
@@ -195,52 +182,53 @@
         var partner = new Vue({
             el: '#partner',
             data: {
+                busi_name: ''
             },
             methods: {
-                copyLink() {
-                    var copyText = document.getElementById("myInput");
-                    copyText.select();
-                    copyText.setSelectionRange(0, 99999);
-                    navigator.clipboard.writeText(copyText.value);
-                    alert("คัดลอกลิ้ง : " + copyText.value);
+                addBusiness() {
+                    if(this.busi_name == ''){
+
+                        swal("กรุณากรอกชื่อธุรกิจ", {
+                            icon: "warning",
+                        });
+                        return;
+
+                    } else {
+
+                        axios.post('/admin/system/add_business_pt.api.php', {
+                            name: this.busi_name
+                        }).then(function (response) {
+
+                            if(response.data.status == 'success'){
+
+                                swal("บันทึกข้อมูลสำเร็จ", {
+                                    icon: "success",
+                                    buttons: 'ตกลง'
+                                }).then(function(value){
+                                    window.location.href = '/admin/business';
+                                });
+
+                            } else {
+
+                                swal("บันทึกข้อมูลไม่สำเร็จ", {
+                                    icon: "error",
+                                });
+
+                            }
+                        
+                        }).catch(function (error) {
+
+                            console.log(error);
+
+                        });
+
+                    }
+                    
                 }
             }
         });
 
-        $('#datatable').DataTable({
-            responsive: true,
-            "language": {
-                "paginate": {
-                    "previous": "<i class='mdi mdi-chevron-left'>",
-                    "next": "<i class='mdi mdi-chevron-right'>"
-                },
-                "lengthMenu": "แสดง _MENU_ รายชื่อ",
-                "zeroRecords": "ขออภัย ไม่มีข้อมูล",
-                "info": "หน้า _PAGE_ ของ _PAGES_",
-                "infoEmpty": "ไม่มีข้อมูล",
-                "search": "ค้นหา:",
-            },
-            "drawCallback": function () {
-                $('.dataTables_paginate > .pagination').addClass('pagination-rounded');
-            },
-            ajax: '/admin/system/partner_business.api.php',
-            "columns" : [
-                {'data':'0'},
-                {'data':'1'},
-                {'data':'4'},
-                {'data':'2',
-                    render: function(data, type, row, meta){
-                        if(data == '1'){
-                            return '<span class="badge badge-success">ใช้งาน</span>';
-                        } else {
-                            return '<span class="badge badge-danger">ปิดใช้งาน</span>';
-                        }
-                    }
-                },
-                {'data':'3'}
-
-            ],
-        });
+       
         
     </script>
 
