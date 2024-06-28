@@ -26,6 +26,7 @@
             'part_bus_id' => '0',
             'part_line_uid' => $uid,
             'part_line_img' => $img_profile,
+            'part_permission' => 'user',
             'part_group' => '0',
             'part_status' => '0',
             'part_datetime' => date('Y-m-d H:i:s')

@@ -172,6 +172,14 @@
         require_once 'partner/pages/welcome.php';
     });
 
+    $router->get( '/partner/home', function() {
+        require_once 'partner/pages/home.php';
+    });
+
+    $router->get( '/pt/stock/(.*)', function($id) {
+        require_once 'partner/pages/detail.php';
+    });
+
     $router->run();
     
 
