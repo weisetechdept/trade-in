@@ -37,15 +37,27 @@
 			liff.init({ liffId: "2003233824-jePdvMnv" }, () => {
 				if (liff.isLoggedIn()) {
 						liff.getProfile().then(profile => {
-                            console.log(profile);
-
 							axios.post('/partner/system/line_login.api.php', {
 								userId: profile.userId,
 								userImg: profile.pictureUrl
 
 							}).then(response => {
 
-								console.log(response.data);
+                                if(response.data.status == '200'){
+									<?php if(empty($_GET['way'])){ ?>
+										window.location.href = "/partner/home";
+									<?php } elseif($_GET['way'] == 'car') {?>
+										window.location.href = "/pt/stock/<?php echo $_GET['id'];?>";
+									<?php } ?>
+
+								}
+								if(response.data.status == '400'){
+									swal("ท่านยังไม่ได้ลงทะเบียน", "โปรดติดต่อผู้ดูแลระบบ", "warning",{ 
+											button: "ตกลง"
+										}
+									);
+								}
+                                
 							});
 
 						}).catch(err => console.error(err));
