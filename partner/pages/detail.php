@@ -1,3 +1,13 @@
+<?php
+    session_start();
+    date_default_timezone_set("Asia/Bangkok");
+
+    if(!isset($_SESSION['tin_partner']) && $_SESSION['partner_id'] !== ''){
+        header('Location: /404');
+    } else {
+
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -39,7 +49,7 @@
         .line-green {
             background: rgb(55,238,25);
             background: linear-gradient(0deg, rgba(55,238,25,1) 0%, rgba(16,155,2,1) 100%);
-            height: 5px;
+            /* height: 5px; */
         }
         .price-label {
             background-color: #363636;
@@ -123,10 +133,30 @@
         .heading {
             color: rgba(55, 238, 25, 1);
         }
+        .pt-nav {
+            display: flex;
+            justify-content: flex-end;
+            padding: 10px;
+        }
+        .pt-nav .avatar {
+            border-radius: 50%;
+            width: 40px;
+        }
+        .pt-nav .username {
+            margin-right: 15px;
+            margin-top: 7px;
+        }
     </style>
   </head>
   <body>
-    <div class="line-green"></div>
+    <div class="line-green">
+        <div class="container">
+            <div class="pt-nav">
+                <p class="mb-0 username"><?php echo $_SESSION['partner_name'];?></p>
+                <img class="avatar" src="<?php echo $_SESSION['partner_img'];?>">
+            </div>
+        </div>
+    </div>
     <div class="container">
         
         <div class="mt-4" id="detail">
@@ -364,3 +394,5 @@
     </script>
   </body>
 </html>
+
+<?php  }  ?>
