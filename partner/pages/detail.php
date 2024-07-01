@@ -17,7 +17,7 @@
     <style>
         @media (min-width: 576px) {
             .container {
-                max-width: 768px;
+                max-width: 580px;
             }
         }
         body {
@@ -89,7 +89,40 @@
             justify-content: flex-end;
             margin-bottom: 15px;
         }
-        
+        .offer img {
+            width: 100%;
+        }
+        .cal-com {
+            
+        }
+        .offer-box {
+            padding: 15px;
+            background-color: #505050;
+            border-radius: 0 0 10px 10px;
+        }
+        .sendOfferBtn {
+            text-align: center;
+        }
+        .OfferCost {
+            background-color: #363636;
+            text-align: center;
+            padding: 10px;
+            font-size: 20px;
+            border-radius: 10px;
+            margin-bottom: 5px;
+        }
+        .cal-com a {
+            color: rgba(55, 238, 25, 1);
+        }
+        .cal-com a:hover {
+            color: rgba(55, 238, 25, 1);
+        }
+        .cal-com a:active {
+            color: rgba(55, 238, 25, 1);
+        }
+        .heading {
+            color: rgba(55, 238, 25, 1);
+        }
     </style>
   </head>
   <body>
@@ -105,7 +138,7 @@
                 </div>
                 
                 <div class="headline-des">
-                    <h4>รายละเอียด</h4>
+                    <h4 class="heading">รายละเอียด</h4>
                     <h4 class="car-id">รหัส ID : {{ detail.id }}</h4>
                 </div>
 
@@ -166,27 +199,64 @@
                     </tbody>
                 </table>
 
-                <div class="headline-des mt-5">
-                    <h4>สถานะเจ้าของรถ</h4>
-                    <h4 class="car-id">รหัส ID : {{ detail.id }}</h4>
+                <div class="mt-5">
+                    <h4 class="heading">ข้อมูลเกี่ยวกับเจ้าของรถ</h4>
+                    <table class="table table-sm">
+                        <tbody>
+                            <tr>
+                                <th scope="row" width="170px">ปัจจุบันรถอยู่จังหวัด</th>
+                                <td>{{ detail.pv }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">สถานะไฟแนนซ์</th>
+                                <td>{{ detail.fin }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">ความพร้อมปล่อยรถ</th>
+                                <td>{{ detail.ready }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
 
-                <table class="table table-sm">
-                    <tbody>
-                        <tr>
-                            <th scope="row" width="170px">ปัจจุบันรถอยู่จังหวัด</th>
-                            <td>{{ detail.pv }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">สถานะไฟแนนซ์</th>
-                            <td>{{ detail.fin }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">ความพร้อมปล่อยรถ</th>
-                            <td>{{ detail.ready }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="offer mt-3">
+                    <a href="/partner/offer/{{ detail.id }}"><img src="/partner/assets/images/offer-price.png"></a>
+                </div>
+
+                <div class="offer-box">
+
+                    <div class="form-group">
+                        <h4>ราคาที่คุณจะเสนอ</h4>
+                        <input type="text" class="form-control" v-model="cal.price" @change="calTotal" placeholder="ใส่ราคาที่คุณต้องการ">
+
+                        <div class="cal-com mt-4">
+                            <h4 class="mb-0">จำนวนเงินที่คุณต้องจ่าย</h4>
+                            <label><a href="#" class="link">*อัตราค่าคอมมิชชั่น</a> ค่าธรรมเนียม และอื่นๆ</label>
+                        </div>
+                        
+                        <table class="table table-sm mb-4">
+                            <tbody>
+                                <tr>
+                                    <td scope="row" width="150px">ราคาที่คุณเสนอ</td>
+                                    <td>{{ cal.price }}</td>
+                                </tr>
+                                <tr>
+                                    <td scope="row">ค่าคอมมิชชั่น*</td>
+                                    <td>{{ cal.commission }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+
+                        <div class="OfferCost">
+                            ค่าใช้จ่ายทั้งหมด (บาท)
+                            <h2 class="mb-0">{{ cal.total }}</h2>
+                        </div>
+                        <div class="sendOfferBtn">
+                            <button type="button" class="btn btn-success mt-3">ส่งข้อเสนอ</button>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="spacer-single"></div>
         
@@ -221,11 +291,16 @@
             data () {
                 return {
                     img: [],
-                    detail: []
+                    detail: [],
+                    cal: {
+                        price: '',
+                        commission: 0,
+                        total: 0
+                    }
                 }
             },
             mounted () {
-                axios.get('/partner/system/detail.api.php?id=<?php echo $id ?>')
+                axios.get('/partner/system/detail.api.php?id=<?php echo $id; ?>')
                     .then(response => {
                         if (response.data.detail.share == 1) {
                             this.img = response.data.img;
@@ -240,8 +315,30 @@
                     })
                     
             },
+            watch: {
+                cal: {
+                    handler: function() {
+                        this.calTotal();
+                    },
+                    deep: true
+                }
+            },
             methods: {
-               
+                calTotal() {
+
+                    if(this.cal.price <= '100000') {
+                        var interest = 6000;
+                    }else if(this.cal.price > '100000' && this.cal.price <= '200000') {
+                        var interest = 9000;
+                    }else if(this.cal.price > '200000' && this.cal.price <= '500000') {
+                        var interest = 11000;
+                    } else {
+                        var interest = 13000;
+                    }
+
+                    this.cal.commission = interest;
+                    this.cal.total = parseInt(this.cal.price) + parseInt(interest);
+                }
             }
         });
 

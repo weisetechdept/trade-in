@@ -95,7 +95,7 @@
                             <div class="card">
                                 <div class="card-body">
                     
-                                    <h4 class="card-title">มาใหม่วันนี้ 3 คัน</h4>
+                                    <h4 class="card-title">มาใหม่วันนี้</h4>
 
                                     <table class="table" id="datatable">
                                         <thead>
@@ -220,7 +220,7 @@
                             { 'data': '0',
                                 sortable: false,
                                 "render": function ( data, type, full, meta ) {
-                                    return '<a href="https://trade-in.toyotaparagon.com/pt/stock/'+data+'" class="btn btn-sm btn-outline-primary editBtn" role="button"><span class="mdi mdi-account-edit"></span> ข้อมูล</a>';
+                                    return '<a href="/pt/stock/'+data+'" class="btn btn-sm btn-outline-primary editBtn" role="button"><span class="mdi mdi-account-edit"></span> ข้อมูล</a>';
                                 }
                             }
                         ],

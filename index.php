@@ -180,6 +180,10 @@
         require_once 'partner/pages/detail.php';
     });
 
+    $router->get( '/offer/stock/(.*)', function($id) {
+        require_once 'partner/pages/offer.php';
+    });
+
     $router->run();
     
 

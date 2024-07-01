@@ -273,6 +273,9 @@
                                                             <button class="btn btn-success" data-sharer="line" :data-title="'พ่อสื่อออนไลน์ รหัส ID : '+ share_link" :data-url="share_link">แชร์ผ่านไลน์</button>
                                                         </div>
                                                     </div>
+                                                    <div class="mt-3">
+                                                        <button class="btn btn-outline-primary" @click="sendPartner">ส่งให้พันธมิตรในระบบ</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -945,6 +948,40 @@
                             copyText.setSelectionRange(0, 99999);
                             navigator.clipboard.writeText(copyText.value);
                             alert("คัดลอกลิ้ง : " + copyText.value);
+                        },
+                        sendPartner() {
+                            swal({
+                                title: 'คุณแน่ใจหรือไม่ ?',
+                                text: "คุณต้องการส่งข้อมูลให้พันธมิตรในระบบหรือไม่ ?",
+                                icon: "info",
+                                buttons: true,
+                                dangerMode: true,
+                            }).then((willDelete) => {
+                                if (willDelete) {
+                                    
+                                    axios.post('/admin/system/sharePartner.api.php', {
+                                        id: this.id
+                                    }).then(res => {
+                                        if(res.data.status == 200) 
+                                            swal("สำเร็จ", "ส่งข้อมูลให้พันธมิตรในระบบสำเร็จ", "success",{ 
+                                                button: "ตกลง"
+                                            }).then((value) => {
+                                                location.reload(true)
+                                            });
+
+                                        if(res.data.status == 400)
+                                            swal("ทำรายการไม่สำเร็จ", "ส่งข้อมูลให้พันธมิตรในระบบไม่สำเร็จ อาจมีบางอย่างผิดปกติ (error : 400)", "warning",{ 
+                                                button: "ตกลง"
+                                            }
+                                        );
+                                    });
+                                    
+                                } else {
+                                    swal("ยกเลิกการส่งข้อมูลสำเร็จ", {
+                                        icon: "success",
+                                    });
+                                } 
+                            });
                         }
                     }
                 });
