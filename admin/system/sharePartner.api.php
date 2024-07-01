@@ -58,7 +58,8 @@
 
     $db->join('finance_data f', 'f.find_id = s.cast_car', 'LEFT');
     $desc = $db->where('cast_id',$stock_id)->getOne('car_stock s');
-    $img_data = $db->where('cari_status',1)->getOne('car_image');
+
+    $img_data = $db->where('cari_parent',$desc['cast_id'])->where('cari_status',1)->getOne('car_image');
 
     $partner = $db->where('part_status',1)->get('partner');
     foreach ($partner as $value) {
