@@ -145,7 +145,7 @@
                 <table class="table table-sm">
                     <tbody>
                         <tr>
-                            <th scope="row"  width="170px">ยี่ห้อ</th>
+                            <th scope="row" width="170px">ยี่ห้อ</th>
                             <td>{{ detail.brand }}</td>
                         </tr>
                         <tr>
@@ -253,7 +253,7 @@
                             <h2 class="mb-0">{{ cal.total }}</h2>
                         </div>
                         <div class="sendOfferBtn">
-                            <button type="button" class="btn btn-success mt-3">ส่งข้อเสนอ</button>
+                            <button type="button" @click="sendOf" class="btn btn-success mt-3">ส่งข้อเสนอ</button>
                         </div>
                     </div>
                 </div>
@@ -313,7 +313,6 @@
                             });
                         }
                     })
-                    
             },
             watch: {
                 cal: {
@@ -324,6 +323,26 @@
                 }
             },
             methods: {
+                sendOf() {
+
+                    if(this.cal.price == '') {
+                        swal("กรุณากรอกราคาที่ต้องการเสนอ", "Please try again", "error",{
+                            button: "OK",
+                        });
+                        return;
+                    } else {
+                        axios.post('/partner/system/noti_offer.api.php', {
+                            id: this.detail.id,
+                            price: this.cal.price,
+                            commission: this.cal.commission,
+                            total: this.cal.total
+                        })
+                        .then(response => {
+                            
+                        })
+                    }
+
+                },
                 calTotal() {
 
                     if(this.cal.price <= '100000') {

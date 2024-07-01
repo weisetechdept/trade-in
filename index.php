@@ -184,6 +184,10 @@
         require_once 'partner/pages/offer.php';
     });
 
+    $router->get( '/partner/login', function() {
+        require_once 'partner/line_login.php';
+    });
+
     $router->run();
     
 
