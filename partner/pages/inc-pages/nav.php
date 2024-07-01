@@ -25,9 +25,9 @@
                     <div class="dropdown d-inline-block">
                         <button type="button" class="btn header-item waves-effect waves-light" style="padding-left: 0;" id="page-header-user-dropdown"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="rounded-circle header-profile-user" src="assets/images/users/avatar-3.jpg"
+                            <img class="rounded-circle header-profile-user" src="<?php echo $_SESSION['partner_img'];?>"
                                 alt="Header Avatar">
-                            <span class="d-none d-sm-inline-block ml-1">Username</span>
+                            <span class="d-none d-sm-inline-block ml-1"><?php echo $_SESSION['partner_name'];?></span>
                             <i class="mdi mdi-chevron-down d-none d-sm-inline-block"></i>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right">
