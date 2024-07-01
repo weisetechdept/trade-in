@@ -4,7 +4,6 @@
     date_default_timezone_set("Asia/Bangkok");
 
     $request = json_decode(file_get_contents('php://input'));
-
     $stock_id = $request->id;
 
     function sendOffer($uid,$img,$carid,$car_desc) {
@@ -55,25 +54,36 @@
         curl_setopt($ch, CURLOPT_FAILONERROR, true);
 
         $result = curl_exec($ch);
+        return $result;
         
     }
 
-    
+    if(isset($stock_id)){
 
-    $db->join('finance_data f', 'f.find_id = s.cast_car', 'LEFT');
-    $desc = $db->where('cast_id',$stock_id)->getOne('car_stock s');
+        $db->join('finance_data f', 'f.find_id = s.cast_car', 'LEFT');
+        $desc = $db->where('cast_id',$stock_id)->getOne('car_stock s');
+        $img_data = $db->where('cari_parent',$desc['cast_id'])->where('cari_status',1)->getOne('car_image');
 
-    $img_data = $db->where('cari_parent',$desc['cast_id'])->where('cari_status',1)->getOne('car_image');
+        $partner = $db->where('part_status',1)->get('partner');
+        foreach ($partner as $value) {
 
-    $partner = $db->where('part_status',1)->get('partner');
-    foreach ($partner as $value) {
+            $uid = $value['part_line_uid'];
+            $des = $desc['cast_year'].' '.$desc['find_brand'].' '.$desc['find_serie'];
+            $id = $desc['cast_id'];
+            $img = $img_data['cari_link'];
 
-        $uid = $value['part_line_uid'];
-        $des = $desc['cast_year'].' '.$desc['find_brand'].' '.$desc['find_serie'];
-        $id = $desc['cast_id'];
-        $img = $img_data['cari_link'];
+            $send = sendOffer($uid,$img,$id,$des);
+        
+        }
 
-        //echo $id.' '.$uid.' '.$des.' '.$img;
-        $send = sendOffer($uid,$img,$id,$des);
-      
+        $api['status'] = '200';
+        $api['message'] = 'ส่งข้อความสำเร็จ';
+
+    } else {
+        $api['status'] = '400';
+        $api['message'] = 'ไม่พบข้อมูล';
     }
+
+    echo json_encode($api);
+
+    

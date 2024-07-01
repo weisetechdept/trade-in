@@ -958,10 +958,26 @@
                                 dangerMode: true,
                             }).then((willDelete) => {
                                 if (willDelete) {
+
+                                    swal("กรุณารอสักครู่", "ระบบกำลังส่งข้อมูล", "info", {
+                                        button: false
+                                    })
                                     
                                     axios.post('/admin/system/sharePartner.api.php', {
                                         id: this.id
                                     }).then(res => {
+                                        if(res.data.status == 200) 
+                                            swal("สำเร็จ", "ส่งข้อมูลสำเร็จ", "success",{ 
+                                                button: "ตกลง"
+                                            }).then((value) => {
+                                                location.reload(true)
+                                            });
+
+                                        if(res.data.status == 400)
+                                            swal("ทำรายการไม่สำเร็จ", "ส่งข้อมูลไม่สำเร็จ อาจมีบางอย่างผิดปกติ (error : 400)", "warning",{ 
+                                                button: "ตกลง"
+                                            }
+                                        );
                                         
                                     });
                                     

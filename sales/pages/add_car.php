@@ -261,7 +261,7 @@
                                                         <td><input type="text" class="form-control" maxlength="4" v-model="send.engine"></td>
                                                     </tr>
                                                     <tr>
-                                                        <th>ปี รถยนต์</th>
+                                                        <th>ปีผลิตรถยนต์ (ค.ศ.)</th>
                                                         <td><input type="text" class="form-control" maxlength="4" v-model="send.year"></td>
                                                     </tr>
                                                     <tr>
