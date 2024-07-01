@@ -61,6 +61,11 @@
             width: 80px;
             border-radius: 5pt;
         }
+        .header-profile-user {
+            height: 45px;
+            width: 45px;
+            padding: 3px;
+        }
     </style>
 
 </head>
