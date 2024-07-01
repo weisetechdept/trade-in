@@ -11,7 +11,7 @@
             base64_encode($value['cast_id']),
             $thumbnail['cari_link'] ,
             $value['find_serie'].' '.$value['find_section'],
-            '',
+            $value['cast_id'],
             number_format($value['cast_mileage']),
             $value['cast_transmission'],
             $value['cast_year']

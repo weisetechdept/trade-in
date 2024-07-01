@@ -1,5 +1,9 @@
 <?php 
     session_start();
+
+    if(!isset($_SESSION['tin_partner']) && $_SESSION['partner_id'] !== ''){
+        header('Location: /404');
+    } else {
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -107,6 +111,7 @@
                                     <table class="table" id="datatable">
                                         <thead>
                                             <tr>
+                                                <th>รหัส</th>
                                                 <th>รูป</th>
                                                 <th>ยี่ห้อ - รุ่น</th>
                                                 <th>ปี</th>
@@ -117,6 +122,7 @@
                                         </thead>
                                         <tbody id="new-today">
                                             <tr>
+                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -181,103 +187,54 @@
                 cars: []
             },
             mounted() {
-                this.fetchData();
-                this.datatables();
+                $('#datatable').DataTable({
+                    responsive: true,
+                    "language": {
+                        "paginate": {
+                            "previous": "<i class='mdi mdi-chevron-left'>",
+                            "next": "<i class='mdi mdi-chevron-right'>"
+                        },
+                        "lengthMenu": "แสดง _MENU_ รายชื่อ",
+                        "zeroRecords": "ขออภัย ไม่มีข้อมูล",
+                        "info": "หน้า _PAGE_ ของ _PAGES_",
+                        "infoEmpty": "ไม่มีข้อมูล",
+                        "search": "ค้นหา:",
+                    },
+                    "drawCallback": function () {
+                        $('.dataTables_paginate > .pagination').addClass('pagination-rounded');
+                    },
+                    ajax: '/partner/system/new-car.api.php',
+                    "columns" : [
+                        {'data':'3'},
+                        {'data':'1',
+                            "render": function ( data, type, full, meta ) {
+                                return '<img src="'+ data +'" class="car-thumb">';
+                            }
+                        },
+                        {'data':'2'},
+                        {'data':'6'},
+                        {'data':'5'},
+                        {'data':'4'},
+                        {'data':'0',
+                            sortable: false,
+                            "render": function ( data, type, full, meta ) {
+                                return '<a href="/pt/stock/'+data+'" class="btn btn-sm btn-outline-primary editBtn" role="button"><span class="mdi mdi-account-edit"></span> ข้อมูล</a>';
+                            }
+                        }
+                    ],
+                });
             },
             methods: {
-                fetchData: function(){
-                    axios.get('/partner/system/new-car.api.php')
-                        .then(function(response){
-                            console.log(response.data);
-                            this.cars = response.data;
-                        })
-                        .catch(function(error){
-                            console.log(error);
-                        });
-                },
-                datatables() {
-                    $('#datatable').DataTable({
-                        order: [[ 0, "desc" ]],
-                        responsive: true,
-                        "language": {
-                            "paginate": {
-                                "previous": "<i class='mdi mdi-chevron-left'>",
-                                "next": "<i class='mdi mdi-chevron-right'>"
-                            },
-                            "lengthMenu": "แสดง _MENU_ รายชื่อ",
-                            "zeroRecords": "ขออภัย ไม่มีข้อมูล",
-                            "info": "หน้า _PAGE_ ของ _PAGES_",
-                            "infoEmpty": "ไม่มีข้อมูล",
-                            "search": "ค้นหา:",
-                        },
-                        "drawCallback": function () {
-                            $('.dataTables_paginate > .pagination').addClass('pagination-rounded');
-                        },
-                        ajax: '/partner/system/new-car.api.php',
-                        "columns" : [
-                            {'data':'1',
-                                "render": function ( data, type, full, meta ) {
-                                    return '<img src="'+ data +'" class="car-thumb">';
-                                }
-                            },
-                            {'data':'2'},
-                            {'data':'6'},
-                            {'data':'5'},
-                            {'data':'4'},
-                            { 'data': '0',
-                                sortable: false,
-                                "render": function ( data, type, full, meta ) {
-                                    return '<a href="/pt/stock/'+data+'" class="btn btn-sm btn-outline-primary editBtn" role="button"><span class="mdi mdi-account-edit"></span> ข้อมูล</a>';
-                                }
-                            }
-                        ],
-                    });
-                }
-
                 
             }
         });
 
 
-        $('#datatable').DataTable({
-            order: [[ 0, "desc" ]],
-            responsive: true,
-            "language": {
-                "paginate": {
-                    "previous": "<i class='mdi mdi-chevron-left'>",
-                    "next": "<i class='mdi mdi-chevron-right'>"
-                },
-                "lengthMenu": "แสดง _MENU_ รายชื่อ",
-                "zeroRecords": "ขออภัย ไม่มีข้อมูล",
-                "info": "หน้า _PAGE_ ของ _PAGES_",
-                "infoEmpty": "ไม่มีข้อมูล",
-                "search": "ค้นหา:",
-            },
-            "drawCallback": function () {
-                $('.dataTables_paginate > .pagination').addClass('pagination-rounded');
-            },
-            ajax: '/partner/system/new-car.api.php',
-            "columns" : [
-                {'data':'0'},
-                {'data':'1',
-                    "render": function ( data, type, full, meta ) {
-                        return '<img src="'+ data +'" class="car-thumb">';
-                    }
-                },
-                {'data':'2'},
-                {'data':'6'},
-                {'data':'5'},
-                {'data':'4'},
-                { 'data': '0',
-                    sortable: false,
-                    "render": function ( data, type, full, meta ) {
-                        return '<a href="/admin/detail/'+data+'" class="btn btn-sm btn-outline-primary editBtn" role="button"><span class="mdi mdi-account-edit"></span> ข้อมูล</a>';
-                    }
-                }
-            ],
-        });
+        
     </script>
 
 </body>
 
 </html>
+
+<?php } ?>
