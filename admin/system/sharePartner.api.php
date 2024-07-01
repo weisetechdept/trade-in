@@ -31,7 +31,7 @@
                     array(
                         "type" => "uri",
                         "label" => "ดูข้อมูลรถยนต์",
-                        "uri" => "/partner/login?way=car&id=".base64_encode($carid).""
+                        "uri" => "https://trade-in.toyotaparagon.com/partner/login?way=car&id=".base64_encode($carid)
                     )
                 )
             )
