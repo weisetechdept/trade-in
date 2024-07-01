@@ -3,6 +3,10 @@
     require_once '../../db-conn.php';
     date_default_timezone_set("Asia/Bangkok");
 
+    $request = json_decode(file_get_contents('php://input'));
+
+    $stock_id = $request->id;
+
     function sendOffer($uid,$img,$carid,$car_desc) {
 
         $access_token = 'ZTh79ef5O5rWV7Hn0Bi/DBcLUUDYrhrsJxx3J1Tabc9sN7EwaIx6h1ngB/4RotU6rSvCgayGXCLNXETQy/g/JRRFdiAvPmpJ2847cK56p6nAOO8njpvSGIDL6Vp6p4WJ+iXoiXTCAmJ74r3kfZVt2QdB04t89/1O/w1cDnyilFU=';
@@ -54,7 +58,7 @@
         
     }
 
-    $stock_id = $_GET['id'];
+    
 
     $db->join('finance_data f', 'f.find_id = s.cast_car', 'LEFT');
     $desc = $db->where('cast_id',$stock_id)->getOne('car_stock s');

@@ -962,18 +962,7 @@
                                     axios.post('/admin/system/sharePartner.api.php', {
                                         id: this.id
                                     }).then(res => {
-                                        if(res.data.status == 200) 
-                                            swal("สำเร็จ", "ส่งข้อมูลให้พันธมิตรในระบบสำเร็จ", "success",{ 
-                                                button: "ตกลง"
-                                            }).then((value) => {
-                                                location.reload(true)
-                                            });
-
-                                        if(res.data.status == 400)
-                                            swal("ทำรายการไม่สำเร็จ", "ส่งข้อมูลให้พันธมิตรในระบบไม่สำเร็จ อาจมีบางอย่างผิดปกติ (error : 400)", "warning",{ 
-                                                button: "ตกลง"
-                                            }
-                                        );
+                                        
                                     });
                                     
                                 } else {
