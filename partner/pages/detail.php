@@ -1,11 +1,11 @@
 <?php
     session_start();
     date_default_timezone_set("Asia/Bangkok");
-/*
+
     if(!isset($_SESSION['tin_partner']) && $_SESSION['partner_id'] !== ''){
         header('Location: /404');
     } else {
-*/
+
 ?>
 
 <!doctype html>
@@ -406,4 +406,4 @@
   </body>
 </html>
 
-<?php /* } */ ?>
+<?php  }  ?>
