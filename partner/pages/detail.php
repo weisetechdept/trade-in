@@ -361,14 +361,15 @@
                         });
                         return;
                     } else {
-                        axios.post('/partner/system/noti_offer.api.php', {
+                        axios.post('/partner/system/noti_offer.inc.php', {
+
                             id: this.detail.id,
                             price: this.cal.price,
                             commission: this.cal.commission,
                             total: this.cal.total,
                             parent: <?php echo $_SESSION['partner_id']; ?>
-                        })
-                        .then(response => {
+
+                        }).then(response => {
                             if(response.data.status == '200'){
                                 swal("ส่งข้อเสนอสำเร็จ", "รอการตอบรับจากเจ้าของรถ", "success",{
                                     button: "OK",
