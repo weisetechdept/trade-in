@@ -288,6 +288,10 @@
                     </div>
                 </div>
 
+                <div class="offer-history">
+                    
+                </div>
+
                 <div class="spacer-single"></div>
         
             </div>

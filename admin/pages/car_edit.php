@@ -337,7 +337,7 @@
                                                     </tr>
 
                                                     <tr>
-                                                        <th>สถานะ</th>
+                                                        <th>สถานะ</th> 
                                                         <td>
                                                             <select class="form-control" v-model="status" id="exampleFormControlSelect1">
                                                                 <option value="1">ติดตามลูกค้า</option>
