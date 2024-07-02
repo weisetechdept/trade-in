@@ -15,16 +15,18 @@
 
             global $db;
             $db->join('partner_bus b','p.part_bus_id = b.busi_id','INNER');
-            $name = $db->where('part_id',$carid)->getOne('partner p');
+            $name = $db->where('part_id',$partner)->getOne('partner p');
 
             $part_name = $name['part_fname'].' '.$name['busi_name'];
+
+            $r_price = number_format($price);
 
             ini_set('display_errors', 1);
             ini_set('display_startup_errors', 1);
             error_reporting(E_ALL);
 
             $sToken = "8PejR1DTTI8B8rEb8STbW2bZs8FDAtA21Ll7nBO7Hmf";
-            $sMessage = "พันธมิตร $part_name ให้ราคารหัสรถ ID : $carid ราคา $price บาท [https://trade-in.toyotaparagon.com/]";
+            $sMessage = "พันธมิตร $part_name ให้ราคารหัสรถ ID : $carid ราคา $r_price บาท [https://trade-in.toyotaparagon.com/]";
 
             $chOne = curl_init(); 
             curl_setopt( $chOne, CURLOPT_URL, "https://notify-api.line.me/api/notify"); 
