@@ -31,20 +31,14 @@
             curl_setopt( $chOne, CURLOPT_RETURNTRANSFER, 1); 
             $result = curl_exec( $chOne ); 
 
-            if(curl_error($chOne)) 
-            { 
-                echo json_encode(array('status' => '400'));
-            } else { 
-                echo json_encode(array('status' => '200'));
-            } 
-            curl_close( $chOne ); 
-
         }
+
     if($id == '' | $price == '' | $parent == ''){
         $api = array(
             'status' => '400',
             'message' => 'ID not found'
         );
+
     } else {
 
         $data = array(
