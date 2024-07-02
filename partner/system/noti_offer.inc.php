@@ -12,13 +12,16 @@
     $parent = $request->parent;
 
         function sendNotify($carid,$price,$partner) {
+            global $db;
+            $db->join('partner_bus b','p.part_bus_id = b.busi_id','INNER');
+            $name = $db->where('find_id',$carid)->getOne('partner p');
 
             ini_set('display_errors', 1);
             ini_set('display_startup_errors', 1);
             error_reporting(E_ALL);
 
             $sToken = "8PejR1DTTI8B8rEb8STbW2bZs8FDAtA21Ll7nBO7Hmf";
-            $sMessage = "พันธมิตร $partner ให้ราคารหัสรถ ID : $carid ราคา $price บาท []";
+            $sMessage = "พันธมิตร ".$name['part_fname']." ".$name['busi_name']." ให้ราคารหัสรถ ID : $carid ราคา $price บาท [https://trade-in.toyotaparagon.com/]";
 
             $chOne = curl_init(); 
             curl_setopt( $chOne, CURLOPT_URL, "https://notify-api.line.me/api/notify"); 
