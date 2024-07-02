@@ -12,9 +12,9 @@
     $parent = $request->parent;
 
     $data = array(
-        'off_price' => '',
-        'off_vender' => '',
-        'off_parent' => '',
+        'off_price' => $price,
+        'off_vender' => $parent,
+        'off_parent' => $id,
         'off_datetime' => date('Y-m-d H:i:s')
     );
 
@@ -32,7 +32,5 @@
     }
 
     echo json_encode($api);
-
-
 
 
