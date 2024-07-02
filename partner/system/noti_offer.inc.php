@@ -52,7 +52,7 @@
             curl_setopt( $chOne, CURLOPT_SSL_VERIFYHOST, 0); 
             curl_setopt( $chOne, CURLOPT_SSL_VERIFYPEER, 0); 
             curl_setopt( $chOne, CURLOPT_POST, 1); 
-            curl_setopt( $chOne, CURLOPT_POSTFIELDS, "message=".$sMessage); 
+            curl_setopt( $chOne, CURLOPT_POSTFIELDS, "message=".json_encode($sMessage)); 
             $headers = array( 'Content-type: application/x-www-form-urlencoded', 'Authorization: Bearer '.$sToken.'', );
             curl_setopt($chOne, CURLOPT_HTTPHEADER, $headers); 
             curl_setopt( $chOne, CURLOPT_RETURNTRANSFER, 1); 
