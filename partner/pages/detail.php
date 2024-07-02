@@ -362,26 +362,24 @@
                         return;
                     } else {
                         axios.post('/partner/system/noti_offer.inc.php', {
-
                             id: this.detail.id,
                             price: this.cal.price,
                             commission: this.cal.commission,
                             total: this.cal.total,
                             parent: <?php echo $_SESSION['partner_id']; ?>
-
-                        }).then(response => {
-                            if(response.data.status == '200'){
-                                swal("ส่งข้อเสนอสำเร็จ", "รอการตอบรับจากเจ้าของรถ", "success",{
+                        })
+                        .then(response => {
+                            if(response.data.status == '200') {
+                                swal("สำเร็จ", "ส่งข้อเสนอเรียบร้อย", "success",{
                                     button: "OK",
                                 }).then((value) => {
                                     window.location.reload();
                                 });
-                            }else if(response.data.status == '400'){
-                                swal("ส่งข้อเสนอไม่สำเร็จ", "Please try again", "error",{
+                            } else if (response.data.status == '400'){
+                                swal("ไม่สำเร็จ", "Please try again", "error",{
                                     button: "OK",
                                 });
                             }
-                            
                         })
                     }
 
