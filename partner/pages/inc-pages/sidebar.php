@@ -8,16 +8,20 @@
                         <li class="menu-title">เมนู</li>
 
                         <li>
-                            <a href="/partner/home" class="waves-effect"><i class="feather-airplay"></i><span class="badge badge-pill badge-info float-right">3</span><span>หน้าแรก</span></a>
+                            <a href="/partner/home" class="waves-effect"><i class="feather-file"></i><!-- <span class="badge badge-pill badge-info float-right">3</span> --><span>รถมาใหม่วันนี้</span></a>
                         </li>
 
                         <li>
-                            <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="feather-users"></i><span>ข้อมูลสมาชิก</span></a>
+                            <a href="/partner/cars" class="waves-effect"><i class="feather-file-text"></i><!-- <span class="badge badge-pill badge-info float-right">3</span> --><span>รถมาใหม่วันนี้</span></a>
+                        </li>
+<!--
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="feather-user"></i><span>ข้อมูลสมาชิก</span></a>
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="ui-buttons.html">Buttons</a></li>
                             </ul>
                         </li>
-
+    -->
                     </ul>
 
                 </div>

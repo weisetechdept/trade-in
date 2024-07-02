@@ -188,6 +188,10 @@
         require_once 'partner/line_login.php';
     });
 
+    $router->get( '/partner/cars', function() {
+        require_once 'partner/pages/car-list.php';
+    });
+
     $router->run();
     
 

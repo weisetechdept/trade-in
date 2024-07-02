@@ -14,14 +14,14 @@
                 </div>
 
                 <div class="d-flex align-items-center">
-
+<!--
                     <div class="dropdown d-inline-block">
                         <button type="button" class="btn header-item noti-icon waves-effect waves-light" style="width: 90px;">
                             <i class="mdi mdi-bell"></i>
                             <span class="badge badge-info badge-pill">3</span>
                         </button>
                     </div>
-
+-->
                     <div class="dropdown d-inline-block">
                         <button type="button" class="btn header-item waves-effect waves-light" style="padding-left: 0;" id="page-header-user-dropdown"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
