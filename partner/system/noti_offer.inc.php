@@ -12,9 +12,9 @@
     $parent = $request->parent;
 
     $data = array(
-        'off_price' => $price,
-        'off_vender' => $parent,
-        'off_parent' => $id,
+        'off_price' => '',
+        'off_vender' => '',
+        'off_parent' => '',
         'off_datetime' => date('Y-m-d H:i:s')
     );
 
@@ -30,6 +30,8 @@
             'message' => 'Offer not Success'
         );
     }
+
+    echo json_encode($api);
 
 
 
