@@ -45,7 +45,7 @@
 							}).then(response => {
 
 								if(response.data.status == '200'){
-								<?php if($_GET['way'] == 'detail'){ ?>
+								<?php if(!empty($_GET['cid'])){ ?>
                                     window.location.href = "/admin/detail/<?php echo $_GET['cid']; ?>";
 								<?php } else { ?>
 									window.location.href = "/admin/home";

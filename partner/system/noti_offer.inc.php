@@ -26,7 +26,7 @@
             error_reporting(E_ALL);
 
             $sToken = "8PejR1DTTI8B8rEb8STbW2bZs8FDAtA21Ll7nBO7Hmf";
-            $sMessage = "พันธมิตร $part_name ให้ราคารหัสรถ ID : $carid ราคา $r_price บาท [ https://trade-in.toyotaparagon.com/alink?way=detail&cid=$carid ]";
+            $sMessage = "พันธมิตร $part_name ให้ราคารหัสรถ ID : $carid ราคา $r_price บาท [ https://trade-in.toyotaparagon.com/alink?cid=$carid ]";
 
             $chOne = curl_init(); 
             curl_setopt( $chOne, CURLOPT_URL, "https://notify-api.line.me/api/notify"); 
