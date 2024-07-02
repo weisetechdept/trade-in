@@ -45,9 +45,11 @@
 							}).then(response => {
 
 								if(response.data.status == '200'){
-
-                                    window.location.href = "/admin/home";
-
+								<?php if($_GET['way'] == 'detail'){ ?>
+                                    window.location.href = "/admin/detail/<?php echo $_GET['cid']; ?>";
+								<?php } else { ?>
+									window.location.href = "/admin/home";
+								<?php } ?>
 								} else if(response.data.status == '400'){
 
 									swal("เกิดข้อผิดพลาด", response.data.message, "warning",{ 
