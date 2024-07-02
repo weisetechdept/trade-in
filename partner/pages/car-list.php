@@ -1,10 +1,10 @@
 <?php 
     session_start();
-/*
+
     if(!isset($_SESSION['tin_partner']) && $_SESSION['partner_id'] !== ''){
         header('Location: /404');
     } else {
-*/
+
 
 ?>
 <!DOCTYPE html>
@@ -242,4 +242,4 @@
 
 </html>
 
-<?php /* } */ ?>
+<?php  } ?>

@@ -1,10 +1,11 @@
 <?php
     session_start();
     date_default_timezone_set("Asia/Bangkok");
-
+/*
     if(!isset($_SESSION['tin_partner']) && $_SESSION['partner_id'] !== ''){
         header('Location: /404');
     } else {
+*/
 ?>
 
 <!doctype html>
@@ -364,9 +365,22 @@
                             id: this.detail.id,
                             price: this.cal.price,
                             commission: this.cal.commission,
-                            total: this.cal.total
+                            total: this.cal.total,
+                            parent: <?php echo $_SESSION['partner_id']; ?>
                         })
                         .then(response => {
+                            if(response.data.status == '200'){
+                                swal("ส่งข้อเสนอสำเร็จ", "รอการตอบรับจากเจ้าของรถ", "success",{
+                                    button: "OK",
+                                }).then((value) => {
+                                    windows.reload();
+                                });
+                            }
+                            if(response.data.status == '400'){
+                                swal("ส่งข้อเสนอไม่สำเร็จ", "Please try again", "error",{
+                                    button: "OK",
+                                });
+                            }
                             
                         })
                     }
@@ -394,4 +408,4 @@
   </body>
 </html>
 
-<?php  }  ?>
+<?php /* } */ ?>

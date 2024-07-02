@@ -9,12 +9,28 @@
     $price = $request->price;
     $commission = $request->commission;
     $total = $request->total;
+    $parent = $request->parent;
 
     $data = array(
         'off_price' => $price,
-        'off_vender' => 'part_id',
+        'off_vender' => $parent,
         'off_parent' => $id,
         'off_datetime' => date('Y-m-d H:i:s')
     );
+
+    $up = $db->insert('offer',$data);
+    if($up){
+        $api = array(
+            'status' => '200',
+            'message' => 'Success to offer'
+        );
+    } else {
+        $api = array(
+            'status' => '400',
+            'message' => 'Offer not Success'
+        );
+    }
+
+
 
 
