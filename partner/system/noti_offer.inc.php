@@ -11,24 +11,63 @@
     $total = $request->total;
     $parent = $request->parent;
 
-    $data = array(
-        'off_price' => $price,
-        'off_vender' => $parent,
-        'off_parent' => $id,
-        'off_datetime' => date('Y-m-d H:i:s')
-    );
+        function sendNotify($carid,$price,$partner) {
 
-    $up = $db->insert('offer',$data);
-    if($up){
-        $api = array(
-            'status' => '200',
-            'message' => 'Success to offer'
-        );
-    } else {
+            ini_set('display_errors', 1);
+            ini_set('display_startup_errors', 1);
+            error_reporting(E_ALL);
+
+            $sToken = "8PejR1DTTI8B8rEb8STbW2bZs8FDAtA21Ll7nBO7Hmf";
+            $sMessage = "พันธมิตร '.$partner.' ให้ราคารหัสรถ ID : '.$carid.' ราคา '.$price.' บาท";
+
+            $chOne = curl_init(); 
+            curl_setopt( $chOne, CURLOPT_URL, "https://notify-api.line.me/api/notify"); 
+            curl_setopt( $chOne, CURLOPT_SSL_VERIFYHOST, 0); 
+            curl_setopt( $chOne, CURLOPT_SSL_VERIFYPEER, 0); 
+            curl_setopt( $chOne, CURLOPT_POST, 1); 
+            curl_setopt( $chOne, CURLOPT_POSTFIELDS, "message=".$sMessage); 
+            $headers = array( 'Content-type: application/x-www-form-urlencoded', 'Authorization: Bearer '.$sToken.'', );
+            curl_setopt($chOne, CURLOPT_HTTPHEADER, $headers); 
+            curl_setopt( $chOne, CURLOPT_RETURNTRANSFER, 1); 
+            $result = curl_exec( $chOne ); 
+
+            if(curl_error($chOne)) 
+            { 
+                echo json_encode(array('status' => '400'));
+            } else { 
+                echo json_encode(array('status' => '200'));
+            } 
+            curl_close( $chOne ); 
+
+        }
+    if($id == '' | $price == '' | $parent == ''){
         $api = array(
             'status' => '400',
-            'message' => 'Offer not Success'
+            'message' => 'ID not found'
         );
+    } else {
+
+        $data = array(
+            'off_price' => $price,
+            'off_vender' => $parent,
+            'off_parent' => $id,
+            'off_datetime' => date('Y-m-d H:i:s')
+        );
+    
+        $up = $db->insert('offer',$data);
+        if($up){
+            sendNotify($id,$price,$parent);
+            $api = array(
+                'status' => '200',
+                'message' => 'Success to offer'
+            );
+        } else {
+            $api = array(
+                'status' => '400',
+                'message' => 'Offer not Success'
+            );
+        }
+
     }
 
     echo json_encode($api);
