@@ -99,6 +99,10 @@
         require_once 'admin/pages/partner-add-business.php';
     });
 
+    $router->get( '/alink', function() {
+        require_once 'admin/line_login.php';
+    });
+
 
     /* sales */
 
