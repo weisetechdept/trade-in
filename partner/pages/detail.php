@@ -373,10 +373,9 @@
                                 swal("ส่งข้อเสนอสำเร็จ", "รอการตอบรับจากเจ้าของรถ", "success",{
                                     button: "OK",
                                 }).then((value) => {
-                                    windows.reload();
+                                    window.location.reload();
                                 });
-                            }
-                            if(response.data.status == '400'){
+                            }else if(response.data.status == '400'){
                                 swal("ส่งข้อเสนอไม่สำเร็จ", "Please try again", "error",{
                                     button: "OK",
                                 });
