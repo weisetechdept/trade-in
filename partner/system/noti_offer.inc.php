@@ -11,6 +11,62 @@
     $total = $request->total;
     $parent = $request->parent;
 
+        function sendOffer($carid,$uid,$img,$price) {
+
+            $access_token = 'IZd/+LM0eFbZBGVq67BcM6AC8MDkZSi7/DsikGWU45/a2moikJuzGP77d8J3w1UOFcc98ku2MmnnQwnKwYOyAWvkuMScEfxrImfS5NrC+nRX/bzJNehiCX9PwezVE3St1i81+6WuMUj90anooQivAAdB04t89/1O/w1cDnyilFU=';
+            $userId = $uid;
+
+            $messages = array(
+                'type' => 'template',
+                'altText' => 'ให้ราคาจากพันธมิตร',
+                'template' => array(
+                    "type" => "buttons",
+                    "thumbnailImageUrl" => $img,
+                    "imageAspectRatio" => "rectangle",
+                    "imageSize" => "cover",
+                    "imageBackgroundColor" => "#FFFFFF",
+                    "title" => "เสนอราคาจากพันธมิตร",
+                    "text" => "พันธมิตรประเมิน ".number_format($price)." บาท ต้องการคุยรายละเอียดกดปุ่มด้านล่าง",
+                    "defaultAction" => array(
+                        "type" => "uri",
+                        "label" => "View detail",
+                        "uri" => $img
+                    ),
+                    "actions" => array(
+                        array(
+                            "type" => "message",
+                            "label" => "คุยรายละเอียดคันนี้",
+                            "text" => "ID : ".$carid." ต้องการติดต่อพ่อสื่อ, รอสักครู่..."
+                        ),
+                        array(
+                            "type" => "uri",
+                            "label" => "ดูข้อมูลรถยนต์",
+                            "uri" => "https://trade-in.toyotaparagon.com/app?way=car&id=".$carid
+                        )
+                    )
+                )
+            );
+
+            $post = json_encode(array(
+                'to' => array($userId),
+                'messages' => array($messages),
+            ));
+
+            $url = 'https://api.line.me/v2/bot/message/multicast';
+            $headers = array('Content-Type: application/json', 'Authorization: Bearer '.$access_token);
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, "https://api.line.me/v2/bot/message/multicast");
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+            curl_setopt($ch, CURLOPT_FAILONERROR, true);
+
+            $result = curl_exec($ch);
+            
+        }
+
         function sendNotify($carid,$price,$partner) {
 
             global $db;
@@ -58,12 +114,19 @@
     
         $up = $db->insert('offer',$data);
         if($up){
+
+            $sales = $db_nms->where('id',$parent)->getOne('db_member');
+            $img = $db->where('car_parent','792')->getOne('car_image');
+            sendOffer($id,$sales['line_usrid'],$img['cari_link'],$price);
+
             sendNotify($id,$price,$parent);
             $api = array(
                 'status' => '200',
                 'message' => 'Success to offer'
             );
+
         } else {
+
             $api = array(
                 'status' => '400',
                 'message' => 'Offer not Success'
