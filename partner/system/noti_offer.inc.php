@@ -34,11 +34,6 @@
                     ),
                     "actions" => array(
                         array(
-                            "type" => "message",
-                            "label" => "คุยรายละเอียดคันนี้",
-                            "text" => "ID : ".$carid." ต้องการติดต่อพ่อสื่อ, รอสักครู่..."
-                        ),
-                        array(
                             "type" => "uri",
                             "label" => "ดูข้อมูลรถยนต์",
                             "uri" => "https://trade-in.toyotaparagon.com/app?way=car&id=".$carid
