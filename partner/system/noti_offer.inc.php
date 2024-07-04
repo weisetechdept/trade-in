@@ -114,9 +114,11 @@
     
         $up = $db->insert('offer',$data);
         if($up){
+            $db->join('car_image i','s.cast_id = i.cari_parent','INNER');
+            $car = $db->where('cast_id',$id)->getOne('car_stock s');
 
-            $sales = $db_nms->where('id',$parent)->getOne('db_member');
-            sendOffer($id,$sales['line_usrid'],'',$price);
+            $sales = $db_nms->where('id',$car['cast_sales_parent_no'])->getOne('db_member');
+            sendOffer($id,$sales['line_usrid'],$car['cari_link'],$price);
 
             sendNotify($id,$price,$parent);
             $api = array(
