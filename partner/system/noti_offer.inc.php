@@ -115,6 +115,9 @@
         $up = $db->insert('offer',$data);
         if($up){
 
+            $sales = $db_nms->where('id',$parent)->getOne('db_member');
+            sendOffer($id,$sales['line_usrid'],'',$price);
+
             sendNotify($id,$price,$parent);
             $api = array(
                 'status' => '200',
