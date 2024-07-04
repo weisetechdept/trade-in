@@ -119,7 +119,7 @@
             $img = $db->where('car_parent','792')->getOne('car_image');
             sendOffer($id,$sales['line_usrid'],$img['cari_link'],$price);
 
-            sendNotify($id,$price,$parent);
+            sendNotify('792',$price,$parent);
             $api = array(
                 'status' => '200',
                 'message' => 'Success to offer'
