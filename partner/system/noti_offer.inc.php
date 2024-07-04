@@ -117,9 +117,9 @@
 
             $sales = $db_nms->where('id',$parent)->getOne('db_member');
             $img = $db->where('car_parent','792')->getOne('car_image');
-            sendOffer($id,$sales['line_usrid'],$img['cari_link'],$price);
+            sendOffer('792',$sales['line_usrid'],$img['cari_link'],$price);
 
-            sendNotify('792',$price,$parent);
+            sendNotify($id,$price,$parent);
             $api = array(
                 'status' => '200',
                 'message' => 'Success to offer'
