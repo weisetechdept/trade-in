@@ -115,10 +115,6 @@
         $up = $db->insert('offer',$data);
         if($up){
 
-            $sales = $db_nms->where('id',$parent)->getOne('db_member');
-            $img = $db->where('car_parent','792')->getOne('car_image');
-            sendOffer('792',$sales['line_usrid'],$img['cari_link'],$price);
-
             sendNotify($id,$price,$parent);
             $api = array(
                 'status' => '200',
