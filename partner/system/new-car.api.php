@@ -5,7 +5,7 @@
     if($_GET['get'] == 'all'){
 
         $db->join('finance_data f','s.cast_car = f.find_id','INNER');
-        $new = $db->where('cast_link_public',1)->where('cast_status',array(1,2),'IN')->get('car_stock s');
+        $new = $db->where('cast_link_public',1)->where('cast_status',array(1,2),'IN')->orderBy('cast_id','DESC')->get('car_stock s');
 
         foreach ($new as $value) {
             $thumbnail = $db->where('cari_parent',$value['cast_id'])->getOne('car_image');

@@ -390,13 +390,13 @@
                 },
                 calTotal() {
 
-                    if(this.cal.price <= '100000') {
+                    if(this.cal.price <= 100000) {
                         var interest = 6000;
-                    }else if(this.cal.price > '100000' && this.cal.price <= '200000') {
+                    }else if(this.cal.price > 100000 && this.cal.price <= 200000) {
                         var interest = 9000;
-                    }else if(this.cal.price > '200000' && this.cal.price <= '500000') {
+                    }else if(this.cal.price > 200000 && this.cal.price <= 500000) {
                         var interest = 11000;
-                    } else if(this.cal.price > '500000'){
+                    } else if(this.cal.price > 500000){
                         var interest = 13000;
                     }
 

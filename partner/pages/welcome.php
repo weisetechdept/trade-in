@@ -81,23 +81,7 @@
                 padding-left: 30px;
             }
         }
-        .share-button button {
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            background-color: #fff;
-            color: #000;
-        }
-        .share-button {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 15px;
-        }
-        .download-button {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 15px;
-        }
+        
         .swal-text {
             text-align: center;
         }
@@ -109,11 +93,12 @@
   <body>
     <div class="line-green"></div>
 
-        <div class="container" id="detail">
+        <div class="container">
             <div class="mt-4">
                 <div class="thank-wd">
                     <h3 class="mb-1">ขอบคุณที่สมัครสมาชิกกับเรา</h3>
                     <p>เจ้าหน้าที่จะดำเนินการตรวจสอบและอนุมัติ อาจจะใช้เวลาสักครู่..</p>
+
 
                     <p>เพิ่ม Line OA เพื่อรับข้อมูลเพิ่มเติมเกี่ยวกับเรา</p>
                     <a href="https://lin.ee/zXWhpPP" class="btn btn-success">เพิ่มเพื่อน</a>
@@ -135,19 +120,7 @@
     <script src="https://static.line-scdn.net/liff/edge/versions/2.9.0/sdk.js"></script>
     <script>
      
-        var detail = new Vue({
-            el: '#detail',
-            data () {
-                return {
-                }
-            },
-            mounted () {
-
-            },
-            methods: {
-               
-            }
-        });
+       
 
     </script>
   </body>
