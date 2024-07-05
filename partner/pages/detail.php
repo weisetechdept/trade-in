@@ -396,7 +396,7 @@
                         var interest = 9000;
                     }else if(this.cal.price > '200000' && this.cal.price <= '500000') {
                         var interest = 11000;
-                    } else {
+                    } else if(this.cal.price > '500000'){
                         var interest = 13000;
                     }
 

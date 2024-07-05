@@ -36,7 +36,7 @@
         if($inc){
             $api = array('status' => '200');
         }else{
-            $api = array('status' => '400', 'message' => $db->getLastError());
+            $api = array('status' => '400', 'message' => 'คุณเคยลงทะเบียนแล้ว โปรดรอการอนุมัติจากเจ้าหน้าที่');
         }
 
     }

@@ -101,6 +101,9 @@
         .swal-text {
             text-align: center;
         }
+        .thank-wd {
+            text-align: center;
+        }
     </style>
   </head>
   <body>
@@ -108,7 +111,14 @@
 
         <div class="container" id="detail">
             <div class="mt-4">
-                ขอบคุณที่สมัครสมาชิกกับเรา...
+                <div class="thank-wd">
+                    <h3 class="mb-1">ขอบคุณที่สมัครสมาชิกกับเรา</h3>
+                    <p>เจ้าหน้าที่จะดำเนินการตรวจสอบและอนุมัติ อาจจะใช้เวลาสักครู่..</p>
+
+                    <p>เพิ่ม Line OA เพื่อรับข้อมูลเพิ่มเติมเกี่ยวกับเรา</p>
+                    <a href="https://lin.ee/zXWhpPP" class="btn btn-success">เพิ่มเพื่อน</a>
+                </div>
+
             </div>
             
         </div>
