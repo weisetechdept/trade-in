@@ -75,6 +75,14 @@
             width: 45px;
             padding: 3px;
         }
+        .overlay-sold {
+            background-color: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
     </style>
 
 </head>
@@ -215,7 +223,7 @@
                         {'data':'3'},
                         {'data':'1',
                             "render": function ( data, type, full, meta ) {
-                                return '<img src="'+ data +'" class="car-thumb">';
+                                return '<div class="overlay-sold"><img src="'+ data +'" class="car-thumb"></div>';
                             }
                         },
                         {'data':'2'},
