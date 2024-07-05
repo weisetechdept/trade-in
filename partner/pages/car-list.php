@@ -193,6 +193,7 @@
             },
             mounted() {
                 $('#datatable').DataTable({
+                    order: [[0, 'desc']],
                     responsive: true,
                     "language": {
                         "paginate": {
