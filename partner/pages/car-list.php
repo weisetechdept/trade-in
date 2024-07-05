@@ -75,6 +75,15 @@
             width: 45px;
             padding: 3px;
         }
+        .overlay-sold {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            overflow: hidden;
+            background-position: center;
+            background-size: cover;
+            border-radius: 5pt;
+        }
     </style>
 
 </head>
@@ -214,7 +223,7 @@
                         {'data':'3'},
                         {'data':'1',
                             "render": function ( data, type, full, meta ) {
-                                return '<img src="'+ data +'" class="car-thumb">';
+                                return '<div class="overlay-sold" style="background-image: linear-gradient(rgba(255,0,0,0), rgba(255,0,0,0)), url('+data+');"></div>';
                             }
                         },
                         {'data':'2'},
