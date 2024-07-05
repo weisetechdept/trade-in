@@ -194,6 +194,8 @@
             mounted() {
                 $('#datatable').DataTable({
                     responsive: true,
+                    searching: false,
+                    "lengthChange": false,
                     "language": {
                         "paginate": {
                             "previous": "<i class='mdi mdi-chevron-left'>",
