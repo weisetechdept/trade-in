@@ -18,7 +18,9 @@
         $uid = $request->userId;
         $userImg = $request->userImg;
 
-        $partner = $db->where('part_line_uid',$uid)->where('part_status','1')->getOne('partner');
+        //$partner = $db->where('part_line_uid',$uid)->where('part_status','1')->getOne('partner');
+
+        $partner = $db->where('part_line_uid',$uid)->getOne('partner');
 
         if($partner){
 
@@ -28,15 +30,25 @@
             $up = $db->where('part_id',$partner['part_id'])->update('partner',$update);
             if($up){
 
-                $_SESSION['tin_partner'] = true;
-                $_SESSION['partner_id'] = $partner['part_id'];
-                $_SESSION['partner_name'] = $partner['part_fname'].' '.$partner['part_lname'];
-                $_SESSION['partner_img'] = $userImg;
+                if($partner['part_status'] == 1){
+
+                    $_SESSION['tin_partner'] = true;
+                    $_SESSION['partner_id'] = $partner['part_id'];
+                    $_SESSION['partner_name'] = $partner['part_fname'].' '.$partner['part_lname'];
+                    $_SESSION['partner_img'] = $userImg;
+                    
+                    $api = array(
+                        'status' => '200',
+                        'message' => 'Success to login'
+                    );
+
+                } else {
+                    $api = array(
+                        'status' => '401',
+                        'message' => 'Please wait for approval'
+                    );
+                }
                 
-                $api = array(
-                    'status' => '200',
-                    'message' => 'Success to login'
-                );
                 
             } else {
                 $api = array(
