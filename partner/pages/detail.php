@@ -257,7 +257,7 @@
 
                     <div class="form-group">
                         <h4>ราคาที่คุณจะเสนอ</h4>
-                        <input type="text" class="form-control" v-model="cal.price" @change="calTotal" placeholder="ใส่ราคาที่คุณต้องการ">
+                        <input type="number" class="form-control" v-model="cal.price" @change="calTotal" placeholder="ใส่ราคาที่คุณต้องการ">
 
                         <div class="cal-com mt-4">
                             <h4 class="mb-0">จำนวนเงินที่คุณต้องจ่าย</h4>
@@ -428,9 +428,7 @@
                         var interest = 13000;
                     }
 
-                    
                     this.cal.commission = interest.toLocaleString();
-
                     if(this.cal.price == '') {
                         this.cal.total = parseInt(0);
                         this.cal.price_dp = parseInt(0);
@@ -438,6 +436,7 @@
                         this.cal.total = (parseInt(this.cal.price) + parseInt(interest)).toLocaleString();
                         this.cal.price_dp = parseInt(this.cal.price).toLocaleString();
                     }
+
                 }
             }
         });
