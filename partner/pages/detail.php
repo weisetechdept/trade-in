@@ -427,8 +427,8 @@
                     } else if(this.cal.price > 500000){
                         var interest = 13000;
                     }
-
-                    this.cal.commission = interest;
+             
+                    this.cal.commission = interest.toLocaleString();
                     this.cal.total = (parseInt(this.cal.price) + parseInt(interest)).toLocaleString();
                 }
             }
