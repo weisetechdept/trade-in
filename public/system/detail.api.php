@@ -123,7 +123,7 @@
                 );
 
                 $db->join('car_image i','c.cast_id = i.cari_parent','LEFT');
-                $car = $db->where('cast_id',$id)->get('car_stock c');
+                $car = $db->where('cast_id',$id)->where('cari_status',1)->get('car_stock c');
 
                 if($car){
                     foreach ($car as $value) {

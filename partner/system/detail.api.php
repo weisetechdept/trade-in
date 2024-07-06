@@ -126,7 +126,7 @@
                         'ready' => $ready
                     );
 
-                    $db->join('car_image i','c.cast_id = i.cari_parent','RIGHT');
+                    $db->join('car_image i','c.cast_id = i.cari_parent','INNER');
                     $car = $db->where('cast_id',$id)->where('cari_status',1)->get('car_stock c');
 
                     if($car){
