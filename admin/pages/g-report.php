@@ -164,6 +164,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
+                                    <p>In48 = ผ่อน 48 งวด, In60 = ผ่อน 60 งวด ทั้งหมดนี้ยังไม่รวม Vat 7%</p>
                                     <table id="datatable" class="table dt-responsive nowrap">
                                         <thead>
                                             <tr>
@@ -177,13 +178,20 @@
                                                 <th>เซลล์</th>
                                                 <th>ทีม</th>
                                                 <th>สถานะ</th>
-                                                <th>Model</th>
-                                                <th>Version</th>
-                                               
+                                                <th>สี</th>
+                                                <th>ราคา</th>
+                                                <th>In48</th>
+                                                <th>In60</th>
+                                                <th>In72</th>
+                                                <th>In84</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
