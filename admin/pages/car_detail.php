@@ -208,7 +208,7 @@
                                                     <tr>
                                                         <th>ราคา</th>
                                                         <th>พันธมิตร</th>
-                                                        <th width="180px">วันที่</th>
+                                                        <th width="120px">วันที่</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
