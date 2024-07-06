@@ -120,25 +120,19 @@
                             <div class="card">
                                 <div class="card-body">
                     
-                                    <h4 class="card-title">รถยนต์ทั้งหมด</h4>
+                                    <h4 class="card-title">การเสนอราคาทั้งหมดของคุณ</h4>
 
                                     <table class="table" id="datatable">
                                         <thead>
                                             <tr>
                                                 <th>รหัส</th>
                                                 <th>รูป</th>
-                                                <th>ยี่ห้อ - รุ่น</th>
-                                                <th>ปี</th>
-                                                <th>เกียร์</th>
-                                                <th>เลขไมล์</th>
+                                                <th>ราคาที่คุณเสนอ</th>
                                                 <th>ข้อมูล</th>
                                             </tr>
                                         </thead>
                                         <tbody id="new-today">
                                             <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -203,6 +197,8 @@
             mounted() {
                 $('#datatable').DataTable({
                     order: [[0, 'desc']],
+                    searching: fales,
+                    "paging": false,
                     responsive: true,
                     "language": {
                         "paginate": {
@@ -218,7 +214,7 @@
                     "drawCallback": function () {
                         $('.dataTables_paginate > .pagination').addClass('pagination-rounded');
                     },
-                    ajax: '/partner/system/new-car.api.php?get=all',
+                    ajax: '/partner/system/offered.api.php',
                     "columns" : [
                         {'data':'3'},
                         {'data':'1',
@@ -227,9 +223,6 @@
                             }
                         },
                         {'data':'2'},
-                        {'data':'6'},
-                        {'data':'5'},
-                        {'data':'4'},
                         {'data':'0',
                             sortable: false,
                             "render": function ( data, type, full, meta ) {
