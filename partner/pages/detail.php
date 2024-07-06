@@ -268,7 +268,7 @@
                             <tbody>
                                 <tr>
                                     <td scope="row" width="150px">ราคาที่คุณเสนอ</td>
-                                    <td>{{ cal.price }}</td>
+                                    <td>{{ cal.price_display }}</td>
                                 </tr>
                                 <tr>
                                     <td scope="row">ค่าคอมมิชชั่น*</td>
@@ -345,7 +345,8 @@
                     cal: {
                         price: '',
                         commission: 0,
-                        total: 0
+                        total: 0,
+                        price_display: '0'
                     }
                 }
             },
@@ -427,7 +428,9 @@
                     } else if(this.cal.price > 500000){
                         var interest = 13000;
                     }
-             
+
+
+                    this.cal.price_display = this.cal.price.toLocaleString();
                     this.cal.commission = interest.toLocaleString();
                     this.cal.total = (parseInt(this.cal.price) + parseInt(interest)).toLocaleString();
                 }
