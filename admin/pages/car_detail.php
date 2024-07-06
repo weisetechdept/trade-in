@@ -208,7 +208,7 @@
                                                     <tr>
                                                         <th>ราคา</th>
                                                         <th>พันธมิตร</th>
-                                                        <th width="120px">วันที่</th>
+                                                        <th width="125px">วันที่</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -889,7 +889,7 @@
                                     }
                                 );
                                 return;
-                            } else if(this.offer.price.lenght <=4) {
+                            } else if(strlen(this.offer.price) <= 4) {
                                 swal("ไม่สามารถทำรายการได้", "คุณใส่ราคาน้อยเกินไป", "warning",{ 
                                         button: "ตกลง"
                                     }
@@ -902,8 +902,8 @@
                                     icon: "info",
                                     buttons: true,
                                     dangerMode: true,
-                                }).then((willDelete) => {
-                                    if (willDelete) {
+                                }).then((wilOkay) => {
+                                    if (wilOkay) {
                                         
                                         swal("กรุณารอสักครู่", "ระบบกำลังส่งข้อมูล", "info", {
                                             button: false
