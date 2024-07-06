@@ -418,25 +418,33 @@
                     } 
                 },
                 calTotal() {
-                    if(this.cal.price <= 100000) {
-                        var interest = 6000;
-                    }else if(this.cal.price > 100000 && this.cal.price <= 200000) {
-                        var interest = 9000;
-                    }else if(this.cal.price > 200000 && this.cal.price <= 500000) {
-                        var interest = 11000;
-                    } else if(this.cal.price > 500000){
-                        var interest = 13000;
-                    }
-
-                    this.cal.commission = interest.toLocaleString();
-                    if(this.cal.price == '') {
-                        this.cal.total = parseInt(0);
-                        this.cal.price_dp = parseInt(0);
+                    if(this.cal.price.length >=8) {
+                        swal("ไม่สามารถทำรายการได้", "เนื่องจากราคาที่คุณเสนอมากเกินไป โปรดทำรายการอีกครั้ง", "error",{
+                            button: "OK",
+                        });
+                        this.cal.price = '';
                     } else {
-                        this.cal.total = (parseInt(this.cal.price) + parseInt(interest)).toLocaleString();
-                        this.cal.price_dp = parseInt(this.cal.price).toLocaleString();
-                    }
 
+                        if(this.cal.price <= 100000) {
+                            var interest = 6000;
+                        }else if(this.cal.price > 100000 && this.cal.price <= 200000) {
+                            var interest = 9000;
+                        }else if(this.cal.price > 200000 && this.cal.price <= 500000) {
+                            var interest = 11000;
+                        } else if(this.cal.price > 500000){
+                            var interest = 13000;
+                        }
+
+                        this.cal.commission = interest.toLocaleString();
+                        if(this.cal.price == '') {
+                            this.cal.total = parseInt(0);
+                            this.cal.price_dp = parseInt(0);
+                        } else {
+                            this.cal.total = (parseInt(this.cal.price) + parseInt(interest)).toLocaleString();
+                            this.cal.price_dp = parseInt(this.cal.price).toLocaleString();
+                        }
+
+                    }
                 }
             }
         });
