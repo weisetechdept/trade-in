@@ -430,6 +430,10 @@
 
                     this.cal.price_dp = parseInt(this.cal.price).toLocaleString();
                     this.cal.commission = interest.toLocaleString();
+                    if(this.cal.price == '') {
+                        this.cal.total = 0;
+                    }
+                    
                     this.cal.total = (parseInt(this.cal.price) + parseInt(interest)).toLocaleString();
                 }
             }
