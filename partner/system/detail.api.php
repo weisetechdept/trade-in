@@ -141,7 +141,7 @@
                     if(!empty($history)){
                         foreach ($history as $val) {
                             $api['history'][] = array(
-                                'price'=> $val['off_price'],
+                                'price'=> number_format($val['off_price']),
                                 'datetime'=> $val['off_datetime']
                             );
                         }
