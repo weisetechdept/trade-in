@@ -68,7 +68,11 @@
                 $thumbnail,
                 $value['cast_year'],
                 getTeam($value['cast_sales_parent_no']),
-                $img_count
+                $img_count,
+                number_format($value['cast_price'] * 0.02625),
+                number_format($value['cast_price'] * 0.02208),
+                number_format($value['cast_price'] * 0.01931),
+                number_format($value['cast_price'] * 0.01732),
             );
         }
 
