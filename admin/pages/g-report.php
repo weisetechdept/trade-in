@@ -167,16 +167,16 @@
                                     <table id="datatable" class="table dt-responsive nowrap">
                                         <thead>
                                             <tr>
-                                                <th>Date EM</th>
+                                                <th>วันที่เพิ่ม</th>
                                                 <th>รหัส</th>
                                                 <th>ทะเบียน</th>
                                                 <th>ปี</th>
                                                 <th>รุ่น</th>
                                                 <th>สี</th>
                                                 <th>ราคา</th>
-                                                <th>Sales</th>
-                                                <th>Plate</th>
-                                                <th>Brand</th>
+                                                <th>เซลล์</th>
+                                                <th>ทีม</th>
+                                                <th>สถานะ</th>
                                                 <th>Model</th>
                                                 <th>Version</th>
                                                 <th>Option</th>
@@ -190,20 +190,10 @@
                                                 <th>C/S Price</th>
                                                 <th>Sure Price</th>
                                                 <th>Price Finish</th>
-                                                <th>Customer Name</th>
-                                                <th>Tel.</th>
-                                                <th>Condition</th>
-                                                <th>Finish By</th>
-                                                <th>New Car Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -314,7 +304,7 @@
             },
             ajax: '/admin/system/home.api.php?get=list',
             "columns" : [
-                {'data':'7'},
+                {'data':'0'},
                 {'data':'11'},
                 {'data':'1'},
                 {'data':'9'},
@@ -340,12 +330,7 @@
                         } 
                     }
                 },
-                {'data':'7'},
-                {'data': '0'},
-                {'data':'11'},
-                {'data':'1'},
-                {'data':'9'},
-                {'data':'2'},
+                
                 {'data':'3'},
                 {'data':'4'},
                 {'data':'5'},
