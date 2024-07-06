@@ -164,7 +164,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <p>In48 = ผ่อน 48 งวด, In60 = ผ่อน 60 งวด ทั้งหมดนี้ยังไม่รวม Vat 7%</p>
+                                    <p>In48 = ผ่อน 48 งวด, In60 = ผ่อน 60 งวด ทั้งหมดนี้ยังไม่รวม Vat 7% และอัตราดอกเบี้ยที่ 6.5% ต่อปี</p>
                                     <table id="datatable" class="table dt-responsive nowrap">
                                         <thead>
                                             <tr>
