@@ -889,7 +889,7 @@
                                     }
                                 );
                                 return;
-                            } else if(strlen(this.offer.price) <= 4) {
+                            } else if(this.offer.price.length <= 4) {
                                 swal("ไม่สามารถทำรายการได้", "คุณใส่ราคาน้อยเกินไป", "warning",{ 
                                         button: "ตกลง"
                                     }
