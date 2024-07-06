@@ -140,10 +140,13 @@
             } else {
                 $pt_name = $o['off_vender'];
             }
+
+            $newDate = date("D-M-y H:i", $o['off_datetime']);
+            
             $api['offer'][] = array(
                 'price' => number_format($o['off_price']),
                 'partner' => $pt_name,
-                'datetime' => $o['off_datetime']
+                'datetime' => $newDate
             );
         }
 
