@@ -358,14 +358,8 @@
             },
             methods: {
                 sendOf() {
-                    swal({
-                        title: 'คุณแน่ใจหรือไม่',
-                        text: "โปรดตรวจสอบข้อมูลให้ถูกต้อง เพื่อยืนยันการส่งราคาของคุณ",
-                        icon: "info",
-                        buttons: true,
-                        dangerMode: true,
-                    }).then((wilOkay) => {
-                        if (wilOkay) {
+                   
+
                             if(this.cal.price == '') {
                                 swal("กรุณากรอกราคาที่ต้องการเสนอ", "Please try again", "error",{
                                     button: "OK",
@@ -375,29 +369,38 @@
                                     button: "OK",
                                 });
                             } else {
-                                axios.post('/partner/system/noti_offer.inc.php', {
-                                    id: this.detail.id,
-                                    price: this.cal.price,
-                                    commission: this.cal.commission,
-                                    total: this.cal.total,
-                                    parent: <?php echo $_SESSION['partner_id']; ?>
-                                })
-                                .then(response => {
-                                    if(response.data.status == '200') {
-                                        swal("สำเร็จ", "ส่งข้อเสนอเรียบร้อย", "success",{
-                                            button: "OK",
-                                        }).then((value) => {
-                                            window.location.reload();
-                                        });
-                                    } else if (response.data.status == '400'){
-                                        swal("ไม่สำเร็จ", "Please try again", "error",{
-                                            button: "OK",
-                                        });
+                                swal({
+                                    title: 'คุณแน่ใจหรือไม่',
+                                    text: "โปรดตรวจสอบข้อมูลให้ถูกต้อง เพื่อยืนยันการส่งราคาของคุณ",
+                                    icon: "info",
+                                    buttons: true,
+                                    dangerMode: true,
+                                }).then((wilOkay) => {
+                                    if (wilOkay) {
+                                        axios.post('/partner/system/noti_offer.inc.php', {
+                                            id: this.detail.id,
+                                            price: this.cal.price,
+                                            commission: this.cal.commission,
+                                            total: this.cal.total,
+                                            parent: <?php echo $_SESSION['partner_id']; ?>
+                                        })
+                                        .then(response => {
+                                            if(response.data.status == '200') {
+                                                swal("สำเร็จ", "ส่งข้อเสนอเรียบร้อย", "success",{
+                                                    button: "OK",
+                                                }).then((value) => {
+                                                    window.location.reload();
+                                                });
+                                            } else if (response.data.status == '400'){
+                                                swal("ไม่สำเร็จ", "Please try again", "error",{
+                                                    button: "OK",
+                                                });
+                                            }
+                                        })
                                     }
-                                })
+                                });
                             }
-                        }
-                    });
+                        
                 },
                 calTotal() {
 
