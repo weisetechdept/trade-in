@@ -168,13 +168,12 @@
                                         <thead>
                                             <tr>
                                                 <th>Date EM</th>
-                                                <th>Date finish</th>
-                                                <th>ชื่อลูกค้าที่ให้ดูรถ</th>
-                                                <th>ชื่อลูกค้าที่จองรถใหม่</th>
-                                                <th>Date B/K New Car</th>
-                                                <th>Estimator</th>
-                                                <th>Team</th>
-                                                <th>Branch</th>
+                                                <th>รหัส</th>
+                                                <th>ทะเบียน</th>
+                                                <th>ปี</th>
+                                                <th>รุ่น</th>
+                                                <th>สี</th>
+                                                <th>ราคา</th>
                                                 <th>Sales</th>
                                                 <th>Plate</th>
                                                 <th>Brand</th>
@@ -200,7 +199,6 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -317,7 +315,6 @@
             ajax: '/admin/system/home.api.php?get=list',
             "columns" : [
                 {'data':'7'},
-                {'data':''},
                 {'data':'11'},
                 {'data':'1'},
                 {'data':'9'},
