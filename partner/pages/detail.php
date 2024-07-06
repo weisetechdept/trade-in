@@ -428,6 +428,7 @@
                         var interest = 13000;
                     }
 
+                    this.cal.price_display = this.cal.price.toLocaleString();
                     this.cal.commission = interest.toLocaleString();
                     this.cal.total = (parseInt(this.cal.price) + parseInt(interest)).toLocaleString();
                 }
