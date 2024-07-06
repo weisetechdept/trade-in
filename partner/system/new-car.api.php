@@ -8,7 +8,7 @@
         $new = $db->where('cast_link_public',1)->get('car_stock s');
 
         foreach ($new as $value) {
-            $thumbnail = $db->where('cari_parent',$value['cast_id'])->getOne('car_image');
+            $thumbnail = $db->where('cari_parent',$value['cast_id'])->where('cari_status',1)->getOne('car_image');
             $api['data'][] = array(
                 base64_encode($value['cast_id']),
                 $thumbnail['cari_link'] ,
@@ -31,7 +31,7 @@
         } else {
 
             foreach ($new as $value) {
-                $thumbnail = $db->where('cari_parent',$value['cast_id'])->getOne('car_image');
+                $thumbnail = $db->where('cari_parent',$value['cast_id'])->where('cari_status',1)->getOne('car_image');
                 $api['data'][] = array(
                     base64_encode($value['cast_id']),
                     $thumbnail['cari_link'] ,

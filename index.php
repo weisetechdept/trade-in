@@ -196,6 +196,10 @@
         require_once 'partner/pages/car-list.php';
     });
 
+    $router->get( '/partner/offered', function() {
+        require_once 'partner/pages/offered.php';
+    });
+
     $router->run();
     
 

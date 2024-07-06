@@ -12,7 +12,11 @@
                         </li>
 
                         <li>
-                            <a href="/partner/cars" class="waves-effect"><i class="feather-file-text"></i><!-- <span class="badge badge-pill badge-info float-right">3</span> --><span>รถทั้งหมด</span></a>
+                            <a href="/partner/cars" class="waves-effect"><i class="feather-file-text"></i><span>รถทั้งหมด</span></a>
+                        </li>
+
+                        <li>
+                            <a href="/partner/offered" class="waves-effect"><i class="feather-file-text"></i><span>ประวัติการเสนอราคา</span></a>
                         </li>
 <!--
                         <li>
