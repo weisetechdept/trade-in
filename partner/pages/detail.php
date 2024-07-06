@@ -288,7 +288,22 @@
                     </div>
                 </div>
 
-                <div class="offer-history">
+                <div class="offer-history mt-4 mb-4">
+                    <h4 class="heading">ประวัติการเสนอราคาของคุณ</h4>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">ราคาที่เสนอ</th>
+                                <th scope="col">วันที่</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="history in detail.history">
+                                <td>{{ history.price }}</td>
+                                <td>{{ history.datetime }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                     
                 </div>
 
@@ -326,6 +341,7 @@
                 return {
                     img: [],
                     detail: [],
+                    history: [],
                     cal: {
                         price: '',
                         commission: 0,
@@ -339,6 +355,7 @@
                         if (response.data.detail.share == 1) {
                             this.img = response.data.img;
                             this.detail = response.data.detail;
+                            this.history = response.data.history;
                         } else {
                             swal("Detail not found", "Please try again", "error",{
                                 button: "OK",

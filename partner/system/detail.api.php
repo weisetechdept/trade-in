@@ -137,11 +137,21 @@
                         $api['img'] = array('code' => '404','message' => 'Not Found');
                     }
 
+                    $history = $db->where('off_parent',$id)->where('off_vender',$_SESSION['partner_id'])->get('offer');
+                    if($history){
+                        foreach ($history as $val) {
+                            $api['history'][] = array(
+                                'price'=> $val['off_price'],
+                                'datetime'=> $val['off_datetime'],
+                            );
+                        }
+                    } else {
+                        $api['history'] = array();
+                    }
+
                 } else {
                     $api['detail'] = array('code' => '404','message' => 'Not Found','share' => $stock['cast_link_public']);
                 }
-
-                
 
         } else {
             $api['detail'] = array('code' => '404','message' => 'Not Found');
