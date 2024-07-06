@@ -268,7 +268,7 @@
                             <tbody>
                                 <tr>
                                     <td scope="row" width="150px">ราคาที่คุณเสนอ</td>
-                                    <td>{{ cal.price_display }}</td>
+                                    <td>{{ cal.price_dp }}</td>
                                 </tr>
                                 <tr>
                                     <td scope="row">ค่าคอมมิชชั่น*</td>
@@ -346,7 +346,7 @@
                         price: '',
                         commission: 0,
                         total: 0,
-                        price_display: ''
+                        price_dp: '0'
                     }
                 }
             },
@@ -428,7 +428,7 @@
                         var interest = 13000;
                     }
 
-                    this.cal.price_display = this.cal.price.toLocaleString();
+                    this.cal.price_dp = this.cal.price.toLocaleString();
                     this.cal.commission = interest.toLocaleString();
                     this.cal.total = (parseInt(this.cal.price) + parseInt(interest)).toLocaleString();
                 }
