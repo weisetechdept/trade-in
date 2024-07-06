@@ -298,9 +298,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="history in detail.history">
-                                <td>{{ history.price }}</td>
-                                <td>{{ history.datetime }}</td>
+                            <tr v-for="hist in history">
+                                <td>{{ hist.price }}</td>
+                                <td>{{ hist.datetime }}</td>
                             </tr>
                         </tbody>
                     </table>
