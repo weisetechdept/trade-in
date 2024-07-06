@@ -134,9 +134,15 @@
         $offer = $db->where('off_parent',$id)->get('offer');
 
         foreach ($offer as $o) {
+            $partner = $db->where('part_id',$o['off_vender'])->getOne('partner');
+            if(!empty($partner)){
+                $pt_name = $partner['part_fname'].' - '.$partner['part_bus_name'];
+            } else {
+                $pt_name = $o['off_vender'];
+            }
             $api['offer'][] = array(
                 'price' => number_format($o['off_price']),
-                'partner' => $o['off_vender'],
+                'partner' => $pt_name,
                 'datetime' => $o['off_datetime']
             );
         }
