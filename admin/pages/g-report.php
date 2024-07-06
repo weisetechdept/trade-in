@@ -188,14 +188,10 @@
                                                 <th>Grade</th>
                                                 <th>Sale Price</th>
                                                 <th>C/S Price</th>
-                                                <th>Sure Price</th>
-                                                <th>Price Finish</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td></td>
-                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -330,7 +326,6 @@
                         } 
                     }
                 },
-                
                 {'data':'3'},
                 {'data':'4'},
                 {'data':'5'},
@@ -342,7 +337,6 @@
                 {'data':'4'},
                 {'data':'5'},
                 {'data':'10'},
-                {'data':'10'}
             ],
         });
 
