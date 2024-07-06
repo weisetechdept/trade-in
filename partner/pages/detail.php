@@ -346,7 +346,7 @@
                         price: '',
                         commission: 0,
                         total: 0,
-                        price_display: this.price.toLocaleString()
+                        price_display: ''
                     }
                 }
             },
