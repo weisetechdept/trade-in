@@ -142,11 +142,14 @@
                         foreach ($history as $val) {
                             $api['history'][] = array(
                                 'price'=> $val['off_price'],
-                                'datetime'=> $val['off_datetime'],
+                                'datetime'=> $val['off_datetime']
                             );
                         }
                     } else {
-                        $api['history'] = array();
+                        $api['history'][] = array(
+                            'price'=> 'คุณยังไม่เคยเสนอราคาคันนี้',
+                            'datetime'=> '-',
+                        );
                     }
 
                 } else {
