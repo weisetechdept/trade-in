@@ -179,28 +179,11 @@
                                                 <th>สถานะ</th>
                                                 <th>Model</th>
                                                 <th>Version</th>
-                                                <th>Option</th>
-                                                <th>Chassis No.</th>
-                                                <th>Gear</th>
-                                                <th>Colour</th>
-                                                <th>Year</th>
-                                                <th>KM.</th>
-                                                <th>Grade</th>
-                                                <th>Sale Price</th>
-                                                <th>C/S Price</th>
+                                               
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -327,16 +310,7 @@
                     }
                 },
                 {'data':'3'},
-                {'data':'4'},
-                {'data':'5'},
-                {'data':'11'},
-                {'data':'1'},
-                {'data':'9'},
-                {'data':'2'},
-                {'data':'3'},
-                {'data':'4'},
-                {'data':'5'},
-                {'data':'10'},
+                {'data':'4'}
             ],
         });
 
