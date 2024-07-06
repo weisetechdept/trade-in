@@ -346,7 +346,7 @@
                         price: '',
                         commission: 0,
                         total: 0,
-                        price_display: '0'
+                        price_display: 0
                     }
                 }
             },
@@ -428,7 +428,6 @@
                     } else if(this.cal.price > 500000){
                         var interest = 13000;
                     }
-
 
                     this.cal.price_display = this.cal.price.toLocaleString();
                     this.cal.commission = interest.toLocaleString();
