@@ -141,7 +141,7 @@
                 $pt_name = $o['off_vender'];
             }
 
-            $newDate = date("d M Y, H:i", $o['off_datetime']);
+            $newDate = date("d M y, H:i", strtotime($o['off_datetime']));
             
             $api['offer'][] = array(
                 'price' => number_format($o['off_price']),
