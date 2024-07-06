@@ -428,12 +428,15 @@
                         var interest = 13000;
                     }
 
-                    this.cal.price_dp = parseInt(this.cal.price).toLocaleString();
+                    
                     this.cal.commission = interest.toLocaleString();
+
                     if(this.cal.price == '') {
                         this.cal.total = parseInt(0);
+                        this.cal.price_dp = parseInt(0);
                     } else {
                         this.cal.total = (parseInt(this.cal.price) + parseInt(interest)).toLocaleString();
+                        this.cal.price_dp = parseInt(this.cal.price).toLocaleString();
                     }
                 }
             }
