@@ -429,7 +429,7 @@
                     }
 
                     this.cal.commission = interest;
-                    this.cal.total = parseInt(this.cal.price) + parseInt(interest);
+                    this.cal.total = (parseInt(this.cal.price) + parseInt(interest)).toLocaleString();
                 }
             }
         });

@@ -3,6 +3,17 @@
     require_once '../../db-conn.php';
     date_default_timezone_set("Asia/Bangkok");
 
+    function DateThai($strDate)
+    {
+        $strYear = date("y",strtotime($strDate));
+        $strMonth= date("n",strtotime($strDate));
+        $strDay= date("j",strtotime($strDate));
+    
+        $strMonthCut = Array("","ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค.");
+        $strMonthThai=$strMonthCut[$strMonth];
+        return "$strDay $strMonthThai $strYear";
+    }
+
     if(!isset($_SESSION['tin_partner']) && $_SESSION['partner_id'] !== ''){
         header('Location: /404');
     } else {
@@ -142,7 +153,7 @@
                         foreach ($history as $val) {
                             $api['history'][] = array(
                                 'price'=> number_format($val['off_price']),
-                                'datetime'=> $val['off_datetime']
+                                'datetime'=> DateThai($val['off_datetime'])
                             );
                         }
                     } else {
@@ -157,6 +168,7 @@
                 }
 
         } else {
+
             $api['detail'] = array('code' => '404','message' => 'Not Found');
         }
 
