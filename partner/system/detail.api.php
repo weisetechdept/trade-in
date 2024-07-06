@@ -138,7 +138,7 @@
                     }
 
                     $history = $db->where('off_parent',$id)->where('off_vender',$_SESSION['partner_id'])->get('offer');
-                    if($history){
+                    if(!empty($history)){
                         foreach ($history as $val) {
                             $api['history'][] = array(
                                 'price'=> $val['off_price'],
@@ -148,7 +148,7 @@
                     } else {
                         $api['history'][] = array(
                             'price'=> 'คุณยังไม่เคยเสนอราคาคันนี้',
-                            'datetime'=> '-',
+                            'datetime'=> '-'
                         );
                     }
 
