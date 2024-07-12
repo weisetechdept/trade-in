@@ -45,10 +45,10 @@
             );
         }
         $db->join('car_image i','o.off_parent=i.cari_parent','LEFT');
-        $offered = $db->where('off_vender',$id)->get('offer o',5);
+        $offered = $db->where('cari_status',1)->where('off_vender',$id)->get('offer o',5);
         foreach($offered as $offer){
             $api['offered'][] = array(
-                'id' => $offer['off_id'],
+                'id' => $offer['off_parent'],
                 'vender' => $offer['off_vender'],
                 'price' => number_format($offer['off_price']),
                 'datetime' => date('d/m/Y H:i:s', strtotime($offer['off_datetime'])),
