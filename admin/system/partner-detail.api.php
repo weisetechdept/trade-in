@@ -44,6 +44,17 @@
                 'name' => $gp['busi_name']
             );
         }
+        $db->join('car_image i','o.off_parent=i.cari_parent','LEFT');
+        $offered = $db->where('off_vender',$id)->get('offer o',5);
+        foreach($offered as $offer){
+            $api['offered'][] = array(
+                'id' => $offer['off_id'],
+                'vender' => $offer['off_vender'],
+                'price' => number_format($offer['off_price']),
+                'datetime' => date('d/m/Y H:i:s', strtotime($offer['off_datetime'])),
+                'img' => $offer['cari_link']
+            );
+        }
         
 /*
     }

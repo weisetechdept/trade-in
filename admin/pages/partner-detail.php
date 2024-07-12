@@ -75,6 +75,13 @@
         .swal-footer {
             text-align: center;
         }
+        .offer_thumb {
+            width: 50px;
+            height: 35px;
+            object-fit: cover;
+            border-radius: 5px;
+
+        }
     </style>
 </head>
 
@@ -208,7 +215,7 @@
                                     <div class="form-group">
                                         <label for="tel">กลุ่มพัมธมิตร</label>
                                         <select class="form-control" v-model="edit.group">
-                                            <option value="0">Basic (TEST)</option>
+                                            <option value="0">ยังไม่ได้เลือก</option>
                                             <option v-for="pagp in partner_group" :value="pagp.id">{{ pagp.name }}</option>
                                         </select>
                                     </div>
@@ -238,19 +245,22 @@
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th>วันที่</th>
+                                                <th>รูป</th>
                                                 <th>รหัสรถ</th>
                                                 <th>ราคา (บาท)</th>
+                                                <th width="170px">วันที่เสนอ</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>01/01/2021</td>
-                                                <td>414</td>
-                                                <td>100,000</td>
+                                            <tr v-for="off in offered">
+                                                <td><img :src="off.img" class="offer_thumb"></td>
+                                                <td><a :href="'/admin/detail/'+ off.id" target="_blank">{{ off.id }}</a></td>
+                                                <td>{{ off.price }}</td>
+                                                <td>{{ off.datetime }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
+                                    <a href="#">ดูประวัติการเสนอราคาทั้งหมด</a>
                                 </div> 
                             </div>
                         </div>
@@ -309,9 +319,6 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
     <script src="/assets/js/theme.js"></script>
-    <!-- third party js ends -->
-
-    <!-- Datatables init -->
     <script>
         var partner = new Vue({
             el: '#partner',
@@ -325,7 +332,8 @@
                     tel: '',
                     group: '',
                     busi: ''
-                }
+                },
+                offered: []
             },
             mounted (){
                 this.fetchData();
@@ -342,6 +350,8 @@
                         partner.edit.tel = response.data.detail.tel;
                         partner.edit.group = response.data.detail.group;
                         partner.edit.busi = response.data.detail.busi_match;
+                        partner.offered = response.data.offered;
+                        console.log(response.data);
                     })
                 },
                 updateData(){
