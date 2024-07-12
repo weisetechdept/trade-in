@@ -8,21 +8,42 @@
     } else {
 */
         $id = $_GET['id'];
-
-        $member = $db->where('part_id',$id)->getOne('partner');
+        $db->join('partner_bus b','p.part_bus_id=b.busi_id','LEFT');
+        $db->join('partner_group g','p.part_group=g.pagp_id','LEFT');
+        $member = $db->where('part_id',$id)->getOne('partner p');
 
     
         $api['detail'] = array(
             'id' => $member['part_id'],
             'profile_img' => $member['part_line_img'],
             'name' => $member['part_fname'].' '.$member['part_lname'],
+            'fname' => $member['part_fname'],
+            'lname' => $member['part_lname'],
             'busi_name' => $member['part_bus_name'],
+            'busi_db_name' => $member['busi_name'],
             'tel' => $member['part_tel'],
             'busi_match' => $member['part_bus_id'],
             'group' => $member['part_group'],
+            'group_name' => $member['pagp_name'],
             'status' => $member['part_status'],
             'create_date' => date('d/m/Y H:i:s', strtotime($member['part_datetime']))
         );
+
+        $part_gp = $db->where('pagp_status',1)->get('partner_group');
+        foreach($part_gp as $gp){
+            $api['partner_gp'][] = array(
+                'id' => $gp['pagp_id'],
+                'name' => $gp['pagp_name']
+            );
+        }
+
+        $busi_gp = $db->where('busi_status',1)->get('partner_bus');
+        foreach($busi_gp as $gp){
+            $api['partner_busi'][] = array(
+                'id' => $gp['busi_id'],
+                'name' => $gp['busi_name']
+            );
+        }
         
 /*
     }

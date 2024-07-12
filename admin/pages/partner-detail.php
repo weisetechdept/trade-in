@@ -16,10 +16,8 @@
     <meta content="A77" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <!-- App favicon -->
     <link rel="shortcut icon" href="/assets/images/favicon.ico">
 
-    <!-- Plugins css -->
     <link href="/assets/plugins/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
     <link href="/assets/plugins/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
     <link href="/assets/plugins/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
@@ -27,7 +25,6 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@100;200;300;400;500;600;700;800&family=Kanit:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- App css -->
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/theme.min.css" rel="stylesheet" type="text/css" />
@@ -139,13 +136,13 @@
                                                 <td>บริษัท</td>
                                                 <td>
                                                     <span v-if="partner.busi_match == '0'">ยังไม่ได้เลือก</span>
-                                                    <span v-else>{{ partner.busi_match }}</span>
+                                                    <span v-else>{{ partner.busi_db_name }}</span>
                                                      ({{ partner.busi_name }})
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>กลุ่มพันธมิตร</td>
-                                                <td v-if="partner.group == '0'">Basic</td>
+                                                <td>{{ partner.group_name }}</td>
                                             </tr>
 
                                             <tr>
@@ -175,7 +172,8 @@
                                 <div class="card-body">
                                     <h3 class="card-title">จัดการ</h3>
                                     <button type="button" class="btn btn-outline-warning waves-effect waves-light mr-1" data-toggle="modal" data-target="#exampleModal">แก้ใข</button>
-                                    <button type="button" @click="verify" class="btn btn-success mr-1">อนุมัติสมาชิก</button>
+                                    <button v-if="partner.status == 0" type="button" @click="verify" class="btn btn-success mr-1">อนุมัติสมาชิก</button>
+                                    <button v-if="partner.status == 1" type="button" @click="verify" class="btn btn-danger mr-1">ระงับชั่วคราว</button>
                                 </div> 
                             </div>
                         </div>
@@ -194,36 +192,38 @@
 
                                     <div class="form-group">
                                         <label for="name">ชื่อ</label>
-                                        <input type="text" class="form-control" id="name" v-model="partner.name">
+                                        <input type="text" class="form-control" v-model="edit.fname">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="name">นามสกุล</label>
-                                        <input type="text" class="form-control" id="name" v-model="partner.name">
+                                        <input type="text" class="form-control" v-model="edit.lname">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="tel">เบอร์โทร</label>
-                                        <input type="text" class="form-control" id="tel" v-model="partner.tel">
+                                        <input type="number" class="form-control" v-model="edit.tel" maxlength="10">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="tel">กลุ่มพัมธมิตร</label>
-                                        <select class="form-control" v-model="partner.group">
-                                            <option value="0">Basic</option>
+                                        <select class="form-control" v-model="edit.group">
+                                            <option value="0">Basic (TEST)</option>
+                                            <option v-for="pagp in partner_group" :value="pagp.id">{{ pagp.name }}</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="tel">บริษัท</label>
-                                        <select class="form-control" v-model="partner.group">
-                                            <option value="0">Basic</option>
+                                        <select class="form-control" v-model="edit.busi">
+                                            <option value="0">ยังไม่ได้เลือก</option>
+                                            <option v-for="pabu in partner_busi" :value="pabu.id">{{ pabu.name }}</option>
                                         </select>
                                     </div>
 
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary waves-effect waves-light">บันทึกการแก้ใข</button>
+                                    <button type="button" @click="updateData" class="btn btn-primary waves-effect waves-light">บันทึกการแก้ใข</button>
                                 </div>
                             </div>
                         </div>
@@ -234,7 +234,7 @@
                         <div class="col-12 col-lg-4">
                             <div class="card">
                                 <div class="card-body">
-                                    <h3 class="card-title">ประวัติการเสนอราคา</h3>
+                                    <h3 class="card-title">ประวัติการเสนอราคาล่าสุด</h3>
                                     <table class="table">
                                         <thead>
                                             <tr>
@@ -316,21 +316,78 @@
         var partner = new Vue({
             el: '#partner',
             data: {
-                partner: []
+                partner: [],
+                partner_group:[],
+                partner_busi:[],
+                edit: {
+                    fname: '',
+                    lname: '',
+                    tel: '',
+                    group: '',
+                    busi: ''
+                }
             },
-            mounted: function(){
-                this.getPartner();
+            mounted (){
+                this.fetchData();
             },
             methods: {
-                getPartner: function(){
+                fetchData(){
                     axios.get('/admin/system/partner-detail.api.php?id=<?php echo $id; ?>')
                     .then(function (response) {
-                        console.log(response.data);
                         partner.partner = response.data.detail;
+                        partner.partner_group = response.data.partner_gp;
+                        partner.partner_busi = response.data.partner_busi;
+                        partner.edit.fname = response.data.detail.fname;
+                        partner.edit.lname = response.data.detail.lname;
+                        partner.edit.tel = response.data.detail.tel;
+                        partner.edit.group = response.data.detail.group;
+                        partner.edit.busi = response.data.detail.busi_match;
                     })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+                },
+                updateData(){
+                    if(this.edit.fname == '' || this.edit.lname == '' || this.edit.tel == '' || this.edit.group == '0' || this.edit.busi == '0'){
+                        swal('ไม่สามารถแก้ใขข้อมูลได้','ระบบไม่สามารถบันทึกค่าว่างลงในฐานข้อมูล',{
+                            icon: 'warning',
+                            button: 'ตกลง'
+                        });
+                        return;
+                    }else{
+                        swal('คุณต้องการแก้ใขข้อมูลใช่หรือไม่?','',{
+                            buttons: {
+                                cancel: "ยกเลิก",
+                                confirm: {
+                                    text: "ยืนยัน",
+                                    value: "confirm",
+                                }
+                            },
+                        }).then((value) => {
+                            if(value == 'confirm'){
+                                $('#exampleModal').modal('hide');
+                                axios.post('/admin/system/partner-update.api.php',{
+                                    id: this.partner.id,
+                                    fname: this.edit.fname,
+                                    lname: this.edit.lname,
+                                    tel: this.edit.tel,
+                                    group: this.edit.group,
+                                    busi: this.edit.busi
+                                }).then(function (response) {
+                                    
+                                    if(response.data.status == 'success'){
+                                        swal('แก้ใขข้อมูลสำเร็จ','',{
+                                            icon: 'success',
+                                            button: 'ตกลง'
+                                        }).then((value) => {
+                                            partner.fetchData();
+                                        })
+                                    } else {
+                                        swal('แก้ใขข้อมูลไม่สำเร็จ','กรุณาลองใหม่อีกครั้ง','error');
+                                    }
+                                    
+                                })
+                                
+                            }
+                        })
+                    }
                 },
                 verify(){
                     if(this.partner.busi_match == '0'){
@@ -339,14 +396,30 @@
                             button: "ตกลง",
                         })
                     } else {
-
                         swal({
                             title: "ยืนยันการอนุมัติ",
                             text: "คุณต้องการอนุมัติสมาชิกคนนี้ใช่หรือไม่?",
                             icon: "warning",
                             buttons: true,
                             dangerMode: false,
-                        })
+                        }).then((willOK) => {
+                            if (willOK) {
+                                axios.post('/admin/system/partner-verify.api.php',{
+                                    id: this.partner.id
+                                }).then(function (response) {
+                                    if(response.data.status == 'success'){
+                                        swal('อนุมัติสมาชิกสำเร็จ','',{
+                                            icon: 'success',
+                                            button: 'ตกลง'
+                                        }).then((value) => {
+                                            partner.fetchData();
+                                        })
+                                    } else {
+                                        swal('อนุมัติสมาชิกไม่สำเร็จ', response.data.message ,'error');
+                                    }
+                                })
+                            }
+                        });
                     }
                     
                 }
@@ -355,8 +428,6 @@
         });
         
     </script>
-
-    <!-- App js -->
     <script src="/assets/js/theme.js"></script>
 
 </body>
