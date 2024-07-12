@@ -130,7 +130,7 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row" data-masonry='{"percentPosition": true }'>
                             <div class="col-lg-6 col-md-12">
                                 <div class="card">
                                     <div class="card-body">
@@ -590,6 +590,8 @@
         <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 
         <script src="https://cdn.jsdelivr.net/npm/sharer.js@latest/sharer.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js" integrity="sha512-JRlcvSZAXT8+5SQQAvklXGJuxXTouyq8oIMaYERZQasB8SBDHZaUbeASsJWpk0UUrf89DP3/aefPPrlMR1h1yQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
         <script>
 
                 var uploadMul = new Vue({
