@@ -260,8 +260,46 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <a href="#">ดูประวัติการเสนอราคาทั้งหมด</a>
+                                    <button type="button" class="btn btn-sm btn-outline-info waves-effect waves-light mr-1" data-toggle="modal" data-target="#Modal2" @click="offer_history">ดูประวัติการเสนอราคาทั้งหมด</button>
                                 </div> 
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="Modal2" tabindex="-1" role="dialog" aria-labelledby="Modal2" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">ดูประวัติการเสนอราคาทั้งหมด</h5>
+                                    <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>รูป</th>
+                                                <th>รหัสรถ</th>
+                                                <th>ราคา (บาท)</th>
+                                                <th width="170px">วันที่เสนอ</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="aof in allOffer">
+                                                <td><img :src="aof.img" class="offer_thumb"></td>
+                                                <td><a :href="'/admin/detail/'+ aof.id" target="_blank">{{ aof.id }}</a></td>
+                                                <td>{{ aof.price }}</td>
+                                                <td>{{ aof.datetime }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary waves-effect waves-light" data-dismiss="modal" aria-label="Close">ปิด</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -293,14 +331,13 @@
   
     <div class="menu-overlay"></div>
 
-    <!-- jQuery  -->
     <script src="/assets/js/jquery.min.js"></script>
     <script src="/assets/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/js/metismenu.min.js"></script>
     <script src="/assets/js/waves.js"></script>
     <script src="/assets/js/simplebar.min.js"></script>
 
-    <!-- third party js -->
+
     <script src="/assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="/assets/plugins/datatables/dataTables.bootstrap4.js"></script>
     <script src="/assets/plugins/datatables/dataTables.responsive.min.js"></script>
@@ -333,12 +370,21 @@
                     group: '',
                     busi: ''
                 },
-                offered: []
+                offered: [],
+                allOffer: []
             },
             mounted (){
                 this.fetchData();
             },
             methods: {
+                offer_history(){
+                    axios.post('/admin/system/offer_history.api.php',{
+                        id: this.partner.id
+                    }).then(function (response) {
+                        partner.allOffer = response.data.offered;
+                        console.log(partner.allOffer);
+                    })
+                },
                 fetchData(){
                     axios.get('/admin/system/partner-detail.api.php?id=<?php echo $id; ?>')
                     .then(function (response) {
@@ -351,7 +397,6 @@
                         partner.edit.group = response.data.detail.group;
                         partner.edit.busi = response.data.detail.busi_match;
                         partner.offered = response.data.offered;
-                        console.log(response.data);
                     })
                 },
                 updateData(){
