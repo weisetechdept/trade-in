@@ -6,8 +6,8 @@
     if($_SESSION['tin_admin'] != true){
         $api = array('status' => 'error', 'message' => 'Permission denied');
     } else {
-
-        $member = $db->get('partner');
+        $db->join('partner_group g', 'g.pagp_id = p.part_group', 'LEFT');
+        $member = $db->get('partner p');
 
         foreach ($member as $value) {
             $api['data'][] = array(
@@ -19,7 +19,8 @@
                 $value['part_bus_id'],
                 $value['part_group'],
                 $value['part_status'],
-                date('d/m/Y H:i:s', strtotime($value['part_datetime']))
+                date('d/m/Y H:i:s', strtotime($value['part_datetime'])),
+                $value['pagp_name']
             );
         }
 

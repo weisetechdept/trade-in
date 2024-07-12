@@ -127,7 +127,6 @@
                                                 <th>บริษัท - เต้นท์</th>
                                                 <th>เบอร์ติดต่อ</th>
                                                 <th>กลุ่ม</th>
-                                                <th>แมชชิ่ง</th>
                                                 <th>สถานะ</th>
                                                 <th>วันที่สมัคร</th>
                                                 <th>จัดการ</th>
@@ -135,7 +134,6 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -252,22 +250,7 @@
                 {'data':'3'},
                 
                 {'data':'4'},
-                {'data':'6',
-                    'render': function(data){
-                        if(data == 0){
-                            return '<span class="badge badge-primary">Basic</span>';
-                        }
-                    }
-                },
-                {'data':'3',
-                    'render': function(data){
-                        if(data == 1){
-                            return '<span class="badge badge-success">แมชแล้ว</span>';
-                        }else{
-                            return '<span class="badge badge-warning">รอแมช</span>';
-                        }
-                    }
-                },
+                {'data':'9'},
                 {'data':'7',
                     'render': function(data){
                         if(data == 1){
