@@ -276,7 +276,7 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-
+                                    <p>การเสนอราคาทั้งหมด {{ allOffer.length }} ครั้ง</p>
                                     <table class="table">
                                         <thead>
                                             <tr>
