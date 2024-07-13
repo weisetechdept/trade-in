@@ -274,6 +274,11 @@
                                                         </div>
                                                     </div>
                                                     <div class="mt-3">
+                                                        <select class="form-control">
+                                                            <option value="all">พันธมิตรทั้งหมด (ไม่รวม Test)</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="mt-3">
                                                         <button class="btn btn-outline-primary" @click="sendPartner">ส่งให้พันธมิตรในระบบ</button>
                                                     </div>
                                                 </div>

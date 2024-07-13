@@ -23,7 +23,7 @@
     } else {
 
         $db->join('finance_data f','s.cast_car = f.find_id','INNER');
-        $db->where('cast_datetime',array(date('Y-m-d').' 00:00:00',date('Y-m-d').' 23:59:59'),'BETWEEN');
+        $db->where('cast_datetime',array(date('Y-m-d', strtotime(date('Y-m-d').' 00:00:00'.' -2 days')),date('Y-m-d').' 23:59:59'),'BETWEEN');
         $new = $db->where('cast_link_public',1)->where('cast_status',array(1,2),'IN')->get('car_stock s');
 
         if(count($new) == 0){

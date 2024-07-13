@@ -158,7 +158,7 @@
                                                 <td v-if="partner.status == '1'"><span class="badge badge-success">อนุมัติ</span></td>
                                                 <td v-if="partner.status == '10'"><span class="badge badge-danger">ไม่อนุมัติ</span></td>
                                             </tr>
-                                            <tr>
+                                            <tr>           
                                                 <td>วันที่สมัคร</td>
                                                 <td>
                                                     {{ partner.create_date }}

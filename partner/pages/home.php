@@ -120,7 +120,7 @@
                             <div class="card">
                                 <div class="card-body">
                     
-                                    <h4 class="card-title">มาใหม่วันนี้</h4>
+                                    <h4 class="card-title">รถยนต์มาใหม่</h4>
 
                                     <table class="table" id="datatable">
                                         <thead>
