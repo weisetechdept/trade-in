@@ -7,23 +7,22 @@
             header("location: /404");
             exit();
         }
-
+ 
         $request = json_decode(file_get_contents('php://input'));
 
         $price = $request->price;
-        $for_section = $request->for_section;
         $sales = $request->sales;
         $sales_team = $request->sales_team;
         $tel = $request->tel;
 
-        if($price == '' || $for_section == '' || $sales == '' || $sales_team == '' || $tel == ''){
+        if($price == '' || $sales == '' || $sales_team == '' || $tel == ''){
             
             $api = array('status' => '400');
 
         } else {
 
             $data = array(
-                'cast_car' => $for_section,
+                'cast_car' => '',
                 'cast_option' => '',
                 'cast_transmission' => '',
                 'cast_color' => '',
@@ -40,7 +39,6 @@
                 'cast_seller_name' => '',
                 'cast_tel' => $tel,
                 'cast_vat' => '0',
-    
                 'cast_type' => '',
                 'cast_seat' => '',
                 'cast_door' => '',
