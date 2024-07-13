@@ -125,6 +125,7 @@
                                                     <tr>
                                                         <th width="150px">แก้ใขยี่ห้อ ซีรี่ รุ่น</th>
                                                         <td>
+                                                            **ไม่จำเป็นต้องกรอกก็ได้
                                                             <select class="form-control" v-model="for_change" @change="onChange($event)">
                                                                 <option value="0">= โปรดเลือกยี่ห้อรถยนต์ =</option>
                                                                 <option v-for="brand in select" :value="brand">{{ brand }}</option>
