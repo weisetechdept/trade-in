@@ -45,7 +45,7 @@
 
                                 if(response.data.status == '200'){
 									<?php if(empty($_GET['way'])){ ?>
-										window.location.href = "/partner/home";
+										window.location.href = "/partner/car/today";
 									<?php } elseif($_GET['way'] == 'car') {?>
 										window.location.href = "/pt/stock/<?php echo $_GET['id'];?>";
 									<?php } ?>
