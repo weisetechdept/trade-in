@@ -196,40 +196,18 @@
             },
             mounted() {
                 $('#datatable').DataTable({
-                    order: [[0, 'desc']],
-                    searching: fales,
-                    "paging": false,
+                    ajax: '/partner/system/offered_ssp.api.php',
+                    processing: true,
+                    serverSide: true,
                     responsive: true,
+                    searching: false,
+                    "lengthChange": false,
+                    "bInfo" : false,
+                    order: [[ 0, "desc" ]],
                     "language": {
-                        "paginate": {
-                            "previous": "<i class='mdi mdi-chevron-left'>",
-                            "next": "<i class='mdi mdi-chevron-right'>"
-                        },
-                        "lengthMenu": "แสดง _MENU_ รายชื่อ",
-                        "zeroRecords": "ขออภัย ไม่มีข้อมูล",
-                        "info": "หน้า _PAGE_ ของ _PAGES_",
-                        "infoEmpty": "ไม่มีข้อมูล",
-                        "search": "ค้นหา:",
-                    },
-                    "drawCallback": function () {
-                        $('.dataTables_paginate > .pagination').addClass('pagination-rounded');
-                    },
-                    ajax: '/partner/system/offered.api.php',
-                    "columns" : [
-                        {'data':'3'},
-                        {'data':'1',
-                            "render": function ( data, type, full, meta ) {
-                                return '<div class="overlay-sold" style="background-image: linear-gradient(rgba(255,0,0,0), rgba(255,0,0,0)), url('+data+');"></div>';
-                            }
-                        },
-                        {'data':'2'},
-                        {'data':'0',
-                            sortable: false,
-                            "render": function ( data, type, full, meta ) {
-                                return '<a href="/pt/stock/'+data+'" class="btn btn-sm btn-outline-primary editBtn" role="button"><span class="mdi mdi-account-edit"></span> ข้อมูล</a>';
-                            }
-                        }
-                    ],
+                        "processing": "กำลังดาวน์โหลดข้อมูล..."
+                    }
+
                 });
             },
             methods: {

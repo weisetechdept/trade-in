@@ -101,12 +101,12 @@
                     <div class="row">
                         <div class="col-12 less-border">
                             <div class="page-title-box d-flex align-items-center justify-content-between">
-                                <h4 class="mb-0 font-size-18">สต๊อกรถยนต์</h4>
+                                <h4 class="mb-0 font-size-18">อัพเดท</h4>
 
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
                                         <li class="breadcrumb-item"><a href="javascript: void(0);">พันธมิตรรถยนต์</a></li>
-                                        <li class="breadcrumb-item active">สต๊อกรถยนต์</li>
+                                        <li class="breadcrumb-item active">อัพเดท</li>
                                     </ol>
                                 </div>
                                 
@@ -120,7 +120,7 @@
                             <div class="card">
                                 <div class="card-body">
                     
-                                    <h4 class="card-title">รถยนต์ทั้งหมด</h4>
+                                    <h4 class="card-title">รถยนต์มาใหม่</h4>
 
                                     <table class="table" id="datatable">
                                         <thead>
@@ -202,41 +202,18 @@
             },
             mounted() {
                 $('#datatable').DataTable({
-                    order: [[0, 'desc']],
+                    ajax: '/partner/system/car.api.php?get=<?php echo $page;?>',
+                    processing: true,
+                    serverSide: true,
                     responsive: true,
+                    searching: false,
+                    "lengthChange": false,
+                    "bInfo" : false,
+                    order: [[ 0, "desc" ]],
                     "language": {
-                        "paginate": {
-                            "previous": "<i class='mdi mdi-chevron-left'>",
-                            "next": "<i class='mdi mdi-chevron-right'>"
-                        },
-                        "lengthMenu": "แสดง _MENU_ รายชื่อ",
-                        "zeroRecords": "ขออภัย ไม่มีข้อมูล",
-                        "info": "หน้า _PAGE_ ของ _PAGES_",
-                        "infoEmpty": "ไม่มีข้อมูล",
-                        "search": "ค้นหา:",
-                    },
-                    "drawCallback": function () {
-                        $('.dataTables_paginate > .pagination').addClass('pagination-rounded');
-                    },
-                    ajax: '/partner/system/new-car.api.php?get=all',
-                    "columns" : [
-                        {'data':'3'},
-                        {'data':'1',
-                            "render": function ( data, type, full, meta ) {
-                                return '<div class="overlay-sold" style="background-image: linear-gradient(rgba(255,0,0,0), rgba(255,0,0,0)), url('+data+');"></div>';
-                            }
-                        },
-                        {'data':'2'},
-                        {'data':'6'},
-                        {'data':'5'},
-                        {'data':'4'},
-                        {'data':'0',
-                            sortable: false,
-                            "render": function ( data, type, full, meta ) {
-                                return '<a href="/pt/stock/'+data+'" class="btn btn-sm btn-outline-primary editBtn" role="button"><span class="mdi mdi-account-edit"></span> ข้อมูล</a>';
-                            }
-                        }
-                    ],
+                        "processing": "กำลังดาวน์โหลดข้อมูล..."
+                    }
+
                 });
             },
             methods: {

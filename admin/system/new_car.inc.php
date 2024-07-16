@@ -13,6 +13,7 @@
         $price = $request->price;
         $sales = $request->sales;
         $sales_team = $request->sales_team;
+        $car = $request->car;
         $tel = $request->tel;
 
         if($price == '' || $sales == '' || $sales_team == '' || $tel == ''){
@@ -22,7 +23,7 @@
         } else {
 
             $data = array(
-                'cast_car' => '',
+                'cast_car' => $car,
                 'cast_option' => '',
                 'cast_transmission' => '',
                 'cast_color' => '',

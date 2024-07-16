@@ -339,7 +339,8 @@
                                     price: this.price,
                                     sales: this.sales,
                                     sales_team: this.sales_team,
-                                    tel: this.tel
+                                    tel: this.tel,
+                                    car: this.for_section
                                     
                                 }).then(res => {
                                     this.price = '';

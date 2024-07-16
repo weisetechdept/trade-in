@@ -176,8 +176,8 @@
         require_once 'partner/pages/welcome.php';
     });
 
-    $router->get( '/partner/home', function() {
-        require_once 'partner/pages/home.php';
+    $router->get( '/partner/car/(.*)', function($page) {
+        require_once 'partner/pages/car.php';
     });
 
     $router->get( '/pt/stock/(.*)', function($id) {
