@@ -84,6 +84,12 @@
             background-size: cover;
             border-radius: 5pt;
         }
+        @media (max-width: 767.98px) {
+            li.paginate_button.previous, li.paginate_button.next {
+                font-size: 0.9rem !important;
+            }
+        }
+      
     </style>
 
 </head>

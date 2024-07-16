@@ -84,6 +84,11 @@
             background-size: cover;
             border-radius: 5pt;
         }
+        @media (max-width: 767.98px) {
+            li.paginate_button.previous, li.paginate_button.next {
+                font-size: 0.9rem !important;
+            }
+        }
     </style>
 
 </head>
@@ -206,12 +211,28 @@
                     processing: true,
                     serverSide: true,
                     responsive: true,
-                    searching: false,
-                    "lengthChange": false,
-                    "bInfo" : false,
+                    searching: <?php switch ($page) {
+                        case 'all':
+                            echo 'true';
+                            break;
+                        default:
+                            echo 'false';
+                            break;
+                    } ?>,
+                    lengthChange: <?php switch ($page) {
+                        case 'all':
+                            echo 'true';
+                            break;
+                        default:
+                            echo 'false';
+                            break;
+                    } ?>,
+                    bInfo : false,
                     order: [[ 0, "desc" ]],
-                    "language": {
-                        "processing": "กำลังดาวน์โหลดข้อมูล..."
+                    language: {
+                        "processing": "กำลังดาวน์โหลดข้อมูล...",
+                        "search": "ค้นหา:",
+                        "lengthMenu": "แสดง _MENU_ รายการ",
                     }
 
                 });

@@ -13,7 +13,7 @@
 
         function sendOffer($carid,$uid,$img,$price) {
 
-            $access_token = 'IZd/+LM0eFbZBGVq67BcM6AC8MDkZSi7/DsikGWU45/a2moikJuzGP77d8J3w1UOFcc98ku2MmnnQwnKwYOyAWvkuMScEfxrImfS5NrC+nRX/bzJNehiCX9PwezVE3St1i81+6WuMUj90anooQivAAdB04t89/1O/w1cDnyilFU=';
+            global $pt_access_token;
             $userId = $uid;
 
             $messages = array(
@@ -48,7 +48,7 @@
             ));
 
             $url = 'https://api.line.me/v2/bot/message/multicast';
-            $headers = array('Content-Type: application/json', 'Authorization: Bearer '.$access_token);
+            $headers = array('Content-Type: application/json', 'Authorization: Bearer '.$pt_access_token);
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, "https://api.line.me/v2/bot/message/multicast");
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
@@ -76,7 +76,7 @@
             ini_set('display_startup_errors', 1);
             error_reporting(E_ALL);
 
-            $sToken = "8PejR1DTTI8B8rEb8STbW2bZs8FDAtA21Ll7nBO7Hmf";
+            global $pt_Token;
             $sMessage = "[พันธมิตร] $part_name ให้ราคารหัสรถ ID : $carid ราคา $r_price บาท [ https://trade-in.toyotaparagon.com/alink?cid=$carid ]";
 
             $chOne = curl_init(); 
@@ -85,7 +85,7 @@
             curl_setopt( $chOne, CURLOPT_SSL_VERIFYPEER, 0); 
             curl_setopt( $chOne, CURLOPT_POST, 1); 
             curl_setopt( $chOne, CURLOPT_POSTFIELDS, "message=".$sMessage); 
-            $headers = array( 'Content-type: application/x-www-form-urlencoded', 'Authorization: Bearer '.$sToken.'', );
+            $headers = array( 'Content-type: application/x-www-form-urlencoded', 'Authorization: Bearer '.$pt_Token.'', );
             curl_setopt($chOne, CURLOPT_HTTPHEADER, $headers); 
             curl_setopt( $chOne, CURLOPT_RETURNTRANSFER, 1); 
             $result = curl_exec( $chOne );
