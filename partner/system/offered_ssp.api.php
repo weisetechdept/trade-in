@@ -11,7 +11,7 @@
         $primaryKey = 'off_id';
         $columns = [
             
-            ['db' => 'o.off_id', 'dt' => 0, 'field' => 'off_id'],
+            ['db' => 'o.off_parent', 'dt' => 0, 'field' => 'off_parent'],
             ['db' => 'i.cari_link', 'dt' => 1, 'field' => 'cari_link',
                 'formatter' => function($d, $row) {
                     return '<div class="overlay-sold" style="background-image: linear-gradient(rgba(255,0,0,0), rgba(255,0,0,0)), url('.$d.');"></div>';
@@ -22,7 +22,7 @@
                     return number_format($d);
                 }
             ],
-            ['db' => 'o.off_id', 'dt' => 3, 'field' => 'off_id',
+            ['db' => 'o.off_parent', 'dt' => 3, 'field' => 'off_parent',
                 'formatter' => function($d, $row) {
                     return '<a href="/pt/stock/'.base64_encode($d).'" class="btn btn-outline-primary btn-sm">ดูข้อมูล</a>';
                 }
