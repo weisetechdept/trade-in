@@ -201,7 +201,16 @@
                         "processing": "กำลังดาวน์โหลดข้อมูล...",
                         "search": "ค้นหา:",
                         "lengthMenu": "แสดง _MENU_ รายการ",
-                    }
+                    },
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'copy', 'print'
+                    ],
+                    search: {
+                        "regex": true,
+                        "smart": false,
+                        
+                    },
         });
 
     </script>

@@ -36,7 +36,7 @@
     $sql_details_1 = ['user'=> $usern,'pass'=> $passn,'db'=> $dbn,'host'=> $hostn,'charset'=>'utf8'];
     
     // Establish connection to the second server
-    $sql_details_2 = ['user' => $nms_user,'pass' => $nms_pass,'db' => $nms_db,'host' => $nms_host,'charset' => 'utf8'];
+    //$sql_details_2 = ['user' => $nms_user,'pass' => $nms_pass,'db' => $nms_db,'host' => $nms_host,'charset' => 'utf8'];
     
     require 'ssp.class.php';
 
