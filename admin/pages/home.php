@@ -1,9 +1,5 @@
 <?php
     session_start();
-    if($_SESSION['tin_admin'] != true){
-        header("location: /404");
-        exit();
-    } else {
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -100,78 +96,6 @@
                         </div>
                     </div>  
 
-                <div class="row" id="count">
-                    <div class="col-12 col-lg-3">
-                        <div class="row">
-                            <div class="col-12 mb-2">
-                                <a href="#">
-                                    <div class="card bg-secondary border-secondary">
-                                        <div class="card-body">
-                                            <div class="mb-2">
-                                                <h5 class="card-title mb-0 text-white">รถยนต์ทั้งหมด</h5>
-                                            </div>
-                                            <div class="row d-flex align-items-center mb-2">
-                                                <div class="col-8">
-                                                    <h2 class="d-flex align-items-center text-white mb-0">
-                                                        {{ count }}
-                                                    </h2>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12 col-lg-9">
-                        <div class="card">
-                            <div class="card-body">
-                                
-                                    <div class="form-row">
-                                        <div class="col-md-3 mb-1">
-                                            <label>ตั้งแต่</label>
-                                            <input type="date" class="form-control" v-model="search.start">
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <label>ถึง</label>
-                                            <input type="date" class="form-control" v-model="search.end">
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <label>สถานะ</label>
-                                            <div class="input-group">
-                                                <select class="form-control" v-model="search.status">
-                                                    <option value="all">ทุกสถานะ</option>
-                                                    <option value="0">ไม่มีสถานะ</option>
-                                                    <option value="1">ติดตามลูกค้า</option>
-                                                    <option value="2">ไม่ได้สัมผัสรถ</option>
-                                                    <option value="3">ลูกค้าขายเอง / ขายที่อื่น</option>
-                                                    <option value="4">สำเร็จ</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <label>ทีม</label>
-                                            <select class="form-control" v-model="search.team">
-                                                <option value="all">ทุกทีม</option>
-                                                <option v-for="t in team" :value="t.name">{{ t.name }}</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <button class="btn btn-primary mt-1" @click="searchData()" type="submit">ค้นหา</button>
-                                        </div>
-                                    </div>
-                          
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
@@ -180,24 +104,22 @@
                                         <thead>
                                             <tr>
                                                 <th width="45px">รหัส</th>
-                                                <th width="65px">รูปภาพ</th>
-                                                <th width="35px">รูป</th>
-                                                <th width="35px">ทีม</th>
+                                                <th>รูป</th>
                                                 <th>เซลล์</th>
-                                                
-                                               
+                                                <th>ทีม</th>
+                                                <th>รถยนต์</th>
                                                 <th>ปี</th>
                                                 <th>ทะเบียน</th>
-                                                <th>รถยนต์</th>
                                                 <th>สี</th>
                                                 <th>ราคาที่รับได้</th>
                                                 <th>สถานะ</th>
-                                                <th>วันที่ส่ง</th>
+                                                <th>วันที่สร้าง</th>
                                                 <th>จัดการ</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
+                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -245,14 +167,11 @@
   
     <div class="menu-overlay"></div>
 
-    <!-- jQuery  -->
     <script src="/assets/js/jquery.min.js"></script>
     <script src="/assets/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/js/metismenu.min.js"></script>
     <script src="/assets/js/waves.js"></script>
-    <script src="/assets/js/simplebar.min.js"></script>
 
-    <!-- third party js -->
     <script src="/assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="/assets/plugins/datatables/dataTables.bootstrap4.js"></script>
     <script src="/assets/plugins/datatables/dataTables.responsive.min.js"></script>
@@ -269,120 +188,26 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.1/axios.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-    <!-- third party js ends -->
 
-    <!-- Datatables init -->
     <script>
         $('#datatable').DataTable({
-            order: [[ 0, "desc" ]],
-            responsive: true,
-            dom: 'Blfrtip',
-            buttons: [
-                'copy', 'print'
-            ],
-            "language": {
-                "paginate": {
-                    "previous": "<i class='mdi mdi-chevron-left'>",
-                    "next": "<i class='mdi mdi-chevron-right'>"
-                },
-                "lengthMenu": "แสดง _MENU_ รายชื่อ",
-                "zeroRecords": "ขออภัย ไม่มีข้อมูล",
-                "info": "หน้า _PAGE_ ของ _PAGES_",
-                "infoEmpty": "ไม่มีข้อมูล",
-                "search": "ค้นหา:",
-            },
-            "drawCallback": function () {
-                $('.dataTables_paginate > .pagination').addClass('pagination-rounded');
-            },
-            ajax: '/admin/system/home.api.php?get=list',
-            "columns" : [
-                {'data':'0'},
-                {'data':'8',
-                    "render": function ( data, type, full, meta ) {
-                        return '<img src="'+ data +'" class="car-thumb">';
+            ajax: '/admin/system/home-copy.api.php',
+                    processing: true,
+                    serverSide: true,
+                    responsive: true,
+                    bInfo : false,
+                    order: [[ 0, "desc" ]],
+                    language: {
+                        "processing": "กำลังดาวน์โหลดข้อมูล...",
+                        "search": "ค้นหา:",
+                        "lengthMenu": "แสดง _MENU_ รายการ",
                     }
-                },
-                {'data':'11'},
-                {'data':'10'},
-                {'data':'5'},
-                {'data':'9'},
-                {'data':'1'},
-                {'data':'2'},
-                {'data':'3'},
-                {'data':'4'},
-                { 
-                    'data': '6',
-                    sortable: false,
-                    "render": function ( data, type, full, meta ) {
-                        if(data == '0'){
-                            return '<span class="badge badge-soft-unknow">ไม่มีสถานะ</span>';
-                        } else if(data == '1'){
-                            return '<span class="badge badge-soft-primary">ติดตามลูกค้า</span>';
-                        } else if(data == '2') {
-                            return '<span class="badge badge-soft-warning">ไม่ได้สัมผัสรถ</span>';
-                        } else if(data == '3') {
-                            return '<span class="badge badge-soft-danger">ลูกค้าขายเอง / ขายที่อื่น</span>';
-                        } else if(data == '4') {
-                            return '<span class="badge badge-soft-success">สำเร็จ</span>';
-                        } 
-                    }
-                },
-                {'data':'7'},
-                { 
-                    'data': '0',
-                    sortable: false,
-                    "render": function ( data, type, full, meta ) {
-                        return '<a href="/admin/detail/'+data+'" class="btn btn-sm btn-outline-primary editBtn" role="button"><span class="mdi mdi-account-edit"></span> ดูข้อมูล</a>';
-                    }
-                }
-            ],
-        });
-
-        var count = new Vue({
-            el: '#count',
-            data: {
-                count: 0,
-                search: {
-                    start: '<?php echo date('Y-m-01'); ?>',
-                    end: '<?php echo date('Y-m-d'); ?>',
-                    status: 'all',
-                    team: 'all'
-                },
-                team: []
-            },
-            mounted() {
-                axios.get('/admin/system/home.api.php?get=count')
-                    .then(response => (
-                        this.count = response.data.count,
-                        this.team = response.data.team
-                    ));
-            },
-            methods: {
-                searchData() {
-                    swal({
-                        title: "กำลังโหลดข้อมูล",
-                        text: "โปรดรอสักครู่...",
-                        icon: "info",
-                        buttons: false,
-                        closeOnClickOutside: false,
-                        closeOnEsc: false
-                    });
-
-                    $('#datatable').DataTable().ajax.url('/admin/system/home.api.php?get=search&start='+this.search.start+'&end='+this.search.end+'&status='+this.search.status+'&team='+this.search.team).load(function() {
-                        swal.close();
-                    });
-                    this.count = 'N/A';
-
-                }
-            }
         });
 
     </script>
-
-    <!-- App js -->
+    
     <script src="/assets/js/theme.js"></script>
 
 </body>
 
 </html>
-<?php } ?>

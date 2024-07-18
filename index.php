@@ -103,6 +103,10 @@
         require_once 'admin/line_login.php';
     });
 
+    $router->get( '/admin/home-report', function() {
+        require_once 'admin/pages/report-home.php';
+    });
+
 
     /* sales */
 

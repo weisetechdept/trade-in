@@ -32,6 +32,7 @@
                         <li><a href="/admin/g-report">รายงานทั่วไป</a></li>
                         <li><a href="/admin/team-report">รายงานทีมขาย</a></li>
                         <li><a href="/admin/qm-report">รายงานเปรียบเทียบ</a></li>
+                        <li><a href="/admin/home-report">รายงานหน้าแรก (รวมรถ)</a></li>
                     </ul>
                 </li>
                 <li><a href="/admin/member" class=" waves-effect"><i class="feather-user"></i><span>จัดการสมาชิก</span></a></li>
