@@ -23,10 +23,8 @@
     <meta content="A77" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <!-- App favicon -->
     <link rel="shortcut icon" href="/assets/images/favicon.ico">
 
-    <!-- Plugins css -->
     <link href="/assets/plugins/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
     <link href="/assets/plugins/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
     <link href="/assets/plugins/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
@@ -34,7 +32,6 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@100;200;300;400;500;600;700;800&family=Kanit:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- App css -->
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/theme.min.css" rel="stylesheet" type="text/css" />
@@ -67,6 +64,9 @@
             object-fit: cover;
             border-radius: 5px;
         }
+        .t-center {
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -80,41 +80,52 @@
 
             <div class="page-content">
                 <div class="container-fluid">
-                    
-
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box d-flex align-items-center justify-content-between">
-                                <h4 class="mb-0 font-size-18">รถยนต์ลูกทีมทั้งหมด</h4>
+                                <h4 class="mb-0 font-size-18">ติดตามงาน</h4>
 
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
                                         <li class="breadcrumb-item"><a href="javascript: void(0);">Trade-in</a></li>
-                                        <li class="breadcrumb-item active">รถยนต์</li>
+                                        <li class="breadcrumb-item active">ติดตามงาน</li>
                                     </ol>
                                 </div>
                                 
                             </div>
                         </div>
                     </div>   
-                    
 
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-12 col-md-4">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">ตารางรถยนต์</h4>
+                                    <p>
+                                    รอ = รอเซลล์แจ้งสถานะลูกค้า <br>
+                                    จบ = ลูกค้าขายให้พ่อสื่อ <br>
+                                    ไม่จบ = ลูกค้าไม่ขาย หรือขายที่อื่น
+                                    </p>
                                     <table id="datatable" class="table dt-responsive nowrap">
                                         <thead>
                                             <tr>
                                                 <th>เซลล์</th>
-                                                <th>ลูกค้า</th>
+                                                <th class="t-center">รอ</th>
+                                                <th class="t-center">จบ</th>
+                                                <th class="t-center">ไม่จบ</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr v-for="d in data">
                                                 <td>{{ d.name }}</td>
-                                                <td>{{ d.customer }}</td>
+                                                <td class="t-center">{{ d.wait }}</td>
+                                                <td class="t-center">{{ d.sold }}</td>
+                                                <td class="t-center">{{ d.cancel }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>รวม</th>
+                                                <th class="t-center">{{ data.reduce((a, b) => a + b.wait, 0) }}</th>
+                                                <th class="t-center">{{ data.reduce((a, b) => a + b.sold, 0) }}</th>
+                                                <th class="t-center">{{ data.reduce((a, b) => a + b.cancel, 0) }}</th>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -143,22 +154,17 @@
             </footer>
 
         </div>
-      
 
     </div>
- 
-
   
     <div class="menu-overlay"></div>
 
-    <!-- jQuery  -->
     <script src="/assets/js/jquery.min.js"></script>
     <script src="/assets/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/js/metismenu.min.js"></script>
     <script src="/assets/js/waves.js"></script>
     <script src="/assets/js/simplebar.min.js"></script>
 
-    <!-- third party js -->
     <script src="/assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="/assets/plugins/datatables/dataTables.bootstrap4.js"></script>
     <script src="/assets/plugins/datatables/dataTables.responsive.min.js"></script>
@@ -175,9 +181,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.1/axios.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-    <!-- third party js ends -->
 
-    <!-- Datatables init -->
     <script>
         var App = new Vue({
             el: '#datatable',
@@ -196,11 +200,8 @@
                 }
             }
         })
-
     </script>
-
     <script src="/assets/js/theme.js"></script>
-
 </body>
 
 </html>

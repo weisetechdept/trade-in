@@ -24,10 +24,9 @@
         }
         return array_unique($team);
     }
-
-    
     
         $db->join('car_stock c', "f.find_id=c.cast_car", "RIGHT");
+        $db->where('c.cast_datetime', Array('2024-01-01', date('Y-m').'-31'), 'BETWEEN');
         $stock = $db->where('c.cast_sales_parent_no',mgr($user_id),'IN')->get("finance_data f", null ,"c.cast_id,c.cast_license,f.find_brand,f.find_serie,f.find_section,c.cast_color,c.cast_price,c.cast_sales_parent,c.cast_sales_team,c.cast_status,cast_sales_parent_no");
         
         $count = array();
@@ -40,6 +39,13 @@
         $api = array();
 
         if(!empty($stock)){
+
+            foreach ($count as $key => $value) {
+                $wait[$key] = 0;
+                $sold[$key] = 0;
+                $cancel[$key] = 0;
+            }
+            
             foreach ($stock as $value) {
                 
                 $sales = $db_nms->where('id',$value['cast_sales_parent_no'])->getOne('db_member');
@@ -53,10 +59,26 @@
                     $sales['first_name']
                 );
 */
-                $count[$sales['first_name']]++;
+                if($value['cast_status'] == '0' || $value['cast_status'] == '1' || $value['cast_status'] == '2' ){
+                    $wait[$sales['first_name']]++;
+                }
+
+                if($value['cast_status'] == '4'){
+                    $sold[$sales['first_name']]++;
+                }
+
+                if($value['cast_status'] == '3'){
+                    $cancel[$sales['first_name']]++;
+                }
+                
             }
-            foreach ($count as $key => $value) {
-                $api['team'][] = array('name'=> $key, 'customer' => $value);
+            
+            $all_wait = 0;
+            $all_sold = 0;
+            $all_cancel = 0;
+
+            foreach ($wait as $key => $value) {
+                $api['team'][] = array('name'=> $key, 'wait' => $value, 'sold' => $sold[$key], 'cancel' => $cancel[$key]);
             }
         } else {
             $api['team'] = '';

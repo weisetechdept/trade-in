@@ -368,7 +368,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-6" id="car_img">
+                            <div class="col-12 col-md-6" id="car_img">
                                 <div>
                                     <div class="row" v-for="docs in img">
                                         <div class="col-12">
