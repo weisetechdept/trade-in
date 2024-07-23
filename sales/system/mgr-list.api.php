@@ -26,6 +26,7 @@
     }
 
     if($_GET['get'] == 'count'){
+        
         $countAll = $db->where('cast_sales_parent_no',mgr($user_id),'IN')->getValue("car_stock","count(*)");
         $countChk = $db->where('cast_sales_parent_no',mgr($user_id),'IN')->where('cast_status',0)->getValue("car_stock","count(*)");
         $countCar = $db->where('cast_sales_parent_no',mgr($user_id),'IN')->where('cast_status',1)->getValue("car_stock","count(*)");
@@ -73,10 +74,5 @@
         } else {
             $api['data'] = '';
         }
-    
-
-    
-
-    
 
     print_r(json_encode($api));

@@ -123,7 +123,7 @@
 
             $data = array(
                 'off_price' => $price,
-                'off_vender' => $partner.'-'.$_SESSION['adname_name'],
+                'off_vender' => $partner.' - '.$_SESSION['adname_name'],
                 'off_parent' => $id,
                 'off_datetime' => date('Y-m-d H:i:s')
             );
