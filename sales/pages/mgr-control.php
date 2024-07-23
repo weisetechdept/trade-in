@@ -96,16 +96,39 @@
                         </div>
                     </div>   
 
-                    <div class="row">
+                    <div class="row" id="appData">
                         <div class="col-12 col-md-4">
                             <div class="card">
                                 <div class="card-body">
+                                    <div class="row mb-2">
+                                        <div class="col-8">
+                                            <select class="form-control" @change="searchData" v-model="search.month">
+                                                <option value="01">มกราคม</option>
+                                                <option value="02">กุมภาพันธ์</option>
+                                                <option value="03">มีนาคม</option>
+                                                <option value="04">เมษายน</option>
+                                                <option value="05">พฤษภาคม</option>
+                                                <option value="06">มิถุนายน</option>
+                                                <option value="07">กรกฎาคม</option>
+                                                <option value="08">สิงหาคม</option>
+                                                <option value="09">กันยายน</option>
+                                                <option value="10">ตุลาคม</option>
+                                                <option value="11">พฤศจิกายน</option>
+                                                <option value="12">ธันวาคม</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="d-flex align-items-center" style="height: 100%;">
+                                                ปี {{ search.year }}
+                                            </div>
+                                        </div> 
+                                    </div>
                                     <p>
                                     รอ = รอเซลล์แจ้งสถานะลูกค้า <br>
                                     จบ = ลูกค้าขายให้พ่อสื่อ <br>
                                     ไม่จบ = ลูกค้าไม่ขาย หรือขายที่อื่น
                                     </p>
-                                    <table id="datatable" class="table dt-responsive nowrap">
+                                    <table class="table dt-responsive nowrap">
                                         <thead>
                                             <tr>
                                                 <th>เซลล์</th>
@@ -117,9 +140,9 @@
                                         <tbody>
                                             <tr v-for="d in data">
                                                 <td>{{ d.name }}</td>
-                                                <td class="t-center">{{ d.wait }}</td>
-                                                <td class="t-center">{{ d.sold }}</td>
-                                                <td class="t-center">{{ d.cancel }}</td>
+                                                <td class="t-center"><a :href="'/mgr/follow/wait/' + d.id">{{ d.wait }}</a></td>
+                                                <td class="t-center"><a :href="'/mgr/follow/sold/' + d.id">{{ d.sold }}</a></td>
+                                                <td class="t-center"><a :href="'/mgr/follow/cancel/' + d.id">{{ d.cancel }}</a></td>
                                             </tr>
                                             <tr>
                                                 <th>รวม</th>
@@ -183,20 +206,27 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
     <script>
-        var App = new Vue({
-            el: '#datatable',
+        var appData = new Vue({
+            el: '#appData',
             data: {
-                data: []
+                data: [],
+                search: {
+                    month: '<?php echo date('m'); ?>',
+                    year: '<?php echo date('Y'); ?>'
+                },
             },
             mounted() {
                 this.getData()
             },
             methods: {
                 getData() {
-                    axios.get('/sales/system/mgr-list-report.api.php')
+                    axios.get('/sales/system/mgr-list-report.api.php?month=' + this.search.month + '&year=' + this.search.year)
                     .then(response => {
                         this.data = response.data.team
                     })
+                },
+                searchData() {
+                    this.getData()
                 }
             }
         })
