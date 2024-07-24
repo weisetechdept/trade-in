@@ -251,7 +251,7 @@
                 
                 {'data':'4',
                     'render': function(data){
-                        return '<a href="tel:'+data+'" class="btn btn-outline-info btn-sm"><span class="mdi mdi-phone"></span></a>';
+                        return data +' <a href="tel:'+data+'" class="btn btn-outline-info btn-sm"><span class="mdi mdi-phone"></span></a>';
                     }
                 },
                 {'data':'9'},
