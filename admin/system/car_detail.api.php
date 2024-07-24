@@ -137,8 +137,10 @@
             $partner = $db->where('part_id',$o['off_vender'])->getOne('partner');
             if(!empty($partner)){
                 $pt_name = $partner['part_fname'].' - '.$partner['part_bus_name'];
+                $pt_tel = $partner['part_tel'];
             } else {
                 $pt_name = $o['off_vender'];
+                $pt_tel = '';
             }
 
             $newDate = date("d M y, H:i", strtotime($o['off_datetime']));
@@ -146,7 +148,7 @@
             $api['offer'][] = array(
                 'price' => number_format($o['off_price']),
                 'partner' => $pt_name,
-                'tel' => $o['off_tel'],
+                'tel' => $pt_tel,
                 'datetime' => $newDate
             );
         }
