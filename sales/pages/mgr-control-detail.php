@@ -62,8 +62,8 @@
             margin-bottom: 10px;
         }
         .car-thumb {
-            width: 130px;
-            height: 100px;
+            width: 85px;
+            height: 60px;
             object-fit: cover;
             border-radius: 5px;
         }
@@ -84,7 +84,7 @@
 
                     <div class="row">
                         <div class="col-12">
-                            <div class="page-title-box d-flex align-items-center justify-content-between">
+                            <div class="page-title-box d-flex align-items-center justify-content-between pb-3">
                                 <h4 class="mb-0 font-size-18">เซลล์</h4>
 
                                 <div class="page-title-right">
@@ -95,10 +95,26 @@
                                 </div>
                                 
                             </div>
+
+                            <?php if($status == 'wait'){?>
+                                <div class="alert alert-warning" role="alert">
+                                    รอเซลล์แจ้งสถานะลูกค้า
+                                </div>
+                            <?php } elseif($status == 'sold'){?>
+                                <div class="alert alert-success" role="alert">
+                                    ลูกค้าขายให้พ่อสื่อ
+                                </div>
+                            <?php } elseif($status == 'cancel'){?>
+                                <div class="alert alert-danger" role="alert">
+                                    ลูกค้าไม่ขาย หรือขายที่อื่น
+                                </div>
+                            <?php } ?>
+
+
                         </div>
                     </div>   
 
-                    <div class="row">
+                    <div class="row" id="App">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
@@ -107,21 +123,14 @@
                                     <table id="datatable" class="table dt-responsive nowrap">
                                         <thead>
                                             <tr>
-                                                <th>รหัส</th>
-                                                <th>รูปรถยนต์</th>
-                                                <th>สถานะ</th>
-                                                <th>รถยนต์</th>
-                                                <th>สี</th>
-                                                <th>ราคา</th>
-                                                <th>เซลล์</th>
+                                                <th>รหัส ID</th>
+                                                <th>รูป</th>
+                                                <th>รุ่น</th>
                                                 <th>จัดการ</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -186,63 +195,50 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.1/axios.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-    <!-- third party js ends -->
 
-    <!-- Datatables init -->
     <script>
-        $('#datatable').DataTable({
-            "order": [[ 0, "desc" ]],
-            "language": {
-                "paginate": {
-                    "previous": "<i class='mdi mdi-chevron-left'>",
-                    "next": "<i class='mdi mdi-chevron-right'>"
-                },
-                "lengthMenu": "แสดง _MENU_ รายชื่อ",
-                "zeroRecords": "ขออภัย ไม่มีข้อมูล",
-                "info": "หน้า _PAGE_ ของ _PAGES_",
-                "infoEmpty": "ไม่มีข้อมูล",
-                "search": "ค้นหา:",
+        var App = new Vue({
+            el: '#App',
+            data: {
+                sales: ''
             },
-            "drawCallback": function () {
-                $('.dataTables_paginate > .pagination').addClass('pagination-rounded');
-            },
-            ajax: '/sales/system/mgr-control-detail.api.php?sales=<?php echo $sales; ?>&month=<?php echo $month; ?>&year=<?php echo $year; ?>&id=<?php echo $id; ?>',
-            "columns" : [
-                {'data':'0'},
-                {'data':'5',
-                    "render": function ( data, type, full, meta ) {
-                        return '<img src="'+ data +'" class="car-thumb">';
-                    }
-                },
-                { 
-                    'data': '1',
-                    sortable: false,
-                    "render": function ( data, type, full, meta ) {
-                        if(data == '0'){
-                            return '<span class="badge badge-soft-warning">ตรวจสอบข้อมูล</span>';
-                        } else if(data == '1'){
-                            return '<span class="badge badge-soft-info">ดูรถแล้ว</span>';
-                        } else if(data == '2') {
-                            return '<span class="badge badge-soft-primary">ติดตามลูกค้า</span>';
-                        } else if(data == '3') {
-                            return '<span class="badge badge-soft-danger">ไม่ขาย/ขายที่อื่น</span>';
-                        } else if(data == '4') {
-                            return '<span class="badge badge-soft-success">ซื้อขายสำเร็จ</span>';
-                        } 
-                    }
-                },
-                {'data':'2'},
-                {'data':'3'},
-                {'data':'4'},
-                {'data':'6'},
-                { 
-                    'data': '0',
-                    sortable: false,
-                    "render": function ( data, type, full, meta ) {
-                        return '<a href="/sales/de/mgr/'+data+'" class="btn btn-sm btn-outline-primary editBtn" role="button"><span class="mdi mdi-account-edit"></span> แก้ใข</a>';
-                    }
-                }
-            ]
+            mounted() {
+                $('#datatable').DataTable({
+                    "order": [[ 0, "desc" ]],
+                    "language": {
+                        "paginate": {
+                            "previous": "<i class='mdi mdi-chevron-left'>",
+                            "next": "<i class='mdi mdi-chevron-right'>"
+                        },
+                        "lengthMenu": "แสดง _MENU_ รายชื่อ",
+                        "zeroRecords": "ขออภัย ไม่มีข้อมูล",
+                        "info": "หน้า _PAGE_ ของ _PAGES_",
+                        "infoEmpty": "ไม่มีข้อมูล",
+                        "search": "ค้นหา:",
+                    },
+                    "drawCallback": function () {
+                        $('.dataTables_paginate > .pagination').addClass('pagination-rounded');
+                    },
+                    ajax: '/sales/system/mgr-control-detail.api.php?sales=<?php echo $id; ?>&year=<?php echo $year; ?>&month=<?php echo $month; ?>&status=<?php echo $status; ?>',
+                    "columns" : [
+                        {'data':'0'},
+                        {'data':'1',
+                            "render": function(data, type, row, meta){
+                                return '<img src="'+data+'" class="car-thumb">';
+                            }
+                        
+                        },
+                        {'data':'2'},
+                        {'data':'0',
+                            "render": function(data, type, row, meta){
+                                return '<a href="/sales/de/mgr/'+data+'" class="btn btn-outline-primary btn-sm">ดูข้อมูล</a>';
+                            }
+                        
+                        }
+                    ]
+                });
+                
+            }
         });
 
     </script>

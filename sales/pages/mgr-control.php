@@ -141,8 +141,8 @@
                                             <tr v-for="d in data">
                                                 <td>{{ d.name }}</td>
                                                 <td class="t-center"><a :href="'/mgr/follow/wait/' + d.id +'/'+ search.month +'/'+ search.year">{{ d.wait }}</a></td>
-                                                <td class="t-center"><a :href="'/mgr/follow/sold/' + d.id">{{ d.sold }}</a></td>
-                                                <td class="t-center"><a :href="'/mgr/follow/cancel/' + d.id">{{ d.cancel }}</a></td>
+                                                <td class="t-center"><a :href="'/mgr/follow/sold/' + d.id +'/'+ search.month +'/'+ search.year">{{ d.sold }}</a></td>
+                                                <td class="t-center"><a :href="'/mgr/follow/cancel/' + d.id +'/'+ search.month +'/'+ search.year">{{ d.cancel }}</a></td>
                                             </tr>
                                             <tr>
                                                 <th>รวม</th>
