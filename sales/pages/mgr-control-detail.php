@@ -1,16 +1,23 @@
 <?php
     session_start();
+    /*
     if($_SESSION['tin_admin'] != true){
         header("location: /404");
         exit();
-    } else {
+    }
+    */
+    if($_SESSION['tin_login'] != true){
+        header("location: /404");
+        exit();
+    } else { 
+    $get = $_GET['get'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8" />
-    <title>Trade-In Partner List</title>
+    <title>Trade-In Team List</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta content="A77" name="description" />
     <meta content="A77" name="author" />
@@ -40,7 +47,7 @@
             font-weight: 400;
         }
         .page-content {
-            padding: calc(70px + 24px) calc(5px / 2) 70px calc(5px / 2);
+            padding: calc(15px + 24px) calc(5px / 2) 70px calc(5px / 2);
         }
         .table {
             width: 100% !important;
@@ -54,21 +61,11 @@
         .card {
             margin-bottom: 10px;
         }
-        .btn-group, .btn-group-vertical {
-            margin-bottom: 15px;
-        }
-        .search-btn {
-            margin-top: 27px;
-        }
         .car-thumb {
-            width: 85px;
-            height: 60px;
+            width: 130px;
+            height: 100px;
             object-fit: cover;
             border-radius: 5px;
-        }
-        .avatar {
-            width: 35px;
-            border-radius: 50%;
         }
     </style>
 </head>
@@ -83,59 +80,45 @@
 
             <div class="page-content">
                 <div class="container-fluid">
+                    
 
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box d-flex align-items-center justify-content-between">
-                                <h4 class="mb-0 font-size-18">จัดการสมาชิก (พันธมิตร)</h4>
+                                <h4 class="mb-0 font-size-18">เซลล์</h4>
 
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
                                         <li class="breadcrumb-item"><a href="javascript: void(0);">Trade-in</a></li>
-                                        <li class="breadcrumb-item active">สมาชิก</li>
+                                        <li class="breadcrumb-item active">รถยนต์</li>
                                     </ol>
                                 </div>
                                 
                             </div>
                         </div>
-                    </div>  
-
-                    <div class="row" id="partner">
-                        <div class="col-12 col-md-3 col-lg-3 mb-1">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <input type="text" value="https://<?php echo $_SERVER['HTTP_HOST']; ?>/partner/register" id="myInput" class="form-control">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-dark waves-effect waves-light" @click="copyLink" type="button">ลิ้งเพิ่มพันธมิตร</button> 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </div>   
 
                     <div class="row">
-                        <div class="col-12 col-lg-8">
+                        <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    
+                                    <h4 class="card-title">ตารางรถยนต์</h4>
+
                                     <table id="datatable" class="table dt-responsive nowrap">
                                         <thead>
                                             <tr>
-                                                <th width="35px">รหัส</th>
-                                                <th width="45px">รูป</th>
-                                                <th width="150px">ชื่อ - นามสกุล</th>
-                                                <th>บริษัท - เต้นท์</th>
-                                                <th>เบอร์ติดต่อ</th>
-                                                <th>กลุ่ม</th>
+                                                <th>รหัส</th>
+                                                <th>รูปรถยนต์</th>
                                                 <th>สถานะ</th>
-                                                <th>วันที่สมัคร</th>
+                                                <th>รถยนต์</th>
+                                                <th>สี</th>
+                                                <th>ราคา</th>
+                                                <th>เซลล์</th>
                                                 <th>จัดการ</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td></td>
-                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -207,23 +190,8 @@
 
     <!-- Datatables init -->
     <script>
-        var partner = new Vue({
-            el: '#partner',
-            data: {
-            },
-            methods: {
-                copyLink() {
-                    var copyText = document.getElementById("myInput");
-                    copyText.select();
-                    copyText.setSelectionRange(0, 99999);
-                    navigator.clipboard.writeText(copyText.value);
-                    alert("คัดลอกลิ้ง : " + copyText.value);
-                }
-            }
-        });
-
         $('#datatable').DataTable({
-            responsive: true,
+            "order": [[ 0, "desc" ]],
             "language": {
                 "paginate": {
                     "previous": "<i class='mdi mdi-chevron-left'>",
@@ -238,44 +206,45 @@
             "drawCallback": function () {
                 $('.dataTables_paginate > .pagination').addClass('pagination-rounded');
             },
-            ajax: '/admin/system/partner.api.php',
+            ajax: '/sales/system/mgr-control-detail.api.php?sales=<?php echo $sales; ?>&month=<?php echo $month; ?>&year=<?php echo $year; ?>&id=<?php echo $id; ?>',
             "columns" : [
                 {'data':'0'},
-                {'data':'1',
-                    'render': function(data){
-                        return '<img src="'+data+'" class="avatar">';
+                {'data':'5',
+                    "render": function ( data, type, full, meta ) {
+                        return '<img src="'+ data +'" class="car-thumb">';
+                    }
+                },
+                { 
+                    'data': '1',
+                    sortable: false,
+                    "render": function ( data, type, full, meta ) {
+                        if(data == '0'){
+                            return '<span class="badge badge-soft-warning">ตรวจสอบข้อมูล</span>';
+                        } else if(data == '1'){
+                            return '<span class="badge badge-soft-info">ดูรถแล้ว</span>';
+                        } else if(data == '2') {
+                            return '<span class="badge badge-soft-primary">ติดตามลูกค้า</span>';
+                        } else if(data == '3') {
+                            return '<span class="badge badge-soft-danger">ไม่ขาย/ขายที่อื่น</span>';
+                        } else if(data == '4') {
+                            return '<span class="badge badge-soft-success">ซื้อขายสำเร็จ</span>';
+                        } 
                     }
                 },
                 {'data':'2'},
                 {'data':'3'},
-                
-                {'data':'4',
-                    'render': function(data){
-                        return '<a href="tel:'+data+'" class="btn btn-outline-info btn-sm"><span class="mdi mdi-phone"></span></a>';
+                {'data':'4'},
+                {'data':'6'},
+                { 
+                    'data': '0',
+                    sortable: false,
+                    "render": function ( data, type, full, meta ) {
+                        return '<a href="/sales/de/mgr/'+data+'" class="btn btn-sm btn-outline-primary editBtn" role="button"><span class="mdi mdi-account-edit"></span> แก้ใข</a>';
                     }
-                },
-                {'data':'9'},
-                {'data':'7',
-                    'render': function(data){
-                        if(data == 1){
-                            return '<span class="badge badge-success">ใช้งาน</span>';
-                        }else if(data == 10){
-                            return '<span class="badge badge-danger">ระงับ</span>';
-                        }else if(data == 0){
-                            return '<span class="badge badge-warning">รออนุมัติ</span>';
-                        
-                        }
-                    }
-                },
-                {'data':'8'},
-                {'data':'0',
-                    'render': function(data){
-                        return '<a href="/admin/pt/detail/'+data+'" class="btn btn-outline-info btn-sm">ดูข้อมูล</a>';
-                    }
-                },
-            ],
+                }
+            ]
         });
-        
+
     </script>
 
     <!-- App js -->

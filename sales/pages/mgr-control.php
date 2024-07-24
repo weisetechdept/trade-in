@@ -140,7 +140,7 @@
                                         <tbody>
                                             <tr v-for="d in data">
                                                 <td>{{ d.name }}</td>
-                                                <td class="t-center"><a :href="'/mgr/follow/wait/' + d.id">{{ d.wait }}</a></td>
+                                                <td class="t-center"><a :href="'/mgr/follow/wait/' + d.id +'/'+ search.month +'/'+ search.year">{{ d.wait }}</a></td>
                                                 <td class="t-center"><a :href="'/mgr/follow/sold/' + d.id">{{ d.sold }}</a></td>
                                                 <td class="t-center"><a :href="'/mgr/follow/cancel/' + d.id">{{ d.cancel }}</a></td>
                                             </tr>
@@ -212,7 +212,7 @@
                 data: [],
                 search: {
                     month: '<?php echo date('m'); ?>',
-                    year: '<?php echo date('Y'); ?>'
+                    year: '<?php echo date('Y'); ?>',
                 },
             },
             mounted() {

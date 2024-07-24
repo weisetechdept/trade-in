@@ -164,6 +164,10 @@
         require_once 'sales/pages/car_mgr_detail.php';
     });
 
+    $router->get( '/mgr/follow/(.*)/(\d+)/(\d+)/(\d+)', function($status, $id, $month, $year) {
+        require_once 'sales/pages/mgr-control-detail.php';
+    });
+
     /* public */
 
     $router->get( '/stock/(.*)', function($id) {

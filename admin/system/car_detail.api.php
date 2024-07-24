@@ -146,6 +146,7 @@
             $api['offer'][] = array(
                 'price' => number_format($o['off_price']),
                 'partner' => $pt_name,
+                'tel' => $o['off_tel'],
                 'datetime' => $newDate
             );
         }

@@ -214,7 +214,7 @@
                                                 <tbody>
                                                     <tr v-for="offer in offer.display">
                                                         <td>{{ offer.price }}</td>
-                                                        <th>{{ offer.partner }}</th>
+                                                        <th>{{ offer.partner }} <a :href="offer.tel" class="btn btn-success"><span class="mdi mdi-phone"></span></a></th>
                                                         <td>{{ offer.datetime }}</td>
                                                     </tr>
                                                 </tbody>
