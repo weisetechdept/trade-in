@@ -99,6 +99,9 @@
             .t-imp {
                 background-color: #f1f1f1;
             }
+            .tel-btn {
+                color:#fff;
+            }
         </style>
     </head>
 
@@ -214,7 +217,7 @@
                                                 <tbody>
                                                     <tr v-for="offer in offer.display">
                                                         <td>{{ offer.price }}</td>
-                                                        <th>{{ offer.partner }} <a :href="offer.tel" class="btn btn-success"><span class="mdi mdi-phone"></span></a></th>
+                                                        <th>{{ offer.partner }} <a :href="offer.tel" class="btn btn-sm btn-success tel-btn"><span class="mdi mdi-phone"></span></a></th>
                                                         <td>{{ offer.datetime }}</td>
                                                     </tr>
                                                 </tbody>
@@ -785,6 +788,8 @@
                                 this.pv = response.data.car.pv;
                                 this.fin = response.data.car.fin;
                                 this.ready = response.data.car.ready;
+
+                                console.log(this.offer.display);
                              
                             }),
                             this.calDownpayment();
