@@ -110,7 +110,7 @@
     $joinQuery = "FROM car_stock s";
     $joinQuery .= " JOIN finance_data f ON s.cast_car = f.find_id";
 
-    $joinQuery .= " AND s.cast_status IN ('1','2','3','4')";
+    $joinQuery .= " AND s.cast_status IN ('0','1','2','3','4')";
    
     
     echo json_encode(
