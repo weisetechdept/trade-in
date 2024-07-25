@@ -19,7 +19,6 @@
         $team = $db_nms->get('db_user_group', null, 'name,detail,leader');
         foreach($team as $t){
             $tm = array_merge(json_decode($t['detail']),json_decode($t['leader']));
-            //$team_data = json_decode($t['detail']);
             if(in_array($uid,$tm)){
                 return $t['name'];
             } 
@@ -31,12 +30,14 @@
         $sale = $db_nms->where('id', $uid)->getOne('db_member', null,'first_name');
         return $sale['first_name'];
     }
+
+    function thumb($uid){
+        global $db;
+        $thumb = $db->where('cari_parent', $uid)->getOne('car_image', null,'cari_link');
+        return "<img src=\"" . $thumb['cari_link'] . "\" class=\"car-thumb\">";
+    }
     
-    // Establish connection to the first server
     $sql_details_1 = ['user'=> $usern,'pass'=> $passn,'db'=> $dbn,'host'=> $hostn,'charset'=>'utf8'];
-    
-    // Establish connection to the second server
-    //$sql_details_2 = ['user' => $nms_user,'pass' => $nms_pass,'db' => $nms_db,'host' => $nms_host,'charset' => 'utf8'];
     
     require 'ssp.class.php';
 
@@ -45,9 +46,9 @@
     $primaryKey = 'cast_id';
     $columns = [
         ['db' => 'cast_id', 'dt' => 0, 'field' => 'cast_id'],
-        ['db' => 'cari_link', 'dt' => 1, 'field' => 'cari_link',
+        ['db' => 'cast_id', 'dt' => 1, 'field' => 'cast_id',
             'formatter' => function($d, $row){
-                return "<img src=\"$d\" class=\"car-thumb\">";
+                return thumb($d);
             }
         ],
         ['db' => 'cast_sales_parent_no', 'dt' => 2, 'field'=> 'cast_sales_parent_no',
@@ -107,12 +108,10 @@
     ];
 
     $joinQuery = "FROM car_stock s";
-    $joinQuery .= " JOIN car_image i ON s.cast_id = i.cari_parent";
-    $joinQuery .= " AND s.cast_status IN ('1','2','3','4')";
+    $joinQuery .= " JOIN finance_data f ON s.cast_car = f.find_id";
 
-    $joinQuery .= " LEFT JOIN finance_data f ON s.cast_car = f.find_id";
+    $joinQuery .= " AND s.cast_status IN ('1','2','3','4')";
    
-    $joinQuery .= " GROUP BY s.cast_id";
     
     echo json_encode(
         SSP::simple($_GET, $sql_details_1, $table, $primaryKey, $columns, $joinQuery)

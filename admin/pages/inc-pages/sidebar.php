@@ -21,8 +21,7 @@
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="feather-truck"></i><span>รถยนต์</span></a>
                     <ul class="sub-menu" aria-expanded="true">
-                        <li><a href="/admin/home-report">รถยนต์ทั้งหมด</a></li>
-                        <li><a href="/admin/home">รถยนต์ทั้งหมด (SSP Beta)</a></li>
+                        <li><a href="/admin/home">รถยนต์ทั้งหมด V.2</a></li>
                         <li><a href="/admin/add">เพิ่มรถยนต์ใหม่</a></li>
                         <li><a href="/admin/trast">รถยนต์ที่ถูกลบ</a></li>
                     </ul>
