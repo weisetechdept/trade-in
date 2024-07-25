@@ -113,7 +113,7 @@
     $joinQuery .= " LEFT JOIN finance_data f ON s.cast_car = f.find_id";
    
     $joinQuery .= " GROUP BY s.cast_id";
-
+    
     echo json_encode(
         SSP::simple($_GET, $sql_details_1, $table, $primaryKey, $columns, $joinQuery)
     );

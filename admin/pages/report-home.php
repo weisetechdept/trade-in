@@ -273,6 +273,7 @@
 
     <!-- Datatables init -->
     <script>
+        
         $('#datatable').DataTable({
             order: [[ 0, "desc" ]],
             responsive: true,

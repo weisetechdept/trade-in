@@ -11,19 +11,20 @@
 
     $user_id = $_SESSION['tin_user_id'];
 
-    function mgr($data){
-        global $db_nms;
-        $group = $db_nms->get('db_user_group');
-        foreach($group as $value){
-            $chk = in_array($data, json_decode($value['leader']));
-            if($chk){
-                foreach(json_decode($value['detail']) as $emp){
-                    $team[] = $emp;
+        function mgr($data){
+            global $db_nms;
+            $group = $db_nms->get('db_user_group');
+            foreach($group as $value){
+                $chk = in_array($data, json_decode($value['leader']));
+                if($chk){
+                    $team_merge = array_merge(json_decode($value['leader']),json_decode($value['detail']));
+                    foreach($team_merge as $emp){
+                        $team[] = $emp;
+                    }
                 }
             }
+            return array_unique($team);
         }
-        return array_unique($team);
-    }
 
         $month = $_GET['month'];
         $year = $_GET['year'];

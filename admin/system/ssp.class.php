@@ -175,7 +175,7 @@ class SSP {
                 $binding = SSP::bind( $bindings, '%'.$str.'%', PDO::PARAM_STR );
                 $columnSearch[] = ($isJoin) ? $column['db']." LIKE ".$binding : "`".$column['db']."` LIKE ".$binding;
             }
-        }
+        } 
 
         // Combine the filters into a single string
         $where = '';

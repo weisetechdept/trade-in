@@ -67,6 +67,12 @@
         .t-center {
             text-align: center;
         }
+        .sum-imp {
+            background-color: #f5f5f5;
+        }
+        .sum-total-imp {
+            background-color: #dfdfdf;
+        }
     </style>
 </head>
 
@@ -135,6 +141,7 @@
                                                 <th class="t-center">รอ</th>
                                                 <th class="t-center">จบ</th>
                                                 <th class="t-center">ไม่จบ</th>
+                                                <th class="t-center sum-imp">รวม</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -143,12 +150,14 @@
                                                 <td class="t-center"><a :href="'/mgr/follow/wait/' + d.id +'/'+ search.month +'/'+ search.year">{{ d.wait }}</a></td>
                                                 <td class="t-center"><a :href="'/mgr/follow/sold/' + d.id +'/'+ search.month +'/'+ search.year">{{ d.sold }}</a></td>
                                                 <td class="t-center"><a :href="'/mgr/follow/cancel/' + d.id +'/'+ search.month +'/'+ search.year">{{ d.cancel }}</a></td>
+                                                <td class="t-center sum-imp">{{ d.wait + d.sold + d.cancel }}</td>
                                             </tr>
                                             <tr>
-                                                <th>รวม</th>
-                                                <th class="t-center">{{ data.reduce((a, b) => a + b.wait, 0) }}</th>
-                                                <th class="t-center">{{ data.reduce((a, b) => a + b.sold, 0) }}</th>
-                                                <th class="t-center">{{ data.reduce((a, b) => a + b.cancel, 0) }}</th>
+                                                <th class="sum-imp">รวม</th>
+                                                <th class="t-center sum-imp">{{ data.reduce((a, b) => a + b.wait, 0) }}</th>
+                                                <th class="t-center sum-imp">{{ data.reduce((a, b) => a + b.sold, 0) }}</th>
+                                                <th class="t-center sum-imp">{{ data.reduce((a, b) => a + b.cancel, 0) }}</th>
+                                                <th class="t-center sum-total-imp">{{ data.reduce((a, b) => a + b.wait + b.sold + b.cancel, 0) }}</th>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -235,4 +244,4 @@
 </body>
 
 </html>
-<?php } ?>
+<?php } ?> 

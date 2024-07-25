@@ -188,29 +188,28 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.1/axios.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-
+ 
     <script>
         $('#datatable').DataTable({
             ajax: '/admin/system/home-copy.api.php',
-                    processing: true,
-                    serverSide: true,
-                    responsive: true,
-                    bInfo : false,
-                    order: [[ 0, "desc" ]],
-                    language: {
-                        "processing": "กำลังดาวน์โหลดข้อมูล...",
-                        "search": "ค้นหา:",
-                        "lengthMenu": "แสดง _MENU_ รายการ",
-                    },
-                    dom: 'Bfrtip',
-                    buttons: [
-                        'copy', 'print'
-                    ],
-                    search: {
-                        "regex": true,
-                        "smart": false,
-                        
-                    },
+            processing: true,
+            serverSide: true,
+            responsive: true,
+            bInfo: false,
+            order: [[0, "desc"]],
+            language: {
+                "processing": "กำลังดาวน์โหลดข้อมูล...",
+                "search": "ค้นหา:",
+                "lengthMenu": "แสดง _MENU_ รายการ",
+            },
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'print'
+            ],
+            search: {
+                "regex": true,
+                "smart": false,
+            },
         });
 
     </script>
