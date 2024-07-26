@@ -258,15 +258,15 @@
                                                     </tr>
                                                     <tr>
                                                         <th>ขนาดเครื่องยนต์ (CC.)</th>
-                                                        <td><input type="number" class="form-control" maxlength="4" v-model="send.engine"></td>
+                                                        <td><input type="number" class="form-control" id="numbers-only" maxlength="4" v-model="send.engine"></td>
                                                     </tr>
                                                     <tr>
                                                         <th>ปีผลิตรถยนต์ (ค.ศ.)</th>
-                                                        <td><input type="number" class="form-control" maxlength="4" v-model="send.year"></td>
+                                                        <td><input type="number" class="form-control" id="numbers-only" maxlength="4" v-model="send.year"></td>
                                                     </tr>
                                                     <tr>
                                                         <th>ราคาที่ยอมรับได้</th>
-                                                        <td><input type="number" class="form-control" v-model="send.price"></td>
+                                                        <td><input type="number" class="form-control" id="numbers-only" v-model="send.price"></td>
                                                     </tr>
                                                     <tr>
                                                         <th>ชื่อ ผู้ขาย</th>
@@ -275,7 +275,7 @@
                                                     
                                                     <tr>
                                                         <th>เบอร์โทร ผู้ขาย</th>
-                                                        <td><input type="number" pattern="[0-9]" class="form-control"  maxlength="10" v-model="send.tel"></td>
+                                                        <td><input type="number" class="form-control" id="numbers-only" maxlength="10" v-model="send.tel"></td>
                                                     </tr>
 
                                                     <tr>
@@ -501,7 +501,15 @@
                                         window.location.href = "/home";
                                     });
                                 this.user.id = response.data.user.id;
-                            })
+                        })
+
+                        const inputField = document.querySelector('#numbers-only');
+                        inputField.onkeydown = (event) => {
+                            // Only allow if the e.key value is a number or if it's 'Backspace'
+                            if(isNaN(event.key) && event.key !== 'Backspace') {
+                                event.preventDefault();
+                            }
+                        };
                     },
                     methods: {
                         onFinance(e){
