@@ -99,6 +99,9 @@
             .t-imp {
                 background-color: #f1f1f1;
             }
+            .offer-price {
+                padding: 15px;
+            }
         </style>
     </head>
 
@@ -202,7 +205,7 @@
                             <div class="col-lg-6 col-md-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="mb-2 font-size-18">ให้ราคา</h4>
+                                        <h5 class="mb-2 font-size-18">ให้ราคา</h5>
                                         <table class="table mb-0">
                                                 <thead>
                                                     <tr>
@@ -219,39 +222,24 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
-
-                                            <div id="accordion" class="custom-accordion mt-4 ">
-                                                <div class="card mb-0">
-                                                    <div class="card-header" id="headingOne">
-                                                        <h5 class="m-0 font-size-15">
-                                                            <a class="d-block pt-2 pb-2 text-dark" data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                                ส่งแจ้งเตือนให้ราคา <span class="float-right"><i class="mdi mdi-chevron-down accordion-arrow"></i></span>
-                                                            </a>
-                                                        </h5>
-                                                    </div>
-                                                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                                                        <div class="card-body">
-
-                                                            <div class="row">
-                                                                <div class="col-12 col-md-6">
-                                                                    <div>
-                                                                        <div class="form-group">
-                                                                            <label>ราคา</label>
-                                                                            <input type="text" class="form-control" v-model="offer.price">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label>พันธมิตร</label>
-                                                                            <input type="text" class="form-control" v-model="offer.partner">
-                                                                        </div>
-                                                                        <input type="submit" class="btn btn-primary" @click="offerData" value="ส่งราคา">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
+                                            <hr>
+                                            <div class="row offer-price">
+                                                
+                                                <div class="col-12 col-md-6">
+                                                    <h4>ส่งแจ้งเตือนราคา</h4>
+                                                    <div>
+                                                        <div class="form-group">
+                                                            <label>ราคา</label>
+                                                            <input type="text" class="form-control" v-model="offer.price">
                                                         </div>
+                                                        <div class="form-group">
+                                                            <label>พันธมิตร</label>
+                                                            <input type="text" class="form-control" v-model="offer.partner">
+                                                        </div>
+                                                        <input type="submit" class="btn btn-primary" @click="offerData" value="ส่งราคา">
                                                     </div>
                                                 </div>
-                                            </div> 
+                                            </div>
                                     </div>
 
                                 </div>
