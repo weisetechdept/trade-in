@@ -275,7 +275,7 @@
                                                     
                                                     <tr>
                                                         <th>เบอร์โทร ผู้ขาย</th>
-                                                        <td><input type="number" class="form-control"  maxlength="10" v-model="send.tel"></td>
+                                                        <td><input type="number" pattern="[0-9]" class="form-control"  maxlength="10" v-model="send.tel"></td>
                                                     </tr>
 
                                                     <tr>
