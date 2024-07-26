@@ -111,7 +111,7 @@
         ],
     ];
 
-    $joinQuery = "FROM car_stock s RIGHT JOIN finance_data f ON s.cast_car = f.find_id";
+    $joinQuery = "FROM car_stock s LEFT JOIN finance_data f ON s.cast_car = f.find_id";
     $joinQuery .= " AND s.cast_status IN ('0','1','2','3','4')";
 
     if(isset($_GET['search']['value'])){
