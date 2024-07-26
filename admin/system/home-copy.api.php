@@ -110,12 +110,6 @@
     $joinQuery = "FROM car_stock s RIGHT JOIN finance_data f ON s.cast_car = f.find_id";
 
     $joinQuery .= " AND s.cast_status IN ('0','1','2','3','4')";
-
-    if (!empty($_GET['search']['value'])) {
-        $searchValue = $_GET['search']['value'];
-        $joinQuery .= " WHERE s.cast_year LIKE '%$searchValue%' OR s.cast_license LIKE '%$searchValue%' OR s.cast_color LIKE '%$searchValue%' OR f.find_section LIKE '%$searchValue%'";
-    }
-   
     
     echo json_encode(
         SSP::simple($_GET, $sql_details_1, $table, $primaryKey, $columns, $joinQuery)
