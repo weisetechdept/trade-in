@@ -58,7 +58,7 @@
         ],
         ['db' => 'cast_sales_parent_no', 'dt' => 3, 'field'=> 'cast_sales_parent_no',
             'formatter' => function($d, $row){
-                return getTeamName($d);
+                return getTeamName($d); 
             }
         ],
         ['db' => 'find_section', 'dt' => 4, 'field'=> 'find_section',
@@ -107,8 +107,7 @@
         ],
     ];
 
-    $joinQuery = "FROM car_stock s";
-    $joinQuery .= " JOIN finance_data f ON s.cast_car = f.find_id";
+    $joinQuery = "FROM car_stock s RIGHT JOIN finance_data f ON s.cast_car = f.find_id";
 
     $joinQuery .= " AND s.cast_status IN ('0','1','2','3','4')";
    

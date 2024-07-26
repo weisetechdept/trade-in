@@ -16,10 +16,8 @@
     <meta content="A77" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <!-- App favicon -->
     <link rel="shortcut icon" href="/assets/images/favicon.ico">
 
-    <!-- Plugins css -->
     <link href="/assets/plugins/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
     <link href="/assets/plugins/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
     <link href="/assets/plugins/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
@@ -27,7 +25,6 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@100;200;300;400;500;600;700;800&family=Kanit:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- App css -->
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/theme.min.css" rel="stylesheet" type="text/css" />
@@ -61,10 +58,14 @@
             margin-top: 27px;
         }
         .car-thumb {
-            width: 130px;
-            height: 100px;
+            width: 85px;
+            height: 60px;
             object-fit: cover;
             border-radius: 5px;
+        }
+        .badge-soft-unknow {
+            background-color: #f6b9f7;
+            color: #fff;
         }
     </style>
 </head>
@@ -83,12 +84,12 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box d-flex align-items-center justify-content-between">
-                                <h4 class="mb-0 font-size-18">รถยนต์</h4>
+                                <h4 class="mb-0 font-size-18">รถยนต์ที่ถูกลบ</h4>
 
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
                                         <li class="breadcrumb-item"><a href="javascript: void(0);">Trade-in</a></li>
-                                        <li class="breadcrumb-item active">รถยนต์</li>
+                                        <li class="breadcrumb-item active">รถยนต์ที่ถูกลบ</li>
                                     </ol>
                                 </div>
                                 
@@ -103,23 +104,23 @@
                                     <table id="datatable" class="table dt-responsive nowrap">
                                         <thead>
                                             <tr>
-                                                <th>รหัส</th>
-                                                <th>รูปภาพ</th>
-                                                <th>จำนวนรูป</th>
-                                                <th>ทะเบียน</th>
-                                                <th>ปี</th>
-                                                <th>รถยนต์</th>
-                                                <th>สี</th>
-                                                <th>ราคาที่รับได้</th>
+                                                <th width="45px">รหัส</th>
+                                                <th>รูป</th>
                                                 <th>เซลล์</th>
                                                 <th>ทีม</th>
+                                                <th>รถยนต์</th>
+                                                <th>ปี</th>
+                                                <th>ทะเบียน</th>
+                                                <th>สี</th>
+                                                <th>ราคาที่รับได้</th>
                                                 <th>สถานะ</th>
-                                                <th>วันที่ส่ง</th>
+                                                <th>วันที่สร้าง</th>
                                                 <th>จัดการ</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
+                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -160,21 +161,18 @@
 
         </div>
       
-
+ 
     </div>
  
 
   
     <div class="menu-overlay"></div>
 
-    <!-- jQuery  -->
     <script src="/assets/js/jquery.min.js"></script>
     <script src="/assets/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/js/metismenu.min.js"></script>
     <script src="/assets/js/waves.js"></script>
-    <script src="/assets/js/simplebar.min.js"></script>
 
-    <!-- third party js -->
     <script src="/assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="/assets/plugins/datatables/dataTables.bootstrap4.js"></script>
     <script src="/assets/plugins/datatables/dataTables.responsive.min.js"></script>
@@ -191,70 +189,32 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.1/axios.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-    <!-- third party js ends -->
-
-    <!-- Datatables init -->
+ 
     <script>
         $('#datatable').DataTable({
-            order: [[ 0, "desc" ]],
+            ajax: '/admin/system/trast.api.php',
+            processing: true,
+            serverSide: true,
             responsive: true,
-            dom: 'Blfrtip',
+            bInfo: false,
+            order: [[0, "desc"]],
+            language: {
+                "processing": "กำลังดาวน์โหลดข้อมูล...",
+                "search": "ค้นหา:",
+                "lengthMenu": "แสดง _MENU_ รายการ",
+            },
+            dom: 'Bfrtip',
             buttons: [
                 'copy', 'print'
             ],
-            "language": {
-                "paginate": {
-                    "previous": "<i class='mdi mdi-chevron-left'>",
-                    "next": "<i class='mdi mdi-chevron-right'>"
-                },
-                "lengthMenu": "แสดง _MENU_ รายชื่อ",
-                "zeroRecords": "ขออภัย ไม่มีข้อมูล",
-                "info": "หน้า _PAGE_ ของ _PAGES_",
-                "infoEmpty": "ไม่มีข้อมูล",
-                "search": "ค้นหา:",
+            search: {
+                "regex": true,
+                "smart": false,
             },
-            "drawCallback": function () {
-                $('.dataTables_paginate > .pagination').addClass('pagination-rounded');
-            },
-            ajax: '/admin/system/trast.api.php?get=list',
-            "columns" : [
-                {'data':'0'},
-                {'data':'8',
-                    "render": function ( data, type, full, meta ) {
-                        return '<img src="'+ data +'" class="car-thumb">';
-                    }
-                },
-                {'data':'11'},
-                {'data':'1'},
-                {'data':'9'},
-                {'data':'2'},
-                {'data':'3'},
-                {'data':'4'},
-                {'data':'5'},
-                {'data':'10'},
-                { 
-                    'data': '6',
-                    sortable: false,
-                    "render": function ( data, type, full, meta ) {
-                        if(data == '10'){
-                            return '<span class="badge badge-soft-danger">ลบ</span>';
-                        }
-                    }
-                },
-                {'data':'7'},
-                { 
-                    'data': '0',
-                    sortable: false,
-                    "render": function ( data, type, full, meta ) {
-                        return '<a href="/admin/detail/'+data+'" class="btn btn-sm btn-outline-primary editBtn" role="button"><span class="mdi mdi-account-edit"></span> ดูข้อมูล</a>';
-                    }
-                }
-            ],
         });
 
     </script>
-
-    <!-- App js -->
+    
     <script src="/assets/js/theme.js"></script>
 
 </body>
