@@ -108,8 +108,6 @@
     ];
 
     $joinQuery = "FROM car_stock s RIGHT JOIN finance_data f ON s.cast_car = f.find_id AND s.cast_status IN ('0','1','2','3','4')";
-    //$joinQuery .= " AND s.cast_status IN ('0','1','2','3','4')";
-
     if(isset($_GET['search']['value'])){
         $searchValue = $_GET['search']['value'];
         $joinQuery .= " AND (s.cast_id LIKE '%$searchValue%' OR s.cast_sales_parent_no LIKE '%$searchValue%' OR f.find_section LIKE '%$searchValue%' OR s.cast_year LIKE '%$searchValue%' OR s.cast_license LIKE '%$searchValue%' OR s.cast_color LIKE '%$searchValue%' OR s.cast_price LIKE '%$searchValue%' OR s.cast_status LIKE '%$searchValue%' OR s.cast_datetime LIKE '%$searchValue%')";
