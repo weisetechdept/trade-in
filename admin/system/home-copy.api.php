@@ -33,7 +33,7 @@
 
     function thumb($uid){
         global $db;
-        $thumb = $db->where('cari_id', $uid)->getOne('car_image', null,'cari_link');
+        $thumb = $db->where('cari_id ', $uid)->getOne('car_image', null,'cari_link');
         return "<img src=\"" . $thumb['cari_link'] . "\" class=\"car-thumb\">";
     }
     
@@ -107,8 +107,13 @@
         ],
     ];
 
-    $joinQuery = "FROM car_stock s RIGHT JOIN finance_data f ON s.cast_car = f.find_id";
-    $joinQuery .= " AND s.cast_status IN ('0','1','2','3','4')";
+    $joinQuery = "FROM car_stock s RIGHT JOIN finance_data f ON s.cast_car = f.find_id AND s.cast_status IN ('0','1','2','3','4')";
+    //$joinQuery .= " AND s.cast_status IN ('0','1','2','3','4')";
+
+    if(isset($_GET['search']['value'])){
+        $searchValue = $_GET['search']['value'];
+        $joinQuery .= " AND (s.cast_id LIKE '%$searchValue%' OR s.cast_sales_parent_no LIKE '%$searchValue%' OR f.find_section LIKE '%$searchValue%' OR s.cast_year LIKE '%$searchValue%' OR s.cast_license LIKE '%$searchValue%' OR s.cast_color LIKE '%$searchValue%' OR s.cast_price LIKE '%$searchValue%' OR s.cast_status LIKE '%$searchValue%' OR s.cast_datetime LIKE '%$searchValue%')";
+    }
     
     echo json_encode(
         SSP::simple($_GET, $sql_details_1, $table, $primaryKey, $columns, $joinQuery)
