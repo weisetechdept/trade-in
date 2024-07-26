@@ -34,7 +34,11 @@
     function thumb($uid){
         global $db;
         $thumb = $db->where('cari_id ', $uid)->getOne('car_image', null,'cari_link');
-        return "<img src=\"" . $thumb['cari_link'] . "\" class=\"car-thumb\">";
+        if(empty($thumb)){
+            return '<img src="https://dummyimage.com/600x400/c4c4c4/fff&amp;text=no-image" class="car-thumb">';
+        }else {
+            return "<img src=\"" . $thumb['cari_link'] . "\" class=\"car-thumb\">";
+        }
     }
     
     $sql_details_1 = ['user'=> $usern,'pass'=> $passn,'db'=> $dbn,'host'=> $hostn,'charset'=>'utf8'];
