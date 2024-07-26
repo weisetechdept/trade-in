@@ -112,7 +112,8 @@
     ];
 
     $joinQuery = "FROM car_stock s LEFT JOIN finance_data f ON s.cast_car = f.find_id";
-    $joinQuery .= " AND s.cast_status IN ('0','1','2','3','4')";
+    
+    $where = " s.cast_status IN (0,1,2,3,4)";
 
     if(isset($_GET['search']['value'])){
         $searchValue = $_GET['search']['value'];
@@ -120,6 +121,6 @@
     }
     
     echo json_encode(
-        SSP::simple($_GET, $sql_details_1, $table, $primaryKey, $columns, $joinQuery)
+        SSP::simple($_GET, $sql_details_1, $table, $primaryKey, $columns, $joinQuery, $where)
     );
 ?>
