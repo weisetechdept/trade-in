@@ -33,7 +33,7 @@
 
     function thumb($uid){
         global $db;
-        $thumb = $db->where('cari_parent', $uid)->getOne('car_image', null,'cari_link');
+        $thumb = $db->where('cari_id', $uid)->getOne('car_image', null,'cari_link');
         return "<img src=\"" . $thumb['cari_link'] . "\" class=\"car-thumb\">";
     }
     
@@ -46,7 +46,7 @@
     $primaryKey = 'cast_id';
     $columns = [
         ['db' => 'cast_id', 'dt' => 0, 'field' => 'cast_id'],
-        ['db' => 'cast_id', 'dt' => 1, 'field' => 'cast_id',
+        ['db' => 'cast_thumb', 'dt' => 1, 'field' => 'cast_thumb',
             'formatter' => function($d, $row){
                 return thumb($d);
             }
@@ -108,7 +108,6 @@
     ];
 
     $joinQuery = "FROM car_stock s RIGHT JOIN finance_data f ON s.cast_car = f.find_id";
-
     $joinQuery .= " AND s.cast_status IN ('0','1','2','3','4')";
     
     echo json_encode(
