@@ -105,7 +105,6 @@
                                         <thead>
                                             <tr>
                                                 <th width="45px">รหัส</th>
-                                                <th>รูป</th>
                                                 <th>เซลล์</th>
                                                 <th>ทีม</th>
                                                 <th>รถยนต์</th>
@@ -120,7 +119,6 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
