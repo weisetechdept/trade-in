@@ -127,6 +127,8 @@
         $addon_all += $objBuy[$manager]['addon'];
         $replace_all += $objBuy[$manager]['replace'];
         $wait_all += $wait;
+        $sold_all += $sold;
+        $cancel_all += $cancel;
     }
 
     $api['count'][] = array('team' => 'All',

@@ -67,6 +67,9 @@
         .gray {
             background-color: #f9f9f9;
         }
+        .gray-imp {
+            background-color: #ededed;
+        }
         .bg-status {
             background-color: #fbffe1;
         }
@@ -153,11 +156,11 @@
                                             <td>ซื้อเพิ่มเติม</td>
                                             <td v-for="c in count">{{ c.objAddon }}</td>
                                         </tr>
-                                        <tr class="gray">
+                                        <tr class="gray-imp">
                                             <td>ยอดจองรถใหม่</td>
                                             <td v-for="c in count">{{ c.value }}</td>
                                         </tr>
-                                        <tr>
+                                        <tr class="gray-imp">
                                             <td>ส่งให้ Trade-In</td>
                                             <td v-for="c in count">{{ c.trade }}</td>
                                         </tr>
