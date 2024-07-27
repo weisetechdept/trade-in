@@ -304,7 +304,8 @@
                 {'data':'6'},
                 {'data':'7'},
                 {'data':'8'},
-                {'data':'9',
+                {'data':'9'},
+                {'data':'10',
                     sortable: false,
                     "render": function ( data, type, full, meta ) {
                         if(data == '0'){
@@ -320,7 +321,6 @@
                         } 
                     }
                 },
-                {'data':'10'},
                 {'data':'11'},
                 {'data':'12'},
                 {'data':'13'},
