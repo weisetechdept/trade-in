@@ -98,7 +98,8 @@
         
         $per = number_format(($trade / $count) * 100).'%';
 
-        $api['count'][] = array('team' => $manager,
+        $api['count'][] = array(
+            'team' => $manager,
             'value' => $count,
             'trade' => $trade,
             'percentage' => $per,
@@ -113,6 +114,7 @@
         $first_all += $objBuy[$manager]['first'];
         $addon_all += $objBuy[$manager]['addon'];
         $replace_all += $objBuy[$manager]['replace'];
+        $wait_all += $wait;
     }
 
     $api['count'][] = array('team' => 'All',
@@ -121,7 +123,8 @@
                             'percentage' => number_format(($trade_all / $all) * 100).'%',
                             'objFirst' => $first_all,
                             'objAddon' => $addon_all,
-                            'objReplace' => $replace_all
+                            'objReplace' => $replace_all,
+                            'wait_value' => $wait_all
                         );
 
     echo json_encode($api);

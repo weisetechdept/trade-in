@@ -167,7 +167,7 @@
                                         </tr>
                                         <tr class="bg-status">
                                             <td>รอสถานะ</td>
-                                            <td>{{ c.wait_value }}</td>
+                                            <td v-for="c in count">{{ c.wait_value }}</td>
                                         </tr>
                                         <tr class="bg-status">
                                             <td>ขายกับเรา</td>
