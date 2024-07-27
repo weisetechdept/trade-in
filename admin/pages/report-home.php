@@ -298,21 +298,21 @@
             ajax: '/admin/system/home.api.php?get=list',
             "columns" : [
                 {'data':'0'},
-                {'data':'8',
+                {'data':'1',
                     "render": function ( data, type, full, meta ) {
                         return '<img src="'+ data +'" class="car-thumb">';
                     }
                 },
-                {'data':'11'},
-                {'data':'10'},
-                {'data':'5'},
-                {'data':'9'},
-                {'data':'1'},
                 {'data':'2'},
                 {'data':'3'},
                 {'data':'4'},
+                {'data':'5'},
+                {'data':'6'},
+                {'data':'7'},
+                {'data':'8'},
+                {'data':'9'},
                 { 
-                    'data': '6',
+                    'data': '10',
                     sortable: false,
                     "render": function ( data, type, full, meta ) {
                         if(data == '0'){
@@ -328,7 +328,7 @@
                         } 
                     }
                 },
-                {'data':'7'},
+                {'data':'11'},
                 { 
                     'data': '0',
                     sortable: false,
