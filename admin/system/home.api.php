@@ -143,17 +143,21 @@
 
                         $api['data'][] = array(
                             $value['cast_id'],
+                            $thumbnail,
+                            $img_count,
                             $value['cast_license'],
-                            $value['find_brand'].' '.$value['find_serie'].' '.$value['find_section'],
+                            $value['cast_year'],
+                            $value['find_serie'].' '.substr($value['find_section'],0,15).'...',
                             $value['cast_color'],
                             number_format($value['cast_price']),
                             $data_owner,
+                            getTeam($value['cast_sales_parent_no']),
                             $value['cast_status'],
                             DateThai($value['cast_datetime']),
-                            $thumbnail,
-                            $value['cast_year'],
-                            $t,
-                            $img_count
+                            number_format($value['cast_price'] * 0.02625),
+                            number_format($value['cast_price'] * 0.02208),
+                            number_format($value['cast_price'] * 0.01931),
+                            number_format($value['cast_price'] * 0.01732)
                         );
                         $ct++;
 
