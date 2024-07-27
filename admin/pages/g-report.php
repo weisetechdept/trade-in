@@ -168,9 +168,8 @@
                                     <table id="datatable" class="table dt-responsive nowrap">
                                         <thead>
                                             <tr>
+                                                <th>วันที่เพิ่ม</th>
                                                 <th>รหัส</th>
-                                                <th>รูป</th>
-                                                <th>จำนวนรูป</th>
                                                 <th>ทะเบียน</th>
                                                 <th>ปี</th>
                                                 <th>รุ่น</th>
@@ -179,7 +178,8 @@
                                                 <th>เซลล์</th>
                                                 <th>ทีม</th>
                                                 <th>สถานะ</th>
-                                                <th>วันที่เพิ่ม</th>
+                                                <th>สี</th>
+                                                <th>ราคา</th>
                                                 <th>In48</th>
                                                 <th>In60</th>
                                                 <th>In72</th>
@@ -292,36 +292,21 @@
             ajax: '/admin/system/home.api.php?get=list',
             "columns" : [
                 {'data':'0'},
+                {'data':'11'},
                 {'data':'1'},
+                {'data':'9'},
                 {'data':'2'},
                 {'data':'3'},
                 {'data':'4'},
                 {'data':'5'},
+                {'data':'10'},
                 {'data':'6'},
-                {'data':'7'},
-                {'data':'8'},
-                {'data':'9'},
-                { 
-                    'data': '10',
-                    sortable: false,
-                    "render": function ( data, type, full, meta ) {
-                        if(data == '0'){
-                            return '<span class="badge badge-soft-primary">ไม่มีสถานะ</span>';
-                        } else if(data == '1'){
-                            return '<span class="badge badge-soft-primary">ติดตามลูกค้า</span>';
-                        } else if(data == '2') {
-                            return '<span class="badge badge-soft-warning">ไม่ได้สัมผัสรถ</span>';
-                        } else if(data == '3') {
-                            return '<span class="badge badge-soft-danger">ลูกค้าขายเอง / ขายที่อื่น</span>';
-                        } else if(data == '4') {
-                            return '<span class="badge badge-soft-success">สำเร็จ</span>';
-                        } 
-                    }
-                },
-                {'data':'11'},
+                {'data':'3'},
+                {'data':'4'},
                 {'data':'12'},
                 {'data':'13'},
-                {'data':'14'}
+                {'data':'14'},
+                {'data':'15'}
             ],
         });
 

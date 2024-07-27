@@ -35,8 +35,6 @@
         $db->join('car_stock c', "f.find_id=c.cast_car", "RIGHT");
         $stock = $db->where('cast_status',array(0,1,2,3,4),'IN')->get("finance_data f", null ,"c.cast_id,c.cast_license,f.find_brand,f.find_serie,f.find_section,c.cast_color,c.cast_price,c.cast_sales_parent,c.cast_sales_team,c.cast_status,cast_sales_parent_no,cast_datetime,cast_year,cast_thumb");
 
-        
-
         foreach ($stock as $value) {
 
             $img_count = $db->where('cari_parent',$value['cast_id'])->where('cari_status', '1')->getValue('car_image','count(*)');
@@ -73,7 +71,7 @@
                 number_format($value['cast_price'] * 0.02625),
                 number_format($value['cast_price'] * 0.02208),
                 number_format($value['cast_price'] * 0.01931),
-                number_format($value['cast_price'] * 0.01732),
+                number_format($value['cast_price'] * 0.01732)
             );
         }
 
