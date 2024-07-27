@@ -168,10 +168,10 @@
                                     <table id="datatable" class="table dt-responsive nowrap">
                                         <thead>
                                             <tr>
-                                                <th>วันที่เพิ่ม</th>
                                                 <th>รหัส</th>
+                                                <th>รูป</th>
+                                                <th>จำนวนรูป</th>
                                                 <th>ทะเบียน</th>
-                                                <th>ปี</th>
                                                 <th>รุ่น</th>
                                                 <th>สี</th>
                                                 <th>ราคา</th>
@@ -292,7 +292,11 @@
             ajax: '/admin/system/home.api.php?get=list',
             "columns" : [
                 {'data':'0'},
-                {'data':'1'},
+                {'data':'1',
+                    "render": function(data, type, row, meta){
+                        return '<img src="'+ data +'" class="car-thumb">';
+                    }
+                },
                 {'data':'2'},
                 {'data':'3'},
                 {'data':'4'},
