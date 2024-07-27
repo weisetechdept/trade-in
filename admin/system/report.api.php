@@ -59,7 +59,7 @@
                 $team = $db_nms->get('db_user_group');
     
                 foreach ($team as $value) {
-                    if($value['id'] != '26' && $value['id'] != '27'){
+                    if($value['id'] != '26' && $value['id'] != '27' && $value['id'] !== '32'){
     
                         $mteam = array_merge(json_decode($value['detail']),json_decode($value['leader']));
                         
