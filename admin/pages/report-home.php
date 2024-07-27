@@ -176,21 +176,20 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
+                                    <p>กดค้นหาเพื่อแสดงข้อมูลที่ต้องการ</p>
                                     <table id="datatable" class="table dt-responsive nowrap">
                                         <thead>
                                             <tr>
                                                 <th width="45px">รหัส</th>
                                                 <th width="65px">รูปภาพ</th>
                                                 <th width="35px">รูป</th>
-                                                <th width="35px">ทีม</th>
-                                                <th>เซลล์</th>
-                                                
-                                               
+                                                <th width="35px">ทะเบียน</th>
                                                 <th>ปี</th>
-                                                <th>ทะเบียน</th>
-                                                <th>รถยนต์</th>
+                                                <th>รุ่นรถยนต์</th>
                                                 <th>สี</th>
-                                                <th>ราคาที่รับได้</th>
+                                                <th>ราคา</th>
+                                                <th>เซลล์</th>
+                                                <th>ทีม</th>
                                                 <th>สถานะ</th>
                                                 <th>วันที่ส่ง</th>
                                                 <th>36</th>
