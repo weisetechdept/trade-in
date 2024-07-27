@@ -167,7 +167,11 @@
                             $data_owner,
                             getTeam($value['cast_sales_parent_no']),
                             $value['cast_status'],
-                            DateThai($value['cast_datetime'])
+                            DateThai($value['cast_datetime']),
+                            number_format($value['cast_price'] * 0.02625),
+                            number_format($value['cast_price'] * 0.02208),
+                            number_format($value['cast_price'] * 0.01931),
+                            number_format($value['cast_price'] * 0.01732)
                         );
                         $ct++;
 
