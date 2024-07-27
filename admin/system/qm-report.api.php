@@ -103,7 +103,7 @@
 
         $trade = $db->where('cast_sales_team', $manager)
                     ->where('cast_datetime', array($start, $end), 'BETWEEN')
-                    ->where('cast_status', array(1,2,3,4),'IN')
+                    ->where('cast_status', array(0,1,2,3,4),'IN')
                     ->getValue('car_stock', 'count(*)');
         
         $per = number_format(($trade / $count) * 100).'%';
