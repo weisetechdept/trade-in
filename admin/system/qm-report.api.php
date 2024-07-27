@@ -90,6 +90,16 @@
                     ->where('cast_datetime', array($start, $end), 'BETWEEN')
                     ->where('cast_status', array(0,1,2),'IN')
                     ->getValue('car_stock', 'count(*)');
+        
+        $sold = $db->where('cast_sales_team', $manager)
+                    ->where('cast_datetime', array($start, $end), 'BETWEEN')
+                    ->where('cast_status', 4)
+                    ->getValue('car_stock', 'count(*)');
+
+        $cancel = $db->where('cast_sales_team', $manager)
+                    ->where('cast_datetime', array($start, $end), 'BETWEEN')
+                    ->where('cast_status', 3)
+                    ->getValue('car_stock', 'count(*)');
 
         $trade = $db->where('cast_sales_team', $manager)
                     ->where('cast_datetime', array($start, $end), 'BETWEEN')
@@ -106,7 +116,9 @@
             'objFirst' => empty($objBuy[$manager]['first']) ? 0 : $objBuy[$manager]['first'],
             'objAddon' => empty($objBuy[$manager]['addon']) ? 0 : $objBuy[$manager]['addon'],
             'objReplace' => empty($objBuy[$manager]['replace']) ? 0 : $objBuy[$manager]['replace'],
-            'wait_value' => $wait
+            'wait_value' => $wait,
+            'sold_value' => $sold,
+            'cancel_value' => $cancel
         );
 
         $all += $count;
@@ -124,7 +136,9 @@
                             'objFirst' => $first_all,
                             'objAddon' => $addon_all,
                             'objReplace' => $replace_all,
-                            'wait_value' => $wait_all
+                            'wait_value' => $wait_all,
+                            'sold_value' => $sold_all,
+                            'cancel_value' => $cancel_all
                         );
 
     echo json_encode($api);
