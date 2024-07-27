@@ -74,7 +74,7 @@
                 number_format($value['cast_price'] * 0.01732)
             );
         }*/
-        $api['data'][] = array();
+        $api['data'] = array();
 
     } 
 
