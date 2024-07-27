@@ -29,10 +29,11 @@
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="feather-bar-chart-2"></i><span>รายงาน</span></a>
                     <ul class="sub-menu" aria-expanded="false">
+                    <li><a href="/admin/home-report">รถยนต์ทั้งหมด V.1</a></li>
                         <li><a href="/admin/g-report">รายงานทั่วไป</a></li>
                         <li><a href="/admin/team-report">รายงานทีมขาย</a></li>
                         <li><a href="/admin/qm-report">รายงานเปรียบเทียบ</a></li>
-                        <li><a href="/admin/home-report">รถยนต์ทั้งหมด V.1</a></li>
+                        
                     </ul>
                 </li>
                 <li><a href="/admin/member" class=" waves-effect"><i class="feather-user"></i><span>จัดการสมาชิก</span></a></li>
