@@ -86,6 +86,11 @@
 
     foreach ($managers as $manager => $count) {
 
+        $wait = $db->where('cast_sales_team', $manager)
+                    ->where('cast_datetime', array($start, $end), 'BETWEEN')
+                    ->where('cast_status', array(0,1,2),'IN')
+                    ->getValue('car_stock', 'count(*)');
+
         $trade = $db->where('cast_sales_team', $manager)
                     ->where('cast_datetime', array($start, $end), 'BETWEEN')
                     ->where('cast_status', array(1,2,3,4),'IN')
@@ -94,10 +99,13 @@
         $per = number_format(($trade / $count) * 100).'%';
 
         $api['count'][] = array('team' => $manager,
-            'value' => $count,'trade' => $trade,'percentage' => $per,
+            'value' => $count,
+            'trade' => $trade,
+            'percentage' => $per,
             'objFirst' => empty($objBuy[$manager]['first']) ? 0 : $objBuy[$manager]['first'],
             'objAddon' => empty($objBuy[$manager]['addon']) ? 0 : $objBuy[$manager]['addon'],
-            'objReplace' => empty($objBuy[$manager]['replace']) ? 0 : $objBuy[$manager]['replace']
+            'objReplace' => empty($objBuy[$manager]['replace']) ? 0 : $objBuy[$manager]['replace'],
+            'wait_value' => $wait
         );
 
         $all += $count;

@@ -67,6 +67,9 @@
         .gray {
             background-color: #f9f9f9;
         }
+        .bg-status {
+            background-color: #fbffe1;
+        }
     </style>
 </head>
 
@@ -161,6 +164,18 @@
                                         <tr>
                                             <td>ซื้อเพิ่มเติม</td>
                                             <td v-for="c in count">{{ c.objAddon }}</td>
+                                        </tr>
+                                        <tr class="bg-status">
+                                            <td>รอสถานะ</td>
+                                            <td>{{ c.wait_value }}</td>
+                                        </tr>
+                                        <tr class="bg-status">
+                                            <td>ขายกับเรา</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr class="bg-status">
+                                            <td>ลค.ขายเอง</td>
+                                            <td></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -284,7 +299,7 @@
             }
         });
 
-    </script>
+    </script> 
 
     <!-- App js -->
     <script src="/assets/js/theme.js"></script>
