@@ -158,6 +158,10 @@
                                                         <td>{{ door }}</td>
                                                     </tr>
                                                     <tr>
+                                                        <th>ขนาดเครื่องยนต์</th>
+                                                        <td>{{ engine }}</td>
+                                                    </tr>
+                                                    <tr>
                                                         <th>เกียร์</th>
                                                         <td>{{ transmission }}</td>
                                                     </tr>
@@ -165,6 +169,10 @@
                                                         <th>เชื้อเพลิง</th>
                                                         <td>{{ fuel }}</td>
                                                     </tr>
+                                                    <tr>
+                                                        <th>ปีรถยนต์</th>
+                                                        <td>{{ reg_year }}</td>
+                                                    <tr>
                                                     <tr>
                                                         <th>ปีรถยนต์</th>
                                                         <td>{{ reg_year }}</td>
