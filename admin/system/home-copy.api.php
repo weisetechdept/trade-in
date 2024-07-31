@@ -40,6 +40,12 @@
             return "<img src=\"" . $thumb['cari_link'] . "\" class=\"car-thumb\">";
         }
     }
+
+    function getBrandSerie($uid){
+        global $db;
+        $brand = $db->where('find_id', $uid)->getOne('finance_data', null,'find_brand ,find_serie');
+        return $brand['find_brand'].' '.$brand['find_serie'];
+    }
     
     $sql_details_1 = ['user'=> $usern,'pass'=> $passn,'db'=> $dbn,'host'=> $hostn,'charset'=>'utf8'];
     
@@ -65,12 +71,12 @@
                 return getTeamName($d); 
             }
         ],
-        ['db' => 'find_section', 'dt' => 4, 'field'=> 'find_section',
+        ['db' => 'find_id', 'dt' => 4, 'field'=> 'find_id',
             'formatter' => function($d, $row){
                 if(empty($d)){
                     return "ยังไม่ระบุ";
                 } else {
-                    return $d;
+                    return getBrandSerie($uid);
                 }
             }
         ],

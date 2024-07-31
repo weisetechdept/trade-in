@@ -174,9 +174,6 @@
                                                         <td>{{ reg_year }}</td>
                                                     <tr>
                                                     <tr>
-                                                        <th>ปีรถยนต์</th>
-                                                        <td>{{ reg_year }}</td>
-                                                    <tr>
                                                         <th>ราคาที่ยอมรับได้</th>
                                                         <td>{{ price }}</td>
                                                     </tr>
@@ -247,6 +244,7 @@
                                                         <input type="submit" class="btn btn-primary" @click="offerData" value="ส่งราคา">
                                                     </div>
                                                 </div>
+                                                
                                             </div>
                                     </div>
 
@@ -333,7 +331,7 @@
                                                                         </div>
 
                                                                         <div class="form-group">
-                                                                            <label>รายลัเอียด</label>
+                                                                            <label>รายละเอียด</label>
                                                                             <textarea type="text" v-model="bookData.detail" class="form-control"></textarea>
                                                                         </div>
                                                                         <input type="submit" class="btn btn-primary" @click="meetData" value="นัดหมาย">
