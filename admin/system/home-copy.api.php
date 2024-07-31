@@ -76,7 +76,7 @@
                 if(empty($d)){
                     return "ยังไม่ระบุ";
                 } else {
-                    return getBrandSerie($uid);
+                    return getBrandSerie($d);
                 }
             }
         ],
