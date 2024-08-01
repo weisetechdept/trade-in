@@ -71,6 +71,43 @@
         require_once 'admin/pages/event.php';
     });
 
+    $router->get( '/admin/member', function() {
+        require_once 'admin/pages/member.php';
+    });
+
+    $router->get( '/admin-regis', function() {
+        require_once 'admin/pages/member-regis.php';
+    });
+
+    $router->get( '/admin/logout', function() {
+        require_once 'admin/logout.php';
+    });
+
+    $router->get( '/admin/partner', function() {
+        require_once 'admin/pages/partner.php';
+    });
+
+    $router->get( '/admin/business', function() {
+        require_once 'admin/pages/partner-business.php';
+    });
+
+    $router->get( '/admin/pt/detail/(.*)', function($id) {
+        require_once 'admin/pages/partner-detail.php';
+    });
+
+    $router->get( '/admin/add-business', function() {
+        require_once 'admin/pages/partner-add-business.php';
+    });
+
+    $router->get( '/alink', function() {
+        require_once 'admin/line_login.php';
+    });
+
+    $router->get( '/admin/home-report', function() {
+        require_once 'admin/pages/report-home.php';
+    });
+
+
     /* sales */
 
     $router->get( '/app', function() {
@@ -118,9 +155,17 @@
     $router->get( '/sales/mgr-list', function() {
         require_once 'sales/pages/mgr-list.php'; 
     });
+    
+    $router->get( '/mgr/control', function() {
+        require_once 'sales/pages/mgr-control.php'; 
+    });
 
     $router->get( '/sales/de/mgr/(.*)', function($cid) {
         require_once 'sales/pages/car_mgr_detail.php';
+    });
+
+    $router->get( '/mgr/follow/(.*)/(\d+)/(\d+)/(\d+)', function($status, $id, $month, $year) {
+        require_once 'sales/pages/mgr-control-detail.php';
     });
 
     /* public */
@@ -133,6 +178,39 @@
         require_once 'frontend/pages/trade.php';
     });
 
+    /* Partner */
+
+    $router->get( '/partner/register', function() {
+        require_once 'partner/pages/register.php';
+    });
+
+    $router->get( '/partner/welcome', function() {
+        require_once 'partner/pages/welcome.php';
+    });
+
+    $router->get( '/partner/car/(.*)', function($page) {
+        require_once 'partner/pages/car.php';
+    });
+
+    $router->get( '/pt/stock/(.*)', function($id) {
+        require_once 'partner/pages/detail.php';
+    });
+
+    $router->get( '/offer/stock/(.*)', function($id) {
+        require_once 'partner/pages/offer.php';
+    });
+
+    $router->get( '/partner/login', function() {
+        require_once 'partner/line_login.php';
+    });
+
+    $router->get( '/partner/cars', function() {
+        require_once 'partner/pages/car-list.php';
+    });
+
+    $router->get( '/partner/offered', function() {
+        require_once 'partner/pages/offered.php';
+    });
 
     $router->run();
     

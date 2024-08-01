@@ -1,12 +1,11 @@
 <?php
     session_start();
-
-    /*
-    if($_SESSION['tin_admin'] != true){
+    
+    if($_SESSION['tin_login'] != true){
         header("location: /404");
         exit();
-    }
-    */
+    } else { 
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -95,6 +94,10 @@
                 display: none;
                 background-color: #f0f0f0;
             }
+            .hd-fc {
+                display: none;
+                background-color: #f0f0f0;
+            }
         </style>
     </head>
 
@@ -127,7 +130,7 @@
                                             <table class="table mb-0">
                                                 <tbody>
                                                     <tr>
-                                                        <th width="120px">ประเภทรถ</th>
+                                                        <th width="150px">ประเภทรถ</th>
                                                         <td>
                                                             <div class="form-group mb-0">
                                                                 <div class="form-check form-check-inline mb-2">
@@ -145,7 +148,6 @@
                                                             </div>
                                                         </td>
                                                     </tr>
-
 
                                                     <tr class="hd-f">
                                                         <th>ห้องโดยสาร</th>
@@ -209,8 +211,8 @@
                                                         <td>
                                                             <select class="form-control" v-model="send.transmission">
                                                                 <option value="0">= โปรดเลือกเกียร์ =</option>
-                                                                <option value="MT">เกียร์อัตโนมัติ</option>
-                                                                <option value="AT">เกียร์ธรรมดา</option>
+                                                                <option value="AT">เกียร์อัตโนมัติ</option>
+                                                                <option value="MT">เกียร์ธรรมดา</option>
                                                             </select>
                                                         </td>
                                                     </tr>
@@ -256,15 +258,15 @@
                                                     </tr>
                                                     <tr>
                                                         <th>ขนาดเครื่องยนต์ (CC.)</th>
-                                                        <td><input type="text" class="form-control" maxlength="4" v-model="send.engine"></td>
+                                                        <td><input type="number" class="form-control" id="numbers-only" maxlength="4" v-model="send.engine"></td>
                                                     </tr>
                                                     <tr>
-                                                        <th>ปี รถยนต์</th>
-                                                        <td><input type="text" class="form-control" maxlength="4" v-model="send.year"></td>
+                                                        <th>ปีผลิตรถยนต์ (ค.ศ.)</th>
+                                                        <td><input type="number" class="form-control" id="numbers-only" maxlength="4" v-model="send.year"></td>
                                                     </tr>
                                                     <tr>
                                                         <th>ราคาที่ยอมรับได้</th>
-                                                        <td><input type="text" class="form-control" v-model="send.price"></td>
+                                                        <td><input type="number" class="form-control" id="numbers-only" v-model="send.price"></td>
                                                     </tr>
                                                     <tr>
                                                         <th>ชื่อ ผู้ขาย</th>
@@ -273,7 +275,120 @@
                                                     
                                                     <tr>
                                                         <th>เบอร์โทร ผู้ขาย</th>
-                                                        <td><input type="text" class="form-control"  maxlength="10" v-model="send.tel"></td>
+                                                        <td><input type="number" class="form-control" id="numbers-only" maxlength="10" v-model="send.tel"></td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <th>ปัจจุบันรถอยู่จังหวัดใด<br /><small>(เพื่อให้พันธมิตรเข้าไปดูรถจริง)</small></th>
+                                                        <td><select v-model="send.pv" class="form-control">
+                                                                <option value="0">= เลือกจังหวัด =</option>
+                                                                    <option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
+                                                                    <option value="กระบี่">กระบี่ </option>
+                                                                    <option value="กาญจนบุรี">กาญจนบุรี </option>
+                                                                    <option value="กาฬสินธุ์">กาฬสินธุ์ </option>
+                                                                    <option value="กำแพงเพชร">กำแพงเพชร </option>
+                                                                    <option value="ขอนแก่น">ขอนแก่น</option>
+                                                                    <option value="จันทบุรี">จันทบุรี</option>
+                                                                    <option value="ฉะเชิงเทรา">ฉะเชิงเทรา </option>
+                                                                    <option value="ชัยนาท">ชัยนาท </option>
+                                                                    <option value="ชัยภูมิ">ชัยภูมิ </option>
+                                                                    <option value="ชุมพร">ชุมพร </option>
+                                                                    <option value="ชลบุรี">ชลบุรี </option>
+                                                                    <option value="เชียงใหม่">เชียงใหม่ </option>
+                                                                    <option value="เชียงราย">เชียงราย </option>
+                                                                    <option value="ตรัง">ตรัง </option>
+                                                                    <option value="ตราด">ตราด </option>
+                                                                    <option value="ตาก">ตาก </option>
+                                                                    <option value="นครนายก">นครนายก </option>
+                                                                    <option value="นครปฐม">นครปฐม </option>
+                                                                    <option value="นครพนม">นครพนม </option>
+                                                                    <option value="นครราชสีมา">นครราชสีมา </option>
+                                                                    <option value="นครศรีธรรมราช">นครศรีธรรมราช </option>
+                                                                    <option value="นครสวรรค์">นครสวรรค์ </option>
+                                                                    <option value="นราธิวาส">นราธิวาส </option>
+                                                                    <option value="น่าน">น่าน </option>
+                                                                    <option value="นนทบุรี">นนทบุรี </option>
+                                                                    <option value="บึงกาฬ">บึงกาฬ</option>
+                                                                    <option value="บุรีรัมย์">บุรีรัมย์</option>
+                                                                    <option value="ประจวบคีรีขันธ์">ประจวบคีรีขันธ์ </option>
+                                                                    <option value="ปทุมธานี">ปทุมธานี </option>
+                                                                    <option value="ปราจีนบุรี">ปราจีนบุรี </option>
+                                                                    <option value="ปัตตานี">ปัตตานี </option>
+                                                                    <option value="พะเยา">พะเยา </option>
+                                                                    <option value="พระนครศรีอยุธยา">พระนครศรีอยุธยา </option>
+                                                                    <option value="พังงา">พังงา </option>
+                                                                    <option value="พิจิตร">พิจิตร </option>
+                                                                    <option value="พิษณุโลก">พิษณุโลก </option>
+                                                                    <option value="เพชรบุรี">เพชรบุรี </option>
+                                                                    <option value="เพชรบูรณ์">เพชรบูรณ์ </option>
+                                                                    <option value="แพร่">แพร่ </option>
+                                                                    <option value="พัทลุง">พัทลุง </option>
+                                                                    <option value="ภูเก็ต">ภูเก็ต </option>
+                                                                    <option value="มหาสารคาม">มหาสารคาม </option>
+                                                                    <option value="มุกดาหาร">มุกดาหาร </option>
+                                                                    <option value="แม่ฮ่องสอน">แม่ฮ่องสอน </option>
+                                                                    <option value="ยโสธร">ยโสธร </option>
+                                                                    <option value="ยะลา">ยะลา </option>
+                                                                    <option value="ร้อยเอ็ด">ร้อยเอ็ด </option>
+                                                                    <option value="ระนอง">ระนอง </option>
+                                                                    <option value="ระยอง">ระยอง </option>
+                                                                    <option value="ราชบุรี">ราชบุรี</option>
+                                                                    <option value="ลพบุรี">ลพบุรี </option>
+                                                                    <option value="ลำปาง">ลำปาง </option>
+                                                                    <option value="ลำพูน">ลำพูน </option>
+                                                                    <option value="เลย">เลย </option>
+                                                                    <option value="ศรีสะเกษ">ศรีสะเกษ</option>
+                                                                    <option value="สกลนคร">สกลนคร</option>
+                                                                    <option value="สงขลา">สงขลา </option>
+                                                                    <option value="สมุทรสาคร">สมุทรสาคร </option>
+                                                                    <option value="สมุทรปราการ">สมุทรปราการ </option>
+                                                                    <option value="สมุทรสงคราม">สมุทรสงคราม </option>
+                                                                    <option value="สระแก้ว">สระแก้ว </option>
+                                                                    <option value="สระบุรี">สระบุรี </option>
+                                                                    <option value="สิงห์บุรี">สิงห์บุรี </option>
+                                                                    <option value="สุโขทัย">สุโขทัย </option>
+                                                                    <option value="สุพรรณบุรี">สุพรรณบุรี </option>
+                                                                    <option value="สุราษฎร์ธานี">สุราษฎร์ธานี </option>
+                                                                    <option value="สุรินทร์">สุรินทร์ </option>
+                                                                    <option value="สตูล">สตูล </option>
+                                                                    <option value="หนองคาย">หนองคาย </option>
+                                                                    <option value="หนองบัวลำภู">หนองบัวลำภู </option>
+                                                                    <option value="อำนาจเจริญ">อำนาจเจริญ </option>
+                                                                    <option value="อุดรธานี">อุดรธานี </option>
+                                                                    <option value="อุตรดิตถ์">อุตรดิตถ์ </option>
+                                                                    <option value="อุทัยธานี">อุทัยธานี </option>
+                                                                    <option value="อุบลราชธานี">อุบลราชธานี</option>
+                                                                    <option value="อ่างทอง">อ่างทอง </option>
+                                                                    <option value="อื่นๆ">อื่นๆ</option>
+                                                                </select>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <th>สถานะไฟแนนซ์</th>
+                                                        <td>
+                                                            <select @change="onFinance" v-model="send.fin" class="form-control">
+                                                                <option value="0">= โปรดเลือกสถานะไฟแนนซ์ =</option>
+                                                                <option value="1">ติดไฟแนนซ์</option>
+                                                                <option value="2">ปลอดภาระ / ไม่ติดไฟแนนซ์</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr class="hd-fc">
+                                                        <th>ยอดคงเหลือ</th>
+                                                        <td><input type="text" class="form-control"  v-model="send.loan" maxlength="10"></td>
+                                                    </tr>
+                                                    
+                                                    <tr>
+                                                        <th>ความพร้อมปล่อยรถ</th>
+                                                        <td>
+                                                            <select class="form-control"  v-model="send.ready">
+                                                                <option value="0">= เลือกความพร้อม =</option>
+                                                                <option value="1">พร้อมปล่อยรถทันที</option>
+                                                                <option value="2">รอจบรถใหม่ก่อน</option>
+                                                            </select>
+                                                        </td>
                                                     </tr>
                                                     
                                                 </tbody>
@@ -364,7 +479,11 @@
                                 passengerType: '0',
                                 suspension: '0',
                                 drive: '0',
-                                year: ''
+                                year: '',
+                                pv: '',
+                                fin: '',
+                                loan: '',
+                                ready: ''
                             },
                             user: {
                                 id: '',
@@ -382,9 +501,24 @@
                                         window.location.href = "/home";
                                     });
                                 this.user.id = response.data.user.id;
-                            })
+                        })
+
+                        const inputField = document.querySelector('#numbers-only');
+                        inputField.onkeydown = (event) => {
+                            // Only allow if the e.key value is a number or if it's 'Backspace'
+                            if(isNaN(event.key) && event.key !== 'Backspace') {
+                                event.preventDefault();
+                            }
+                        };
                     },
                     methods: {
+                        onFinance(e){
+                            if(e.target.value == '1'){
+                                $(".hd-fc").css("display", "revert");
+                            } else if(e.target.value == '2') {
+                                $(".hd-fc").css("display", "none");
+                            }
+                        },
                         onTypeCar(e){
                             if(e.target.value == '2'){
                                 $(".hd-f").css("display", "revert");
@@ -419,8 +553,11 @@
                                 swal("กรุณากรอกข้อมูลให้ครบถ้วน", "โปรดตรวจสอบข้อมูลให้ครบถ้วน", "warning",{ 
                                     button: "ตกลง"
                                 });
+                            } else if(this.send.fin == '1' && this.send.loan == ''){
+                                swal("กรุณากรอกข้อมูลให้ครบถ้วน", "ใส่จำนวนยอดคงเหลือไฟแนนซ์", "warning",{ 
+                                    button: "ตกลง"
+                                })
                             } else {
-
 
                                 axios.post('/sales/system/new_car_up.inc.php', {
                                     id: this.user.id,
@@ -436,7 +573,11 @@
                                     passengerType: this.send.passengerType,
                                     suspension: this.send.suspension,
                                     drive: this.send.drive,
-                                    year: this.send.year
+                                    year: this.send.year,
+                                    pv: this.send.pv,
+                                    fin: this.send.fin,
+                                    loan: this.send.loan,
+                                    ready: this.send.ready
                                 }).then(res => {
                                     console.log(res.data);
                                     if(res.data.status == 200) 
@@ -469,3 +610,4 @@
 
     </body>
 </html>
+<?php } ?>

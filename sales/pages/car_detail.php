@@ -1,10 +1,11 @@
 <?php
     session_start();
+    header('Access-Control-Allow-Origin: *');
     
     if($_SESSION['tin_login'] != true){
         header("location: /404");
         exit();
-    }
+    } else {
     
 ?>
 <!DOCTYPE html>
@@ -20,20 +21,13 @@
 
         <!-- App favicon -->
         <link rel="shortcut icon" href="/assets/images/favicon.ico">
-
-        <!-- Plugins css -->
-        <link href="/assets/plugins/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
-        <link href="/assets/plugins/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
-        <link href="/assets/plugins/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
-        <link href="/assets/plugins/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" />
-
         <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@100;200;300;400;500;600;700;800&family=Kanit:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
 
         <!-- App css -->
         <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
         <link href="/assets/css/theme.min.css" rel="stylesheet" type="text/css" />
-        <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+
 
         <style>
             body {
@@ -110,6 +104,34 @@
                 border: 0;
                 padding: 0;
             }
+            .warning-android {
+                padding: 10px;
+                margin-bottom: 20px;
+                border: dashed 1px red;
+            }
+            .warning-android h5 {
+                color: red;
+                font-weight: 400;
+            }
+            #multiAndroid {
+                display: none;
+            }
+            .gray_bg {
+                background-color: #f1f1f1;
+            }
+            .survey {
+                background: #dbefff;
+                font-size: 16px;
+            }
+            .q2 {
+                display: none;
+            }
+            .q3 {
+                display: none;
+            }
+            .q4 {
+                display: none;
+            }
         </style>
     </head>
 
@@ -124,318 +146,428 @@
 
                 <div class="page-content">
                     <div class="container-fluid">
-                      <div id="agent">
-                        <div class="row">
-                            <div class="col-12" >
-                                <div class="page-title-box d-flex align-items-center justify-content-between">
-                                    <h4 class="mb-0 font-size-18">รถยนต์รหัส</h4>
+                        <div id="agent">
 
-                                    <div class="page-title-right">
-                                        <ol class="breadcrumb m-0">
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Trade-in</a></li>
-                                            <li class="breadcrumb-item active">รถยนต์</li>
-                                        </ol>
-                                    </div>
-                                    
+<div id="question" style="display:none;">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h4 class="mb-2 font-size-18">คำถามเกี่ยวกับลูกค้า {{ sellername }}</h4>
                                 </div>
                             </div>
-                        </div>
+                            <div class="row">
 
-                        <div class="row">
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="card survey">
+                                        <div class="card-body">
 
-                            <div class="col-lg-6 col-md-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="mb-2 font-size-18">ข้อมูลสมาชิก</h4>
-                                        <div class="table-responsive">
-                                            <table class="table mb-0">
-                                                <tbody>
-                                                    <tr>
-                                                        <th width="155px">รหัส ID</th>
-                                                        <td>{{ id }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>เลขไมล์</th>
-                                                        <td>{{ mileage }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>ยี่ห้อ</th>
-                                                        <td>{{ brand }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>ซีรี่</th>
-                                                        <td>{{ serie }}</td>
-                                                    <tr>
-                                                        <th>รุ่น</th>
-                                                        <td>{{ section }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>เกียร์</th>
-                                                        <td>{{ transmission }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>สี</th>
-                                                        <td>{{ color }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>รุ่นปี</th>
-                                                        <td>{{ car_year }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>ราคา</th>
-                                                        <td>{{ price }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>เพิ่มเติม</th>
-                                                        <td>{{ option }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>สภาพ</th>
-                                                        <td>{{ condition }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>ชื่อ ผู้ขาย</th>
-                                                        <td>{{ sellername }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>เบอร์โทรศัพท์ ผู้ขาย</th>
-                                                        <td>{{ tel }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>สถานะ</th>
-                                                        <td v-if="status == '0'"><span class="badge badge-soft-success">ไม่มีสถานะ.</span></td>
-                                                        <td v-if="status == '1'"><span class="badge badge-soft-success">ติดตามลูกค้า</span></td>
-                                                        <td v-if="status == '2'"><span class="badge badge-soft-success">ไม่ได้สัมผัสรถ</span></td>
-                                                        <td v-if="status == '3'"><span class="badge badge-soft-success">ลูกค้าขายเอง / ขายที่อื่น</span></td>
-                                                        <td v-if="status == '4'"><span class="badge badge-soft-success">สำเร็จ</span></td>
-                                                        <td v-if="status == '10'"><span class="badge badge-soft-danger">ลบ</span></td>
-                                                    </tr>
-                                                    
-                                                </tbody>
-                                            </table>
-                                            <div class="form-group mt-3">
-                                                <h4 class="mb-2 font-size-18">จัดการข้อมูล</h4>
-                                                <a :href="'/sales/edit/'+id" type="submit" class="btn btn-outline-warning waves-effect waves-light mr-2">แก้ใข</a> <button type="button" class="btn btn-success waves-effect waves-light" @click="sendNotify">ส่งข้อมูลให้ทีมพ่อสื่อ</button>
+                                        <div class="q1">
+                                            <p>ลูกค้าของท่าน<b>พอใจในราคา</b>ที่ได้รับจากพันธมิตรหรือไม่?</p>
+                                            <div class="row">
+                                                <div class="col"><button @click="trueQ1" class="btn btn-success btn-block">พอใจ</button></div>
+                                                <div class="col"><button @click="falseQ1" class="btn btn-danger btn-block">ยังไม่พอใจ</button></div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                        </div>
-                        
-                      </div>
-<!--
-                        <div class="row"  id="chkimg">
-                            <div class="col-lg-6 col-md-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="mb-2 font-size-18">สถานะรูป : <span v-if="status == '0'" class="red">ยังไม่ครบ</span><span v-else-if="status == '1'" class="green">ครบถ้วน</span></h4>
-                                        <div class="check-list">
-                                            <p v-if="count[10] >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> ด้านหน้าตรง**</p>
-                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> ด้านหน้าตรง**</p>
-                                            
-                                            <p v-if="count[11] >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> ด้่านหลังตรง**</p>
-                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> ด้่านหลังตรง**</p>
 
-                                            <p v-if="count[12] >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> มุมเฉียงหน้าซ้าย**</p>
-                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> มุมเฉียงหน้าซ้าย**</p>
-
-                                            <p v-if="count[13] >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> มุมเฉียงหลังซ้าย**</p>
-                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> มุมเฉียงหลังซ้าย**</p>
-
-                                            <p v-if="count[14] >= 1" class="green"><i class="mdi mdi-close-circle-outline"></i> ที่นั่งคนขับ</p>
-                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> ที่นั่งคนขับ</p>
-
-                                            <p v-if="count[15] >= 1" class="green"><i class="mdi mdi-close-circle-outline"></i> ภายในหลังซ้าย</p>
-                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> ภายในหลังซ้าย</p>
-
-                                            <p v-if="count[16] >= 1" class="green"><i class="mdi mdi-close-circle-outline"></i> พวงมาลัย และคอนโซล**</p>
-                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> พวงมาลัย และคอนโซล**</p>
-
-                                            <p v-if="count[17] >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> หน้าปัด และเลขไมล์**</p>
-                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> หน้าปัด และเลขไมล์**</p>
-
-                                            <p v-if="count[18] >= 1" class="green"><i class="mdi mdi-check-circle-outline"></i> เกียร์**</p>
-                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> เกียร์**</p>
-
-                                            <p v-if="count[19] >= 1" class="green"><i class="mdi mdi-close-circle-outline"></i> กุญแจ</p>
-                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> กุญแจ</p>
-
-                                            <p v-if="count[20] >= 1" class="green"><i class="mdi mdi-close-circle-outline"></i> ป้ายภาษี**</p>
-                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> ป้ายภาษี**</p>
-
-                                            <p v-if="count[21] >= 1" class="green"><i class="mdi mdi-close-circle-outline"></i> สำเนาทะเบียนหน้ารายการจดทะเบียน และเจ้าของรถ (ล่าสุด)**</p>
-                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> สำเนาทะเบียนหน้ารายการจดทะเบียน และเจ้าของรถ (ล่าสุด)**</p>
-
-                                            <p v-if="count[22] >= 1" class="green"><i class="mdi mdi-close-circle-outline"></i> เล่มฟ้าหน้า 18 (ถ้ามี)</p>
-                                            <p v-else class="red"><i class="mdi mdi-close-circle-outline"></i> เล่มฟ้าหน้า 18 (ถ้ามี)</p>
-
+                                        <div class="q2">
+                                            <p>ลูกค้าของท่านได้ทำการขายรถให้กับ<b>พันธมิตรของเรา</b>หรือไม่?</p>
+                                            <div class="row mb-3">
+                                                <div class="col"><button @click="trueQ2" class="btn btn-success btn-block">ขาย</button></div>
+                                                <div class="col"><button @click="falseQ2" class="btn btn-danger btn-block">ไม่ได้ขาย</button></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col"><button @click="sameQ2" class="btn btn-warning btn-block">ลูกค้ากำลังตัดสินใจ</button></div>
+                                            </div>
                                         </div>
-                                        <div class="mt-4">
-                                            <p>**จำเป็นต้องมี</p>
-                                            <p class="mb-0"><a href="#">ดูตัวอย่างการถ่ายภาพรถยนต์</a></p>
+
+                                        <div class="q3">
+                                            <p>ท่านได้ค่าคอมมิชชั่นจากการขายรถให้กับพันธมิตรของเราหรือไม่?</p>
+                                            <div class="row">
+                                                <div class="col"><button @click="trueQ3" class="btn btn-success btn-block">ใช่ ฉันได้รับ</button></div>
+                                                <div class="col"><button @click="falseQ3" class="btn btn-danger btn-block">ไม่ได้รับ</button></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="q4">
+                                            <p>ลูกค้าของท่านได้จองรถใหม่กับคุณหรือไม่?</p>
+                                            <div class="row mb-3">
+                                                <div class="col"><button @click="trueQ4" class="btn btn-success btn-block">ได้จอง</button></div>
+                                                <div class="col"><button @click="falseQ4" class="btn btn-danger btn-block">ไม่ได้จอง</button></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col"><button @click="sameQ4" class="btn btn-info btn-block">ไม่ได้สนใจรถใหม่ แค่อยากขายรถเก่า</button></div>
+                                            </div>
+                                        </div>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+</div>
 
+                            <div class="row">
+                                <div class="col-12" >
+                                    <div class="page-title-box d-flex align-items-center justify-content-between">
+                                        <h4 class="mb-0 font-size-18">รถยนต์รหัส {{ id }}</h4>
 
+                                        <div class="page-title-right">
+                                            <ol class="breadcrumb m-0">
+                                                <li class="breadcrumb-item"><a href="javascript: void(0);">Trade-in</a></li>
+                                                <li class="breadcrumb-item active">รถยนต์</li>
+                                            </ol>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="row">
                                 <div class="col-lg-6 col-md-12">
                                     <div class="card">
                                         <div class="card-body">
-<div id="form">
-                                            <div class="guide-line" id="agent">
-                                                <p>ตัวอย่างการถ่ายรูป</p>
-                                                    <img v-if="group != 0" :src="'/assets/images/photo-guild/guild-line-00'+ group + '.jpg'" width="100%" class="car_img_guide">
+                                            <h4 class="mb-2 font-size-18">ข้อมูลสมาชิก</h4>
+                                            <div class="table-responsive">
+                                                <table class="table mb-0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <th width="155px">รหัส ID</th>
+                                                            <td>{{ id }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>เลขไมล์</th>
+                                                            <td>{{ mileage }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>ยี่ห้อ</th>
+                                                            <td>{{ brand }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>ซีรี่</th>
+                                                            <td>{{ serie }}</td>
+                                                        <tr>
+                                                            <th>รุ่น</th>
+                                                            <td>{{ section }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>เกียร์</th>
+                                                            <td>{{ transmission }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>สี</th>
+                                                            <td>{{ color }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>รุ่นปี</th>
+                                                            <td>{{ car_year }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>ราคา</th>
+                                                            <td>{{ price }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>เพิ่มเติม</th>
+                                                            <td>{{ option }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>สภาพ</th>
+                                                            <td>{{ condition }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>ชื่อ ผู้ขาย</th>
+                                                            <td>{{ sellername }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>เบอร์โทรศัพท์ ผู้ขาย</th>
+                                                            <td>{{ tel }}</td>
+                                                        </tr>
+                                                        <tr class="gray_bg">
+                                                            <th>รถอยู่จังหวัด</th>
+                                                            <td>{{ pv }}</td>
+                                                        </tr>
+                                                        <tr class="gray_bg">
+                                                            <th>สถานะไฟแนนซ์</th>
+                                                            <td>{{ fin }}</td>
+                                                        </tr>
+                                                        <tr class="gray_bg">
+                                                            <th>ความพร้อมปล่อยรถ</th>
+                                                            <td>{{ ready }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>สถานะ</th>
+                                                            <td v-if="status == '0'"><span class="badge badge-soft-success">ไม่มีสถานะ.</span></td>
+                                                            <td v-if="status == '1'"><span class="badge badge-soft-success">ติดตามลูกค้า</span></td>
+                                                            <td v-if="status == '2'"><span class="badge badge-soft-success">ไม่ได้สัมผัสรถ</span></td>
+                                                            <td v-if="status == '3'"><span class="badge badge-soft-success">ลูกค้าขายเอง / ขายที่อื่น</span></td>
+                                                            <td v-if="status == '4'"><span class="badge badge-soft-success">สำเร็จ</span></td>
+                                                            <td v-if="status == '10'"><span class="badge badge-soft-danger">ลบ</span></td>
+                                                        </tr>
+                                                        
+                                                    </tbody>
+                                                </table>
+                                                <div class="form-group mt-3">
+                                                    <h4 class="mb-2 font-size-18">จัดการข้อมูล</h4>
+                                                    <a :href="'/sales/edit/'+id" type="submit" class="btn btn-outline-warning waves-effect waves-light mr-2">แก้ใข</a> <button type="button" class="btn btn-success waves-effect waves-light" @click="sendNotify">ส่งข้อมูลให้ทีมพ่อสื่อ</button>
+                                                </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
 
-                                            <h4 class="mb-2 font-size-18">อัพโหลดรูปหน้าปก</h4>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="mb-2 font-size-18">ราคาจากพันธมิตร</h4>
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ลำดับ</th>
+                                                        <th>ราคา</th>
+                                                        <th>เวลา</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr v-for="off in offer">
+                                                        <td>{{ off.no }}</td>
+                                                        <td>{{ off.price }}</td>
+                                                        <td>{{ off.date }}</td>
+                                                    </tr>
+                                                </tbody>
 
-                                                <form @submit.prevent="sendData">
-                                                        <div class="form-group">
-                                                            <select class="form-control" v-model="group">
-                                                                <option value="0">= เลือกประเภทของภาพ =</option>
-                                                                <option value="10">ด้่านหน้าตรง</option>
-                                                                <option value="11">ด้่านหลังตรง</option>
-                                                                <option value="12">มุมเฉียงหน้าซ้าย</option>
-                                                                <option value="13">มุมเฉียงหลังซ้าย</option>
-                                                                <option value="14">ที่นั่งคนขับ</option>
-                                                                <option value="15">ภายในหลังซ้าย</option>
-                                                                <option value="16">พวงมาลัย และคอนโซล</option>
-                                                                <option value="17">หน้าปัด และเลขไมล์</option>
-                                                                <option value="18">เกียร์</option>
-                                                                <option value="19">กุญแจ</option>
-                                                                <option value="20">ป้ายภาษี</option>
-                                                                <option value="21">สำเนาทะเบียนผู้ถือกรรมสิทธิ์</option>
-                                                                <option value="22">เล่มฟ้าหน้า 18</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <input type="file" name="file_upload" id="file_upload" @change="onFileChange">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <button type="submit" class="btn btn-primary waves-effect waves-light">อัพโหลด</button>
-                                                        </div>
-                                                </form>
-</div>
+                                            </table>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
--->
+                            <div class="row" id="btnAndroid">
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="warning-android">
+                                        <h5>สำหรับ Android ที่อัพโหลดรูปไม่ได้ ให้ใช้งานระบบสำหรับ Android (โดยคลิกปุ่มด้านล่าง)</h5>
+                                        <button type="button" @click="androidUpload" class="btn btn-danger waves-effect btn-block">ระบบกำลังอัพโหลดสำหรับ Android</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
 
-                        <div class="row" id="multiUpload">
-                            <div class="col-lg-6 col-md-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="mb-2 font-size-18">อัพโหลดรูป (อัพได้ครั้งละหลายรูป)</h4>
+                    
 
-                                            <p class="red">สามารถอัพโหลดรูปได้ครั้งละไม่เกิน 5 รูป</p>
+                    <div class="row" id="multiUpload">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="mb-2 font-size-18">อัพโหลดรูป (อัพได้ครั้งละหลายรูป)</h4>
 
-                                            <div class="form-group">
-                                                <select class="form-control" v-model="group" id="exampleFormControlSelect1">
-                                                    <option value="0">= เลือกประเภทรูป =</option>
-                                                    <option value="10">รูปภายนอกรถยนต์ (Code: 10)</option>
-                                                    <option value="20">รูปภายในรถยนต์ (Code: 20)</option>
-                                                    <option value="30">รูปเอกสารรถยนต์ (Code: 30)</option>
-                                                    <option value="40">รูปห้องเครื่อง ช่วงล่าง ใต้ท้องรถ (Code: 40)</option>
-                                                    <option value="50">รูปตำหนิรถยนต์แต่ละจุด (Code: 50)</option>
-                                                </select>
+                                        <p class="red">สามารถอัพโหลดรูปได้ครั้งละไม่เกิน 5 รูป</p>
+
+                                        <div class="form-group">
+                                            <select class="form-control" v-model="group" id="exampleFormControlSelect1">
+                                                <option value="0">= เลือกประเภทรูป =</option>
+                                                <option value="10">รูปภายนอกรถยนต์ (Code: 10)</option>
+                                                <option value="20">รูปภายในรถยนต์ (Code: 20)</option>
+                                                <option value="30">รูปเอกสารรถยนต์ (Code: 30)</option>
+                                                <option value="40">รูปห้องเครื่อง ช่วงล่าง ใต้ท้องรถ (Code: 40)</option>
+                                                <option value="50">รูปตำหนิรถยนต์แต่ละจุด (Code: 50)</option>
+                                            </select>
+                                        </div>
+                                    
+                                        <div class="row">
+                                            <div class="col form-group mt-2">
+                                                <input type="file" class="form-control file-upload" id="uploadfiles" ref="uploadfiles" accept="image/*"  multiple />
                                             </div>
-                                      
-                                            <div class="row">
-                                                <div class="col form-group mt-2">
-                                                    <input type="file" class="form-control file-upload" id="uploadfiles" ref="uploadfiles" multiple />
+                                        </div>
+
+                                        <div class="form-group mb-0">
+                                            <button type="button" @click='uploadFile()' class="btn btn-primary waves-effect waves-light mb-2">อัพโหลด</button>
+                                        </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" id="multiAndroid">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="mb-3 font-size-18">อัพโหลดรูปสำหรับ Android</h4>
+
+                                        <div class="form-group">
+                                            <select class="form-control" v-model="group" id="exampleFormControlSelect1">
+                                                <option value="0">= เลือกประเภทรูป =</option>
+                                                <option value="10">รูปภายนอกรถยนต์ (Code: 10)</option>
+                                                <option value="20">รูปภายในรถยนต์ (Code: 20)</option>
+                                                <option value="30">รูปเอกสารรถยนต์ (Code: 30)</option>
+                                                <option value="40">รูปห้องเครื่อง ช่วงล่าง ใต้ท้องรถ (Code: 40)</option>
+                                                <option value="50">รูปตำหนิรถยนต์แต่ละจุด (Code: 50)</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="row">
+                                            <div class="col form-group">
+                                                <p class="red">สามารถอัพโหลดรูปอย่างน้อย 1 รูป และไม่เกิน 5 รูปต่อครั้ง</p>
+                                                <div class="mb-4">
+                                                    <p class="mb-2">รูปที่ 1</p>
+                                                    <input type="file" class="form-control file-upload" id="uploadAndroid1" ref="uploadAndroid1">
+                                                </div>
+
+                                                <div class="mb-4">
+                                                    <p class="mb-2">รูปที่ 2</p>
+                                                    <input type="file" class="form-control file-upload" id="uploadAndroid2" ref="uploadAndroid2">
+                                                </div>
+
+                                                <div class="mb-4">
+                                                    <p class="mb-2">รูปที่ 3</p>
+                                                    <input type="file" class="form-control file-upload" id="uploadAndroid3" ref="uploadAndroid3">
+                                                </div>
+                                                
+                                                <div class="mb-4">
+                                                    <p class="mb-2">รูปที่ 4</p>
+                                                    <input type="file" class="form-control file-upload" id="uploadAndroid4" ref="uploadAndroid4">
+                                                </div>
+
+                                                <div class="mb-4">
+                                                    <p class="mb-2">รูปที่ 5</p>
+                                                    <input type="file" class="form-control file-upload" id="uploadAndroid5" ref="uploadAndroid5">
                                                 </div>
                                             </div>
-                                            <div class="form-group mb-0">
-                                                <button type="button" @click='uploadFile()' class="btn btn-primary waves-effect waves-light mb-2">อัพโหลด</button>
-                                            </div>
+                                        </div>
 
+                                        <div class="form-group">
+                                            <button type="button" @click='uploadFile()' class="btn btn-block btn-primary waves-effect waves-light mb-2">อัพโหลด</button>
+                                        </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                   
+
+                        <div id="car_img">
+                            <div class="row" v-for="docs in img">
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <img :src="docs.link_500" width="100%" class="car_img">
+                                            <a :href="docs.link_500" target="_blank" type="button" class="btn btn-sm btn-primary waves-effect waves-light mt-2" style="margin-top: 10px;">รูปขนาดเต็ม</a>
+                                            <button @click="sendDelete" :value="docs.id" type="button" class="btn btn-sm btn-danger waves-effect waves-light mt-2" style="margin-top: 10px;">ลบ</button>
+                                            <p class="mt-1">อัพโหลดเมื่อ : {{ docs.datetime }}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                            <div id="car_img">
-                                <div class="row" v-for="docs in img">
-                                    <div class="col-lg-6 col-md-12">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <img :src="docs.link_500" width="100%" class="car_img">
-                                                <a :href="docs.link_500" target="_blank" type="button" class="btn btn-sm btn-primary waves-effect waves-light mt-2" style="margin-top: 10px;">รูปขนาดเต็ม</a>
-                                                <button @click="sendDelete" :value="docs.id" type="button" class="btn btn-sm btn-danger waves-effect waves-light mt-2" style="margin-top: 10px;">ลบ</button>
-                                                <p class="mt-1">อัพโหลดเมื่อ : {{ docs.datetime }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                </div>
+            </div>
 
+        </div>
+
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-6">
+                        2023 © Weise Tech.
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="text-sm-right d-none d-sm-block">
+                            Design & Develop by Weise Tech
                         </div>
                     </div>
                 </div>
-
-                <footer class="footer">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                2023 © Weise Tech.
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="text-sm-right d-none d-sm-block">
-                                    Design & Develop by Weise Tech
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
-
             </div>
-        
-
-        </div>
-    
-
+        </footer>
     
         <div class="menu-overlay"></div>
 
-        <!-- jQuery  -->
         <script src="/assets/js/jquery.min.js"></script>
         <script src="/assets/js/bootstrap.bundle.min.js"></script>
         <script src="/assets/js/metismenu.min.js"></script>
         <script src="/assets/js/waves.js"></script>
         <script src="/assets/js/simplebar.min.js"></script>
 
-        <!-- third party js -->
-        <script src="/assets/plugins/datatables/jquery.dataTables.min.js"></script>
-        <script src="/assets/plugins/datatables/dataTables.bootstrap4.js"></script>
-        <script src="/assets/plugins/datatables/dataTables.responsive.min.js"></script>
-        <script src="/assets/plugins/datatables/responsive.bootstrap4.min.js"></script>
-        <script src="/assets/plugins/datatables/dataTables.buttons.min.js"></script>
-        <script src="/assets/plugins/datatables/buttons.bootstrap4.min.js"></script>
-        <script src="/assets/plugins/datatables/buttons.html5.min.js"></script>
-        <script src="/assets/plugins/datatables/buttons.flash.min.js"></script>
-        <script src="/assets/plugins/datatables/buttons.print.min.js"></script>
-        <script src="/assets/plugins/datatables/dataTables.keyTable.min.js"></script>
-        <script src="/assets/plugins/datatables/dataTables.select.min.js"></script>
-        <script src="/assets/plugins/datatables/pdfmake.min.js"></script>
-        <script src="/assets/plugins/datatables/vfs_fonts.js"></script>
-
         <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.1/axios.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
-        <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
 
         <script>
-                
+            
+                var uploadAndroid = new Vue({
+                    el: '#multiAndroid',
+                    data () {
+                        return {
+                            file: "",
+                            filenames: [],
+                            id: '<?php echo $cid; ?>',
+                            group: '0'
+                        }
+                    },
+                    methods: {
+
+                        uploadFile() {
+                            var f = this.$refs.uploadAndroid1.files.length + this.$refs.uploadAndroid2.files.length + this.$refs.uploadAndroid3.files.length + this.$refs.uploadAndroid4.files.length + this.$refs.uploadAndroid5.files.length;
+                            if(f <= 0){
+                                swal("เกิดข้อผิดพลาดบางอย่าง", "กรุณาเลือกรูปเพื่ออัพโหลด", "warning",{ 
+                                    button: "ตกลง"
+                                });
+                                return;
+                            } else if(this.group == 0) {
+                                swal("เกิดข้อผิดพลาดบางอย่าง", "กรุณาเลือกประเภทของรูป", "warning",{ 
+                                    button: "ตกลง"
+                                });
+                            } else {
+
+                                var el = this;
+                                var formData = new FormData();
+                                var files = [this.$refs.uploadAndroid1.files[0], this.$refs.uploadAndroid2.files[0], this.$refs.uploadAndroid3.files[0], this.$refs.uploadAndroid4.files[0], this.$refs.uploadAndroid5.files[0]];
+                                var totalfiles = files.length;
+                                for (var index = 0; index < totalfiles; index++) {
+                                    formData.append("files[]", files[index]);
+                                }
+                                formData.append('id', '<?php echo $cid; ?>');
+                                formData.append('group', this.group);
+
+                                axios.post('/sales/system/multi_upload.api.php', formData,
+                                {
+                                    headers: {
+                                        'Content-Type': 'multipart/form-data'
+                                    },
+                                    onUploadProgress: function(progressEvent) {
+                                        var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                                        swal({
+                                            title: 'กำลังอัพโหลด',
+                                            text: 'กรุณารอสักครู่...',
+                                            buttons: false,
+                                            closeOnClickOutside: false,
+                                            closeOnEsc: false,
+                                            icon: '/assets/images/Spin.gif'
+                                        });
+                                    }
+                                })
+                                .then(function (response) {
+                                    
+                                    swal.close();
+                                    if(response.data.status == 200) 
+                                        swal("สำเร็จ", "อัพโหลดรูปสำเร็จ", "success",{ 
+                                            button: "ตกลง"
+                                        }).then((value) => {
+                                            location.reload(true)
+                                        });
+                                })
+
+                            }
+                            
+                        }
+            
+                    }
+                });
+
                 var uploadMul = new Vue({
                     el: '#multiUpload',
                     data () {
@@ -486,13 +618,12 @@
                                             onUploadProgress: function(progressEvent) {
                                                 var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
                                                 swal({
-                                                    title: "กำลังอัพโหลด",
-                                                    text: "Please wait",
-                                                    icon: "info",
-                                                    showConfirmButton: false,
-                                                    allowOutsideClick: false,
+                                                    title: 'กำลังอัพโหลด',
+                                                    text: 'กรุณารอสักครู่...',
+                                                    buttons: false,
                                                     closeOnClickOutside: false,
-                                                    closeOnEsc: false
+                                                    closeOnEsc: false,
+                                                    icon: '/assets/images/Spin.gif'
                                                 });
                                             }
                                         })
@@ -558,18 +689,24 @@
                             cal_tltprice: '',
                             vat: '',
                             sellername: '',
+                            pv: '',
+                            fin: '',
+                            ready: '',
+                            offer: [],
+
                         }
                     },
                     mounted () {
                         axios.get('/sales/system/car_detail.api.php?u=<?php echo $cid; ?>')
                             .then(response => {
+                                console.log(response.data);
                                 if(response.data.status == 404) 
                                     swal("เกิดข้อผิดพลาดบางอย่าง", "อาจมีบางอย่างผิดปกติ (error : 404)", "warning",{ 
                                         button: "ตกลง"
                                     }).then((value) => {
                                         window.location.href = "/sales/home";
                                     });
-                                
+                                this.offer = response.data.offer;
                                 this.cal_price = response.data.car.cal_price;
                                 this.cal_tltprice = response.data.car.cal_tlt_price;
                                 var cal_down = this.cal_price - (this.cal_tltprice * (this.loanrate/100));
@@ -601,12 +738,61 @@
                                 this.tel = response.data.car.tel;
                                 this.vat = response.data.car.vat;
                                 this.sellername = response.data.car.sellername;
-                             
+                                this.pv = response.data.car.pv;
+                                this.fin = response.data.car.fin;
+                                this.ready = response.data.car.ready;
+                                
+
                             }),
                             this.calDownpayment();
                     },
                     methods: {
-                        sendNotify(){
+
+                        trueQ1() {
+                            $('.q1').hide();
+                            $('.q2').show();
+                        },
+                        falseQ1() {
+                            $('.q1').hide();
+                            $('.q2').show();
+                        },
+                        trueQ2() {
+                            $('.q2').hide();
+                            $('.q3').show();
+                        },
+                        falseQ2(){
+                            $('.q2').hide();
+                            $('.q3').show();
+                        },
+                        sameQ2(){
+                            $('.q2').hide();
+                            $('.q3').show();
+                        },
+                        trueQ3() {
+                            $('.q3').hide();
+                            $('.q4').show();
+                        },
+                        falseQ3(){
+                            $('.q3').hide();
+                            $('.q4').show();
+                        },
+                        trueQ4() {
+                            $('#question').hide();
+                        },
+                        falseQ4(){
+                            $('#question').hide();
+                        },
+                        sameQ4(){
+                            $('#question').hide();
+                        },
+                        
+                        androidUpload(){
+                            $('#multiAndroid').show();
+                            $('#multiUpload').hide();
+                            $('#btnAndroid').hide();
+                        },
+                        sendNotify() {
+                            
                             swal({
                                 title: 'คุณแน่ใจหรือไม่ ?',
                                 text: "คุณต้องการส่งข้อมูลให้ทีมพ่อสื่อใช่หรือไม่ โปรดตรวจสอบข้อมูลให้ถูกต้อง",
@@ -637,6 +823,7 @@
                                     });
                                 }
                             });
+                            
                         },
                         calDownpayment(e){
                             
@@ -806,8 +993,9 @@
                 });
 
         </script>
-
-              <script src="/assets/js/theme.js"></script>
-
+        <script src="/assets/js/theme.js"></script>
     </body>
+    
 </html>
+<?php } ?>
+

@@ -1,5 +1,9 @@
 <?php
     session_start();
+    if($_SESSION['tin_admin'] != true){
+        header("location: /404");
+        exit();
+    } else {
   
 ?>
 <!DOCTYPE html>
@@ -62,6 +66,12 @@
         }
         .gray {
             background-color: #f9f9f9;
+        }
+        .gray-imp {
+            background-color: #ededed;
+        }
+        .bg-status {
+            background-color: #fbffe1;
         }
     </style>
 </head>
@@ -135,18 +145,6 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>ยอดจองรถใหม่</td>
-                                            <td v-for="c in count">{{ c.value }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>ได้ประเมินราคา</td>
-                                            <td v-for="c in count">{{ c.trade }}</td>
-                                        </tr>
-                                        <tr class="gray">
-                                            <td>%</td>
-                                            <td v-for="c in count">{{ c.percentage }}</td>
-                                        </tr>
-                                        <tr>
                                             <td>ซื้อรถคันแรก</td>
                                             <td v-for="c in count">{{ c.objFirst }}</td>
                                         </tr>
@@ -157,6 +155,31 @@
                                         <tr>
                                             <td>ซื้อเพิ่มเติม</td>
                                             <td v-for="c in count">{{ c.objAddon }}</td>
+                                        </tr>
+                                        <tr class="gray-imp">
+                                            <td>ยอดจองรถใหม่</td>
+                                            <td v-for="c in count">{{ c.value }}</td>
+                                        </tr>
+                                        <tr class="gray-imp">
+                                            <td>ส่งให้ Trade-In</td>
+                                            <td v-for="c in count">{{ c.trade }}</td>
+                                        </tr>
+                                        <tr class="gray">
+                                            <td>%</td>
+                                            <td v-for="c in count">{{ c.percentage }}</td>
+                                        </tr>
+                                        
+                                        <tr class="bg-status">
+                                            <td>รอสถานะ</td>
+                                            <td v-for="c in count">{{ c.wait_value }}</td>
+                                        </tr>
+                                        <tr class="bg-status">
+                                            <td>ขายกับเรา</td>
+                                            <td v-for="c in count">{{ c.sold_value }}</td>
+                                        </tr>
+                                        <tr class="bg-status">
+                                            <td>ลค.ขายเอง</td>
+                                            <td v-for="c in count">{{ c.cancel_value }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -280,7 +303,7 @@
             }
         });
 
-    </script>
+    </script> 
 
     <!-- App js -->
     <script src="/assets/js/theme.js"></script>
@@ -288,3 +311,4 @@
 </body>
 
 </html>
+<?php } ?>

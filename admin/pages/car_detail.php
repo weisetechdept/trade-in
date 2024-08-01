@@ -3,7 +3,7 @@
     if($_SESSION['tin_admin'] != true){
         header("location: /404");
         exit();
-    }
+    } else {
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -96,6 +96,12 @@
             .btn-right {
                 float: right;
             }
+            .t-imp {
+                background-color: #f1f1f1;
+            }
+            .offer-price {
+                padding: 15px;
+            }
         </style>
     </head>
 
@@ -127,7 +133,7 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row" data-masonry='{"percentPosition": true }'>
                             <div class="col-lg-6 col-md-12">
                                 <div class="card">
                                     <div class="card-body">
@@ -152,6 +158,10 @@
                                                         <td>{{ door }}</td>
                                                     </tr>
                                                     <tr>
+                                                        <th>ขนาดเครื่องยนต์</th>
+                                                        <td>{{ engine }}</td>
+                                                    </tr>
+                                                    <tr>
                                                         <th>เกียร์</th>
                                                         <td>{{ transmission }}</td>
                                                     </tr>
@@ -162,6 +172,7 @@
                                                     <tr>
                                                         <th>ปีรถยนต์</th>
                                                         <td>{{ reg_year }}</td>
+                                                    <tr>
                                                     <tr>
                                                         <th>ราคาที่ยอมรับได้</th>
                                                         <td>{{ price }}</td>
@@ -175,6 +186,21 @@
                                                         <td>{{ tel }}</td>
                                                     </tr>
                                                     
+                                                    <tr class="t-imp">
+                                                        <th>ปัจจุบันรถอยู่จังหวัดใด</th>
+                                                        <td>{{ pv }}</td>
+                                                    </tr>
+
+                                                    <tr class="t-imp">
+                                                        <th>สถานะไฟแนนซ์</th>
+                                                        <td>{{ fin }}</td>
+                                                    </tr>
+
+                                                    <tr class="t-imp">
+                                                        <th>ความพร้อมปล่อยรถ</th>
+                                                        <td>{{ ready }}</td>
+                                                    </tr>
+                                                    
                                                 </tbody>
                                             </table>
                                         </div>
@@ -184,56 +210,42 @@
                             <div class="col-lg-6 col-md-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="mb-2 font-size-18">ให้ราคา</h4>
+                                        <h5 class="mb-2 font-size-18">ให้ราคา</h5>
                                         <table class="table mb-0">
                                                 <thead>
                                                     <tr>
                                                         <th>ราคา</th>
                                                         <th>พันธมิตร</th>
-                                                        <th width="180px">วันที่</th>
+                                                        <th width="125px">วันที่</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr v-for="offer in offer.display">
                                                         <td>{{ offer.price }}</td>
-                                                        <th>{{ offer.partner }}</th>
+                                                        <th>{{ offer.partner }} <a :href="'tel:'+offer.tel" v-if="offer.tel !== ''" class="btn btn-sm btn-outline-info"><span class="mdi mdi-phone"></span></></th>
                                                         <td>{{ offer.datetime }}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
-
-                                            <div id="accordion" class="custom-accordion mt-4 ">
-                                                <div class="card mb-0">
-                                                    <div class="card-header" id="headingOne">
-                                                        <h5 class="m-0 font-size-15">
-                                                            <a class="d-block pt-2 pb-2 text-dark" data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                                ส่งแจ้งเตือนให้ราคา <span class="float-right"><i class="mdi mdi-chevron-down accordion-arrow"></i></span>
-                                                            </a>
-                                                        </h5>
-                                                    </div>
-                                                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                                                        <div class="card-body">
-
-                                                            <div class="row">
-                                                                <div class="col-12 col-md-6">
-                                                                    <div>
-                                                                        <div class="form-group">
-                                                                            <label>ราคา</label>
-                                                                            <input type="text" class="form-control" v-model="offer.price">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label>พันธมิตร</label>
-                                                                            <input type="text" class="form-control" v-model="offer.partner">
-                                                                        </div>
-                                                                        <input type="submit" class="btn btn-primary" @click="offerData" value="ส่งราคา">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
+                                            <hr>
+                                            <div class="row offer-price">
+                                                
+                                                <div class="col-12 col-md-6">
+                                                    <h4>ส่งแจ้งเตือนราคา</h4>
+                                                    <div>
+                                                        <div class="form-group">
+                                                            <label>ราคา</label>
+                                                            <input type="text" class="form-control" v-model="offer.price">
                                                         </div>
+                                                        <div class="form-group">
+                                                            <label>พันธมิตร</label>
+                                                            <input type="text" class="form-control" v-model="offer.partner">
+                                                        </div>
+                                                        <input type="submit" class="btn btn-primary" @click="offerData" value="ส่งราคา">
                                                     </div>
                                                 </div>
-                                            </div> 
+                                                
+                                            </div>
                                     </div>
 
                                 </div>
@@ -254,6 +266,14 @@
                                                             <button class="btn btn-dark waves-effect waves-light" @click="copyLink" type="button">คัดลอก</button> 
                                                             <button class="btn btn-success" data-sharer="line" :data-title="'พ่อสื่อออนไลน์ รหัส ID : '+ share_link" :data-url="share_link">แชร์ผ่านไลน์</button>
                                                         </div>
+                                                    </div>
+                                                    <div class="mt-3">
+                                                        <select class="form-control">
+                                                            <option value="all">พันธมิตรทั้งหมด (ไม่รวม Test)</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="mt-3">
+                                                        <button class="btn btn-outline-primary" @click="sendPartner">ส่งให้พันธมิตรในระบบ</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -311,7 +331,7 @@
                                                                         </div>
 
                                                                         <div class="form-group">
-                                                                            <label>รายลัเอียด</label>
+                                                                            <label>รายละเอียด</label>
                                                                             <textarea type="text" v-model="bookData.detail" class="form-control"></textarea>
                                                                         </div>
                                                                         <input type="submit" class="btn btn-primary" @click="meetData" value="นัดหมาย">
@@ -393,6 +413,7 @@
                                                         <th>เบอร์โทรศัพท์</th>
                                                         <td>{{ tel }} <a :href="'tel:'+tel" class="btn btn-outline-success ml-2">โทร</a></td>
                                                     </tr>
+
                                                     <tr>
                                                         <th>สถานะ</th>
                                                         <td v-if="status == '0'"><span class="badge badge-soft-success">ไม่มีสถานะ.</span></td>
@@ -568,6 +589,8 @@
         <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 
         <script src="https://cdn.jsdelivr.net/npm/sharer.js@latest/sharer.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js" integrity="sha512-JRlcvSZAXT8+5SQQAvklXGJuxXTouyq8oIMaYERZQasB8SBDHZaUbeASsJWpk0UUrf89DP3/aefPPrlMR1h1yQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
         <script>
 
                 var uploadMul = new Vue({
@@ -690,6 +713,9 @@
                                 date: '',
                                 detail: ''
                             },
+                            pv: '',
+                            fin:'',
+                            ready:'',
                         }
                     },
                     mounted () {
@@ -750,6 +776,9 @@
                                 this.share_link = response.data.car.share_link;
 
                                 this.switchPublic = response.data.car.publicLink;
+                                this.pv = response.data.car.pv;
+                                this.fin = response.data.car.fin;
+                                this.ready = response.data.car.ready;
                              
                             }),
                             this.calDownpayment();
@@ -861,6 +890,11 @@
                                     }
                                 );
                                 return;
+                            } else if(this.offer.price.length <= 4) {
+                                swal("ไม่สามารถทำรายการได้", "คุณใส่ราคาน้อยเกินไป", "warning",{ 
+                                        button: "ตกลง"
+                                    }
+                                );
                             } else {
 
                                 swal({
@@ -869,8 +903,13 @@
                                     icon: "info",
                                     buttons: true,
                                     dangerMode: true,
-                                }).then((willDelete) => {
-                                    if (willDelete) {
+                                }).then((wilOkay) => {
+                                    if (wilOkay) {
+                                        
+                                        swal("กรุณารอสักครู่", "ระบบกำลังส่งข้อมูล", "info", {
+                                            button: false
+                                        })
+
                                         axios.post('/admin/system/offer.ins.php', {
                                             price: this.offer.price,
                                             partner: this.offer.partner,
@@ -915,6 +954,45 @@
                             copyText.setSelectionRange(0, 99999);
                             navigator.clipboard.writeText(copyText.value);
                             alert("คัดลอกลิ้ง : " + copyText.value);
+                        },
+                        sendPartner() {
+                            swal({
+                                title: 'คุณแน่ใจหรือไม่ ?',
+                                text: "คุณต้องการส่งข้อมูลให้พันธมิตรในระบบหรือไม่ ?",
+                                icon: "info",
+                                buttons: true,
+                                dangerMode: true,
+                            }).then((willDelete) => {
+                                if (willDelete) {
+
+                                    swal("กรุณารอสักครู่", "ระบบกำลังส่งข้อมูล", "info", {
+                                        button: false
+                                    })
+                                    
+                                    axios.post('/admin/system/sharePartner.api.php', {
+                                        id: this.id
+                                    }).then(res => {
+                                        if(res.data.status == 200) 
+                                            swal("สำเร็จ", "ส่งข้อมูลสำเร็จ", "success",{ 
+                                                button: "ตกลง"
+                                            }).then((value) => {
+                                                location.reload(true)
+                                            });
+
+                                        if(res.data.status == 400)
+                                            swal("ทำรายการไม่สำเร็จ", "ส่งข้อมูลไม่สำเร็จ อาจมีบางอย่างผิดปกติ (error : 400)", "warning",{ 
+                                                button: "ตกลง"
+                                            }
+                                        );
+                                        
+                                    });
+                                    
+                                } else {
+                                    swal("ยกเลิกการส่งข้อมูลสำเร็จ", {
+                                        icon: "success",
+                                    });
+                                } 
+                            });
                         }
                     }
                 });
@@ -1007,3 +1085,4 @@
 
     </body>
 </html>
+<?php } ?>

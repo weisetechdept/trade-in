@@ -3,7 +3,7 @@
     if($_SESSION['tin_admin'] != true){
         header("location: /404");
         exit();
-    }
+    } else {
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -96,123 +96,35 @@
                         </div>
                     </div>  
 
-                <div class="row" id="count">
-                    <div class="col-12 col-lg-3">
-                        <div class="row">
-                            <div class="col-12 mb-2">
-                                <a href="#">
-                                    <div class="card bg-secondary border-secondary">
-                                        <div class="card-body">
-                                            <div class="mb-2">
-                                                <h5 class="card-title mb-0 text-white">รถยนต์ทั้งหมด</h5>
-                                            </div>
-                                            <div class="row d-flex align-items-center mb-2">
-                                                <div class="col-8">
-                                                    <h2 class="d-flex align-items-center text-white mb-0">
-                                                        {{ count }}
-                                                    </h2>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12 col-lg-9">
-                        <div class="card">
-                            <div class="card-body">
-                                
-                                    <div class="form-row">
-                                        <div class="col-md-3 mb-1">
-                                            <label>ตั้งแต่</label>
-                                            <input type="date" class="form-control" v-model="search.start">
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <label>ถึง</label>
-                                            <input type="date" class="form-control" v-model="search.end">
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <label>สถานะ</label>
-                                            <div class="input-group">
-                                                <select class="form-control" v-model="search.status">
-                                                    <option value="all">ทุกสถานะ</option>
-                                                    <option value="0">ไม่มีสถานะ</option>
-                                                    <option value="1">ติดตามลูกค้า</option>
-                                                    <option value="2">ไม่ได้สัมผัสรถ</option>
-                                                    <option value="3">ลูกค้าขายเอง / ขายที่อื่น</option>
-                                                    <option value="4">สำเร็จ</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <button class="btn btn-primary search-btn" @click="searchData()" type="submit">ค้นหา</button>
-                                        </div>
-                                    </div>
-                          
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
+                                    <p>In48 = ผ่อน 48 งวด, In60 = ผ่อน 60 งวด ทั้งหมดนี้ยังไม่รวม Vat 7% และอัตราดอกเบี้ยที่ 6.5% ต่อปี</p>
                                     <table id="datatable" class="table dt-responsive nowrap">
                                         <thead>
                                             <tr>
-                                                <th>Date EM</th>
-                                                <th>Date finish</th>
-                                                <th>ชื่อลูกค้าที่ให้ดูรถ</th>
-                                                <th>ชื่อลูกค้าที่จองรถใหม่</th>
-                                                <th>Date B/K New Car</th>
-                                                <th>Estimator</th>
-                                                <th>Team</th>
-                                                <th>Branch</th>
-                                                <th>Sales</th>
-                                                <th>Plate</th>
-                                                <th>Brand</th>
-                                                <th>Model</th>
-                                                <th>Version</th>
-                                                <th>Option</th>
-                                                <th>Chassis No.</th>
-                                                <th>Gear</th>
-                                                <th>Colour</th>
-                                                <th>Year</th>
-                                                <th>KM.</th>
-                                                <th>Grade</th>
-                                                <th>Sale Price</th>
-                                                <th>C/S Price</th>
-                                                <th>Sure Price</th>
-                                                <th>Price Finish</th>
-                                                <th>Customer Name</th>
-                                                <th>Tel.</th>
-                                                <th>Condition</th>
-                                                <th>Finish By</th>
-                                                <th>New Car Status</th>
+                                                <th>รหัส</th>
+                                                <th>รูป</th>
+                                                <th>จำนวนรูป</th>
+                                                <th>ทะเบียน</th>
+                                                <th>ปี</th>
+                                                <th>รุ่น</th>
+                                                <th>สี</th>
+                                                <th>ราคา</th>
+                                                <th>เซลล์</th>
+                                                <th>ทีม</th>
+                                                <th>วันที่เพิ่ม</th>
+                                                <th>ราคา</th>
+                                                <th>In48</th>
+                                                <th>In60</th>
+                                                <th>In72</th>
+                                                <th>In84</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -316,22 +228,25 @@
             },
             ajax: '/admin/system/home.api.php?get=list',
             "columns" : [
-                {'data':'7'},
-                {'data':''},
-                {'data':'11'},
-                {'data':'1'},
-                {'data':'9'},
+                {'data':'0'},
+                {'data':'1',
+                    "render": function(data, type, row, meta){
+                        return '<img src="'+ data +'" class="car-thumb">';
+                    }
+                },
                 {'data':'2'},
                 {'data':'3'},
                 {'data':'4'},
                 {'data':'5'},
-                {'data':'10'},
-                { 
-                    'data': '6',
+                {'data':'6'},
+                {'data':'7'},
+                {'data':'8'},
+                {'data':'9'},
+                {'data':'10',
                     sortable: false,
                     "render": function ( data, type, full, meta ) {
                         if(data == '0'){
-                            return '<span class="badge badge-soft-primary">ไม่มีสถานะ</span>';
+                            return '<span class="badge badge-soft-unknow">ไม่มีสถานะ</span>';
                         } else if(data == '1'){
                             return '<span class="badge badge-soft-primary">ติดตามลูกค้า</span>';
                         } else if(data == '2') {
@@ -343,66 +258,19 @@
                         } 
                     }
                 },
-                {'data':'7'},
-                {'data': '0'},
                 {'data':'11'},
-                {'data':'1'},
-                {'data':'9'},
-                {'data':'2'},
-                {'data':'3'},
-                {'data':'4'},
-                {'data':'5'},
-                {'data':'11'},
-                {'data':'1'},
-                {'data':'9'},
-                {'data':'2'},
-                {'data':'3'},
-                {'data':'4'},
-                {'data':'5'},
-                {'data':'10'},
-                {'data':'10'}
+                {'data':'12'},
+                {'data':'13'},
+                {'data':'14'},
+                {'data':'15'}
             ],
-        });
-
-        var count = new Vue({
-            el: '#count',
-            data: {
-                count: 0,
-                search: {
-                    start: '<?php echo date('Y-m-01'); ?>',
-                    end: '<?php echo date('Y-m-d'); ?>',
-                    status: 'all'
-                }
-            },
-            mounted() {
-                axios.get('/admin/system/home.api.php?get=count')
-                    .then(response => (
-                        this.count = response.data.count
-                    ));
-            },
-            methods: {
-                searchData() {
-                    swal({
-                        title: "กำลังโหลดข้อมูล",
-                        text: "โปรดรอสักครู่...",
-                        icon: "info",
-                        buttons: false,
-                        closeOnClickOutside: false,
-                        closeOnEsc: false
-                    });
-                    $('#datatable').DataTable().ajax.url('/admin/system/home.api.php?get=search&start='+this.search.start+'&end='+this.search.end+'&status='+this.search.status).load(function() {
-                        swal.close(); // Close the loading message
-                    });
-                    this.count = $('#datatable').DataTable().rows().count();
-                }
-            }
         });
 
     </script>
 
-    <!-- App js -->
     <script src="/assets/js/theme.js"></script>
 
 </body>
 
 </html>
+<?php } ?>

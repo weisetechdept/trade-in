@@ -3,7 +3,7 @@
     if($_SESSION['tin_admin'] != true){
         header("location: /404");
         exit();
-    }
+    } else {
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -123,7 +123,7 @@
                                             <table class="table mb-0">
                                                 <tbody>
                                                     <tr>
-                                                        <th width="150px">แก้ใขยี่ห้อ ซีรี่ รุ่น</th>
+                                                        <th width="150px">แก้ใขยี่ห้อ ซีรี่ รุ่น<br /><small>**ไม่จำเป็นต้องกรอกก็ได้</small></th>
                                                         <td>
                                                             <select class="form-control" v-model="for_change" @change="onChange($event)">
                                                                 <option value="0">= โปรดเลือกยี่ห้อรถยนต์ =</option>
@@ -328,7 +328,7 @@
                         },
                         sendData() {
 
-                            if(this.price == '' || this.for_section == '' || this.sales == '' || this.sales_team == '' || this.tel == ''){
+                            if(this.price == '' || this.sales == '' || this.sales_team == '' || this.tel == ''){
                                 swal("กรุณากรอกข้อมูลให้ครบถ้วน", "โปรดตรวจสอบข้อมูลให้ครบถ้วน", "warning",{ 
                                     button: "ตกลง"
                                 });
@@ -336,13 +336,12 @@
 
                                 axios.post('/admin/system/new_car.inc.php', {
                                     price: this.price,
-                                    for_section: this.for_section,
                                     sales: this.sales,
                                     sales_team: this.sales_team,
-                                    tel: this.tel
+                                    tel: this.tel,
+                                    car: this.for_section
                                     
                                 }).then(res => {
-                                    //console.log(res);
                                     this.price = '';
                                     this.sales = '';
                                     this.sales_team = '';
@@ -380,3 +379,5 @@
 
     </body>
 </html>
+
+<?php } ?>

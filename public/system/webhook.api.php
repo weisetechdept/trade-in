@@ -14,42 +14,15 @@ date_default_timezone_set("Asia/Bangkok");
   $arrHeader[] = "Content-Type: application/json";
   $arrHeader[] = "Authorization: Bearer {$strAccessToken}";
 
-  if($arrJson['events'][0]['message']['text'] == "[ระบบ] ประเมินราคา"){
+  if($arrJson['events'][0]['message']['text'] == "[ระบบ] พ่อสื่อเมนู"){
 
-/*
-      $arrPostData = array();
-      $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
-      $arrPostData['messages'][0]['type'] = "template";
-      $arrPostData['messages'][0]['altText'] = "this is a buttons template";
-      $arrPostData['messages'][0]['template'] = array(
-          "type" => "buttons",
-          "thumbnailImageUrl" => "https://www.tradingonline.co.th/linebot/img/linebot.jpg",
-          "imageAspectRatio" => "rectangle",
-          "imageSize" => "cover",
-          "imageBackgroundColor" => "#FFFFFF",
-          "title" => "ประเมินราคา",
-          "text" => "กรุณาเลือกประเภทรถยนต์",
-          "defaultAction" => array(
-              "type" => "uri",
-              "label" => "View detail",
-              "uri" => "https://www.tradingonline.co.th/linebot/img/linebot.jpg"
-          ),
-          "actions" => array(
-              array(
-                  "type" => "message",
-                  "label" => "รถเก๋ง",
-                  "text" => "รถเก๋ง"
-              ),
-              array(
-                  "type" => "message",
-                  "label" => "รถกระบะ",
-                  "text" => "รถกระบะ"
-              )
-          )
-      );
-*/
       $uid = $arrJson['events'][0]['source']['userId'];
+
       $chk = $db->where('user_line_uid', $uid)->get('user');
+      if(!$chk){
+        $chk = $db_nms->where('line_usrid', $uid)->get('db_member');
+      }
+
       if($chk){
 
         $pp = $db_nms->where('line_usrid', $uid)->where('verify',1)->getOne('db_member');
@@ -60,32 +33,35 @@ date_default_timezone_set("Asia/Bangkok");
         $arrPostData['messages'][0]['altText'] = "Main Menu";
         $arrPostData['messages'][0]['template'] = array(
           "type" => "buttons",
-          "thumbnailImageUrl" => "https://www.tradingonline.co.th/linebot/img/linebot.jpg",
+          "thumbnailImageUrl" => "https://trade-in.toyotaparagon.com/public/assets/images/flexmenu.jpg",
           "imageAspectRatio" => "rectangle",
           "imageSize" => "cover",
           "imageBackgroundColor" => "#FFFFFF",
-          "title" => "ประเมินราคา",
-          "text" => "กรุณาเลือกประเภทรถยนต์",
+          "title" => "พ่อสื่อเมนู",
+          "text" => "กรุณาเลือกเมนูที่ต้องการ",
           "defaultAction" => array(
               "type" => "uri",
               "label" => "View detail",
-              "uri" => "https://www.tradingonline.co.th/linebot/img/linebot.jpg"
+              "uri" => "https://trade-in.toyotaparagon.com/public/assets/images/flexmenu.jpg"
           ),
           "actions" => array(
               array(
-                  "type" => "message",
-                  "label" => "รถเก๋ง",
-                  "text" => "รถเก๋ง"
+                  "type" => "uri",
+                  "label" => "รถทั้งหมดของคุณ",
+                  "uri" => "https://trade-in.toyotaparagon.com/app?way=list"
               ),
               array(
-                  "type" => "message",
-                  "label" => "รถยนต์ของฉัน",
-                  "text" => "รถยนต์ของฉัน"
+                  "type" => "uri",
+                  "label" => "เพิ่มรถยนต์ใหม่",
+                  "uri" => "https://trade-in.toyotaparagon.com/app"
               )
           )
         );
 
-      } else {
+      } 
+      
+      /*
+       else {
 
         $pp = $db_nms->where('line_usrid', $uid)->where('verify',1)->getOne('db_member');
         if($pp){
@@ -111,7 +87,7 @@ date_default_timezone_set("Asia/Bangkok");
             $arrPostData = array();
             $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
             $arrPostData['messages'][0]['type'] = "text";
-            $arrPostData['messages'][0]['text'] = '$ การลงทะเบียนเสร็จสิ้น กดปุ่ม "เริ่มเลย" อีกครั้งเพื่อเริ่มประเมินราคารถยนต์ของคุณ';
+            $arrPostData['messages'][0]['text'] = '$ การลงทะเบียนเสร็จสิ้น กดปุ่ม "เริ่มเลย" อีกครั้งเพื่อเริ่มหาผู้ซื้อให้กับรถยนต์ของคุณ';
             $arrPostData['messages'][0]['emojis'] = array(
               array(
                 "index" => 0,
@@ -129,7 +105,7 @@ date_default_timezone_set("Asia/Bangkok");
         
       }
 
-      
+      */
       
   }
 

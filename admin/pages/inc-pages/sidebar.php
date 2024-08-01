@@ -29,11 +29,22 @@
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="feather-bar-chart-2"></i><span>รายงาน</span></a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="/admin/g-report">รายงานทั่วไป</a></li>
+                    <li><a href="/admin/home-report">รถยนต์ทั้งหมด V.1</a></li>
                         <li><a href="/admin/team-report">รายงานทีมขาย</a></li>
                         <li><a href="/admin/qm-report">รายงานเปรียบเทียบ</a></li>
+                        
                     </ul>
                 </li>
+                <li><a href="/admin/member" class=" waves-effect"><i class="feather-user"></i><span>จัดการสมาชิก</span></a></li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="feather-users"></i><span>พันธมิตร</span></a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="/admin/partner">จัดการสมาชิก</a></li>
+                        <li><a href="/admin/business">จัดการบริษัท</a></li>
+                    </ul>
+                </li>
+
                 <li><a href="/admin/extension" class=" waves-effect"><i class="feather-box"></i><span>ส่วนขยาย</span></a></li>
                 <?php } elseif($_SESSION['survey'] == 1){ ?>  
                 <li><a href="/admin/survey" class=" waves-effect"><i class="feather-clipboard"></i><span>แบบสำรวจ</span></a></li>

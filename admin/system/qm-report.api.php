@@ -57,9 +57,9 @@
         'addon' => $b,
         'replace' => $c,
         'all' => $a + $b + $c,
-        'first_per' => number_format(($a / ($a + $b + $c)) * 100).'%',
-        'addon_per' => number_format(($b / ($a + $b + $c)) * 100).'%',
-        'replace_per' => number_format(($c / ($a + $b + $c)) * 100).'%',
+        'first_per' => number_format(($a / ($a + $b + $c)) * 100,2,".","").'%',
+        'addon_per' => number_format(($b / ($a + $b + $c)) * 100,2,".","").'%',
+        'replace_per' => number_format(($c / ($a + $b + $c)) * 100,2,".","").'%',
 
     );
 
@@ -86,18 +86,39 @@
 
     foreach ($managers as $manager => $count) {
 
-        $trade = $db->where('cast_sales_team', $manager)
+        $wait = $db->where('cast_sales_team', $manager)
                     ->where('cast_datetime', array($start, $end), 'BETWEEN')
-                    ->where('cast_status', array(1,2,3,4),'IN')
+                    ->where('cast_status', array(0,1,2),'IN')
+                    ->getValue('car_stock', 'count(*)');
+        
+        $sold = $db->where('cast_sales_team', $manager)
+                    ->where('cast_datetime', array($start, $end), 'BETWEEN')
+                    ->where('cast_status', 4)
+                    ->getValue('car_stock', 'count(*)');
+
+        $cancel = $db->where('cast_sales_team', $manager)
+                    ->where('cast_datetime', array($start, $end), 'BETWEEN')
+                    ->where('cast_status', 3)
+                    ->getValue('car_stock', 'count(*)');
+
+        $trade = $db->where('cast_sales_team', $manager)
+                    ->where('cast_datetime', array($start.' 00:00:00', $end.' 25:59:59'), 'BETWEEN')
+                    ->where('cast_status', array(0,1,2,3,4),'IN')
                     ->getValue('car_stock', 'count(*)');
         
         $per = number_format(($trade / $count) * 100).'%';
 
-        $api['count'][] = array('team' => $manager,
-                                'value' => $count,'trade' => $trade,'percentage' => $per,
-                                'objFirst' => empty($objBuy[$manager]['first']) ? 0 : $objBuy[$manager]['first'],
-                                'objAddon' => empty($objBuy[$manager]['addon']) ? 0 : $objBuy[$manager]['addon'],
-                                'objReplace' => empty($objBuy[$manager]['replace']) ? 0 : $objBuy[$manager]['replace']
+        $api['count'][] = array(
+            'team' => $manager,
+            'value' => $count,
+            'trade' => $trade,
+            'percentage' => $per,
+            'objFirst' => empty($objBuy[$manager]['first']) ? 0 : $objBuy[$manager]['first'],
+            'objAddon' => empty($objBuy[$manager]['addon']) ? 0 : $objBuy[$manager]['addon'],
+            'objReplace' => empty($objBuy[$manager]['replace']) ? 0 : $objBuy[$manager]['replace'],
+            'wait_value' => $wait,
+            'sold_value' => $sold,
+            'cancel_value' => $cancel
         );
 
         $all += $count;
@@ -105,6 +126,9 @@
         $first_all += $objBuy[$manager]['first'];
         $addon_all += $objBuy[$manager]['addon'];
         $replace_all += $objBuy[$manager]['replace'];
+        $wait_all += $wait;
+        $sold_all += $sold;
+        $cancel_all += $cancel;
     }
 
     $api['count'][] = array('team' => 'All',
@@ -113,7 +137,10 @@
                             'percentage' => number_format(($trade_all / $all) * 100).'%',
                             'objFirst' => $first_all,
                             'objAddon' => $addon_all,
-                            'objReplace' => $replace_all
+                            'objReplace' => $replace_all,
+                            'wait_value' => $wait_all,
+                            'sold_value' => $sold_all,
+                            'cancel_value' => $cancel_all
                         );
 
     echo json_encode($api);

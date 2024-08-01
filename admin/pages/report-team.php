@@ -3,7 +3,7 @@
     if($_SESSION['tin_admin'] != true){
         header("location: /404");
         exit();
-    }
+    } else {
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -234,7 +234,7 @@
             "drawCallback": function () {
                 $('.dataTables_paginate > .pagination').addClass('pagination-rounded');
             },
-            ajax: '/admin/system/report.api.php?get=count',
+            ajax: '/admin/system/report.api.php?get=search&start=2024-07-01&end=2024-07-31',
             "columns" : [
                 {'data':'0'},
                 {'data':'1'},
@@ -282,3 +282,5 @@
 </body>
 
 </html>
+
+<?php } ?>

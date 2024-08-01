@@ -80,6 +80,18 @@
             $salesData = $salesData['first_name'].' '.$salesData['last_name'].' - ทีม '.getTeam($stock['cast_sales_parent_no']);
         }
 
+        if($stock['cast_fin'] == '1'){
+            $fin = 'ติดไฟแนนซ์ - '. number_format($stock['cast_loan']).' บาท';
+        } elseif($stock['cast_fin'] == '2') {
+            $fin = 'ปลอดภาระ';
+        }
+
+        if($stock['cast_ready'] == '1'){
+            $ready = 'พร้อมขายทันที';
+        } elseif($stock['cast_ready'] == '2') {
+            $ready = 'รอรถใหม่จบก่อน';
+        }
+
         $api['car'] = array('id' => $stock['cast_id'],
             'license' => $stock['cast_license'],
             'brand' => $stock['find_brand'],
@@ -106,22 +118,38 @@
             'seat' => $seatOfCar,
             'door' => $doorOfCar,
             'fuel' => $fuel,
-            'engine' => $stock['cast_engine'],
+            'engine' => number_format($stock['cast_engine']),
             'passengerType' => $stock['cast_passengerType'],
             'suspension' => $stock['cast_suspension'],
             'drive' => $stock['cast_drive'],
             'seller_name' => $stock['cast_seller_name'],
             'share_link' => 'https://trade-in.toyotaparagon.com/stock/'.base64_encode($stock['cast_id']),
-            'publicLink' => $stock['cast_link_public']
+            'publicLink' => $stock['cast_link_public'],
+            'pv' => $stock['cast_pv'],
+            'fin' => $fin,
+            'loan' => $stock['cast_loan'],
+            'ready' => $ready
         );
 
         $offer = $db->where('off_parent',$id)->get('offer');
 
         foreach ($offer as $o) {
+            $partner = $db->where('part_id',$o['off_vender'])->getOne('partner');
+            if(!empty($partner)){
+                $pt_name = $partner['part_fname'].' - '.$partner['part_bus_name'];
+                $pt_tel = $partner['part_tel'];
+            } else {
+                $pt_name = $o['off_vender'];
+                $pt_tel = '';
+            }
+
+            $newDate = date("d M y, H:i", strtotime($o['off_datetime']));
+            
             $api['offer'][] = array(
                 'price' => number_format($o['off_price']),
-                'partner' => $o['off_vender'],
-                'datetime' => $o['off_datetime']
+                'partner' => $pt_name,
+                'tel' => $pt_tel,
+                'datetime' => $newDate
             );
         }
 

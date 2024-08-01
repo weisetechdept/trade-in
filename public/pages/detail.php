@@ -108,16 +108,11 @@
                     <h4>รายละเอียด</h4>
                     <h4 class="car-id">รหัส ID : {{ detail.id }}</h4>
                 </div>
-<!--
-                <h5>ราคาที่ลูกค้าต้องการ :</h5>
-                <div class="price-label">
-                    <h2 class="price">฿</h2>
-                </div>
--->
+
                 <table class="table table-sm">
                     <tbody>
                         <tr>
-                            <th scope="row">ยี่ห้อ</th>
+                            <th scope="row"  width="170px">ยี่ห้อ</th>
                             <td>{{ detail.brand }}</td>
                         </tr>
                         <tr>
@@ -171,16 +166,30 @@
                     </tbody>
                 </table>
 
+                <div class="headline-des mt-5">
+                    <h4>สถานะเจ้าของรถ</h4>
+                    <h4 class="car-id">รหัส ID : {{ detail.id }}</h4>
+                </div>
+
+                <table class="table table-sm">
+                    <tbody>
+                        <tr>
+                            <th scope="row" width="170px">ปัจจุบันรถอยู่จังหวัด</th>
+                            <td>{{ detail.pv }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">สถานะไฟแนนซ์</th>
+                            <td>{{ detail.fin }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">ความพร้อมปล่อยรถ</th>
+                            <td>{{ detail.ready }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
                 <div class="spacer-single"></div>
-        <!--
-                <h4>Features</h4>
-                <ul class="ul-style-2">
-                    <li>Bluetooth</li>
-                    <li>Multimedia Player</li>
-                    <li>Central Lock</li>
-                    <li>Sunroof</li>
-                </ul>
-        -->
+        
             </div>
             <div class="col-lg-12">
                 <div class="headline-des">

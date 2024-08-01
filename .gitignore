@@ -2,3 +2,6 @@ db-conn.php
 local-login.php
 local.php
 movetotrash.php
+admin/pages/home-sd.php
+admin/system/home-sd.api.php
+test.php

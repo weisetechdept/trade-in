@@ -69,6 +69,18 @@
                 } else {
                     $mileage = number_format($stock['cast_mileage']);
                 }
+
+                if($stock['cast_fin'] == '1'){
+                    $fin = 'ติดไฟแนนซ์ - '. number_format($stock['cast_loan']).' บาท';
+                } elseif($stock['cast_fin'] == '2') {
+                    $fin = 'ปลอดภาระ';
+                }
+        
+                if($stock['cast_ready'] == '1'){
+                    $ready = 'พร้อมขายทันที';
+                } elseif($stock['cast_ready'] == '2') {
+                    $ready = 'รอรถใหม่จบก่อน';
+                }
     
     
                 $api['detail'] = array('id' => $stock['cast_id'],
@@ -104,10 +116,14 @@
                     'seller_name' => $stock['cast_seller_name'],
                     'link' => 'https://trade-in.toyotaparagon.com/stock/'.base64_encode($stock['cast_id']),
                     'share' => $stock['cast_link_public'],
+                    'pv' => $stock['cast_pv'],
+                    'fin' => $fin,
+                    'loan' => $stock['cast_loan'],
+                    'ready' => $ready
                 );
 
                 $db->join('car_image i','c.cast_id = i.cari_parent','LEFT');
-                $car = $db->where('cast_id',$id)->get('car_stock c');
+                $car = $db->where('cast_id',$id)->where('cari_status',1)->get('car_stock c');
 
                 if($car){
                     foreach ($car as $value) {
