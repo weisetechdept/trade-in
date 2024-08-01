@@ -3,11 +3,13 @@
     require_once '../../db-conn.php';
     date_default_timezone_set("Asia/Bangkok");
 
-    $start = $_GET['start'];
-    $end = $_GET['end'];
-
-    $db_start = date("Y-m-d",strtotime("-1 days",strtotime($start)));
-    $db_end = date("Y-m-d",strtotime("+1 days",strtotime($end)));
+    $start = isset($_GET['start']) ? $_GET['start'] : null;
+    $end = isset($_GET['end']) ? $_GET['end'] : null;
+    
+    if ($start && $end) {
+        $db_start = date("Y-m-d",strtotime("-1 days",strtotime($start)));
+        $db_end = date("Y-m-d",strtotime("+1 days",strtotime($end)));
+    }
 
     /* report */
     $url = "https://qms-toyotaparagon.com/api/cusbookingpayment";
