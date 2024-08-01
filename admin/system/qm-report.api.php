@@ -3,8 +3,8 @@
     require_once '../../db-conn.php';
     date_default_timezone_set("Asia/Bangkok");
 
-    $start = $_GET['start'];
-    $end = $_GET['end'];
+    $start = date("Y-m-d",strtotime("-1 days",strtotime($_GET['start'])));
+    $end = date("Y-m-d",strtotime("+1 days",strtotime($_GET['end'])));
 
     /* report */
     $url = "https://qms-toyotaparagon.com/api/cusbookingpayment";
