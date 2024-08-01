@@ -99,7 +99,7 @@
                     ->getValue('car_stock', 'count(*)');
         
         $sold = $db->where('cast_sales_team', $manager)
-                    ->where('cast_datetime', array($start, $db_end), 'BETWEEN')
+                    ->where('cast_datetime', array($start, $end), 'BETWEEN')
                     ->where('cast_status', 4)
                     ->getValue('car_stock', 'count(*)');
 
