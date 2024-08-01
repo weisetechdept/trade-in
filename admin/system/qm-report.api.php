@@ -131,7 +131,7 @@
         $cancel_all += $cancel;
     }
 
-    ksort($api['count']);
+    sort($api['count']['team']);
 
     $api['count'][] = array('team' => 'All',
                             'value' => $all,
