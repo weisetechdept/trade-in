@@ -3,8 +3,11 @@
     require_once '../../db-conn.php';
     date_default_timezone_set("Asia/Bangkok");
 
-    $start = date("Y-m-d",strtotime("-1 days",strtotime($_GET['start'])));
-    $end = date("Y-m-d",strtotime("+1 days",strtotime($_GET['end'])));
+    $start = $_GET['start'];
+    $end = $_GET['end'];
+
+    $db_start = date("Y-m-d",strtotime("-1 days",strtotime($start)));
+    $db_end = date("Y-m-d",strtotime("+1 days",strtotime($end)));
 
     /* report */
     $url = "https://qms-toyotaparagon.com/api/cusbookingpayment";
@@ -87,22 +90,22 @@
     foreach ($managers as $manager => $count) {
 
         $wait = $db->where('cast_sales_team', $manager)
-                    ->where('cast_datetime', array($start, $end), 'BETWEEN')
+                    ->where('cast_datetime', array($db_start, $db_end), 'BETWEEN')
                     ->where('cast_status', array(0,1,2),'IN')
                     ->getValue('car_stock', 'count(*)');
         
         $sold = $db->where('cast_sales_team', $manager)
-                    ->where('cast_datetime', array($start, $end), 'BETWEEN')
+                    ->where('cast_datetime', array($db_start, $db_end), 'BETWEEN')
                     ->where('cast_status', 4)
                     ->getValue('car_stock', 'count(*)');
 
         $cancel = $db->where('cast_sales_team', $manager)
-                    ->where('cast_datetime', array($start, $end), 'BETWEEN')
+                    ->where('cast_datetime', array($db_start, $db_end), 'BETWEEN')
                     ->where('cast_status', 3)
                     ->getValue('car_stock', 'count(*)');
 
         $trade = $db->where('cast_sales_team', $manager)
-                    ->where('cast_datetime', array($start, $end), 'BETWEEN')
+                    ->where('cast_datetime', array($db_start, $db_end), 'BETWEEN')
                     ->where('cast_status', array(0,1,2,3,4),'IN')
                     ->getValue('car_stock', 'count(*)');
         
