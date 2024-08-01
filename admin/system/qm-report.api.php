@@ -10,7 +10,7 @@
         $db_start = date("Y-m-d",strtotime("-1 days",strtotime($start)));
         $db_end = date("Y-m-d",strtotime("+1 days",strtotime($end)));
     }
-
+    
     /* report */
     $url = "https://qms-toyotaparagon.com/api/cusbookingpayment";
     $curl = curl_init($url);
@@ -135,8 +135,6 @@
         $sold_all += $sold;
         $cancel_all += $cancel;
     }
-
-    sort($api['count']['team']);
 
     $api['count'][] = array('team' => 'All',
                             'value' => $all,
