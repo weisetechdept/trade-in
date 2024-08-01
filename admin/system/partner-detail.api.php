@@ -45,6 +45,7 @@
             );
         }
         $db->join('car_image i','o.off_parent=i.cari_parent','LEFT');
+        $db->groupBy('o.off_parent');
         $offered = $db->where('cari_status',1)->where('off_vender',$id)->get('offer o',5);
         foreach($offered as $offer){
             $api['offered'][] = array(
