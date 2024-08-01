@@ -135,6 +135,38 @@
         $sold_all += $sold;
         $cancel_all += $cancel;
     }
+    
+    $t_wait = $db->where('cast_sales_parent_no', 1313)
+                    ->where('cast_datetime', array($db_start, $db_end), 'BETWEEN')
+                    ->where('cast_status', array(0,1,2),'IN')
+                    ->getValue('car_stock', 'count(*)');
+        
+    $t_sold = $db->where('cast_sales_parent_no', 1313)
+                ->where('cast_datetime', array($db_start, $db_end), 'BETWEEN')
+                ->where('cast_status', 4)
+                ->getValue('car_stock', 'count(*)');
+
+    $t_cancel = $db->where('cast_sales_parent_no', 1313)
+                ->where('cast_datetime', array($db_start, $db_end), 'BETWEEN')
+                ->where('cast_status', 3)
+                ->getValue('car_stock', 'count(*)');
+
+    $t_trade = $db->where('cast_sales_parent_no', 1313)
+                ->where('cast_datetime', array($db_start, $db_end), 'BETWEEN')
+                ->where('cast_status', array(0,1,2,3,4),'IN')
+                ->getValue('car_stock', 'count(*)');
+
+    $api['count'][] = array('team' => 'Trade-in',
+                            'value' => '',
+                            'trade' => $t_trade,
+                            'percentage' => '0',
+                            'objFirst' => '0',
+                            'objAddon' => '0',
+                            'objReplace' => '0',
+                            'wait_value' => $t_wait,
+                            'sold_value' => $t_sold,
+                            'cancel_value' => $t_cancel
+                        );
 
     $api['count'][] = array('team' => 'All',
                             'value' => $all,
