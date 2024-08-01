@@ -139,22 +139,22 @@
     }
     
     $t_wait = $db->where('cast_sales_parent_no', 1313)
-                    ->where('cast_datetime', array($db_start, $db_end), 'BETWEEN')
+                    ->where('cast_datetime', array($start, $end), 'BETWEEN')
                     ->where('cast_status', array(0,1,2),'IN')
                     ->getValue('car_stock', 'count(*)');
         
     $t_sold = $db->where('cast_sales_parent_no', 1313)
-                ->where('cast_datetime', array($db_start, $db_end), 'BETWEEN')
+                ->where('cast_datetime', array($start, $end), 'BETWEEN')
                 ->where('cast_status', 4)
                 ->getValue('car_stock', 'count(*)');
 
     $t_cancel = $db->where('cast_sales_parent_no', 1313)
-                ->where('cast_datetime', array($db_start, $db_end), 'BETWEEN')
+                ->where('cast_datetime', array($start, $end), 'BETWEEN')
                 ->where('cast_status', 3)
                 ->getValue('car_stock', 'count(*)');
 
     $t_trade = $db->where('cast_sales_parent_no', 1313)
-                ->where('cast_datetime', array($db_start, $db_end), 'BETWEEN')
+                ->where('cast_datetime', array($start, $end), 'BETWEEN')
                 ->where('cast_status', array(0,1,2,3,4),'IN')
                 ->getValue('car_stock', 'count(*)');
 
