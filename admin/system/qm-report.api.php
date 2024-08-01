@@ -3,10 +3,17 @@
     require_once '../../db-conn.php';
     date_default_timezone_set("Asia/Bangkok");
 
-    $start = isset($_GET['start']) ? $_GET['start'] : null;
-    $end = isset($_GET['end']) ? $_GET['end'] : null;
+
+    $start = $_GET['start'].' 00:00:00';
+    $end = $_GET['end'].' 23:59:59';
     
-    /* report */
+    if(empty($_GET['start']) || empty($_GET['end'])){
+        $api['error'] = 'Please select date range.';
+        echo json_encode($api);
+        exit();
+    } else {
+
+        /* report */
     $url = "https://qms-toyotaparagon.com/api/cusbookingpayment";
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_URL, $url);
@@ -174,5 +181,9 @@
                             'sold_value' => $sold_all,
                             'cancel_value' => $cancel_all
                         );
+        
+    }
+    
+    
 
     echo json_encode($api);
