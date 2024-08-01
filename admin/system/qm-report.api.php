@@ -6,11 +6,6 @@
     $start = isset($_GET['start']) ? $_GET['start'] : null;
     $end = isset($_GET['end']) ? $_GET['end'] : null;
     
-    if ($start && $end) {
-        $db_start = date("Y-m-d",strtotime("-1 days",strtotime($start)));
-        $db_end = date("Y-m-d",strtotime("+1 days",strtotime($end)));
-    }
-    
     /* report */
     $url = "https://qms-toyotaparagon.com/api/cusbookingpayment";
     $curl = curl_init($url);
@@ -92,22 +87,22 @@
     foreach ($managers as $manager => $count) {
 
         $wait = $db->where('cast_sales_team', $manager)
-                    ->where('cast_datetime', array($db_start, $db_end), 'BETWEEN')
+                    ->where('cast_datetime', array($start, $end), 'BETWEEN')
                     ->where('cast_status', array(0,1,2),'IN')
                     ->getValue('car_stock', 'count(*)');
         
         $sold = $db->where('cast_sales_team', $manager)
-                    ->where('cast_datetime', array($db_start, $db_end), 'BETWEEN')
+                    ->where('cast_datetime', array($start, $db_end), 'BETWEEN')
                     ->where('cast_status', 4)
                     ->getValue('car_stock', 'count(*)');
 
         $cancel = $db->where('cast_sales_team', $manager)
-                    ->where('cast_datetime', array($db_start, $db_end), 'BETWEEN')
+                    ->where('cast_datetime', array($start, $end), 'BETWEEN')
                     ->where('cast_status', 3)
                     ->getValue('car_stock', 'count(*)');
 
         $trade = $db->where('cast_sales_team', $manager)
-                    ->where('cast_datetime', array($db_start, $db_end), 'BETWEEN')
+                    ->where('cast_datetime', array($start, $end), 'BETWEEN')
                     ->where('cast_status', array(0,1,2,3,4),'IN')
                     ->getValue('car_stock', 'count(*)');
         
@@ -157,7 +152,7 @@
                 ->getValue('car_stock', 'count(*)');
 
     $api['count'][] = array('team' => 'Trade-in',
-                            'value' => '',
+                            'value' => '0%',
                             'trade' => $t_trade,
                             'percentage' => '0',
                             'objFirst' => '0',
