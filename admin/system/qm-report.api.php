@@ -102,7 +102,7 @@
                     ->getValue('car_stock', 'count(*)');
 
         $trade = $db->where('cast_sales_team', $manager)
-                    ->where('cast_datetime', array($start.' 00:00:00', $end.' 25:59:59'), 'BETWEEN')
+                    ->where('cast_datetime', array($start, $end), 'BETWEEN')
                     ->where('cast_status', array(0,1,2,3,4),'IN')
                     ->getValue('car_stock', 'count(*)');
         
@@ -130,6 +130,8 @@
         $sold_all += $sold;
         $cancel_all += $cancel;
     }
+
+    ksort($api['count']);
 
     $api['count'][] = array('team' => 'All',
                             'value' => $all,
