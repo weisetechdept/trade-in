@@ -36,6 +36,7 @@
             'cast_seller_name' => $seller_name,
             'cast_tel' => $tel,
             'cast_vat' => '0',
+            'cast_car_check' => '0',
             'cast_status' => '0', 
             'cast_datetime' => date('Y-m-d H:i:s')
         );

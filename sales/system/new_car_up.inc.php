@@ -64,6 +64,7 @@
             'cast_ready' => $ready,
             'cast_link_public' => '0',
             'cast_thumb' => '0',
+            'cast_car_check' => '0',
             'cast_status' => '0', 
             'cast_datetime' => date('Y-m-d H:i:s')
         );

@@ -55,7 +55,8 @@
                 'cast_fin' => '',
                 'cast_loan' => '',
                 'cast_ready' => '',
-    
+
+                'cast_car_check' => '0',
                 'cast_status' => '0', 
                 'cast_datetime' => date('Y-m-d H:i:s') 
             );
