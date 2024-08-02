@@ -337,9 +337,19 @@
                                                     </tr>
 
                                                     <tr>
+                                                        <th>สถานะการตรวจรถ</th> 
+                                                        <td>
+                                                            <select class="form-control" v-model="car_check">
+                                                                <option value="0">ยังไม่ตรวจ</option>
+                                                                <option value="1">ตรวจสอบแล้ว</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
                                                         <th>สถานะ</th> 
                                                         <td>
-                                                            <select class="form-control" v-model="status" id="exampleFormControlSelect1">
+                                                            <select class="form-control" v-model="status">
                                                                 <option value="1">ติดตามลูกค้า</option>
                                                                 <option value="2">ไม่ได้สัมผัสรถ</option>
                                                                 <option value="3">ลูกค้าขายเอง / ขายที่อื่น</option>
@@ -483,7 +493,8 @@
                             loan: '',
                             ready: '',
                             cust_name: '',
-                            cust_tel: ''
+                            cust_tel: '',
+                            car_check: '',
                         }
                     },
                     mounted () {
@@ -525,6 +536,7 @@
                                 this.ready = response.data.car.ready;
                                 this.cust_name = response.data.car.cust_name;
                                 this.cust_tel = response.data.car.cust_tel;
+                                this.car_check = response.data.car.car_check;
                             })
                     },
                     methods: {
@@ -588,7 +600,8 @@
                                 loan: this.loan,
                                 ready: this.ready,
                                 cust_name: this.cust_name,
-                                cust_tel: this.cust_tel
+                                cust_tel: this.cust_tel,
+                                car_check: this.car_check
                                 
                             }).then(res => {
                                 console.log(res);

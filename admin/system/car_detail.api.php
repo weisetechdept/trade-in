@@ -128,7 +128,8 @@
             'pv' => $stock['cast_pv'],
             'fin' => $fin,
             'loan' => $stock['cast_loan'],
-            'ready' => $ready
+            'ready' => $ready,
+            'car_check' => $stock['cast_car_check'],
         );
 
         $offer = $db->where('off_parent',$id)->get('offer');

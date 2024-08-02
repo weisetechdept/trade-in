@@ -415,11 +415,17 @@
                                                     </tr>
 
                                                     <tr>
+                                                        <th>สถานะการตรวจรถ</th>
+                                                        <td v-if="car_check == '0'"><span class="badge badge-soft-warning">ยังไม่ตรวจ</span></td>
+                                                        <td v-if="car_check == '1'"><span class="badge badge-soft-success">ตรวจสอบแล่้ว</span></td>
+                                                    </tr>
+
+                                                    <tr>
                                                         <th>สถานะ</th>
-                                                        <td v-if="status == '0'"><span class="badge badge-soft-success">ไม่มีสถานะ.</span></td>
-                                                        <td v-if="status == '1'"><span class="badge badge-soft-success">ติดตามลูกค้า</span></td>
-                                                        <td v-if="status == '2'"><span class="badge badge-soft-success">ไม่ได้สัมผัสรถ</span></td>
-                                                        <td v-if="status == '3'"><span class="badge badge-soft-success">ลูกค้าขายเอง / ขายที่อื่น</span></td>
+                                                        <td v-if="status == '0'"><span class="badge badge-soft-warning">ไม่มีสถานะ.</span></td>
+                                                        <td v-if="status == '1'"><span class="badge badge-soft-info">ติดตามลูกค้า</span></td>
+                                                        <td v-if="status == '2'"><span class="badge badge-soft-info">ไม่ได้สัมผัสรถ</span></td>
+                                                        <td v-if="status == '3'"><span class="badge badge-soft-danger">ลูกค้าขายเอง / ขายที่อื่น</span></td>
                                                         <td v-if="status == '4'"><span class="badge badge-soft-success">สำเร็จ</span></td>
                                                         <td v-if="status == '10'"><span class="badge badge-soft-danger">ลบ</span></td>
                                                     </tr>
@@ -716,6 +722,7 @@
                             pv: '',
                             fin:'',
                             ready:'',
+                            car_check: '',
                         }
                     },
                     mounted () {
@@ -779,6 +786,7 @@
                                 this.pv = response.data.car.pv;
                                 this.fin = response.data.car.fin;
                                 this.ready = response.data.car.ready;
+                                this.car_check = response.data.car.car_check;
                              
                             }),
                             this.calDownpayment();
