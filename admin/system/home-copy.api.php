@@ -88,7 +88,15 @@
                 return number_format($d);
             }
         ],
-        ['db' => 'cast_car_check', 'dt' => 9, 'field'=> 'cast_car_check'],
+        ['db' => 'cast_car_check', 'dt' => 9, 'field'=> 'cast_car_check',
+            'formatter' => function($d, $row){
+                if($d == 0){
+                    return "<span class=\"badge badge-soft-warning\">ยังไม่ตรวจ</span>";
+                } elseif($d == 1){
+                    return "<span class=\"badge badge-soft-success\">ตรวจแล้ว</span>";
+                }
+            }
+        ],
         ['db' => 'cast_status', 'dt' => 10, 'field'=> 'cast_status',
             'formatter' => function($d, $row){
                 if($d == 0){
