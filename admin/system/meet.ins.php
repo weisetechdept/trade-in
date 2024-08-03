@@ -8,6 +8,7 @@
     $detail = $request->detail;
     $date = $request->date;
     $parent = $request->parent;
+    $owner = $request->owner;
 
     if(empty($detail) || empty($date) || empty($parent)){
         $api = array('status' => 'error', 'message' => 'กรุณากรอกข้อมูลให้ครบถ้วน');
@@ -19,7 +20,7 @@
             'even_detail' => $detail,
             'even_date' => $date,
             'even_parent' => $parent,
-            'event_owner' => '0',
+            'even_owner' => $owner,
             'even_status' => '0', // 1 = 'active', 0 = 'inactive
             'even_datetime' => date('Y-m-d H:i:s')
         );

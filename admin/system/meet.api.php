@@ -16,17 +16,31 @@
 		return "$strDay $strMonthThai $strYear, $strHour:$strMinute น.";
     }
 
+    function User($id){
+        global $db;
+        $user = $db->where('user_id',$id)->getOne('user');
+        return $user['user_nickname'];
+    }
+
     if($_GET['action'] == 'event'){
         $variable = $db->where('even_parent',$_GET['id'])->get('event');
         foreach ($variable as $value) {
 
-            $api[] = array(
+            $api['event'][] = array(
                 'id' => $value['even_id'],
                 'detail' => $value['even_detail'],
                 'date' => $value['even_date'],
                 'parent' => $value['even_parent']
             );
             
+        }
+
+        $user = $db->where('user_status',1)->get('user');
+        foreach ($user as $value) {
+            $api['user'][] = array(
+                'id' => $value['user_id'],
+                'name' => $value['user_nickname']
+            );
         }
     }
 
@@ -51,7 +65,7 @@
                 $value['even_detail'],
                 DateThai($value['even_date']),
                 'คุณ '.$value['cast_seller_name'].' (ID '.$value['even_parent'].')',
-                'AA',
+                User($value['even_owner']),
                 $thumb,
                 $value['cast_id']
             );

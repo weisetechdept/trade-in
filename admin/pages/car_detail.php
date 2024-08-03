@@ -321,12 +321,9 @@
 
                                                                         <div class="form-group">
                                                                             <label>ผู้รับผิดชอบ</label>
-                                                                            <select class="form-control">
-                                                                                <option value="ติดตามลูกค้า">= เลือกผู้ดูแล =</option>
-                                                                                <option value="1">คุณปิ้น</option>
-                                                                                <option value="2">คุณต๋อม</option>
-                                                                                <option value="3">คุณแอ๊ะ</option>
-                                                                                <option value="4">คุณโย่ง (ทดสอบ)</option>
+                                                                            <select class="form-control" v-model="bookData.owner">
+                                                                                <option value="0">= เลือกผู้ดูแล =</option>
+                                                                                <option v-for="u in user_event" :value="u.id">{{ u.name }}</option>
                                                                             </select>
                                                                         </div>
 
@@ -717,17 +714,21 @@
                             switchPublic: false,
                             bookData: {
                                 date: '',
-                                detail: ''
+                                detail: '',
+                                owner: '0',
                             },
                             pv: '',
                             fin:'',
                             ready:'',
                             car_check: '',
+                            user_event: [],
                         }
                     },
                     mounted () {
+                        
                         axios.get('/admin/system/meet.api.php?action=event&id=<?php echo $cid; ?>').then(response => {
-                            this.events = response.data;
+                            this.events = response.data.event;
+                            this.user_event = response.data.user;
                         }),
                         axios.get('/admin/system/car_detail.api.php?u=<?php echo $cid; ?>')
                             .then(response => {
@@ -852,7 +853,7 @@
                             });
                         },
                         meetData() {
-                            if(this.bookData.detail == '' || this.bookData.date == ''){
+                            if(this.bookData.detail == '' || this.bookData.date == '' || this.bookData.owner == '0'){
 
                                 swal("ไม่สามารถทำรายการได้", "โปรดกรอกข้อมูลให้ครบถ้วน", "warning",{ 
                                         button: "ตกลง"
@@ -864,6 +865,7 @@
                                 axios.post('/admin/system/meet.ins.php?action=event', {
                                     date: this.bookData.date,
                                     detail: this.bookData.detail,
+                                    owner: this.bookData.owner,
                                     parent: this.id
                                 }).then(res => {
                                     if(res.data.status == 'success') {
