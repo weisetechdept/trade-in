@@ -16,6 +16,10 @@
         require_once 'admin/access.php';
     });
 
+    $router->get( '/admin/customer', function() {
+        require_once 'admin/pages/customer.php';
+    });
+
     $router->get( '/admin/qm-report', function() {
         require_once 'admin/pages/qm-report.php';
     });

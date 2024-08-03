@@ -18,6 +18,13 @@
                 <li class="menu-title">เมนู</li>
                 <li><a href="/admin/event" class=" waves-effect"><i class="feather-book-open"></i><span>การนัดหมาย</span></a></li>
                 <?php if($_SESSION['survey'] == 0){ ?>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="feather-user-check"></i><span>ลูกค้ามุ่งหวัง</span></a>
+                    <ul class="sub-menu" aria-expanded="true">
+                        <li><a href="/admin/customer">ลูกค้าทั้งหมด</a></li>
+                    </ul>
+                </li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="feather-truck"></i><span>รถยนต์</span></a>
                     <ul class="sub-menu" aria-expanded="true">
