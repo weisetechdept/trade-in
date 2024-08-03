@@ -19,6 +19,7 @@
             'even_detail' => $detail,
             'even_date' => $date,
             'even_parent' => $parent,
+            'event_owner' => '0',
             'even_status' => '0', // 1 = 'active', 0 = 'inactive
             'even_datetime' => date('Y-m-d H:i:s')
         );
