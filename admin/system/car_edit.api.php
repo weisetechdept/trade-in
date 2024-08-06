@@ -46,6 +46,13 @@
             'car_check' => $stock['cast_car_check'],
         );
 
+        $manCheck = $db->where('user_status',1)->get('user');
+        foreach ($manCheck as $value) {
+            $api['manCheck'][] = array('id' => $value['user_id'],
+                'name' => $value['user_nickname']
+            );
+        }
+
         $brand = $db->get('finance_data');
         foreach ($brand as $value) {
             $api['brand'][] = $value['find_brand'];

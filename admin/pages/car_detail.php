@@ -413,8 +413,7 @@
 
                                                     <tr>
                                                         <th>สถานะการตรวจรถ</th>
-                                                        <td v-if="car_check == '0'"><span class="badge badge-soft-warning">ยังไม่ตรวจ</span></td>
-                                                        <td v-if="car_check == '1'"><span class="badge badge-soft-success">ตรวจสอบแล่้ว</span></td>
+                                                        <td>{{ car_check }}</td>
                                                     </tr>
 
                                                     <tr>
@@ -426,7 +425,7 @@
                                                         <td v-if="status == '4'"><span class="badge badge-soft-success">สำเร็จ</span></td>
                                                         <td v-if="status == '10'"><span class="badge badge-soft-danger">ลบ</span></td>
                                                     </tr>
-                                                    
+                                                     
                                                 </tbody>
                                             </table>
                                            

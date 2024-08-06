@@ -92,6 +92,14 @@
             $ready = 'รอรถใหม่จบก่อน';
         }
 
+        if($stock['cast_car_check'] == '0'){
+            $man = 'ยังไม่ตรวจ';
+        } else {
+            $manCheck = $db->where('user_id',$stock['cast_car_check'])->getOne('user');
+            $man = $manCheck['user_nickname'];
+        }
+        
+
         $api['car'] = array('id' => $stock['cast_id'],
             'license' => $stock['cast_license'],
             'brand' => $stock['find_brand'],
@@ -129,7 +137,7 @@
             'fin' => $fin,
             'loan' => $stock['cast_loan'],
             'ready' => $ready,
-            'car_check' => $stock['cast_car_check'],
+            'car_check' => $man,
         );
 
         $offer = $db->where('off_parent',$id)->get('offer');

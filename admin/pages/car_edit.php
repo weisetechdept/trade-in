@@ -340,8 +340,8 @@
                                                         <th>สถานะการตรวจรถ</th> 
                                                         <td>
                                                             <select class="form-control" v-model="car_check">
-                                                                <option value="0">ยังไม่ตรวจ</option>
-                                                                <option value="1">ตรวจสอบแล้ว</option>
+                                                                <option value="0">ไม่ได้สัมผัสรถ</option>
+                                                                <option v-for="man in manCheck" :value="man.id">{{ man.name }}</option>
                                                             </select>
                                                         </td>
                                                     </tr>
@@ -495,6 +495,7 @@
                             cust_name: '',
                             cust_tel: '',
                             car_check: '',
+                            manCheck:[]
                         }
                     },
                     mounted () {
@@ -537,6 +538,8 @@
                                 this.cust_name = response.data.car.cust_name;
                                 this.cust_tel = response.data.car.cust_tel;
                                 this.car_check = response.data.car.car_check;
+
+                                this.manCheck = response.data.manCheck;
                             })
                     },
                     methods: {

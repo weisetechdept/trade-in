@@ -92,7 +92,7 @@
             'formatter' => function($d, $row){
                 if($d == 0){
                     return "<span class=\"badge badge-soft-warning\">ยังไม่ตรวจ</span>";
-                } elseif($d == 1){
+                } else {
                     return "<span class=\"badge badge-soft-success\">ตรวจแล้ว</span>";
                 }
             }
