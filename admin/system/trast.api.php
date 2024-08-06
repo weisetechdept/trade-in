@@ -79,7 +79,7 @@
         ],
         ['db' => 'cast_status', 'dt' => 8, 'field'=> 'cast_status',
             'formatter' => function($d, $row){
-                return "<span class=\"badge badge-soft-danger\">ลบ</span>";
+                return "<span class=\"badge badge-danger\">ลบ</span>";
             }
         ],
         ['db' => 'cast_datetime', 'dt' => 9, 'field'=> 'cast_datetime',
@@ -95,8 +95,8 @@
     ];
 
     $joinQuery = "FROM car_stock s LEFT JOIN finance_data f ON s.cast_car = f.find_id";
-
-    $joinQuery .= " WHERE s.cast_status = 10";
+ 
+    $where = " s.cast_status = 10";
 
     if(isset($_GET['search']['value'])){
         $searchValue = $_GET['search']['value'];
@@ -104,6 +104,6 @@
     }
     
     echo json_encode(
-        SSP::simple($_GET, $sql_details_1, $table, $primaryKey, $columns, $joinQuery)
+        SSP::simple($_GET, $sql_details_1, $table, $primaryKey, $columns, $joinQuery, $where)
     );
-?>
+?> 
