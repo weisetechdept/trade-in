@@ -344,10 +344,37 @@
                                     </div>
                                 </div>
 
-                            </div>
-                        </div>
 
-                        <div class="row">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="mb-2 font-size-18">ลูกค้ามุ่งหวัง</h4>
+                                        
+                                            <table class="table mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ชื่อลูกค้า</th>
+                                                        <th>รายละเอียด</th>
+                                                        <th>เบอร์โทร</th>
+                                                        <th>ไลน์ไอดี</th>
+                                                        <th>วันที่บันทึก</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr v-for="pc in pros_cust">
+                                                        <td>{{ pc.name }}</td>
+                                                        <td>{{ pc.detail }}</td>
+                                                        <td>{{ pc.tel }}</td>
+                                                        <td>{{ pc.line }}</td>
+                                                        <td>{{ pc.datetime }}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            
+                                    </div>
+                                </div>
+
+                            </div>
+
                             <div class="col-lg-6 col-md-12">
                                 <div class="card">
                                     <div class="card-body">
@@ -721,6 +748,7 @@
                             ready:'',
                             car_check: '',
                             user_event: [],
+                            pros_cust: [],
                         }
                     },
                     mounted () {
@@ -737,6 +765,8 @@
                                     }).then((value) => {
                                         window.location.href = "/admin/home";
                                     });
+
+                                this.pros_cust = response.data.pros_cust;
                                 
                                 this.cal_price = response.data.car.cal_price;
                                 this.cal_tltprice = response.data.car.cal_tlt_price;

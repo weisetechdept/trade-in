@@ -60,6 +60,11 @@
         ],
         ['db' => 'cust_id', 'dt' => 9, 'field'=> 'cust_id',
             'formatter' => function($d, $row) {
+                return '<button class="btn btn-outline-primary btn-sm" @click="editCust">แก้ไข</button>';
+            }
+        ],
+        ['db' => 'cust_id', 'dt' => 10, 'field'=> 'cust_id',
+            'formatter' => function($d, $row) {
                 return '<button class="btn btn-outline-danger btn-sm" @click="deleteCust">ลบ</button>';
             }
         ],

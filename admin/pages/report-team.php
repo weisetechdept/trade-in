@@ -212,39 +212,7 @@
 
     <!-- Datatables init -->
     <script>
-        $('#datatable').DataTable({
-            pageLength: 50,
-            order: [[ 0, "asc" ]],
-            responsive: true,
-            dom: 'Blfrtip',
-            buttons: [
-                'copy', 'print'
-            ],
-            "language": {
-                "paginate": {
-                    "previous": "<i class='mdi mdi-chevron-left'>",
-                    "next": "<i class='mdi mdi-chevron-right'>"
-                },
-                "lengthMenu": "แสดง _MENU_ รายชื่อ",
-                "zeroRecords": "ขออภัย ไม่มีข้อมูล",
-                "info": "หน้า _PAGE_ ของ _PAGES_",
-                "infoEmpty": "ไม่มีข้อมูล",
-                "search": "ค้นหา:",
-            },
-            "drawCallback": function () {
-                $('.dataTables_paginate > .pagination').addClass('pagination-rounded');
-            },
-            ajax: '/admin/system/report.api.php?get=search&start=2024-07-01&end=2024-07-31',
-            "columns" : [
-                {'data':'0'},
-                {'data':'1'},
-                {'data':'2'},
-                {'data':'3'},
-                {'data':'4'},
-                {'data':'5'},
-                {'data':'6'}
-            ],
-        });
+        
 
         var count = new Vue({
             el: '#count',
@@ -255,6 +223,39 @@
                     end: '<?php echo date('Y-m-d'); ?>',
                     status: 'all'
                 }
+            },
+            mounted() {
+                $('#datatable').DataTable({
+                    "paging": false,
+                    "info": false,
+                    "searching": false,
+                    
+                    "ajax": {
+                        "url": "/admin/system/report.api.php?get=search&start="+this.search.start+"&end="+this.search.end+"&status="+this.search.status,
+                        "type": "POST"
+                    },
+                    "columns": [
+                        { "data": "0" },
+                        { "data": "1" },
+                        { "data": "2" },
+                        { "data": "3" },
+                        { "data": "4" },
+                        { "data": "5" },
+                        { "data": "6" }
+                    ],
+                    "order": [[ 0, "asc" ]],
+                    "responsive": true,
+                    "language": {
+                        "sLengthMenu": "แสดง _MENU_ รายการ",
+                        "sSearch": "ค้นหา",
+                        "info": "แสดง _START_ ถึง _END_ จาก _TOTAL_ รายการ",
+                        "paginate": {
+                            "previous": "ก่อนหน้า",
+                            "next": "ถัดไป"
+                        }
+                    }
+                });
+                this.count = $('#datatable').DataTable().rows().count();
             },
             methods: {
                 searchData() {
@@ -273,7 +274,7 @@
                 }
             }
         });
-
+ 
     </script>
 
     <!-- App js -->

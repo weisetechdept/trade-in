@@ -284,7 +284,6 @@
             },
             mounted() {
                 axios.get('/admin/system/qm-report.api.php?start=<?php echo date('Y-m-01'); ?>&end=<?php echo date('Y-m-d'); ?>').then(res => {
-                    console.log(res.data);
                     this.count = res.data.count;
                     this.type = res.data.type;
                 });

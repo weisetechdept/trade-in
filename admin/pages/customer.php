@@ -154,10 +154,12 @@
                                                 <th>ติดต่อ Line</th>
                                                 <th>สถานะ</th>
                                                 <th>วันที่เพิ่ม</th>
+                                                <th>ดูข้อมูล</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
+                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -309,12 +311,6 @@
                         return;
                     } else if(this.selected.detail == ''){
                         swal("ผิดพลาด", "กรุณากรอกรายละเอียด", "error");
-                        return;
-                    } else if(this.selected.tel == ''){
-                        swal("ผิดพลาด", "กรุณากรอกเบอร์โทร", "error");
-                        return;
-                    } else if(this.selected.line == ''){
-                        swal("ผิดพลาด", "กรุณากรอกไลน์ไอดี", "error");
                         return;
                     } else if(this.selected.status == '0'){
                         swal("ผิดพลาด", "กรุณาเลือกสถานะลูกค้า", "error");

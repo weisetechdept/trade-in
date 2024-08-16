@@ -8,6 +8,17 @@
         exit();
     }
 
+    function DateThai($strDate)
+    {
+        $strYear = date("y",strtotime($strDate));
+        $strMonth= date("n",strtotime($strDate));
+        $strDay= date("j",strtotime($strDate));
+    
+        $strMonthCut = Array("","ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค.");
+        $strMonthThai=$strMonthCut[$strMonth];
+        return "$strDay $strMonthThai $strYear";
+    } 
+
     function getTeam($uid){
         global $db_nms;
         $team = $db_nms->get('db_user_group');
@@ -159,6 +170,20 @@
                 'partner' => $pt_name,
                 'tel' => $pt_tel,
                 'datetime' => $newDate
+            );
+        }
+
+        $pros_cust = $db->where('cust_parent',10)->get('customer_data');
+
+        foreach ($pros_cust as $value) {
+            $api['pros_cust'][] = array(
+                'id' => $value['cust_id'],
+                'name' => $value['cust_name'],
+                'tel' => $value['cust_tel'],
+                'detail' => $value['cust_detail'],
+                'line' => $value['cust_line'],
+                'status' => $value['cust_status'],
+                'datetime' => DateThai($value['cust_datetime'])
             );
         }
 
