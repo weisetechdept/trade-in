@@ -120,134 +120,136 @@
 
                 <div class="page-content">
                     <div class="container-fluid">
-                      <div id="agent">
-                        <div class="row">
-                            <div class="col-12" >
-                                <div class="page-title-box d-flex align-items-center justify-content-between">
-                                    <h4 class="mb-0 font-size-18">รถยนต์รหัส</h4>
+                        <div id="agent">
+                            <div class="row">
+                                <div class="col-12" >
+                                    <div class="page-title-box d-flex align-items-center justify-content-between">
+                                        <h4 class="mb-0 font-size-18">รถยนต์รหัส</h4>
 
-                                    <div class="page-title-right">
-                                        <ol class="breadcrumb m-0">
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Trade-in</a></li>
-                                            <li class="breadcrumb-item active">รถยนต์</li>
-                                        </ol>
+                                        <div class="page-title-right">
+                                            <ol class="breadcrumb m-0">
+                                                <li class="breadcrumb-item"><a href="javascript: void(0);">Trade-in</a></li>
+                                                <li class="breadcrumb-item active">รถยนต์</li>
+                                            </ol>
+                                        </div>
+                                        
                                     </div>
-                                    
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="row">
+                            <div class="row">
 
-                            <div class="col-lg-6 col-md-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="mb-2 font-size-18">ข้อมูลสมาชิก</h4>
-                                        <div class="table-responsive">
-                                            <table class="table mb-0">
-                                                <tbody>
-                                                    <tr>
-                                                        <th width="155px">รหัส ID</th>
-                                                        <td>{{ id }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>เลขไมล์</th>
-                                                        <td>{{ mileage }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>ยี่ห้อ</th>
-                                                        <td>{{ brand }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>ซีรี่</th>
-                                                        <td>{{ serie }}</td>
-                                                    <tr>
-                                                        <th>รุ่น</th>
-                                                        <td>{{ section }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>เกียร์</th>
-                                                        <td>{{ transmission }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>สี</th>
-                                                        <td>{{ color }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>รุ่นปี</th>
-                                                        <td>{{ car_year }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>ราคา</th>
-                                                        <td>{{ price }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>เพิ่มเติม</th>
-                                                        <td>{{ option }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>สภาพ</th>
-                                                        <td>{{ condition }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>ชื่อ ผู้ขาย</th>
-                                                        <td>{{ sellername }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>เบอร์โทรศัพท์ ผู้ขาย</th>
-                                                        <td>{{ tel }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>สถานะ</th>
-                                                        <td v-if="status == '0'"><span class="badge badge-soft-success">ไม่มีสถานะ.</span></td>
-                                                        <td v-if="status == '1'"><span class="badge badge-soft-success">ติดตามลูกค้า</span></td>
-                                                        <td v-if="status == '2'"><span class="badge badge-soft-success">ไม่ได้สัมผัสรถ</span></td>
-                                                        <td v-if="status == '3'"><span class="badge badge-soft-success">ลูกค้าขายเอง / ขายที่อื่น</span></td>
-                                                        <td v-if="status == '4'"><span class="badge badge-soft-success">สำเร็จ</span></td>
-                                                    </tr>
-                                                    
-                                                </tbody>
-                                            </table>
-                                            <div class="form-group mt-3">
-                                                <h4 class="mb-2 font-size-18">จัดการข้อมูล</h4>
-                                                <a :href="'/sales/edit/'+id" type="submit" class="btn btn-outline-warning waves-effect waves-light mr-1">แก้ใข</a>
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="mb-2 font-size-18">ข้อมูลสมาชิก</h4>
+                                            <div class="table-responsive">
+                                                <table class="table mb-0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <th width="155px">รหัส ID</th>
+                                                            <td>{{ id }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>เลขไมล์</th>
+                                                            <td>{{ mileage }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>ยี่ห้อ</th>
+                                                            <td>{{ brand }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>ซีรี่</th>
+                                                            <td>{{ serie }}</td>
+                                                        <tr>
+                                                            <th>รุ่น</th>
+                                                            <td>{{ section }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>เกียร์</th>
+                                                            <td>{{ transmission }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>สี</th>
+                                                            <td>{{ color }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>รุ่นปี</th>
+                                                            <td>{{ car_year }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>ราคา</th>
+                                                            <td>{{ price }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>เพิ่มเติม</th>
+                                                            <td>{{ option }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>สภาพ</th>
+                                                            <td>{{ condition }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>ชื่อ ผู้ขาย</th>
+                                                            <td>{{ sellername }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>เบอร์โทรศัพท์ ผู้ขาย</th>
+                                                            <td>{{ tel }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>สถานะ</th>
+                                                            <td v-if="status == '0'"><span class="badge badge-soft-success">ไม่มีสถานะ.</span></td>
+                                                            <td v-if="status == '1'"><span class="badge badge-soft-success">ติดตามลูกค้า</span></td>
+                                                            <td v-if="status == '2'"><span class="badge badge-soft-success">ไม่ได้สัมผัสรถ</span></td>
+                                                            <td v-if="status == '3'"><span class="badge badge-soft-success">ลูกค้าขายเอง / ขายที่อื่น</span></td>
+                                                            <td v-if="status == '4'"><span class="badge badge-soft-success">สำเร็จ</span></td>
+                                                        </tr>
+                                                        
+                                                    </tbody>
+                                                </table>
+                                                <div class="form-group mt-3">
+                                                    <h4 class="mb-2 font-size-18">จัดการข้อมูล</h4>
+                                                    <a :href="'/sales/edit/'+id" type="submit" class="btn btn-outline-warning waves-effect waves-light mr-1">แก้ใข</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                
                             </div>
-                            
-                        </div>
-                        
-                      </div>
 
-                        <div class="row">
-                            <div class="col-lg-6 col-md-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="mb-2 font-size-18">ราคาจากพันธมิตร</h4>
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>ลำดับ</th>
-                                                    <th>ราคา</th>
-                                                    <th>เวลา</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr v-for="off in offer">
-                                                    <td>{{ off.no }}</td>
-                                                    <td>{{ off.price }}</td>
-                                                    <td>{{ off.date }}</td>
-                                                </tr>
-                                            </tbody>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="mb-2 font-size-18">ราคาจากพันธมิตร</h4>
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ลำดับ</th>
+                                                        <th>ราคา</th>
+                                                        <th>เวลา</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr v-for="off in offer">
+                                                        <td>{{ off.no }}</td>
+                                                        <td>{{ off.price }}</td>
+                                                        <td>{{ off.date }}</td>
+                                                    </tr>
+                                                </tbody>
 
-                                        </table>
+                                            </table>
 
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                        
                         </div>
+
+                        
 
                       <div class="row" id="chkimg">
                             <div class="col-lg-6 col-md-12">
