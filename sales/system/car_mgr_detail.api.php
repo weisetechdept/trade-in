@@ -21,6 +21,20 @@
         return array_unique($team);
     }
 
+    function DateThai($strDate)
+	{
+		$strYear = date("Y",strtotime($strDate))+543;
+		$strMonth= date("n",strtotime($strDate));
+		$strDay= date("j",strtotime($strDate));
+		$strHour= date("H",strtotime($strDate));
+		$strMinute= date("i",strtotime($strDate));
+		$strSeconds= date("s",strtotime($strDate));
+		$strMonthCut = Array("","ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค.");
+		$strMonthThai=$strMonthCut[$strMonth];
+		return "$strDay $strMonthThai $strYear, $strHour:$strMinute";
+	}
+
+
     $mgr = $_SESSION['tin_user_id'];
     //$mgr = '271';
     
@@ -58,9 +72,24 @@
                 'vat' => $stock['cast_vat'],
                 'sellername' => $stock['cast_seller_name'],
             );
+
+            $offno = 1;
+            $offer = $db->where('off_parent', $stock['cast_id'])->get('offer');
+            foreach($offer as $value){
+                $api['offer'][] = array(
+                    'no' => $offno,
+                    'vendor' => $value['off_vender'],
+                    'date' => DateThai($value['off_datetime']),
+                    'price' => number_format($value['off_price'])
+                );
+                $offno++;
+            }
             
 
         }
+
+       
+
         
     }
     
