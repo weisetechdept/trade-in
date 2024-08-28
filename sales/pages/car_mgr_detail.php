@@ -459,7 +459,7 @@
                             cal_tltprice: '',
                             vat: '',
                             sellername: '',
-                            off:[]
+                            offer:[]
                         }
                     },
                     mounted () {
@@ -503,7 +503,7 @@
                                 this.tel = response.data.car.tel;
                                 this.vat = response.data.car.vat;
                                 this.sellername = response.data.car.sellername;
-                                this.off = response.data.offer;
+                                this.offer = response.data.offer;
                              
                             }),
                             this.calDownpayment();
