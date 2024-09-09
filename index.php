@@ -63,6 +63,10 @@
         require_once 'admin/pages/g-report.php'; 
     });
 
+    $router->get( '/admin/price-report', function() {
+        require_once 'admin/pages/report-price.php'; 
+    });
+
     $router->get( '/admin/trast', function() {
         require_once 'admin/pages/trast.php'; 
     });
