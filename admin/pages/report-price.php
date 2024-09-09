@@ -101,20 +101,16 @@
                     <div class="col-12 col-md-9">
                         <div class="card">
                             <div class="card-body">
-                                
-                                    <div class="form-row">
-                                        <div class="col-md-3 mb-1">
-                                            <label>ตั้งแต่</label>
-                                            <input type="date" class="form-control" v-model="search.start">
-                                        </div>
 
-                                        <div class="col-md-3">
-                                            <label>ถึง</label>
-                                            <input type="date" class="form-control" v-model="search.end">
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <button class="btn btn-primary search-btn" @click="searchData()" type="submit">ค้นหา</button>
+                                    <div class="row">
+                                        <div class="col-12 col-md-4 col-lg-3">
+                                            <div class="form-group">
+                                                <label>ค้นหา - เดือน</label>
+                                                <select class="form-control" @change="searchData" v-model="selected.month">
+                                                    <option value="0">= เลือกเดือนที่ต้องการดูข้อมูล =</option>
+                                                    <option v-for="d in select.month_prv" :value="d.date_from">{{ d.name }}</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                           
@@ -124,25 +120,28 @@
                 </div>
 
                     <div class="row">
-                        <div class="col-12 col-md-9">
+                        <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-
-                                    <table id="datatable" class="table dt-responsive nowrap">
+                                    <table id="datatable" class="table table-responsive">
                                         <thead>
                                             <tr>
                                                 <th>รหัส ID</th>
                                                 <th>ลูกค้าต้องการ</th>
                                                 <th>เสนอสูงสุด</th>
+                                                <th>ส่วนต่าง</th>
                                                 <th>%</th>
                                                 <th>ชื่อพันธมิตร</th>
                                                 <th>ชื่อเซล์</th>
                                                 <th>ทีม</th>
+                                                <th>วันที่เพิ่ม</th>
                                                 <th>จัดการ</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
+                                                <td></td>
+                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -208,6 +207,7 @@
     <script src="/assets/plugins/datatables/dataTables.select.min.js"></script>
     <script src="/assets/plugins/datatables/pdfmake.min.js"></script>
     <script src="/assets/plugins/datatables/vfs_fonts.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.1/axios.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
@@ -215,25 +215,63 @@
 
     <!-- Datatables init -->
     <script>
-        
 
         var count = new Vue({
             el: '#count',
             data: {
                 count: 0,
                 search: {
-                    start: '<?php echo date('Y-m-01'); ?>',
-                    end: '<?php echo date('Y-m-d'); ?>',
                     status: 'all'
+                },
+                select: {
+                    month_prv: [],
+                },
+                selected:{
+                    month: '0',
                 }
             },
             mounted() {
+
                 $('#datatable').DataTable({
-                    "paging": false,
-                    "info": false,
-                    "searching": false,
+                    initComplete: function () {
+                        this.api()
+                            .columns()
+                            .every(function () {
+                                let column = this;
+                                let title = column.header().textContent;
+                
+                                let input = document.createElement('input');
+                                input.placeholder = title;
+                                column.header().replaceChildren(input);
+                
+                                input.addEventListener('keyup', () => {
+                                    if (column.search() !== this.value) {
+                                        column.search(input.value).draw();
+                                    }
+                                });
+                            });
+                    },
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'copy', 'print'
+                    ],
+                    order: [[ 0, "desc" ]],
+                    "language": {
+                        "paginate": {
+                            "previous": "<i class='mdi mdi-chevron-left'>",
+                            "next": "<i class='mdi mdi-chevron-right'>"
+                        },
+                        "lengthMenu": "แสดง _MENU_ รายชื่อ",
+                        "zeroRecords": "ขออภัย ไม่มีข้อมูล",
+                        "info": "หน้า _PAGE_ ของ _PAGES_",
+                        "infoEmpty": "ไม่มีข้อมูล",
+                        "search": "ค้นหา:",
+                    },
+                    "drawCallback": function () {
+                        $('.dataTables_paginate > .pagination').addClass('pagination-rounded');
+                    },
                     "ajax": {
-                        "url": "/admin/system/price-report.api.php",
+                        "url": "/admin/system/price-report.api.php?get=data&date=0",
                         "type": "POST"
                     },
                     "columns": [
@@ -244,25 +282,21 @@
                         { "data": "4" },
                         { "data": "5" },
                         { "data": "6" },
+                        { "data": "7" },
+                        { "data": "8" },
                         { "data": "0",
                             sortable: false,
                             "render": function(data, type, row, meta){
                                 return '<a href="/admin/detail/'+data+'" class="btn btn-outline-primary btn-sm">ดูข้อมูล</a>';
                             }
                         }
-                    ],
-                    "responsive": true,
-                    "language": {
-                        "sLengthMenu": "แสดง _MENU_ รายการ",
-                        "sSearch": "ค้นหา",
-                        "info": "แสดง _START_ ถึง _END_ จาก _TOTAL_ รายการ",
-                        "paginate": {
-                            "previous": "ก่อนหน้า",
-                            "next": "ถัดไป"
-                        }
-                    }
+                    ]
                 });
-                this.count = $('#datatable').DataTable().rows().count();
+
+                axios.post('/admin/system/price-report.api.php?get=current').then(function(response){
+                    count.select.month_prv = response.data.month_prv;
+                });
+            
             },
             methods: {
                 searchData() {
@@ -274,7 +308,7 @@
                         closeOnClickOutside: false,
                         closeOnEsc: false
                     });
-                    $('#datatable').DataTable().ajax.url('/admin/system/report.api.php?get=search&start='+this.search.start+'&end='+this.search.end+'&status='+this.search.status).load(function() {
+                    $('#datatable').DataTable().ajax.url('/admin/system/price-report.api.php?get=data&date='+this.selected.month).load(function() {
                         swal.close(); // Close the loading message
                     });
                     this.count = $('#datatable').DataTable().rows().count();
