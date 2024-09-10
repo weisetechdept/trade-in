@@ -52,7 +52,7 @@
             }
         }
 
-        $db->join('car_image i', 'c.cast_id = i.cari_parent', 'LEFT');
+        $db->join('car_image i', 'c.cast_id = i.cari_parent', 'RIGHT')->groupBy('c.cast_id');
         $data = $db->where('cast_datetime', array($start, $end), 'BETWEEN')->get('car_stock c');
         foreach($data as $value){
 
