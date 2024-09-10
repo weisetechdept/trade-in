@@ -23,6 +23,8 @@
         $start = date('Y-m-01', strtotime($selected));
         $end = date('Y-m-t', strtotime($selected));
 
+        $price = $_GET['price'];
+
         function getOffer($id) {
             global $db;
 
@@ -53,12 +55,14 @@
         }
 
         $db->join('car_image i', 'c.cast_id = i.cari_parent', 'RIGHT')->groupBy('c.cast_id');
-        $data = $db->where('cast_datetime', array($start, $end), 'BETWEEN')->get('car_stock c');
+        $data = $db->where('cast_datetime', array($start, $end), 'BETWEEN')->where('cast_status',array('0','1','2','3','4'),"IN")->get('car_stock c');
         foreach($data as $value){
-
-            if(!empty($value['cast_price'])){
-
-                $best_off = getOffer($value['cast_id']);
+        
+            $best_off = getOffer($value['cast_id']);
+            $diff = $best_off['price'] - $value['cast_price'];
+        
+                
+            if(!empty($value['cast_price']) && $diff >= $price){
 
                 $api['data'][] = array(
                     $value['cast_id'],
@@ -72,9 +76,9 @@
                     $value['cast_datetime'],
                     $value['cari_link']
                 );
-
+        
             }
-
+        
         }
     } else {
         $api['data'] = array();

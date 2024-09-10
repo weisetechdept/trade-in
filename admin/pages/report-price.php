@@ -87,8 +87,8 @@
 
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
-                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Trade-in</a></li>
-                                        <li class="breadcrumb-item active">รถยนต์</li>
+                                        <li class="breadcrumb-item">Trade-in</li>
+                                        <li class="breadcrumb-item">รถยนต์</li>
                                     </ol>
                                 </div>
                                 
@@ -109,6 +109,13 @@
                                                 <select class="form-control" @change="searchData" v-model="selected.month">
                                                     <option value="0">= เลือกเดือนที่ต้องการดูข้อมูล =</option>
                                                     <option v-for="d in select.month_prv" :value="d.date_from">{{ d.name }}</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>ส่วนต่างราคา</label>
+                                                <select class="form-control"  @change="searchData" v-model="selected.price">
+                                                    <option value="-50000">น้อยกว่าหรือเท่ากับ 50,000 บาท</option>
+                                                    <option value="-10000000">ทั้งหมด</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -230,6 +237,7 @@
                 },
                 selected:{
                     month: '0',
+                    price: '-50000'
                 }
             },
             mounted() {
@@ -260,6 +268,7 @@
                         'copy', 'print'
                     ],
                     order: [[ 0, "desc" ]],
+                    pageLength: 20,
                     "language": {
                         "paginate": {
                             "previous": "<i class='mdi mdi-chevron-left'>",
@@ -317,7 +326,7 @@
                         closeOnClickOutside: false,
                         closeOnEsc: false
                     });
-                    $('#datatable').DataTable().ajax.url('/admin/system/price-report.api.php?get=data&date='+this.selected.month).load(function() {
+                    $('#datatable').DataTable().ajax.url('/admin/system/price-report.api.php?get=data&date='+count.selected.month+'&price='+count.selected.price).load(function() {
                         swal.close(); // Close the loading message
                     });
                     this.count = $('#datatable').DataTable().rows().count();
