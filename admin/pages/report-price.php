@@ -61,8 +61,8 @@
             margin-top: 27px;
         }
         .car-thumb {
-            width: 130px;
-            height: 100px;
+            width: 120px;
+            height: 85px;
             object-fit: cover;
             border-radius: 5px;
         }
@@ -98,12 +98,12 @@
 
                 <div class="row" id="count">
 
-                    <div class="col-12 col-md-9">
+                    <div class="col-12 col-md-6 col-lg-4">
                         <div class="card">
                             <div class="card-body">
 
                                     <div class="row">
-                                        <div class="col-12 col-md-4 col-lg-3">
+                                        <div class="col-12">
                                             <div class="form-group">
                                                 <label>ค้นหา - เดือน</label>
                                                 <select class="form-control" @change="searchData" v-model="selected.month">
@@ -126,7 +126,8 @@
                                     <table id="datatable" class="table table-responsive">
                                         <thead>
                                             <tr>
-                                                <th>รหัส ID</th>
+                                                <th width="50px">รหัส ID</th>
+                                                <th>รูปภาพ</th>
                                                 <th>ลูกค้าต้องการ</th>
                                                 <th>เสนอสูงสุด</th>
                                                 <th>ส่วนต่าง</th>
@@ -140,6 +141,7 @@
                                         </thead>
                                         <tbody>
                                             <tr>
+                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -244,11 +246,13 @@
                                 input.placeholder = title;
                                 column.header().replaceChildren(input);
                 
+                               
                                 input.addEventListener('keyup', () => {
-                                    if (column.search() !== this.value) {
+                                    if (column.search() !== input.value) {
                                         column.search(input.value).draw();
                                     }
                                 });
+                                
                             });
                     },
                     dom: 'Bfrtip',
@@ -276,6 +280,11 @@
                     },
                     "columns": [
                         { "data": "0" },
+                        { "data": "9",
+                            "render": function(data, type, row, meta){
+                                return '<img src="'+data+'" class="car-thumb">';
+                            }
+                         },
                         { "data": "1" },
                         { "data": "2" },
                         { "data": "3" },

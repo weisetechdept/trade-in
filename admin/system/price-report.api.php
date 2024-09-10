@@ -52,7 +52,8 @@
             }
         }
 
-        $data = $db->where('cast_datetime', array($start, $end), 'BETWEEN')->get('car_stock');
+        $db->join('car_image i', 'c.cast_id = i.cari_parent', 'LEFT');
+        $data = $db->where('cast_datetime', array($start, $end), 'BETWEEN')->get('car_stock c');
         foreach($data as $value){
 
             if(!empty($value['cast_price'])){
@@ -69,6 +70,7 @@
                     getName($value['cast_sales_parent_no']),
                     getTeam($value['cast_sales_parent_no']),
                     $value['cast_datetime'],
+                    $value['cari_link']
                 );
 
             }
