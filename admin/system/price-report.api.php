@@ -14,6 +14,32 @@
             );
         }
 
+        foreach($api['month_prv'] as $key => $value){
+
+            $db->join('offer o', 'c.cast_id = o.off_parent', 'INNER')->groupBy('c.cast_id');
+            $data = $db->where('c.cast_datetime',array($value['date_from'],$value['date_to']),"BETWEEN")->where('cast_status',array('0','1','2','3','4'),"IN")->orderBy('o.off_price','DESC')->get('car_stock c');
+
+            foreach($data as $val){
+                if(!empty($val['cast_price']) && !empty($val['off_price'])){
+                    $need[$key] += $val['cast_price'];
+                    $count[$key] += $val['off_price'];
+                    $range[$key] +=  $val['cast_price'] - $val['off_price'];
+                    $car[$key]++;
+                }
+            }
+
+        }
+        
+        for($i=0; $i<6; $i++){
+
+            $api['chartAvg'][] = array(
+                'y' => 'month'/*date('m-Y', strtotime($api['month_prv'][$i]['name']))*/,
+                'a' => number_format($count[$i] / $car[$i],2, '.', ''),
+                'b' => number_format($need[$i] / $car[$i],2, '.', ''),
+                'c' => number_format($range[$i] / $car[$i],2, '.', '')
+            );
+        }
+        
     }
 
     if($_GET['get'] == 'data' && $_GET['date'] !== '0'){

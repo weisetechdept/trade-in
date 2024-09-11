@@ -16,10 +16,8 @@
     <meta content="A77" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <!-- App favicon -->
     <link rel="shortcut icon" href="/assets/images/favicon.ico">
 
-    <!-- Plugins css -->
     <link href="/assets/plugins/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
     <link href="/assets/plugins/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
     <link href="/assets/plugins/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
@@ -27,7 +25,6 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@100;200;300;400;500;600;700;800&family=Kanit:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- App css -->
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/theme.min.css" rel="stylesheet" type="text/css" />
@@ -115,6 +112,7 @@
                                                 <label>ส่วนต่างราคา</label>
                                                 <select class="form-control"  @change="searchData" v-model="selected.price">
                                                     <option value="-50000">น้อยกว่าหรือเท่ากับ 50,000 บาท</option>
+                                                    <option value="-25000">น้อยกว่าหรือเท่ากับ 25,000 บาท</option>
                                                     <option value="-10000000">ทั้งหมด</option>
                                                 </select>
                                             </div>
@@ -124,6 +122,67 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-12 col-lg-3">
+                        <div class="row">
+                            <div class="col-12 mb-2">
+                                <a href="#">
+                                    <div class="card bg-success border-success">
+                                        <div class="card-body">
+                                            <div class="mb-2">
+                                                <h5 class="card-title mb-0 text-white">ส่วนต่างในเงื่อนใข</h5>
+                                            </div>
+                                            <div class="row d-flex align-items-center mb-2">
+                                                <div class="col-8">
+                                                    <h2 class="d-flex align-items-center text-white mb-0">
+                                                        {{ count }}
+                                                    </h2>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-3">
+                        <div class="row">
+                            <div class="col-12 mb-2">
+                                <a href="#">
+                                    <div class="card bg-secondary border-secondary">
+                                        <div class="card-body">
+                                            <div class="mb-2">
+                                                <h5 class="card-title mb-0 text-white">รถยนต์ทั้งหมด</h5>
+                                            </div>
+                                            <div class="row d-flex align-items-center mb-2">
+                                                <div class="col-8">
+                                                    <h2 class="d-flex align-items-center text-white mb-0">
+                                                        {{ count }}
+                                                    </h2>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+<!--
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+
+                            <div id="morris-line-example" class="morris-chart"></div>
+                    
+                          
+                            </div>
+                        </div>
+                    </div>
+-->
                 </div>
 
                     <div class="row">
@@ -220,9 +279,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.1/axios.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-    <!-- third party js ends -->
 
-    <!-- Datatables init -->
+    <script src="/assets/plugins/morris-js/morris.min.js"></script>
+    <script src="/assets/plugins/raphael/raphael.min.js"></script>
+
     <script>
 
         var count = new Vue({
@@ -313,8 +373,28 @@
 
                 axios.post('/admin/system/price-report.api.php?get=current').then(function(response){
                     count.select.month_prv = response.data.month_prv;
+                    //count.fetch.chartAvg = response.data.chartAvg;
                 });
-            
+    /*            
+                $(function() {
+                    'use strict';
+                    if ($('#morris-line-example').length) {
+                        Morris.Line({
+                            element: 'morris-line-example',
+                            gridLineColor: '#eef0f2',
+                            lineColors: ['#e83e8c', '#23b5e2' , '#23e29e'],
+                            data: count.fetch.chartAvg,
+                            xkey: 'y',
+                            ymax: '350000',
+                            height: 100,
+                            ykeys: ['a', 'b' , 'c'],
+                            hideHover: 'auto',
+                            resize: true,
+                            labels: ['Offer Avg.', 'Need Avg.', 'Range Avg.'],
+                        });
+                    }
+                });
+*/
             },
             methods: {
                 searchData() {
@@ -326,13 +406,16 @@
                         closeOnClickOutside: false,
                         closeOnEsc: false
                     });
+
                     $('#datatable').DataTable().ajax.url('/admin/system/price-report.api.php?get=data&date='+count.selected.month+'&price='+count.selected.price).load(function() {
-                        swal.close(); // Close the loading message
+                        swal.close();
+                        count.count = $('#datatable').DataTable().rows().count();
                     });
-                    this.count = $('#datatable').DataTable().rows().count();
                 }
             }
         });
+
+    
  
     </script>
 
