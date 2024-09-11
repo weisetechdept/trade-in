@@ -1,5 +1,9 @@
 <?php
     session_start();
+    if($_SESSION['tin_admin'] != true){
+        header("location: /404");
+        exit();
+    } else {
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -221,3 +225,5 @@
 </body>
 
 </html>
+
+<?php } ?>

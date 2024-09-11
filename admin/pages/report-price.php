@@ -58,8 +58,8 @@
             margin-top: 27px;
         }
         .car-thumb {
-            width: 120px;
-            height: 85px;
+            width: 100px;
+            height: 70px;
             object-fit: cover;
             border-radius: 5px;
         }
