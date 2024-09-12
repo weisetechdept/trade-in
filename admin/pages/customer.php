@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Xacton - Admin & Dashboard Template</title>
+    <title>Prospect Customer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="MyraStudio" name="author" />
@@ -67,7 +67,7 @@
                                 
                             </div>
                         </div>
-                    </div>     
+                    </div>
 
                     <div class="row">
                         <div class="col-12 col-md-4 col-lg-3">
@@ -131,6 +131,58 @@
                                         </div>
                                     </div>
 
+
+                                    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">แก้ไขข้อมูลลุกค้ามุ่งหวัง</h5>
+                                                    <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+
+                                                    <div class="form-group">
+                                                        <label class="control-label">ID รถยนต์ที่ต้องการแก้ไข</label><br />
+                                                        <p>{{edit.carId}}</p>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="control-label">รายละเอียด</label>
+                                                        <textarea class="form-control" type="text" v-model="selected.detail"></textarea>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="control-label">เบอร์โทรติดต่อ</label>
+                                                        <input class="form-control" type="text" v-model="selected.detail">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="control-label">Line ID ติดต่อ</label>
+                                                        <input class="form-control" type="text" v-model="selected.detail">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="control-label">สถานะลูกค้า</label>
+                                                        <select class="form-control" v-model="selected.status">
+                                                            <option value="0">= เลือกสถานะลูกค้า =</option>
+                                                            <option value="1">HOT (ต้องการซื้อภายใน 7 วัน)</option>
+                                                            <option value="2">WORM (ต้องการซื้อภายใน 7 - 30 วัน)</option>
+                                                            <option value="3">COOL (ต้องการซื้อมากกว่า 30 วัน)</option>
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary waves-effect waves-light" @click="AddCustomer">บันทึก</button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
 
@@ -154,7 +206,7 @@
                                                 <th>ติดต่อ Line</th>
                                                 <th>สถานะ</th>
                                                 <th>วันที่เพิ่ม</th>
-                                                <th>ดูข้อมูล</th>
+                                                <th>จัดการ</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -189,7 +241,7 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="text-sm-right d-none d-sm-block">
-                                Design & Develop by Myra
+                                Design & Develop by Weise Technika
                             </div>
                         </div>
                     </div>
@@ -242,6 +294,13 @@
                     line: '',
                     status: '0',
                 },
+                edit: {
+                    carId: '',
+                    detail: '',
+                    tel: '',
+                    line: '',
+                    status: '0',
+                }
             },
             mounted() {
 
@@ -287,7 +346,7 @@
                             });
                         }
                     });
-
+ 
                 },
                 addNew() {
                     axios.post('/admin/system/add-customer.api.php').then(function(response) {

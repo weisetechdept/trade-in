@@ -16,7 +16,7 @@
 
     function thumb($uid){
         global $db;
-        $thumb = $db->where('cari_id ', $uid)->getOne('car_image', null,'cari_link');
+        $thumb = $db->where('cari_parent', $uid)->where('cari_status',1)->getOne('car_image', null,'cari_link');
         if(empty($thumb)){
             return '<img src="https://dummyimage.com/600x400/c4c4c4/fff&amp;text=no-image" class="car-thumb">';
         }else {
@@ -37,7 +37,10 @@
             'formatter' => function($d, $row){
                 return thumb($d);
             }],
-        ['db' => 'cust_parent', 'dt' => 2, 'field' => 'cust_parent'],
+        ['db' => 'cust_parent', 'dt' => 2, 'field' => 'cust_parent',
+            'formatter' => function($d, $row){
+                return '<a href="/admin/detail/'.$d.'" target="_blank">'.$d.'</a>';
+            }],
         ['db' => 'cust_name', 'dt' => 3, 'field'=> 'cust_name'],
         ['db' => 'cust_detail', 'dt' => 4, 'field'=> 'cust_detail'],
         ['db' => 'cust_tel', 'dt' => 5, 'field'=> 'cust_tel'],
@@ -60,14 +63,9 @@
         ],
         ['db' => 'cust_id', 'dt' => 9, 'field'=> 'cust_id',
             'formatter' => function($d, $row) {
-                return '<button class="btn btn-outline-primary btn-sm" @click="editCust">แก้ไข</button>';
+                return '<button class="btn btn-outline-primary btn-sm" @click="editCust('.$d.')" data-toggle="modal" data-target="#editModal">แก้ไข</button> <button class="btn btn-outline-danger btn-sm" @click="deleteCust">ลบ</button>';
             }
-        ],
-        ['db' => 'cust_id', 'dt' => 10, 'field'=> 'cust_id',
-            'formatter' => function($d, $row) {
-                return '<button class="btn btn-outline-danger btn-sm" @click="deleteCust">ลบ</button>';
-            }
-        ],
+        ]
     ];
 
     echo json_encode(
