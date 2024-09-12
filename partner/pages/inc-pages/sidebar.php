@@ -10,11 +10,11 @@
                         <li>
                             <a href="/partner/car/today" class="waves-effect"><i class="feather-file"></i><!-- <span class="badge badge-pill badge-info float-right">3</span> --><span>รถมาใหม่วันนี้</span></a>
                         </li>
-
+<!--
                         <li>
                             <a href="/partner/car/all" class="waves-effect"><i class="feather-file-text"></i><span>รถทั้งหมด</span></a>
                         </li>
-
+    -->
                         <li>
                             <a href="/partner/offered" class="waves-effect"><i class="feather-file-text"></i><span>ประวัติการเสนอราคา</span></a>
                         </li>
