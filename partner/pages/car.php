@@ -119,7 +119,6 @@
                         </div>
                     </div>
 
-
                     <div class="row">
                         <div class="col-xl-6 less-border">
                             <div class="card">
@@ -241,9 +240,6 @@
                 
             }
         });
-
-
-        
     </script>
 
 </body>
