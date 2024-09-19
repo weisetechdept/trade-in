@@ -102,7 +102,7 @@
                     $value['cast_datetime'],
                     $value['cari_link'],
                     $value['cast_status'],
-                    $value['cast_option'],
+                    $value['cast_option']
                 );
         
             }
