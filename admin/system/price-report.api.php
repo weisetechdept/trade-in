@@ -81,7 +81,7 @@
         }
 
         $db->join('car_image i', 'c.cast_id = i.cari_parent', 'RIGHT')->groupBy('c.cast_id');
-        $data = $db->where('cast_datetime', array($start, $end), 'BETWEEN')->where('cast_status',array('0','1','2','3','4'),"IN")->get('car_stock c');
+        $data = $db->where('cast_datetime', array($start, $end), 'BETWEEN')->where('cast_status',array('1','2'),"IN")->get('car_stock c');
         foreach($data as $value){
         
             $best_off = getOffer($value['cast_id']);
