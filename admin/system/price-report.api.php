@@ -100,7 +100,9 @@
                     getName($value['cast_sales_parent_no']),
                     getTeam($value['cast_sales_parent_no']),
                     $value['cast_datetime'],
-                    $value['cari_link']
+                    $value['cari_link'],
+                    $value['cast_status'],
+                    $value['cast_option'],
                 );
         
             }

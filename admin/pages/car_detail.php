@@ -395,8 +395,8 @@
                                                         <td>{{ vin }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th>เลขไมล์</th>
-                                                        <td>{{ mileage }}</td>
+                                                        <th>ปีที่ผลิต</th>
+                                                        <td>{{ reg_year }}</td>
                                                     </tr>
                                                     <tr>
                                                         <th>ยี่ห้อ</th>
@@ -418,8 +418,8 @@
                                                         <td>{{ color }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th>รุ่นปี</th>
-                                                        <td>{{ reg_year }}</td>
+                                                        <th>เลขไมล์</th>
+                                                        <td>{{ mileage }}</td>
                                                     </tr>
                                                     <tr>
                                                         <th>เพิ่มเติม</th>
