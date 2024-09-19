@@ -103,6 +103,7 @@ $(function() {
       labels: ['Series A', 'Series B']
     });
   }
+  
   if ($("#morris-bar-example").length) {
     Morris.Bar({
       element: 'morris-bar-example',

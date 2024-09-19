@@ -189,4 +189,4 @@
 
     }
 
-    print_r(json_encode($api));
+    echo json_encode($api);

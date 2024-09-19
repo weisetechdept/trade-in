@@ -363,7 +363,7 @@
                                                     <tr v-for="pc in pros_cust">
                                                         <td>{{ pc.name }}</td>
                                                         <td>{{ pc.detail }}</td>
-                                                        <td>{{ pc.tel }}</td>
+                                                        <td>{{ pc.tel }} <a :href="'tel:'+ pc.tel" class="btn btn-outline-warning btn-sm"> โทร </a> </td>
                                                         <td>{{ pc.line }}</td>
                                                         <td>{{ pc.datetime }}</td>
                                                     </tr>
