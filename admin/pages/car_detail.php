@@ -560,7 +560,30 @@
                                                 <button type="button" class="btn btn-sm btn-warning waves-effect waves-light mt-2" style="margin-top: 10px;" :value="docs.id" @click="upThumb">ตั้งเป็นรูปหน้าปก</button>
                                             </div>
 
-                                            <p class="mt-2 mb-0">อัพโหลดเมื่อ : {{ docs.datetime }}, หมวดหมู่: {{ docs.group }}</p>
+                                            <p class="mt-2 mb-0">อัพโหลดเมื่อ :</p>
+
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <p class="mt-2 mb-1">หมวดหมู่ : {{ docs.group }}</p>
+                                                    <select class="form-control" v-model="docs.group" @change="editImgType(docs.group,docs.id)">
+                                                        <option value="1">01 : ด้านหน้าตรง</option>
+                                                        <option value="2">02 : ด้านหลังตรง</option>
+                                                        <option value="3">03 : มุมเฉียงหน้าซ้าย</option>
+                                                        <option value="4">04 : มุมเฉียงหลังซ้าย</option>
+                                                        <option value="5">05 : ที่นั่งคนขับ</option>
+                                                        <option value="6">06 : ภายในหลังซ้าย</option>
+                                                        <option value="7">07 : พวงมาลัย และคอนโซล</option>
+                                                        <option value="8">08 : หน้าปัด และเลขไมล์</option>
+                                                        <option value="9">09 : เกียร์</option>
+                                                        <option value="10">10 : กุญแจ</option>
+                                                        <option value="11">11 : ป้ายภาษี</option>
+                                                        <option value="12">12 : สำเนาทะเบียนหน้ารายการจดทะเบียน และเจ้าของรถ (ล่าสุด)</option>
+                                                        <option value="13">13 : เล่มฟ้าหน้า 18 (ถ้ามี)</option>
+                                                        <option value="99">99 : รูปอื่นๆ</option>
+                                                    </select>
+                                                   
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1050,6 +1073,17 @@
                           ))
                     },
                     methods: {
+                        editImgType(e,i) {
+                           axios.post('/admin/system/img_type.api.php', {
+                                id: i,
+                                group: e
+                            }).then(res => {
+                                if(res.data.status == 505) 
+                                    swal("ไม่สำเร็จ", res.data.message , "error",{ 
+                                        button: "ตกลง"
+                                    })
+                            });
+                        },
                         upThumb(e){
                             swal({
                                 title: 'คุณแน่ใจหรือไม่ ?',
@@ -1080,7 +1114,7 @@
                                 } 
                             });
                         },
-                        sendDelete(e){ 
+                        sendDelete(e,i){ 
                             swal({
                                 title: 'คุณแน่ใจหรือไม่ ?',
                                 text: "คุณต้องการลบรูปภาพใช่หรือไม่ โปรดตรวจสอบข้อมูลให้ถูกต้อง",

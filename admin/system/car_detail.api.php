@@ -173,6 +173,8 @@
             );
         }
 
+       
+
         $pros_cust = $db->where('cust_parent',$stock['cast_id'])->get('customer_data');
 
         foreach ($pros_cust as $value) {
