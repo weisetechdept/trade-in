@@ -579,6 +579,9 @@
                                                         <option value="11">11 : ป้ายภาษี</option>
                                                         <option value="12">12 : สำเนาทะเบียนหน้ารายการจดทะเบียน และเจ้าของรถ (ล่าสุด)</option>
                                                         <option value="13">13 : เล่มฟ้าหน้า 18 (ถ้ามี)</option>
+                                                        <option value="14">14 : ล้อ และยาง</option>
+                                                        <option value="15">15 : หลังคา</option>
+                                                        <option value="16">16 : จุดสังเกตุต่างๆ / ตำหนิ</option>
                                                         <option value="99">99 : รูปอื่นๆ</option>
                                                     </select>
                                                    
