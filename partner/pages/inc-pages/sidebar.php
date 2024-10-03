@@ -8,7 +8,7 @@
                         <li class="menu-title">เมนู</li>
 
                         <li>
-                            <a href="/partner/car/today" class="waves-effect"><i class="feather-file"></i><!-- <span class="badge badge-pill badge-info float-right">3</span> --><span>รถมาใหม่วันนี้</span></a>
+                            <a href="/partner/car/today" class="waves-effect"><i class="feather-file"></i><!-- <span class="badge badge-pill badge-info float-right">3</span> --><span>รถมาใหม่</span></a>
                         </li>
 <!--
                         <li>

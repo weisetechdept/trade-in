@@ -253,7 +253,7 @@
                     <a href="/partner/offer/{{ detail.id }}"><img src="/partner/assets/images/offer-price.png"></a>
                 </div>
 
-                <div v-if="detail.status !== '3' || detail.status !== '10'" class="offer-box">
+                <div v-if="detail.status == '1' || detail.status == '2'" class="offer-box">
 
                     <div class="form-group">
                         <h4>ราคาที่คุณจะเสนอ</h4>
