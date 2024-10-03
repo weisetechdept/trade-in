@@ -45,7 +45,7 @@
             ON s.cast_car = f.find_id";
         
         $joinQuery .= " INNER JOIN car_image c
-            ON s.cast_id = c.cari_parent AND s.cast_link_public = '1' AND s.cast_status IN ('1','2','4')";
+            ON s.cast_id = c.cari_parent AND s.cast_link_public = '1' AND s.cast_status IN ('1','2')";
         
         $joinQuery .= " AND s.cast_datetime BETWEEN '".date('Y-m-d', strtotime(date('Y-m-d').' 00:00:00'.' -30 days'))."' AND '".date('Y-m-d 23:59:59')."'";
         $joinQuery .= " GROUP BY s.cast_id";
