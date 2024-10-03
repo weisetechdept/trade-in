@@ -560,12 +560,13 @@
                                                 <button type="button" class="btn btn-sm btn-warning waves-effect waves-light mt-2" style="margin-top: 10px;" :value="docs.id" @click="upThumb">ตั้งเป็นรูปหน้าปก</button>
                                             </div>
 
-                                            <p class="mt-2 mb-0">อัพโหลดเมื่อ :</p>
+                                            <p class="mt-2 mb-0">อัพโหลดเมื่อ : {{ docs.datetime }}</p>
 
                                             <div class="row">
                                                 <div class="col-6">
                                                     <p class="mt-2 mb-1">หมวดหมู่ : {{ docs.group }}</p>
                                                     <select class="form-control" v-model="docs.group" @change="editImgType(docs.group,docs.id)">
+                                                        <option value="0">ไม่มีหมวดหมู่</option>
                                                         <option value="1">[ภายนอก] : ด้านหน้าตรง</option>
                                                         <option value="2">[ภายนอก] : ด้านหลังตรง</option>
                                                         <option value="3">[ภายนอก] : มุมเฉียงหน้า</option>
@@ -573,11 +574,13 @@
                                                         <option value="17">[ภายนอก] : ด้านข้าง</option>
                                                         <option value="14">[ภายนอก] : ล้อ และยาง</option>
                                                         <option value="15">[ภายนอก] : หลังคา</option>
-                                                        <option value="5">[ภายใน] : ที่นั่งคนขับ</option>
+                                                        <option value="5">[ภายใน] : ภายในหน้า</option>
                                                         <option value="6">[ภายใน] : ภายในหลัง</option>
                                                         <option value="7">[ภายใน] : พวงมาลัย และคอนโซล</option>
                                                         <option value="8">[ภายใน] : หน้าปัด และเลขไมล์</option>
                                                         <option value="9">[ภายใน] : เกียร์</option>
+                                                        <option value="18">[สมรรถนะ] : เครื่องยนต์</option>
+                                                        <option value="19">[สมรรถนะ] : ระบบช่วงล่าง</option>
                                                         <option value="10">[อื่นๆ] : กุญแจ</option>
                                                         <option value="11">[อื่นๆ] : ป้ายภาษี</option>
                                                         <option value="12">[อื่นๆ] : สำเนาทะเบียนหน้ารายการจดทะเบียน และเจ้าของรถ (ล่าสุด)</option>
