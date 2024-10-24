@@ -105,7 +105,7 @@
                     $value['cari_link'],
                     $value['cast_status'],
                     $value['cast_option'],
-                    !empty($value['cast_prov']) ? $value['cast_prov'] : 'ไม่มี'
+                    !empty($value['cast_pv']) ? $value['cast_pv'] : 'ไม่มี'
                 );
         
             }
