@@ -111,6 +111,7 @@
                                                 <th>รูป</th>
                                                 <th>เซลล์</th>
                                                 <th>ทีม</th>
+                                                <th>จังหวัด</th>
                                                 <th>รถยนต์</th>
                                                 <th>ปี</th>
                                                 <th>ทะเบียน</th>
@@ -125,6 +126,7 @@
                                         </thead>
                                         <tbody>
                                             <tr>
+                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>

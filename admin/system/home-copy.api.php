@@ -81,7 +81,17 @@
                 return getTeamName($d); 
             }
         ],
-        ['db' => 'find_id', 'dt' => 4, 'field'=> 'find_id',
+        ['db' => 'cast_pv', 'dt' => 4, 'field'=> 'cast_pv',
+            'formatter' => function($d, $row){
+                if(empty($d)){
+                    return "ยังไม่ระบุ";
+                } else {
+                    return $d; 
+                }
+                
+            }
+        ],
+        ['db' => 'find_id', 'dt' => 5, 'field'=> 'find_id',
             'formatter' => function($d, $row){
                 if(empty($d)){
                     return "ยังไม่ระบุ";
@@ -90,20 +100,20 @@
                 }
             }
         ],
-        ['db' => 'cast_year', 'dt' => 5, 'field'=> 'cast_year'],
-        ['db' => 'cast_license', 'dt' => 6, 'field'=> 'cast_license'],
-        ['db' => 'cast_color', 'dt' => 7, 'field'=> 'cast_color'],
-        ['db' => 'cast_price', 'dt' => 8, 'field'=> 'cast_price',
+        ['db' => 'cast_year', 'dt' => 6, 'field'=> 'cast_year'],
+        ['db' => 'cast_license', 'dt' => 7, 'field'=> 'cast_license'],
+        ['db' => 'cast_color', 'dt' => 8, 'field'=> 'cast_color'],
+        ['db' => 'cast_price', 'dt' => 9, 'field'=> 'cast_price',
             'formatter' => function($d, $row){
                 return number_format($d);
             }
         ],
-        ['db' => 'cast_id', 'dt' => 9, 'field'=> 'cast_id',
+        ['db' => 'cast_id', 'dt' => 10, 'field'=> 'cast_id',
             'formatter' => function($d, $row){
                 return getOfferPrice($d);
             }
         ],
-        ['db' => 'cast_car_check', 'dt' => 10, 'field'=> 'cast_car_check',
+        ['db' => 'cast_car_check', 'dt' => 11, 'field'=> 'cast_car_check',
             'formatter' => function($d, $row){
                 if($d == 0){
                     return "<span class=\"badge badge-soft-warning\">ยังไม่ตรวจ</span>";
@@ -112,7 +122,7 @@
                 }
             }
         ],
-        ['db' => 'cast_status', 'dt' => 11, 'field'=> 'cast_status',
+        ['db' => 'cast_status', 'dt' => 12, 'field'=> 'cast_status',
             'formatter' => function($d, $row){
                 if($d == 0){
                     return "<span class=\"badge badge-soft-unknow\">ไม่มีสถานะ</span>";
@@ -129,17 +139,17 @@
                 }
             }
         ],
-        ['db' => 'cast_datetime', 'dt' => 12, 'field'=> 'cast_datetime',
+        ['db' => 'cast_datetime', 'dt' => 13, 'field'=> 'cast_datetime',
             'formatter' => function($d, $row){
                 return DateThai($d);
             }
         ],
-        ['db' => 'cast_id', 'dt' => 13, 'field'=> 'cast_id',
+        ['db' => 'cast_id', 'dt' => 14, 'field'=> 'cast_id',
             'formatter' => function($d, $row){
                 return "<a href=\"/admin/detail/$d\" class=\"btn btn-outline-primary btn-sm\"><span class=\"mdi mdi-account-edit\"></span> แก้ไข</a>";
             }        
         ]
-    ];
+    ]; 
 
     $joinQuery = "FROM car_stock s LEFT JOIN finance_data f ON s.cast_car = f.find_id";
     
