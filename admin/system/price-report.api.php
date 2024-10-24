@@ -80,15 +80,7 @@
             }
         }
 
-        function getOfferPrice($uid){
-            global $db;
-            $offer = $db->where('off_parent', $uid)->orderBy('off_price','DESC')->getOne('offer', null,'off_price');
-            if(empty($offer)){
-                return "ไม่มี";
-            } else {
-                return number_format($offer['off_price']);
-            }
-        }
+       
 
         $db->join('car_image i', 'c.cast_id = i.cari_parent', 'RIGHT')->groupBy('c.cast_id');
         $data = $db->where('cast_datetime', array($start, $end), 'BETWEEN')->where('cast_status',array('1','2'),"IN")->get('car_stock c');
@@ -113,7 +105,7 @@
                     $value['cari_link'],
                     $value['cast_status'],
                     $value['cast_option'],
-                    getOfferPrice($value['cast_id'])
+                    !empty($value['cast_prov']) ? $value['cast_prov'] : 'ไม่มี'
                 );
         
             }
