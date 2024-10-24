@@ -193,6 +193,7 @@
                                             <tr>
                                                 <th width="50px">รหัส ID</th>
                                                 <th>รูปภาพ</th>
+                                                <th>จังหวัดปัจจุบัน</th>
                                                 <th>ลูกค้าต้องการ</th>
                                                 <th>เสนอสูงสุด</th>
                                                 <th>ส่วนต่าง</th>
@@ -208,6 +209,7 @@
                                         </thead>
                                         <tbody>
                                             <tr>
+                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -357,6 +359,7 @@
                                 return '<img src="'+data+'" class="car-thumb">';
                             }
                          },
+                         { "data": "12" },
                         { "data": "1" },
                         { "data": "2" },
                         { "data": "3" },
@@ -388,7 +391,7 @@
                             }
                         }
                     ]
-                });
+                }); 
 
                 axios.post('/admin/system/price-report.api.php?get=current').then(function(response){
                     count.select.month_prv = response.data.month_prv;
