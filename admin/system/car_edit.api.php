@@ -46,7 +46,7 @@
             'car_check' => $stock['cast_car_check'],
         );
 
-        $manCheck = $db->where('user_status',1)->get('user');
+        $manCheck = $db->get('user');
         foreach ($manCheck as $value) {
             $api['manCheck'][] = array('id' => $value['user_id'],
                 'name' => $value['user_nickname']
