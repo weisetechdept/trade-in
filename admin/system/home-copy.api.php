@@ -146,7 +146,7 @@
         ],
         ['db' => 'cast_id', 'dt' => 14, 'field'=> 'cast_id',
             'formatter' => function($d, $row){
-                return "<a href=\"/admin/detail/$d\" class=\"btn btn-outline-primary btn-sm\"><span class=\"mdi mdi-account-edit\"></span> แก้ไข</a>";
+                return "<a href=\"/admin/detail/$d\"  target=\"_blank\" class=\"btn btn-outline-primary btn-sm\"><span class=\"mdi mdi-account-edit\"></span> แก้ไข</a>";
             }        
         ]
     ]; 

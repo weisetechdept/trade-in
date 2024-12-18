@@ -70,6 +70,16 @@
             background-color: #f6b9f7;
             color: #fff;
         }
+        @media (min-width: 768px) {
+            .page-content {
+                padding: calc(70px + 24px) calc(5px / 2) 70px calc(5px / 2);
+            }
+            div.dataTables_wrapper div.dataTables_filter {
+                text-align: right;
+                float: right;
+            }
+        }
+       
     </style>
 </head>
 
@@ -202,6 +212,8 @@
     <script>
         $('#datatable').DataTable({
             ajax: '/admin/system/home-copy.api.php',
+            pageLength: 10,
+            lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
             processing: true,
             serverSide: true,
             responsive: true,
@@ -212,7 +224,7 @@
                 "search": "ค้นหา:",
                 "lengthMenu": "แสดง _MENU_ รายการ",
             },
-            dom: 'Bfrtip',
+            dom: 'lBfrtip',
             buttons: [
                 'copy', 'print'
             ],
