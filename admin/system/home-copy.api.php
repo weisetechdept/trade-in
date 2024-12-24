@@ -112,21 +112,25 @@
         ],
         ['db' => 'cast_year', 'dt' => 6, 'field'=> 'cast_year'],
         ['db' => 'cast_license', 'dt' => 7, 'field'=> 'cast_license'],
-        ['db' => 'cast_price', 'dt' => 8, 'field'=> 'cast_price',
+        
+        ['db' => 'cast_trade_price', 'dt' => 8, 'field'=> 'cast_trade_price',
             'formatter' => function($d, $row){
                 return number_format($d);
             }
         ],
+
         ['db' => 'cast_car', 'dt' => 9, 'field'=> 'cast_car',
             'formatter' => function($d, $row){
                 return getTLTPrice($d);
             }
         ],
-        ['db' => 'cast_trade_price', 'dt' => 10, 'field'=> 'cast_trade_price',
+
+        ['db' => 'cast_price', 'dt' => 10, 'field'=> 'cast_price',
             'formatter' => function($d, $row){
                 return number_format($d);
             }
         ],
+        
         ['db' => 'cast_id', 'dt' => 11, 'field'=> 'cast_id',
             'formatter' => function($d, $row){
                 return getOfferPrice($d);
