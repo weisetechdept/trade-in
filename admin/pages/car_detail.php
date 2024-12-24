@@ -588,6 +588,7 @@
                                                         <option value="13">[อื่นๆ] : เล่มฟ้าหน้า 18 (ถ้ามี)</option>
                                                         <option value="16">[อื่นๆ] : จุดสังเกตุต่างๆ / ตำหนิ</option>
                                                         <option value="99">[อื่นๆ] : รูปอื่นๆ</option>
+                                                        <option value="901">หลักฐานราคาตั้งขาย [ไม่แสดง] : รูปอื่นๆ</option>
                                                     </select>
                                                    
                                                 </div>
