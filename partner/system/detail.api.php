@@ -142,7 +142,11 @@
 
                     if($car){
                         foreach ($car as $value) {
-                            $api['img'][] = $value['cari_link'];
+                            //$api['img'][] = $value['cari_link'];
+
+                            if($value['cari_group'] !== '901'){
+                                $api['img'][] = $value['cari_link'];
+                            }
                         }
                     } else {
                         $api['img'] = array('code' => '404','message' => 'Not Found');

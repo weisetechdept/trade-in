@@ -528,6 +528,7 @@
                                                     <option value="30">รูปเอกสารรถยนต์ (Code: 30)</option>
                                                     <option value="40">รูปห้องเครื่อง ช่วงล่าง ใต้ท้องรถ (Code: 40)</option>
                                                     <option value="50">รูปตำหนิรถยนต์แต่ละจุด (Code: 50)</option>
+                                                    <option value="901">รูปหลักฐานราคาตั้งขาย (Code: 901)</option>
                                                 </select>
                                             </div>
                                       

@@ -123,11 +123,13 @@
                 );
 
                 $db->join('car_image i','c.cast_id = i.cari_parent','LEFT');
-                $car = $db->where('cast_id',$id)->where('cari_status',1)->get('car_stock c');
 
+                $car = $db->where('cast_id',$id)->where('cari_status',1)->get('car_stock c');
                 if($car){
                     foreach ($car as $value) {
-                        $api['img'][] = $value['cari_link'];
+                        if($value['cari_group'] !== '901'){
+                            $api['img'][] = $value['cari_link'];
+                        }
                     }
                 } else {
                     $api['img'] = array('code' => '404','message' => 'Not Found');
