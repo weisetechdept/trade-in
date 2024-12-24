@@ -56,6 +56,16 @@
             return number_format($offer['off_price']);
         }
     }
+
+    function getTLTPrice($uid){
+        global $db;
+        $offer = $db->where('find_id', $uid)->getOne('finance_data', null,'find_price');
+        if(empty($offer)){
+            return "ไม่มี";
+        } else {
+            return number_format($offer['find_price']);
+        }
+    }
     
     $sql_details_1 = ['user'=> $usern,'pass'=> $passn,'db'=> $dbn,'host'=> $hostn,'charset'=>'utf8'];
     
@@ -108,12 +118,17 @@
                 return number_format($d);
             }
         ],
-        ['db' => 'cast_id', 'dt' => 10, 'field'=> 'cast_id',
+        ['db' => 'cast_car', 'dt' => 10, 'field'=> 'cast_car',
+            'formatter' => function($d, $row){
+                return getTLTPrice($d);
+            }
+        ],
+        ['db' => 'cast_id', 'dt' => 11, 'field'=> 'cast_id',
             'formatter' => function($d, $row){
                 return getOfferPrice($d);
             }
         ],
-        ['db' => 'cast_car_check', 'dt' => 11, 'field'=> 'cast_car_check',
+        ['db' => 'cast_car_check', 'dt' => 12, 'field'=> 'cast_car_check',
             'formatter' => function($d, $row){
                 if($d == 0){
                     return "<span class=\"badge badge-soft-warning\">ยังไม่ตรวจ</span>";
@@ -122,7 +137,7 @@
                 }
             }
         ],
-        ['db' => 'cast_status', 'dt' => 12, 'field'=> 'cast_status',
+        ['db' => 'cast_status', 'dt' => 13, 'field'=> 'cast_status',
             'formatter' => function($d, $row){
                 if($d == 0){
                     return "<span class=\"badge badge-soft-unknow\">ไม่มีสถานะ</span>";
@@ -139,12 +154,12 @@
                 }
             }
         ],
-        ['db' => 'cast_datetime', 'dt' => 13, 'field'=> 'cast_datetime',
+        ['db' => 'cast_datetime', 'dt' => 14, 'field'=> 'cast_datetime',
             'formatter' => function($d, $row){
                 return DateThai($d);
             }
         ],
-        ['db' => 'cast_id', 'dt' => 14, 'field'=> 'cast_id',
+        ['db' => 'cast_id', 'dt' => 15, 'field'=> 'cast_id',
             'formatter' => function($d, $row){
                 return "<a href=\"/admin/detail/$d\"  target=\"_blank\" class=\"btn btn-outline-primary btn-sm\"><span class=\"mdi mdi-account-edit\"></span> แก้ไข</a>";
             }        
