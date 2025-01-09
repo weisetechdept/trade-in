@@ -7,6 +7,8 @@
 		exit();
     });
 
+  
+
     $router->get( '/404', function() {
         require_once 'error/404.php';
     });
@@ -115,6 +117,17 @@
         require_once 'admin/pages/report-home.php';
     });
 
+    $router->get( '/admin/img-report', function() {
+        require_once 'admin/pages/report-checkimg.php';
+    });
+
+    $router->get( '/admin/import', function() {
+        require_once 'admin/pages/import_csv.php';
+    });
+
+    $router->get( '/admin/stat', function() {
+        require_once 'admin/pages/partner-stat.php';
+    });
 
     /* sales */
 

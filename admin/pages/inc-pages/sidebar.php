@@ -40,6 +40,7 @@
                         <li><a href="/admin/team-report">รายงานทีมขาย</a></li>
                         <li><a href="/admin/qm-report">รายงานเปรียบเทียบ</a></li>
                         <li><a href="/admin/price-report">รายงานราคา</a></li>
+                        <li><a href="/admin/img-report">รายงานคุณภาพลูกค้า</a></li>
                     </ul>
                 </li>
                 <li><a href="/admin/member" class=" waves-effect"><i class="feather-user"></i><span>จัดการสมาชิก</span></a></li>
@@ -49,6 +50,7 @@
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="/admin/partner">จัดการสมาชิก</a></li>
                         <li><a href="/admin/business">จัดการบริษัท</a></li>
+                        <li><a href="/admin/stat">ข้อมูลสถิติ</a></li>
                     </ul>
                 </li>
 
