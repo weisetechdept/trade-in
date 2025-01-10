@@ -133,6 +133,7 @@
                                             <tr>
                                                 <th width="65px">รหัส</th>
                                                 <th>ชื่อ - นามสกุล</th>
+                                                <th>ชื่อธุระกิจ / เต้นท์</th>
                                                 <th width="100px">เสนอราคา</th>
                                             </tr>
                                         </thead>
@@ -140,6 +141,7 @@
                                             <tr v-for="part in partData" v-if="part.id !== 0 && part.id !== 1">
                                                 <td>{{ part.id }}</td>
                                                 <td>{{ part.name }}</td>
+                                                <td>{{ part.partbus }}</td>
                                                 <td class="text-center">{{ part.count }}</td>
                                             </tr>
                                         </tbody>

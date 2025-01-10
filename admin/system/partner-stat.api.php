@@ -27,6 +27,17 @@
             }
         }
 
+        function getPartnerBus($id){
+            global $db;
+            $join = $db->join('partner p','p.part_bus_id = pb.busi_id','LEFT');
+            $partner = $db->where('p.part_id',$id)->getOne('partner_bus pb');
+            if ($partner) {
+                return $partner['busi_name'];
+            } elseif($id == 0) {
+                return 'unknow';
+            }
+        }
+
         foreach($stat as $value){
             $check[] = $value['off_parent'];
 
@@ -40,13 +51,14 @@
             $api[] = array(
                 'id' => (int) $key,
                 'name' => getPartner($key),
+                'partbus' => getPartnerBus($key),
                 'count' => $value
             );
             $count_all += $value;
         }
 
         usort($api, function($a, $b) {
-            return $b['count'] - $a['count'];
+            return strcmp($b['partbus'], $a['partbus']);
         });
 
         
