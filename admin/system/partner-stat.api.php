@@ -28,8 +28,12 @@
         }
 
         foreach($stat as $value){
-            if(!isset($rs[$value['off_vender']])) $rs[$value['off_vender']] = 0;
-            $rs[$value['off_vender']]++;
+            $check[] = $value['off_parent'];
+
+            if(in_array($value['off_parent'], $check)) {
+                if(!isset($rs[$value['off_vender']])) $rs[$value['off_vender']] = 0;
+                $rs[$value['off_vender']]++;
+            }
         }
 
         foreach($rs as $key => $value){
