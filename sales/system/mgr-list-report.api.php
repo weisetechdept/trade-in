@@ -32,11 +32,11 @@
         $date_form = $_GET['year'].'-'. $_GET['month'].'-01';
         $date_to = $_GET['year'].'-'. $_GET['month'].'-31';
     
-        $db->join('car_stock c', "f.find_id=c.cast_car", "LEFT");
-        $db->groupBy('c.cast_id');
+        $db->join('car_stock c', "f.find_id=c.cast_car", "RIGHT");
+
         //$db->where('c.cast_datetime', Array($year.'-'.$month.'-01', $year.'-'.$month.'-31'), 'BETWEEN');
 
-        //$db->where(cast_datetime, $date_form , '>=')->where(cast_datetime, $date_to , '<=');
+        $db->where(cast_datetime, $date_form , '>=')->where(cast_datetime, $date_to , '<=');
         $stock = $db->where('c.cast_sales_parent_no',mgr($user_id),'IN')->get("finance_data f", null ,"c.cast_id,c.cast_license,f.find_brand,f.find_serie,f.find_section,c.cast_color,c.cast_price,c.cast_sales_parent,c.cast_sales_team,c.cast_status,cast_sales_parent_no");
         
         $count = array();
