@@ -26,14 +26,10 @@
             return array_unique($team);
         }
 
-        $month = $_GET['month'];
-        $year = $_GET['year'];
+        $raw_date = $_GET['year'].'-'. $_GET['month'].'-01';
 
-        // $date_form = $_GET['year'].'-'. $_GET['month'].'-01';
-        // $date_to = $_GET['year'].'-'. $_GET['month'].'-31';
-
-        $date_form = '2025-01-01';
-        $date_to = '2025-01-31';
+        $date_form = date('Y-m-01', strtotime($raw_date . ' -1 day'));
+        $date_to = date('Y-m-t', strtotime($raw_date . ' +1 day'));
         
         $db->join('car_stock c', "f.find_id=c.cast_car", "RIGHT");
 
