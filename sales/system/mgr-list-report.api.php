@@ -28,8 +28,8 @@
 
         $raw_date = $_GET['year'].'-'. $_GET['month'].'-01';
 
-        $date_form = date('Y-m-01', strtotime($raw_date . ' -1 day'));
-        $date_to = date('Y-m-t', strtotime($raw_date . ' +1 day'));
+        $date_form = date('Y-m-01', strtotime($raw_date));
+        $date_to = date('Y-m-t', strtotime($raw_date));
         
         $db->join('car_stock c', "f.find_id=c.cast_car", "RIGHT");
 
