@@ -31,7 +31,7 @@
     
         $db->join('car_stock c', "f.find_id=c.cast_car", "LEFT");
         $db->groupBy('c.cast_id');
-        $db->where('c.cast_datetime', Array($year.'-'.$month.'-01', $year.'-'.$month.'-31'), 'BETWEEN');
+        $db->where('c.cast_datetime', Array($year.'-'.$month.'-01', $year.'-'.$month.'-32'), 'BETWEEN');
         $stock = $db->where('c.cast_sales_parent_no',mgr($user_id),'IN')->get("finance_data f", null ,"c.cast_id,c.cast_license,f.find_brand,f.find_serie,f.find_section,c.cast_color,c.cast_price,c.cast_sales_parent,c.cast_sales_team,c.cast_status,cast_sales_parent_no");
         
         $count = array();
