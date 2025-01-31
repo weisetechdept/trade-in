@@ -33,7 +33,7 @@
         // $date_to = $_GET['year'].'-'. $_GET['month'].'-31';
 
         $date_form = '2025-01-01';
-        $date_to = '2025-01-31';
+        $date_to = '2025-02-01';
         
         $db->join('car_stock c', "f.find_id=c.cast_car", "RIGHT");
 
