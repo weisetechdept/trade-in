@@ -92,7 +92,8 @@
         }
 
         if($stock['cast_fin'] == '1'){
-            $fin = 'ติดไฟแนนซ์ - '. number_format($stock['cast_loan']).' บาท';
+            $loanAmount = is_numeric($stock['cast_loan']) ? number_format($stock['cast_loan']) : 0;
+            $fin = 'ติดไฟแนนซ์ - '. $loanAmount .' บาท';
         } elseif($stock['cast_fin'] == '2') {
             $fin = 'ปลอดภาระ';
         }
@@ -188,6 +189,23 @@
                 'datetime' => DateThai($value['cust_datetime'])
             );
         }
+
+
+        $db->join('partner_bus pb', "pb.busi_id=p.part_bus_id", "RIGHT");
+        $partner = $db->where('part_group',2)->where('part_status',1)->get('partner p');
+
+        $api['partner_data'][] = array(
+            'id' => 0,
+            'name' => 'โปรดเลือกพันธมิตร',
+        );
+
+        foreach ($partner as $key => $value) {
+            $api['partner_data'][] = array(
+                'id' => $value['part_id'],
+                'name' => $value['part_fname'].' - '.$value['busi_name'],
+            );
+        }
+        
 
     }
 

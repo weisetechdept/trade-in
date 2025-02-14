@@ -229,20 +229,47 @@
                                             </table>
                                             <hr>
                                             <div class="row offer-price">
-                                                
-                                                <div class="col-12 col-md-6">
-                                                    <h4>ส่งแจ้งเตือนราคา</h4>
+
+                                                <div class="col-12 mb-4">
+                                                    <h4>ส่งแจ้งเตือนราคา (แทนพันธมิตร)</h4>
                                                     <div>
                                                         <div class="form-group">
                                                             <label>ราคา</label>
-                                                            <input type="text" class="form-control" v-model="offer.price">
+                                                            <input type="text" v-model="offerNew.price" class="form-control">
                                                         </div>
                                                         <div class="form-group">
                                                             <label>พันธมิตร</label>
-                                                            <input type="text" class="form-control" v-model="offer.partner">
+                                                            <select class="form-control" v-model="offerNew.partner">
+                                                                <option v-for="p in partner_data" :value="p.id">{{ p.name }}</option>
+                                                            </select>
                                                         </div>
-                                                        <input type="submit" class="btn btn-primary" @click="offerData" value="ส่งราคา">
+                                                        <input type="submit" class="btn btn-primary" @click="offerDataNew" value="ส่งราคา">
                                                     </div>
+                                                </div>
+                                                <div class="col-12">
+
+                                                   
+                                                    <button class="btn btn-outline-warning" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                                        ส่งแจ้งเตือน (สำรอง)
+                                                    </button>
+                                                    
+                                                    <div class="collapse" id="collapseExample">
+                                                        <div class="card card-body">
+                                                            <h4>ส่งแจ้งเตือนราคา (สำรอง)</h4>
+                                                            <div>
+                                                                <div class="form-group">
+                                                                    <label>ราคา</label>
+                                                                    <input type="text" class="form-control" v-model="offer.price">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>พันธมิตร</label>
+                                                                    <input type="text" class="form-control" v-model="offer.partner">
+                                                                </div>
+                                                                <input type="submit" class="btn btn-primary" @click="offerData" value="ส่งราคา">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
                                                 </div>
                                                 
                                             </div>
@@ -662,7 +689,6 @@
                             filenames: [],
                             id: '<?php echo $cid; ?>',
                             group: '0'
-                            
                         }
                     },
                     methods: {
@@ -768,6 +794,10 @@
                                 partner: '',
                                 display: [],
                             },
+                            offerNew:{
+                                price: '',
+                                partner: '0',
+                            },
                             events: [],
                             switchPublic: false,
                             bookData: {
@@ -781,6 +811,7 @@
                             car_check: '',
                             user_event: [],
                             pros_cust: [],
+                            partner_data: [],
                         }
                     },
                     mounted () {
@@ -791,6 +822,8 @@
                         }),
                         axios.get('/admin/system/car_detail.api.php?u=<?php echo $cid; ?>')
                             .then(response => {
+                                console.log(response.data);
+                                this.partner_data = response.data.partner_data;
                                 if(response.data.status == 404) 
                                     swal("เกิดข้อผิดพลาดบางอย่าง", "อาจมีบางอย่างผิดปกติ (error : 404)", "warning",{ 
                                         button: "ตกลง"
@@ -946,6 +979,65 @@
                                     
                                 })
                                 
+                            }
+                        },
+                        offerDataNew() {
+                            if(this.offerNew.price == '' || this.offerNew.partner == 0){
+                                swal("ไม่สามารถทำรายการได้", "โปรดกรอกข้อมูลให้ครบถ้วน", "warning",{ 
+                                        button: "ตกลง"
+                                    }
+                                );
+                                return;
+                            } else if(this.sales == 'ไม่ผู้ดูแล'){
+                                swal("ไม่สามารถทำรายการได้", "ยังไม่มีเซลล์ผู้ดูแลลูกค้า", "warning",{ 
+                                        button: "ตกลง"
+                                    }
+                                );
+                                return;
+                            } else if(this.offerNew.price.length <= 4) {
+                                swal("ไม่สามารถทำรายการได้", "คุณใส่ราคาน้อยเกินไป", "warning",{ 
+                                        button: "ตกลง"
+                                    }
+                                );
+                            } else {
+
+                                swal({
+                                    title: 'คุณแน่ใจหรือไม่ ?',
+                                    text: "คุณต้องการส่งข้อมูลให้ลูกค้าหรือไม่ ?",
+                                    icon: "info",
+                                    buttons: true,
+                                    dangerMode: true,
+                                }).then((wilOkay) => {
+                                    if (wilOkay) {
+                                        
+                                        swal("กรุณารอสักครู่", "ระบบกำลังส่งข้อมูล", "info", {
+                                            button: false
+                                        })
+
+                                        axios.post('/admin/system/offer.ins.php', {
+                                            price: this.offerNew.price,
+                                            partner: this.offerNew.partner,
+                                            parent: this.id
+                                        }).then(res => {
+                                            if(res.data.status == 200) 
+                                                console.log(res.data);
+                                                swal("สำเร็จ", "เพิ่มข้อมูลสำเร็จ", "success",{ 
+                                                    button: "ตกลง"
+                                                }).then((value) => {
+                                                    location.reload(true)
+                                                });
+                                            if(res.data.status == 400) 
+                                                swal("ทำรายการไม่สำเร็จ", "เพิ่มข้อมูลไม่สำเร็จ อาจมีบางอย่างผิดปกติ (error : 400)", "warning",{ 
+                                                    button: "ตกลง"
+                                                }
+                                            );
+                                        });
+                                    } else {
+                                        swal("ยกเลิกการส่งข้อมูลสำเร็จ", {
+                                            icon: "success",
+                                        });
+                                    }
+                                });
                             }
                         },
                         offerData() {
