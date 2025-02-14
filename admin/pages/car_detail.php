@@ -1017,7 +1017,8 @@
                                         axios.post('/admin/system/offer.ins.php', {
                                             price: this.offerNew.price,
                                             partner: this.offerNew.partner,
-                                            parent: this.id
+                                            parent: this.id,
+                                            sendType: '1'
                                         }).then(res => {
                                             if(res.data.status == 200) 
                                                 console.log(res.data);
@@ -1076,7 +1077,8 @@
                                         axios.post('/admin/system/offer.ins.php', {
                                             price: this.offer.price,
                                             partner: this.offer.partner,
-                                            parent: this.id
+                                            parent: this.id,
+                                            sendType: '0'
                                         }).then(res => {
                                             if(res.data.status == 200) 
                                                 swal("สำเร็จ", "เพิ่มข้อมูลสำเร็จ", "success",{ 

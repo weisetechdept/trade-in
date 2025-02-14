@@ -7,6 +7,7 @@
         $price = $request->price;
         $partner = $request->partner;
         $id = $request->parent;
+        $sendType = $request->sendType;
 
 
         function getTeamMgr($uid){
@@ -121,9 +122,15 @@
 
             $mgr = $db_nms->where('id', $_SESSION['tin_admin_id'])->getOne('db_member');
 
+            if($sendType === '0'){
+                $offvendor = $partner.' - '.$_SESSION['adname_name'];
+            } elseif($sendType === '1'){
+                $offvendor = $partner;
+            }
+
             $data = array(
                 'off_price' => $price,
-                'off_vender' => $partner.' - '.$_SESSION['adname_name'],
+                'off_vender' => $offvendor,
                 'off_parent' => $id,
                 'off_datetime' => date('Y-m-d H:i:s')
             );
