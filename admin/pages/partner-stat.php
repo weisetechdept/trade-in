@@ -135,6 +135,7 @@
                                                 <th>ชื่อ - นามสกุล</th>
                                                 <th>ชื่อธุระกิจ / เต้นท์</th>
                                                 <th width="100px">เสนอราคา</th>
+                                                <th width="100px">คุณภาพ</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -143,6 +144,7 @@
                                                 <td>{{ part.name }}</td>
                                                 <td>{{ part.partbus }}</td>
                                                 <td class="text-center">{{ part.count }}</td>
+                                                <td>-</td>
                                             </tr>
                                         </tbody>
                                     </table>
