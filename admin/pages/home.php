@@ -222,8 +222,8 @@
             lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
             processing: true,
             serverSide: true,
-            //responsive: true,
-            //bInfo: false,
+            responsive: true,
+            bInfo: false,
             order: [[0, "desc"]],
             language: {
                 "processing": "กำลังดาวน์โหลดข้อมูล...",
