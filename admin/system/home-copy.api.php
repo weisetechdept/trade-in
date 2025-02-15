@@ -80,7 +80,11 @@
 
     $primaryKey = 'cast_id';
     $columns = [
-        ['db' => 'cast_id', 'dt' => 0, 'field' => 'cast_id'],
+        ['db' => 'cast_id', 'dt' => 0, 'field' => 'cast_id',
+            'formatter' => function($d, $row){
+                return '<a href="/admin/detail/'.$d.'" target="_blank">'.$d.'</a>';
+            }
+        ],
         ['db' => 'cast_thumb', 'dt' => 1, 'field' => 'cast_thumb',
             'formatter' => function($d, $row){
                 return thumb($d);
@@ -137,12 +141,12 @@
         ],
         ['db' => 'cast_id', 'dt' => 11, 'field'=> 'cast_id',
             'formatter' => function($d, $row){
-                return getOfferPrice($d);
+                return '<a href="/admin/detail/'.$d.'" target="_blank">'.getOfferPrice($d).'</a>';
             }
         ],
         ['db' => 'cast_id', 'dt' => 12, 'field'=> 'cast_id',
             'formatter' => function($d, $row){
-                return countOffer($d);
+                return '<a href="/admin/detail/'.$d.'" target="_blank">'.countOffer($d).'</a>';
             }
         ],
         ['db' => 'cast_car_check', 'dt' => 13, 'field'=> 'cast_car_check',
