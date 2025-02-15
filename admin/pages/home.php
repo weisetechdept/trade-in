@@ -114,7 +114,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <table id="datatable" class="table dt-responsive nowrap">
+                                    <table id="datatable" class="table table-responsive">
                                         <thead>
                                             <tr>
                                                 <th width="45px">รหัส</th>
@@ -222,8 +222,8 @@
             lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
             processing: true,
             serverSide: true,
-            responsive: true,
-            bInfo: false,
+            //responsive: true,
+            //bInfo: false,
             order: [[0, "desc"]],
             language: {
                 "processing": "กำลังดาวน์โหลดข้อมูล...",
