@@ -129,6 +129,10 @@
         require_once 'admin/pages/partner-stat.php';
     });
 
+    $router->get( '/admin/success-report', function() {
+        require_once 'admin/pages/report-success.php';
+    });
+
     /* sales */
 
     $router->get( '/app', function() {
