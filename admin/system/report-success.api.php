@@ -33,10 +33,10 @@
 
     function thumb($uid){
         global $db;
-        $thumb = $db->where('cari_id ', $uid)->getOne('car_image', null,'cari_link');
+        $thumb = $db->where('cari_parent', $uid)->where('cari_group',1)->getOne('car_image', null,'cari_link');
         if(empty($thumb)){
             return '<img src="https://dummyimage.com/600x400/c4c4c4/fff&amp;text=no-image" class="car-thumb">';
-        }else {
+        } else {
             return "<img src=\"" . $thumb['cari_link'] . "\" class=\"car-thumb\">";
         }
     }
@@ -65,7 +65,7 @@
                 return thumb($d);
             }
         ],
-        ['db' => 'cast_id', 'dt' => 2, 'field' => 'cast_id',
+        ['db' => 'cast_car', 'dt' => 2, 'field' => 'cast_car',
             'formatter' => function($d, $row){
                 return getBrandSerie($d);
             }
@@ -120,7 +120,7 @@
 
     $joinQuery = "FROM car_stock s LEFT JOIN finance_data f ON s.cast_car = f.find_id";
     
-    $where = " s.cast_status IN (4)";
+    $where = " s.cast_status IN (4) GROUP BY s.cast_id";
 
     if(isset($_GET['search']['value'])){
         $searchValue = $_GET['search']['value'];
