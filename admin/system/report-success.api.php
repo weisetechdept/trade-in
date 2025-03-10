@@ -97,7 +97,7 @@
         ],
         ['db' => 'cast_id', 'dt' => 8, 'field'=> 'cast_id',
             'formatter' => function($d, $row){
-                return "<a href=\"/admin/detail/$d\"  target=\"_blank\" class=\"btn btn-outline-primary btn-sm mr-2\"><span class=\"mdi mdi-account-edit\"></span> ข้อมูล</a>";
+                return "<button data-ecard=\"$d\" class=\"btn btn-outline-success btn-sm ecard-btn\"><span class=\"mdi mdi-account-edit\"></span> เพิ่มข้อมูลขาย</button> <a href=\"/admin/detail/$d\"  target=\"_blank\" class=\"btn btn-outline-primary btn-sm mr-2\"><span class=\"mdi mdi-account-edit\"></span> ข้อมูล</a>";
             }        
         ]
     ];
@@ -120,7 +120,7 @@
 
     $joinQuery = "FROM car_stock s LEFT JOIN finance_data f ON s.cast_car = f.find_id";
     
-    $where = " s.cast_status IN (4) GROUP BY s.cast_id";
+    $where = " s.cast_status IN (4)";
 
     if(isset($_GET['search']['value'])){
         $searchValue = $_GET['search']['value'];

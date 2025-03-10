@@ -79,7 +79,6 @@
                 float: right;
             }
         }
-       
     </style>
 </head>
 
@@ -115,7 +114,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">e-Card</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">เพิ่มข้อมูลขายของ {{ ecard.id }}</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
@@ -124,22 +123,37 @@
                                 <table class="table table-bordered">
                                     <tbody>
                                         <tr>
-                                            <th scope="row">1</th>
-                                            <td>{{ ecard.car }}</td>
+                                            <th scope="row">ผู้ซื้อ</th>
+                                            <td>
+                                                <select v-model="ecard.partner" class="form-control">
+                                                    <option value="0">= เลือกพันธมิตร =</option>
+                                                    <option v-for="pt in ecard.list" :value="pt.id">{{ pt.name }}</option>
+                                                </select>
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">2</th>
-                                            <td>{{ ecard.section }}</td>
+                                            <th scope="row">ราคารับซื้อ</th>
+                                            <td><input  v-model="ecard.price" class="form-control"></td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">3</th>
-                                            <td>{{ ecard.gen }}</td>
+                                            <th scope="row">ค่าคอม</th>
+                                            <td><input  v-model="ecard.commission" class="form-control"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">รถใหม่</th>
+                                            <td> <select v-model="ecard.newcar" class="form-control">
+                                                    <option value="0">= เลือหข้อมูลรถใหม่ =</option>
+                                                    <option value="1">ไม่จบรถใหม่</option>
+                                                    <option value="2">จบรถใหม่</option>
+                                                </select>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
+                                <button type="button" class="btn btn-success" @click="updateStatus" data-dismiss="modal">บันทึก</button>
+                                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">ปิด</button>
                             </div>
                             </div>
                         </div>
@@ -236,20 +250,54 @@
             el: '#app',
             data: {
                 ecard: {
-                    car: '1',
-                    section: '2',
-                    gen: '3'
-                }
+                    id:'',
+                    partner:'0',
+                    price:'',
+                    commission:'',
+                    newcar:'0',
+                    list: []
+                },
             },
             mounted: function(){
-                // this.getData();
-                // this.initEventListeners();
                 this.getData();
+                this.initEventListeners();
             },
             methods: {
+                updateStatus(){
+                    axios.post('/admin/system/success_insert.api.php', {
+                        id: this.ecard.id,
+                        partner: this.ecard.partner,
+                        price: this.ecard.price,
+                        commission: this.ecard.commission,
+                        newcar: this.ecard.newcar
+                    }).then(response => {
+                        //console.log(response.data);
+                        if(response.data.updateSucc.status == 'success'){
+                            swal("สำเร็จ", "บันทึกข้อมูลเรียบร้อย", "success");
+                            this.getData();
+                        } else {
+                            swal("ผิดพลาด", "ไม่สามารถบันทึกข้อมูลได้", "error");
+                        }
+                    }).catch(error => {
+                        console.error(error);
+                    });
+                },
                 getEcard(event) {
+                    axios.get('/admin/system/success-info.api.php?id=' + event.target.getAttribute('data-ecard'))
+                        .then(response => {
+                            //console.log(response.data);
+                            this.ecard.list = response.data.data;
+                            this.ecard.id = response.data.jobData.id;
+                            this.ecard.partner = response.data.jobData.partner;
+                            this.ecard.price = response.data.jobData.price;
+                            this.ecard.commission = response.data.jobData.commission;
+                            this.ecard.newcar = response.data.jobData.newcar;
+                        })
+                        .catch(error => {
+                            console.error(error);
+                        });
+
                     let ecardId = event.target.getAttribute('data-ecard');
-                    //swal(`Good job! ${ecardId}`, "You clicked the button!", "success");
                     $('#exampleModal').modal('show');
                 },
                 getData(){
