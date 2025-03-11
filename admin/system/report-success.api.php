@@ -90,37 +90,43 @@
                 return getTeamName($d); 
             }
         ],
-        ['db' => 'cast_id', 'dt' => 7, 'field'=> 'cast_id',
+        ['db' => 'cast_status', 'dt' => 7, 'field'=> 'cast_status',
             'formatter' => function($d, $row){
                 return $d; 
             }
         ],
-        ['db' => 'cast_id', 'dt' => 8, 'field'=> 'cast_id',
+        ['db' => 'succ_partner', 'dt' => 8, 'field'=> 'succ_partner',
             'formatter' => function($d, $row){
                 return $d; 
             }
         ],
-        ['db' => 'cast_id', 'dt' => 9, 'field'=> 'cast_id',
+        ['db' => 'succ_price', 'dt' => 9, 'field'=> 'succ_price',
             'formatter' => function($d, $row){
                 return $d; 
             }
         ],
-        ['db' => 'cast_id', 'dt' => 10, 'field'=> 'cast_id',
+        ['db' => 'succ_commission', 'dt' => 10, 'field'=> 'succ_commission',
             'formatter' => function($d, $row){
                 return $d; 
             }
         ],
-        ['db' => 'cast_id', 'dt' => 11, 'field'=> 'cast_id',
+        ['db' => 'succ_newcar', 'dt' => 11, 'field'=> 'succ_newcar',
             'formatter' => function($d, $row){
                 return $d; 
             }
         ],
-        ['db' => 'cast_id', 'dt' => 12, 'field'=> 'cast_id',
+        ['db' => 'succ_comment', 'dt' => 12, 'field'=> 'succ_comment',
             'formatter' => function($d, $row){
                 return $d; 
             }
         ],
-        ['db' => 'cast_id', 'dt' => 13, 'field'=> 'cast_id',
+        
+        ['db' => 'succ_date', 'dt' => 13, 'field'=> 'succ_date',
+            'formatter' => function($d, $row){
+                return $d; 
+            }
+        ],
+        ['db' => 'cast_id', 'dt' => 14, 'field'=> 'cast_id',
             'formatter' => function($d, $row){
                 return "<button data-ecard=\"$d\" class=\"btn btn-outline-success btn-sm ecard-btn\"><span class=\"mdi mdi-account-edit\"></span> เพิ่มข้อมูลขาย</button> <a href=\"/admin/detail/$d\"  target=\"_blank\" class=\"btn btn-outline-primary btn-sm mr-2\"><span class=\"mdi mdi-account-edit\"></span> ข้อมูล</a>";
             }        
@@ -128,6 +134,8 @@
     ];
 
     $joinQuery = "FROM car_stock s LEFT JOIN finance_data f ON s.cast_car = f.find_id";
+
+    $joinQuery .= " LEFT JOIN success sc ON s.cast_id = sc.succ_parent";
     
     $where = " s.cast_status IN (4)";
 

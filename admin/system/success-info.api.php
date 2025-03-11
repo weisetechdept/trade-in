@@ -35,7 +35,8 @@
             'price' => $chk['succ_price'],
             'commission' => $chk['succ_commission'],
             'newcar' => $chk['succ_newcar'],
-            'date' => $chk['succ_date']
+            'date' => $chk['succ_date'],
+            'detail' => $chk['succ_comment']
         );
     }
 

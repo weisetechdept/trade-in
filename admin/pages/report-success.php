@@ -155,6 +155,12 @@
                                                 </select>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <th scope="row">หมายเหตุ</th>
+                                            <td>
+                                                <textarea v-model="ecard.detail" class="form-control" rows="3"></textarea>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -174,7 +180,7 @@
                                     <table id="datatable" class="table table-responsive">
                                         <thead>
                                             <tr>
-                                                <th colspan="7" >ข้อมูล Trade</th>
+                                                <th colspan="8" >ข้อมูล Trade</th>
                                                 <th colspan="6" class="bg-light-gray" >ข้อมูลขาย</th>
                                                 <th>จัดการ</th>
                                             </tr>
@@ -186,17 +192,19 @@
                                                 <th>สี</th>
                                                 <th>เซลล์</th>
                                                 <th>ทีม</th>
+                                                <th>สถานะ</th>
                                                 <th>ผู้ซื้อ</th>
                                                 <th>ราคา</th>
                                                 <th>ค่าคอม</th>
                                                 <th>รถใหม่</th>
+                                                <th>หมายเหตุ</th>
                                                 <th>วันที่จบ</th>
-                                                <th>จัดการ</th>
                                                 <th>จัดการ</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
+                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -278,6 +286,7 @@
                     commission:'',
                     newcar:'0',
                     date: '0000-00-00',
+                    detail:'',
                     list: []
                 },
             },
@@ -293,7 +302,9 @@
                         price: this.ecard.price,
                         commission: this.ecard.commission,
                         newcar: this.ecard.newcar,
-                        date: this.ecard.date
+                        date: this.ecard.date,
+                        detail: this.ecard.detail
+                        
 
                     }).then(response => {
                         //console.log(response.data);
@@ -318,6 +329,7 @@
                             this.ecard.commission = response.data.jobData.commission;
                             this.ecard.newcar = response.data.jobData.newcar;
                             this.ecard.date = response.data.jobData.date;
+                            this.ecard.detail = response.data.jobData.detail;
                         })
                         .catch(error => {
                             console.error(error);
