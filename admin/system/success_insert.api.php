@@ -10,6 +10,7 @@
     $price = $requset->price;
     $commission = $requset->commission;
     $newcar = $requset->newcar;
+    $date = $requset->date;
 
     $chk = $db->where('succ_parent',$id)->getOne('success');
     if($chk){
@@ -18,6 +19,7 @@
             'succ_price' => $price,
             'succ_commission' => $commission,
             'succ_newcar' => $newcar,
+            'succ_date' => $date,
             'succ_update_at' => date('Y-m-d H:i:s'),
         );
         $update = $db->where('succ_parent',$id)->update('success',$data);
@@ -33,6 +35,7 @@
             'succ_price' => $price,
             'succ_commission' => $commission,
             'succ_newcar' => $newcar,
+            'succ_date' => $date,
             'succ_parent' => $id,
             'succ_create_at' => date('Y-m-d H:i:s'),
             'succ_update_at' => date('Y-m-d H:i:s'),

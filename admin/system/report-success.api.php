@@ -90,33 +90,42 @@
                 return getTeamName($d); 
             }
         ],
-        ['db' => 'cast_datetime', 'dt' => 7, 'field'=> 'cast_datetime',
+        ['db' => 'cast_id', 'dt' => 7, 'field'=> 'cast_id',
             'formatter' => function($d, $row){
-                return DateThai($d); 
+                return $d; 
             }
         ],
         ['db' => 'cast_id', 'dt' => 8, 'field'=> 'cast_id',
+            'formatter' => function($d, $row){
+                return $d; 
+            }
+        ],
+        ['db' => 'cast_id', 'dt' => 9, 'field'=> 'cast_id',
+            'formatter' => function($d, $row){
+                return $d; 
+            }
+        ],
+        ['db' => 'cast_id', 'dt' => 10, 'field'=> 'cast_id',
+            'formatter' => function($d, $row){
+                return $d; 
+            }
+        ],
+        ['db' => 'cast_id', 'dt' => 11, 'field'=> 'cast_id',
+            'formatter' => function($d, $row){
+                return $d; 
+            }
+        ],
+        ['db' => 'cast_id', 'dt' => 12, 'field'=> 'cast_id',
+            'formatter' => function($d, $row){
+                return $d; 
+            }
+        ],
+        ['db' => 'cast_id', 'dt' => 13, 'field'=> 'cast_id',
             'formatter' => function($d, $row){
                 return "<button data-ecard=\"$d\" class=\"btn btn-outline-success btn-sm ecard-btn\"><span class=\"mdi mdi-account-edit\"></span> เพิ่มข้อมูลขาย</button> <a href=\"/admin/detail/$d\"  target=\"_blank\" class=\"btn btn-outline-primary btn-sm mr-2\"><span class=\"mdi mdi-account-edit\"></span> ข้อมูล</a>";
             }        
         ]
     ];
-
-    // $db->join('finance_data f', 's.cast_car = f.find_id', 'LEFT');
-    // $db->groupBy('cast_id');
-    // $success = $db->where('cast_status', 4)->get('car_stock s');
-
-    // $api = array();
-
-    // foreach($success as $value) {
-    //     $api['data'][] = array(
-    //         $value['cast_id'],
-    //         $value['find_brand'],
-    //         isset($value['find_year']) ? $value['find_year'] : 'ไม่มีข้อมูล',
-    //         isset($value['find_color']) ? $value['find_color'] : 'ไม่มีข้อมูล',
-    //         date('d/m/Y', strtotime($value['cast_datetime'])),
-    //     );
-    // }
 
     $joinQuery = "FROM car_stock s LEFT JOIN finance_data f ON s.cast_car = f.find_id";
     

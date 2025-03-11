@@ -79,6 +79,9 @@
                 float: right;
             }
         }
+        .bg-light-gray {
+            background-color:rgb(239, 239, 239);
+        }
     </style>
 </head>
 
@@ -140,6 +143,10 @@
                                             <td><input  v-model="ecard.commission" class="form-control"></td>
                                         </tr>
                                         <tr>
+                                            <th scope="row">วันที่จบ</th>
+                                            <td><input v-model="ecard.date" class="form-control" type="date" ></td>
+                                        </tr>
+                                        <tr>
                                             <th scope="row">รถใหม่</th>
                                             <td> <select v-model="ecard.newcar" class="form-control">
                                                     <option value="0">= เลือหข้อมูลรถใหม่ =</option>
@@ -167,6 +174,11 @@
                                     <table id="datatable" class="table table-responsive">
                                         <thead>
                                             <tr>
+                                                <th colspan="7" >ข้อมูล Trade</th>
+                                                <th colspan="6" class="bg-light-gray" >ข้อมูลขาย</th>
+                                                <th>จัดการ</th>
+                                            </tr>
+                                            <tr>
                                                 <th width="45px">รหัส</th>
                                                 <th>รูป</th>
                                                 <th>แบบรุ่น</th>
@@ -174,12 +186,22 @@
                                                 <th>สี</th>
                                                 <th>เซลล์</th>
                                                 <th>ทีม</th>
-                                                <th>วันที่เริ่ม</th>
+                                                <th>ผู้ซื้อ</th>
+                                                <th>ราคา</th>
+                                                <th>ค่าคอม</th>
+                                                <th>รถใหม่</th>
+                                                <th>วันที่จบ</th>
+                                                <th>จัดการ</th>
                                                 <th>จัดการ</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -255,6 +277,7 @@
                     price:'',
                     commission:'',
                     newcar:'0',
+                    date: '0000-00-00',
                     list: []
                 },
             },
@@ -269,12 +292,14 @@
                         partner: this.ecard.partner,
                         price: this.ecard.price,
                         commission: this.ecard.commission,
-                        newcar: this.ecard.newcar
+                        newcar: this.ecard.newcar,
+                        date: this.ecard.date
+
                     }).then(response => {
                         //console.log(response.data);
                         if(response.data.updateSucc.status == 'success'){
                             swal("สำเร็จ", "บันทึกข้อมูลเรียบร้อย", "success");
-                            this.getData();
+                            $('#datatable').DataTable().ajax.reload(); // Reload the DataTable
                         } else {
                             swal("ผิดพลาด", "ไม่สามารถบันทึกข้อมูลได้", "error");
                         }
@@ -292,6 +317,7 @@
                             this.ecard.price = response.data.jobData.price;
                             this.ecard.commission = response.data.jobData.commission;
                             this.ecard.newcar = response.data.jobData.newcar;
+                            this.ecard.date = response.data.jobData.date;
                         })
                         .catch(error => {
                             console.error(error);
