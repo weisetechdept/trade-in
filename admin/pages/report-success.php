@@ -173,7 +173,7 @@
                                         <tr>
                                             <th scope="row">หมายเหตุ</th>
                                             <td>
-                                                <textarea v-model="ecard.details" class="form-control" rows="3"></textarea>
+                                                <textarea v-model="ecard.detail" class="form-control" rows="3"></textarea>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -346,7 +346,7 @@
                             newcar: this.ecard.newcar,
                             newcar_detail: this.ecard.newcar_detail,
                             date: this.ecard.date,
-                            detail: this.ecard.details
+                            detail: this.ecard.detail
                         }).then(response => {
                             console.log(response.data);
                             if(response.data.updateSucc.status == 'success'){
