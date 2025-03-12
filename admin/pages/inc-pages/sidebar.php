@@ -41,7 +41,7 @@
                         <li><a href="/admin/qm-report">รายงานเปรียบเทียบ</a></li>
                         <li><a href="/admin/price-report">รายงานราคา</a></li>
                         <!-- <li><a href="/admin/img-report">รายงานคุณภาพลูกค้า</a></li> -->
-                        <li><a href="/admin/success-report">รายงานสำเร็จ</a></li>
+                        <li><a href="/admin/success-report">รายงานเพิ่มเติม 1</a></li>
                     </ul>
                 </li>
                 <li><a href="/admin/member" class=" waves-effect"><i class="feather-user"></i><span>จัดการสมาชิก</span></a></li>
