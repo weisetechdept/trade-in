@@ -113,7 +113,7 @@
                     </div>  
         <div id="app">
                     <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
                         <div class="modal-dialog">
                             <div class="modal-content">
                             <div class="modal-header">
@@ -144,7 +144,7 @@
                                         </tr>
                                         <tr>
                                             <th scope="row">วันที่จบ</th>
-                                            <td><input v-model="ecard.date" class="form-control" type="date" ></td>
+                                            <td><input v-model="ecard.date" class="form-control" type="date" :value="ecard.date !== '0000-00-00' ? ecard.date : ''"></td>
                                         </tr>
                                         <tr>
                                             <th scope="row">สถานะรอง</th>
@@ -301,7 +301,7 @@
                     commission:'',
                     newcar:'0',
                     newcar_detail:'0',
-                    date: '0000-00-00',
+                    date: '',
                     detail:' ',
                     list: []
                 },
@@ -312,32 +312,8 @@
             },
             methods: {
                 updateStatus(){
-                    if(this.ecard.partner == 0){
-                        swal("ผิดพลาด", "กรุณาเลือกพันธมิตร", "error");
-                        return;
-                    } else
-                    if(this.ecard.price == ''){
-                        swal("ผิดพลาด", "กรุณากรอกราคารับซื้อ", "error");
-                        return;
-                    } else
-                    if(this.ecard.commission == ''){
-                        swal("ผิดพลาด", "กรุณากรอกค่าคอม", "error");
-                        return;
-                    } else
-                    if(this.ecard.newcar == 0){
-                        swal("ผิดพลาด", "กรุณาเลือกสถานะรอง", "error");
-                        return;
-                    } else
-                    if(this.ecard.newcar == 3 || this.ecard.newcar == 2){
-                        if(this.ecard.newcar_detail == 0){
-                            swal("ผิดพลาด", "กรุณาเลือกเหตุผล", "error");
-                            return;
-                        }
-                    } else
-                    if(this.ecard.date == '0000-00-00'){
-                        swal("ผิดพลาด", "กรุณาเลือกวันที่จบ", "error");
-                        return;
-                    } else {
+                    
+                        //console.log(this.ecard);
                         axios.post('/admin/system/success_insert.api.php', {
                             id: this.ecard.id,
                             partner: this.ecard.partner,
@@ -358,7 +334,7 @@
                         }).catch(error => {
                             console.error(error);
                         });
-                    }
+                    
                     
                 },
                 getEcard(event) {
