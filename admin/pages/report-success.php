@@ -346,7 +346,7 @@
                             newcar: this.ecard.newcar,
                             newcar_detail: this.ecard.newcar_detail,
                             date: this.ecard.date,
-                            detail: this.ecard.detail
+                            detailStatus: this.ecard.detail
                         }).then(response => {
                             console.log(response.data);
                             if(response.data.updateSucc.status == 'success'){

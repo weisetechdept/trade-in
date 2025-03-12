@@ -12,7 +12,7 @@
     $newcar = $requset->newcar ?? null;
     $newcar_detail = $requset->newcar_detail ?? null;
     $date = $requset->date ?? null;
-    $detail = $requset->detail ?? '';
+    $detail = $requset->detailStatus ?? '';
 
     $chk = $db->where('succ_parent',$id)->getOne('success');
     if($chk){
