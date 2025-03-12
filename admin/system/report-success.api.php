@@ -77,7 +77,7 @@
         ],
         ['db' => 'cast_color', 'dt' => 4, 'field'=> 'cast_color',
             'formatter' => function($d, $row){
-                return $d; 
+                return $d;
             }
         ],
         ['db' => 'cast_sales_parent_no', 'dt' => 5, 'field'=> 'cast_sales_parent_no',
@@ -92,7 +92,21 @@
         ],
         ['db' => 'cast_status', 'dt' => 7, 'field'=> 'cast_status',
             'formatter' => function($d, $row){
-                return $d; 
+                if($d == 0){
+                    return "<span class=\"badge badge-soft-unknow\">ไม่มีสถานะ</span>";
+                } elseif($d == 1){
+                    return "<span class=\"badge badge-soft-primary\">ติดตามลูกค้า</span>";
+                } elseif($d == 2){
+                    return "<span class=\"badge badge-soft-warning\">ไม่ได้สัมผัสรถ</span>";
+                } elseif($d == 3){
+                    return "<span class=\"badge badge-soft-info\">ลูกค้าขายเอง / ขายที่อื่น</span>";
+                } elseif($d == 4){
+                    return "<span class=\"badge badge-soft-success\">สำเร็จ</span>";
+                } elseif($d == 10) {
+                    return "<span class=\"badge badge-soft-danger\">ลบ</span>";
+                } else {
+                    return "<span class=\"badge badge-soft-secondary\">ไม่มีข้อมูล</span>";
+                }
             }
         ],
         ['db' => 'succ_partner', 'dt' => 8, 'field'=> 'succ_partner',
@@ -137,7 +151,7 @@
 
     $joinQuery .= " LEFT JOIN success sc ON s.cast_id = sc.succ_parent";
     
-    $where = " s.cast_status IN (4)";
+    $where = " s.cast_status IN (0,1,2,3,4)";
 
     if(isset($_GET['search']['value'])){
         $searchValue = $_GET['search']['value'];

@@ -147,11 +147,13 @@
                                             <td><input v-model="ecard.date" class="form-control" type="date" ></td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">รถใหม่</th>
+                                            <th scope="row">สถานะรอง</th>
                                             <td> <select v-model="ecard.newcar" class="form-control">
-                                                    <option value="0">= เลือหข้อมูลรถใหม่ =</option>
-                                                    <option value="1">ไม่จบรถใหม่</option>
-                                                    <option value="2">จบรถใหม่</option>
+                                                    <option value="0">= เลือกสถานะรอง =</option>
+                                                    <option value="1">จบรถเก่า / จองรถใหม่</option>
+                                                    <option value="2">จบรถเก่า / ไม่จองรถใหม่</option>
+                                                    <option value="3">ไม่จบรถเก่า / จองรถใหม่</option>
+                                                    <option value="4">ไม่จบรถเก่า / ไม่จองรถใหม่</option>
                                                 </select>
                                             </td>
                                         </tr>
@@ -196,7 +198,7 @@
                                                 <th>ผู้ซื้อ</th>
                                                 <th>ราคา</th>
                                                 <th>ค่าคอม</th>
-                                                <th>รถใหม่</th>
+                                                <th>สถานะ</th>
                                                 <th>หมายเหตุ</th>
                                                 <th>วันที่จบ</th>
                                                 <th>จัดการ</th>
