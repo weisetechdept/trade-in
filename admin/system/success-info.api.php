@@ -22,6 +22,7 @@
         'price' => '',
         'commission' => '',
         'newcar' => 0,
+        'newcar_detail' => '0',
         'date' => '0000-00-00'
     );
 
@@ -35,8 +36,10 @@
             'price' => $chk['succ_price'],
             'commission' => $chk['succ_commission'],
             'newcar' => $chk['succ_newcar'],
+            'newcar_detail' => $chk['succ_newcar_detail'],
             'date' => $chk['succ_date'],
             'detail' => $chk['succ_comment']
+
         );
     }
 

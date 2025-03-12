@@ -157,6 +157,19 @@
                                                 </select>
                                             </td>
                                         </tr>
+                                        <tr v-if="ecard.newcar == 3 || ecard.newcar == 2">
+                                            <th scope="row">เหตุผล</th>
+                                            <td> 
+                                                <select v-model="ecard.newcar_detail" class="form-control">
+                                                    <option value="0">= เลือกเหตุผล =</option>
+                                                    <option v-if="ecard.newcar == 3" value="1">ลูกค้าไม่พร้อมขาย</option>
+                                                    <option v-if="ecard.newcar == 3" value="2">ไม่ขายแล้ว</option>
+                                                    <option v-if="ecard.newcar == 3" value="3">รอหาผู้ซื้อ</option>
+                                                    <option v-if="ecard.newcar == 2" value="4">ลูกค้าไม่ประสงค์จะจองรถใหม่อยู่แล้ว</option>
+                                                    <option v-if="ecard.newcar == 2" value="5">ยังไม่ตัดสินใจ</option>
+                                                </select>
+                                            </td>
+                                        </tr>
                                         <tr>
                                             <th scope="row">หมายเหตุ</th>
                                             <td>
@@ -287,6 +300,7 @@
                     price:'',
                     commission:'',
                     newcar:'0',
+                    newcar_detail:'0',
                     date: '0000-00-00',
                     detail:'',
                     list: []
@@ -304,10 +318,9 @@
                         price: this.ecard.price,
                         commission: this.ecard.commission,
                         newcar: this.ecard.newcar,
+                        newcar_detail: this.ecard.newcar_detail,
                         date: this.ecard.date,
-                        detail: this.ecard.detail
-                        
-
+                        detail: this.ecard.details
                     }).then(response => {
                         //console.log(response.data);
                         if(response.data.updateSucc.status == 'success'){
@@ -330,6 +343,7 @@
                             this.ecard.price = response.data.jobData.price;
                             this.ecard.commission = response.data.jobData.commission;
                             this.ecard.newcar = response.data.jobData.newcar;
+                            this.ecard.newcar_detail = response.data.jobData.newcar_detail;
                             this.ecard.date = response.data.jobData.date;
                             this.ecard.detail = response.data.jobData.detail;
                         })

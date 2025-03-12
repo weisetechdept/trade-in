@@ -137,7 +137,7 @@
         
         ['db' => 'succ_date', 'dt' => 13, 'field'=> 'succ_date',
             'formatter' => function($d, $row){
-                return $d; 
+                return DateThai($d); 
             }
         ],
         ['db' => 'cast_id', 'dt' => 14, 'field'=> 'cast_id',

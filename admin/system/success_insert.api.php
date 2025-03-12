@@ -10,6 +10,7 @@
     $price = $requset->price;
     $commission = $requset->commission;
     $newcar = $requset->newcar;
+    $newcar_detail = $requset->newcar_detail;
     $date = $requset->date;
     $detail = $requset->detail;
 
@@ -20,6 +21,7 @@
             'succ_price' => $price,
             'succ_commission' => $commission,
             'succ_newcar' => $newcar,
+            'succ_newcar_detail' => $newcar_detail,
             'succ_date' => $date,
             'succ_comment' => $detail,
             'succ_update_at' => date('Y-m-d H:i:s'),
@@ -37,6 +39,7 @@
             'succ_price' => $price,
             'succ_commission' => $commission,
             'succ_newcar' => $newcar,
+            'succ_newcar_detail' => $newcar_detail,
             'succ_comment' => $detail,
             'succ_date' => $date,
             'succ_parent' => $id,
