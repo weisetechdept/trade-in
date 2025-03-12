@@ -312,26 +312,54 @@
             },
             methods: {
                 updateStatus(){
-                    axios.post('/admin/system/success_insert.api.php', {
-                        id: this.ecard.id,
-                        partner: this.ecard.partner,
-                        price: this.ecard.price,
-                        commission: this.ecard.commission,
-                        newcar: this.ecard.newcar,
-                        newcar_detail: this.ecard.newcar_detail,
-                        date: this.ecard.date,
-                        detail: this.ecard.details
-                    }).then(response => {
-                        console.log(response.data);
-                        if(response.data.updateSucc.status == 'success'){
-                            swal("สำเร็จ", "บันทึกข้อมูลเรียบร้อย", "success");
-                            $('#datatable').DataTable().ajax.reload(); // Reload the DataTable
-                        } else {
-                            swal("ผิดพลาด", "ไม่สามารถบันทึกข้อมูลได้", "error");
+                    if(this.ecard.partner == 0){
+                        swal("ผิดพลาด", "กรุณาเลือกพันธมิตร", "error");
+                        return;
+                    } else
+                    if(this.ecard.price == ''){
+                        swal("ผิดพลาด", "กรุณากรอกราคารับซื้อ", "error");
+                        return;
+                    } else
+                    if(this.ecard.commission == ''){
+                        swal("ผิดพลาด", "กรุณากรอกค่าคอม", "error");
+                        return;
+                    } else
+                    if(this.ecard.newcar == 0){
+                        swal("ผิดพลาด", "กรุณาเลือกสถานะรอง", "error");
+                        return;
+                    } else
+                    if(this.ecard.newcar == 3 || this.ecard.newcar == 2){
+                        if(this.ecard.newcar_detail == 0){
+                            swal("ผิดพลาด", "กรุณาเลือกเหตุผล", "error");
+                            return;
                         }
-                    }).catch(error => {
-                        console.error(error);
-                    });
+                    } else
+                    if(this.ecard.date == '0000-00-00'){
+                        swal("ผิดพลาด", "กรุณาเลือกวันที่จบ", "error");
+                        return;
+                    } else {
+                        axios.post('/admin/system/success_insert.api.php', {
+                            id: this.ecard.id,
+                            partner: this.ecard.partner,
+                            price: this.ecard.price,
+                            commission: this.ecard.commission,
+                            newcar: this.ecard.newcar,
+                            newcar_detail: this.ecard.newcar_detail,
+                            date: this.ecard.date,
+                            detail: this.ecard.details
+                        }).then(response => {
+                            console.log(response.data);
+                            if(response.data.updateSucc.status == 'success'){
+                                swal("สำเร็จ", "บันทึกข้อมูลเรียบร้อย", "success");
+                                $('#datatable').DataTable().ajax.reload(); // Reload the DataTable
+                            } else {
+                                swal("ผิดพลาด", "ไม่สามารถบันทึกข้อมูลได้", "error");
+                            }
+                        }).catch(error => {
+                            console.error(error);
+                        });
+                    }
+                    
                 },
                 getEcard(event) {
                     axios.get('/admin/system/success-info.api.php?id=' + event.target.getAttribute('data-ecard'))
