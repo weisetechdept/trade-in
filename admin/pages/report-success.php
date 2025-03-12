@@ -173,7 +173,7 @@
                                         <tr>
                                             <th scope="row">หมายเหตุ</th>
                                             <td>
-                                                <textarea v-model="ecard.detail" class="form-control" rows="3"></textarea>
+                                                <textarea v-model="ecard.details" class="form-control" rows="3"></textarea>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -322,7 +322,7 @@
                         date: this.ecard.date,
                         detail: this.ecard.details
                     }).then(response => {
-                        //console.log(response.data);
+                        console.log(response.data);
                         if(response.data.updateSucc.status == 'success'){
                             swal("สำเร็จ", "บันทึกข้อมูลเรียบร้อย", "success");
                             $('#datatable').DataTable().ajax.reload(); // Reload the DataTable

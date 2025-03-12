@@ -5,14 +5,14 @@
 
     $requset = json_decode(file_get_contents('php://input'));
 
-    $id = $requset->id;
-    $partner = $requset->partner;
-    $price = $requset->price;
-    $commission = $requset->commission;
-    $newcar = $requset->newcar;
-    $newcar_detail = $requset->newcar_detail;
-    $date = $requset->date;
-    $detail = $requset->detail;
+    $id = $requset->id ?? null;
+    $partner = $requset->partner ?? null;
+    $price = $requset->price ?? null;
+    $commission = $requset->commission ?? null;
+    $newcar = $requset->newcar ?? null;
+    $newcar_detail = $requset->newcar_detail ?? null;
+    $date = $requset->date ?? null;
+    $detail = $requset->detail ?? null;
 
     $chk = $db->where('succ_parent',$id)->getOne('success');
     if($chk){
@@ -30,7 +30,7 @@
         if($update){
             $api['updateSucc']['status'] = 'success';
         } else {
-            $api['updateSucc']['status'] = 'error';
+            $api['updateSucc']['status'] = 'error' . $db->getLastError();
         }
     }else{
         $data = array(
@@ -51,7 +51,7 @@
         if($insert){
             $api['updateSucc']['status'] = 'success';
         }else{
-            $api['updateSucc']['status'] = 'error';
+            $api['updateSucc']['status'] = 'error' . $db->getLastError();
         }
     }
 

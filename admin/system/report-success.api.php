@@ -151,7 +151,7 @@
 
     $joinQuery .= " LEFT JOIN success sc ON s.cast_id = sc.succ_parent";
     
-    $where = " s.cast_status IN (0,1,2,3,4)";
+    $where = " s.cast_status IN (4)";
 
     if(isset($_GET['search']['value'])){
         $searchValue = $_GET['search']['value'];
