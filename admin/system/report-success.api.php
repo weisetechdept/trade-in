@@ -3,6 +3,21 @@
     require_once '../../db-conn.php';
     date_default_timezone_set("Asia/Bangkok");
 
+    if($_GET['show'] == '0'){
+        $show = '0';
+    } elseif($_GET['show'] == '1'){
+        $show = '1';
+    } elseif($_GET['show'] == '2'){
+        $show = '2';
+    } elseif($_GET['show'] == '3'){
+        $show = '3';
+    } elseif($_GET['show'] == '4'){
+        $show = '4';
+    } else {
+        $show = '0,1,2,3,4';
+    }
+    
+
     function DateThai($strDate)
     {
         $strYear = date("y",strtotime($strDate));
@@ -155,7 +170,7 @@
 
     $joinQuery .= " LEFT JOIN success sc ON s.cast_id = sc.succ_parent";
     
-    $where = " s.cast_status IN (4)";
+    $where = " s.cast_status IN ($show) ";
 
     if(isset($_GET['search']['value'])){
         $searchValue = $_GET['search']['value'];
