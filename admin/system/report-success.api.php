@@ -146,7 +146,7 @@
         ],
         ['db' => 'cast_id', 'dt' => 14, 'field'=> 'cast_id',
             'formatter' => function($d, $row){
-                return "<button data-ecard=\"$d\" class=\"btn btn-outline-success btn-sm ecard-btn\">+ ข้อมูล</button> <a href=\"/admin/detail/$d\"  target=\"_blank\" class=\"btn btn-outline-primary btn-sm mr-2\">ข้อมูล</a>";
+                return "<button data-ecard=\"$d\" class=\"btn btn-outline-success btn-sm ecard-btn\">+ ข้อมูล</button> <a href=\"/admin/detail/$d\"  target=\"_blank\" class=\"btn btn-outline-primary btn-sm mr-2 ml-2\">ดู</a>";
             }        
         ]
     ];

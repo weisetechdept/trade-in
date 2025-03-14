@@ -157,7 +157,7 @@
                                                 </select>
                                             </td>
                                         </tr>
-                                        <tr v-if="ecard.newcar == 3 || ecard.newcar == 2">
+                                        <tr v-if="ecard.newcar == 3 || ecard.newcar == 2 || ecard.newcar == 4">
                                             <th scope="row">เหตุผล</th>
                                             <td> 
                                                 <select v-model="ecard.newcar_detail" class="form-control">
