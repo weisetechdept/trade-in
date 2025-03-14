@@ -112,6 +112,9 @@
                         </div>
                     </div>  
         <div id="app">
+                    <button type="button" class="btn btn-primary search-btn" @click="loadData">
+                        เพิ่มข้อมูลขายของ
+                    </button>
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
                         <div class="modal-dialog">
@@ -313,6 +316,9 @@
                 this.initEventListeners();
             },
             methods: {
+                loadData(){
+                    $('#datatable').DataTable().ajax.url('/admin/system/new-report-success.api.php?show=4').load(); // Reload the DataTable with a new URL
+                },
                 updateStatus(){
                     
                         //console.log(this.ecard);
