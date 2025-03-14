@@ -112,7 +112,22 @@
                         </div>
                     </div>  
         <div id="app">
-                    <button type="button" class="btn btn-primary search-btn" @click="loadData(4)">
+                    <button type="button" class="btn btn-primary search-btn" @click="loadData('0')">
+                        เพิ่มข้อมูลขายของ
+                    </button>
+                    <button type="button" class="btn btn-primary search-btn" @click="loadData('1')">
+                        เพิ่มข้อมูลขายของ
+                    </button>
+                    <button type="button" class="btn btn-primary search-btn" @click="loadData('2')">
+                        เพิ่มข้อมูลขายของ
+                    </button>
+                    <button type="button" class="btn btn-primary search-btn" @click="loadData('3')">
+                        เพิ่มข้อมูลขายของ
+                    </button>
+                    <button type="button" class="btn btn-primary search-btn" @click="loadData('4')">
+                        เพิ่มข้อมูลขายของ
+                    </button>
+                    <button type="button" class="btn btn-primary search-btn" @click="loadData('0,1,2,3,4')">
                         เพิ่มข้อมูลขายของ
                     </button>
                     <!-- Modal -->
