@@ -111,30 +111,27 @@
                             </div>
                         </div>
                     </div>  
-        <div id="app">
+                <div id="app">
 
-            <div class="row mb-3">
-                <div class="col-12">
-                    <button type="button" class="btn btn-outline-primary" @click="loadData('0')">
-                        เพิ่มข้อมูลขายของ
-                    </button>
-                    <button type="button" class="btn btn-outline-primary" @click="loadData('1')">
-                        ติดตามลูกค้า
-                    </button>
-                    <button type="button" class="btn btn-outline-primary" @click="loadData('2')">
-                        ไม่ได้สัมผัสรถ
-                    </button>
-                    <button type="button" class="btn btn-outline-primary" @click="loadData('3')">
-                        ลูกค้าขายเอง / ขายที่อื่น	
-                    </button>
-                    <button type="button" class="btn btn-outline-primary" @click="loadData('4')">
-                        สำเร็จ
-                    </button>
-                    <button type="button" class="btn btn-outline-primary" @click="loadData('0,1,2,3,4')">
-                        ทั้งหมด
-                    </button>
-                </div>
-            </div>
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <button type="button" class="btn btn-outline-primary" @click="loadData('0,1,2,3,4')">
+                                ทั้งหมด
+                            </button>
+                            <button type="button" class="btn btn-outline-primary" @click="loadData('1')">
+                                ติดตามลูกค้า
+                            </button>
+                            <button type="button" class="btn btn-outline-warning" @click="loadData('2')">
+                                ไม่ได้สัมผัสรถ
+                            </button>
+                            <button type="button" class="btn btn-outline-info" @click="loadData('3')">
+                                ลูกค้าขายเอง / ขายที่อื่น	
+                            </button>
+                            <button type="button" class="btn btn-outline-success" @click="loadData('4')">
+                                สำเร็จ
+                            </button>
+                        </div>
+                    </div>
             
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
