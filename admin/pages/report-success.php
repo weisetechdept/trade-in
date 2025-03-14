@@ -112,7 +112,7 @@
                         </div>
                     </div>  
         <div id="app">
-                    <button type="button" class="btn btn-primary search-btn" @click="loadData">
+                    <button type="button" class="btn btn-primary search-btn" @click="loadData(4)">
                         เพิ่มข้อมูลขายของ
                     </button>
                     <!-- Modal -->
@@ -316,8 +316,8 @@
                 this.initEventListeners();
             },
             methods: {
-                loadData(){
-                    $('#datatable').DataTable().ajax.url('/admin/system/report-success.api.php?show=4').load(); // Reload the DataTable with a new URL
+                loadData(stat){
+                    $('#datatable').DataTable().ajax.url('/admin/system/report-success.api.php?show='+ stat ).load(); // Reload the DataTable with a new URL
                 },
                 updateStatus(){
                     
