@@ -167,6 +167,8 @@
                                                     <option v-if="ecard.newcar == 3" value="3">รอหาผู้ซื้อ</option>
                                                     <option v-if="ecard.newcar == 2" value="4">ลูกค้าไม่ประสงค์จะจองรถใหม่อยู่แล้ว</option>
                                                     <option v-if="ecard.newcar == 2" value="5">ยังไม่ตัดสินใจ</option>
+                                                    <option v-if="ecard.newcar == 4" value="6">ไม่พร้อม</option>
+                                                    <option v-if="ecard.newcar == 4" value="7">อาจจะจบเก่า (ใกล้เคียง 50,000)</option>
                                                 </select>
                                             </td>
                                         </tr>
