@@ -317,7 +317,7 @@
             },
             methods: {
                 loadData(){
-                    $('#datatable').DataTable().ajax.url('/admin/system/new-report-success.api.php?show=4').load(); // Reload the DataTable with a new URL
+                    $('#datatable').DataTable().ajax.url('/admin/system/report-success.api.php?show=4').load(); // Reload the DataTable with a new URL
                 },
                 updateStatus(){
                     
