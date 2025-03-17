@@ -6,8 +6,7 @@
         header("location: /404");
 		exit();
     });
-
-  
+    
 
     $router->get( '/404', function() {
         require_once 'error/404.php';
@@ -91,6 +90,10 @@
 
     $router->get( '/admin/logout', function() {
         require_once 'admin/logout.php';
+    });
+
+    $router->get( '/admin/status-report', function() {
+        require_once 'admin/pages/report-status.php';
     });
 
     $router->get( '/admin/partner', function() {
