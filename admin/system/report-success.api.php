@@ -60,7 +60,11 @@
     function getBrandSerie($uid){
         global $db;
         $brand = $db->where('find_id', $uid)->getOne('finance_data', null,'find_brand ,find_serie');
-        return $brand['find_brand'].' '.$brand['find_serie'];
+        if(empty($brand)){
+            return 'Unknown';
+        } else {
+            return $brand['find_brand'].' '.$brand['find_serie'];
+        }
     }
 
     
@@ -88,7 +92,11 @@
         ],
         ['db' => 'find_year', 'dt' => 3, 'field'=> 'find_year',
             'formatter' => function($d, $row){
-                return $d;
+                if(empty($d)){
+                    return '-';
+                } else {
+                    return $d;
+                }
             }
         ],
         ['db' => 'cast_color', 'dt' => 4, 'field'=> 'cast_color',
