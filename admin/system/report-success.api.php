@@ -127,30 +127,49 @@
         ],
         ['db' => 'succ_partner', 'dt' => 8, 'field'=> 'succ_partner',
             'formatter' => function($d, $row){
-                return $d; 
+                if(empty($d)){
+                    return '-';
+                } else {
+                    return $d;
+                }
             }
         ],
         ['db' => 'succ_price', 'dt' => 9, 'field'=> 'succ_price',
             'formatter' => function($d, $row){
-                return $d; 
+                if(empty($d)){
+                    return '-';
+                } else {
+                    return $d;
+                }
             }
         ],
         ['db' => 'succ_commission', 'dt' => 10, 'field'=> 'succ_commission',
             'formatter' => function($d, $row){
-                return $d; 
+                if(empty($d)){
+                    return '-';
+                } else {
+                    return $d;
+                }
             }
         ],
         ['db' => 'succ_newcar', 'dt' => 11, 'field'=> 'succ_newcar',
             'formatter' => function($d, $row){
-                return $d; 
+                if(empty($d)){
+                    return '-';
+                } else {
+                    return $d;
+                }
             }
         ],
         ['db' => 'succ_comment', 'dt' => 12, 'field'=> 'succ_comment',
             'formatter' => function($d, $row){
-                return $d; 
+                if(empty($d)){
+                    return '-';
+                } else {
+                    return $d;
+                }
             }
         ],
-        
         ['db' => 'succ_date', 'dt' => 13, 'field'=> 'succ_date',
             'formatter' => function($d, $row){
                 if($d == ''){
