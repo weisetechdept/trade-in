@@ -70,6 +70,9 @@
             background-color: #f6b9f7;
             color: #fff;
         }
+        tr {
+            height: 20px;
+        }
         @media (min-width: 768px) {
             .page-content {
                 padding: calc(70px + 24px) calc(5px / 2) 70px calc(5px / 2);
@@ -79,7 +82,149 @@
                 float: right;
             }
         }
-       
+        .modal-body {
+            background-color: #000;
+            padding: 0rem;
+        }
+        .e-card-bg {
+            background-image: url(/assets/images/ecard-bg.png);
+            background-repeat: no-repeat;
+            background-position: top;
+            background-size: 100% auto;
+            padding: 386px 27px 25px;
+            position: relative;
+            width: 500px;
+            min-height: 420px;
+        }
+        .car-thumb-ecard {
+            width: 150px;
+            height: 105px;
+            object-fit: cover;
+            border-radius: 5px;
+            position: absolute;
+            top: 108px;
+            left: 15px;
+        }
+        .headline {
+            position: absolute;
+            color: #fff;
+            font-size: 1rem;
+            top: 100px;
+            left: 175px;
+            font-weight: 600;
+        }
+        .sub-headline {
+            position: absolute;
+            color: #fff;
+            font-size: 0.8rem;
+            top: 122px;
+            left: 175px;
+        }
+        .partner-price {
+            position: absolute;
+            color: #64F22F;
+            font-size: 2.5rem;
+            top: 165px;
+            left: 212px;
+            font-weight: 600;
+            width: 235px;
+            text-align: center;
+        }
+        .partner-price-des {
+            position: absolute;
+            color: #fff;
+            font-size: 0.8rem;
+            top: 217px;
+            left: 271px;
+            text-align: center;
+            line-height: 1.2;
+        }
+        .web-price {
+            position: absolute;
+            color: #64F22F;
+            font-size: 1.1rem;
+            top: 261px;
+            left: 193px;
+            font-weight: 600;
+            width: 123px;
+            text-align: center;
+        }
+        .web-price-des {
+            position: absolute;
+            color: #fff;
+            font-size: 0.55rem;
+            top: 287px;
+            left: 187px;
+            text-align: center;
+            line-height: 1.25;
+        }
+
+        .finance-price {
+            position: absolute;
+            color: #64F22F;
+            font-size: 1.1rem;
+            top: 261px;
+            left: 350px;
+            font-weight: 600;
+            width: 123px;
+            text-align: center;
+        }
+        .finance-price-des {
+            position: absolute;
+            color: #fff;
+            font-size: 0.55rem;
+            top: 287px;
+            left: 384px;
+            text-align: center;
+            line-height: 1.25;
+        }
+        .offer-price {
+            position: absolute;
+            color: #fff;
+            font-size: 0.55rem;
+            top: 315px;
+            left: 225px;
+            text-align: center;
+            line-height: 1.25;
+        }
+        .offer-price {
+            position: absolute;
+            color: #fff;
+            font-size: 1rem;
+            top: 321px;
+            left: 363px;
+            text-align: center;
+            line-height: 1.25;
+        }
+        .sale-info {
+            position: absolute;
+            color: #fff;
+            font-size: 0.6rem;
+            top: 281px;
+            left: 27px;
+            text-align: left;
+            line-height: 1.5;
+        }
+       .col1 {
+            text-align: center;
+            width: 70px;
+        }
+        .col2 {
+            text-align: center;
+            width: 138px;
+        }
+        .col3 {
+            text-align: center;
+            width: 115px;
+        }
+        .col4 {
+            text-align: center;
+            width: 119px;
+        }
+        .trans_table {
+            color: #fff;
+            font-size: 0.7rem;
+        }
     </style>
 </head>
 
@@ -109,6 +254,159 @@
                             </div>
                         </div>
                     </div>  
+            <div id="app">
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">e-Card</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="e-card-bg" id="capture">
+
+                                    <img src="https://imagedelivery.net/FG9yH3i4rybjZWgNeKKJvA/66cdf591-5dae-4b14-f0cc-3a4a77ca5400/resize500" class="car-thumb-ecard">
+                                    <p class="headline">2022 Toyota Yaris</p>
+                                    <p class="sub-headline">รุ่น 1.2 E CVT ปี 2020 ทะเบียน กท 1234<br />ราคาที่ลูกค้ายอมรับได้ </p>
+
+                                    <div class="partner-price">
+                                        <p>1,000,000</p>
+                                    </div>
+                                    <p class="partner-price-des">ราคาจากพันธมิตรเรา<br />สูงสุด ณ 18 มี.ค. 2568</p>
+
+
+                                    <div class="web-price">
+                                        <p>1,200,000*</p>
+                                    </div>
+                                    <p class="web-price-des">ราคาคั้งขายจากเว็บไซต์<br />รถมือสองจากทั้งหมด 145 ทั่วประเทศ</p>
+
+                                    <div class="finance-price">
+                                        <p>950,000</p>
+                                    </div>
+                                    <p class="finance-price-des">ยอดจัดไฟแนนซ์<br />เต็มจำนวน</p>
+
+                                    <p class="offer-price">จำนวน 10 ครั้ง</p>
+
+                                    <p class="sale-info">
+                                        รหัสรถ: 1254<br />
+                                        เซลล์: นาย สมชาย ใจดี<br />
+                                        ทีม: I<br />
+                                        วันที่สร้าง: 18 มี.ค. 2568
+                                    </p>
+                                    
+                                    <table class="trans_table">
+                                        <tr>
+                                            <td class="col1">10</td>
+                                            <td class="col2">1,000,000</td>
+                                            <td class="col3">AAA</td>
+                                            <td class="col4">1 มี.ค. 68, 13:30</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col1">10</td>
+                                            <td class="col2">1,000,000</td>
+                                            <td class="col3">AAA</td>
+                                            <td class="col4">1 มี.ค. 68, 13:30</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col1">10</td>
+                                            <td class="col2">1,000,000</td>
+                                            <td class="col3">AAA</td>
+                                            <td class="col4">1 มี.ค. 68, 13:30</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col1">10</td>
+                                            <td class="col2">1,000,000</td>
+                                            <td class="col3">AAA</td>
+                                            <td class="col4">1 มี.ค. 68, 13:30</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col1">10</td>
+                                            <td class="col2">1,000,000</td>
+                                            <td class="col3">AAA</td>
+                                            <td class="col4">1 มี.ค. 68, 13:30</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col1">10</td>
+                                            <td class="col2">1,000,000</td>
+                                            <td class="col3">AAA</td>
+                                            <td class="col4">1 มี.ค. 68, 13:30</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col1">10</td>
+                                            <td class="col2">1,000,000</td>
+                                            <td class="col3">AAA</td>
+                                            <td class="col4">1 มี.ค. 68, 13:30</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col1">10</td>
+                                            <td class="col2">1,000,000</td>
+                                            <td class="col3">AAA</td>
+                                            <td class="col4">1 มี.ค. 68, 13:30</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col1">10</td>
+                                            <td class="col2">1,000,000</td>
+                                            <td class="col3">AAA</td>
+                                            <td class="col4">1 มี.ค. 68, 13:30</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col1">10</td>
+                                            <td class="col2">1,000,000</td>
+                                            <td class="col3">AAA</td>
+                                            <td class="col4">1 มี.ค. 68, 13:30</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col1">10</td>
+                                            <td class="col2">1,000,000</td>
+                                            <td class="col3">AAA</td>
+                                            <td class="col4">1 มี.ค. 68, 13:30</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col1">10</td>
+                                            <td class="col2">1,000,000</td>
+                                            <td class="col3">AAA</td>
+                                            <td class="col4">1 มี.ค. 68, 13:30</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col1">10</td>
+                                            <td class="col2">1,000,000</td>
+                                            <td class="col3">AAA</td>
+                                            <td class="col4">1 มี.ค. 68, 13:30</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col1">10</td>
+                                            <td class="col2">1,000,000</td>
+                                            <td class="col3">AAA</td>
+                                            <td class="col4">1 มี.ค. 68, 13:30</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="col1">10</td>
+                                            <td class="col2">1,000,000</td>
+                                            <td class="col3">AAA</td>
+                                            <td class="col4">1 มี.ค. 68, 13:30</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col1">10</td>
+                                            <td class="col2">1,000,000</td>
+                                            <td class="col3">AAA</td>
+                                            <td class="col4">1 มี.ค. 68, 13:30</td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                            <button id="share-btn">Share</button> <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
 
                     <div class="row">
                         <div class="col-12">
@@ -125,17 +423,15 @@
                                                 <th>รถยนต์</th>
                                                 <th>ปี</th>
                                                 <th>ทะเบียน</th>
-
                                                 <th>ราคาตั้งขาย</th>
                                                 <th>ยอดจัดTLT</th>
                                                 <th>ราคาที่รับได้</th>
                                                 <th>เสนอราคา</th>
                                                 <th>จำนวน</th>
-
                                                 <th>ตรวจรถ</th>
                                                 <th>สถานะ</th>
-                                                <th>วันที่สร้าง</th>
-                                                <th>จัดการ</th>
+                                                <th width="90px">วันที่สร้าง</th>
+                                                <th width="140px">จัดการ</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -168,7 +464,7 @@
 
                 </div>
             </div>
-
+</div>
             <footer class="footer">
                 <div class="container-fluid">
                     <div class="row">
@@ -186,11 +482,8 @@
 
         </div>
       
- 
     </div>
- 
 
-  
     <div class="menu-overlay"></div>
 
     <script src="/assets/js/jquery.min.js"></script>
@@ -214,30 +507,99 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.1/axios.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
  
     <script>
-        $('#datatable').DataTable({
-            ajax: '/admin/system/home-copy.api.php',
-            pageLength: 10,
-            lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-            processing: true,
-            serverSide: true,
-            responsive: true,
-            bInfo: false,
-            order: [[0, "desc"]],
-            language: {
-                "processing": "กำลังดาวน์โหลดข้อมูล...",
-                "search": "ค้นหา:",
-                "lengthMenu": "แสดง _MENU_ รายการ",
+        
+        var app = new Vue({
+            el: '#app',
+            data: {
+                ecard: {
+                    car: '1',
+                    section: '2',
+                    gen: '3'
+                }
             },
-            dom: 'lBfrtip',
-            buttons: [
-                'copy', 'print'
-            ],
-            search: {
-                "regex": true,
-                "smart": false,
+            mounted: function(){
+                this.getData();
+                this.initEventListeners();
+
+
+
+    document.getElementById('share-btn').addEventListener('click', async () => {
+    const element = document.getElementById('capture');
+
+    // จับภาพ div ด้วย html2canvas
+    const canvas = await html2canvas(element);
+    const dataUrl = canvas.toDataURL('image/png');
+
+    // สร้าง Blob จาก Base64
+    const blob = await (await fetch(dataUrl)).blob();
+    const file = new File([blob], 'shared-image.png', { type: 'image/png' });
+
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      try {
+        await navigator.share({
+          files: [file],
+          title: 'Shared Content',
+          text: 'Check this out!',
+        });
+        console.log('Shared successfully');
+      } catch (error) {
+        console.error('Error sharing:', error);
+      }
+    } else {
+      // แชร์ผ่าน Line หรือ Messenger ด้วย URL
+      const encodedUrl = encodeURIComponent(dataUrl);
+
+      // แชร์ผ่าน Line
+      window.open(`https://line.me/R/msg/text/?${encodedUrl}`, '_blank');
+
+      // แชร์ผ่าน Messenger (ถ้าต้องการใช้)
+      window.open(`https://www.messenger.com/new?attachment=${encodedUrl}`, '_blank');
+    }
+  });
             },
+            methods: {
+                getEcard(event) {
+                    let ecardId = event.target.getAttribute('data-ecard');
+                    //swal(`Good job! ${ecardId}`, "You clicked the button!", "success");
+                    $('#exampleModal').modal('show');
+                },
+                getData(){
+                    $('#datatable').DataTable({
+                        ajax: '/admin/system/home-copy.api.php',
+                        pageLength: 10,
+                        lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+                        processing: true,
+                        serverSide: true,
+                        responsive: true,
+                        bInfo: false,
+                        order: [[0, "desc"]],
+                        language: {
+                            "processing": "กำลังดาวน์โหลดข้อมูล...",
+                            "search": "ค้นหา:",
+                            "lengthMenu": "แสดง _MENU_ รายการ",
+                        },
+                        dom: 'lBfrtip',
+                        buttons: [
+                            'copy', 'print'
+                        ],
+                        search: {
+                            "regex": true,
+                            "smart": false,
+                        },
+                    });
+                },
+                initEventListeners() {
+                    document.addEventListener('click', (event) => {
+                        if (event.target.classList.contains('ecard-btn')) {
+                            this.getEcard(event);
+                        }
+                    });
+                }
+            }
         });
 
     </script>
