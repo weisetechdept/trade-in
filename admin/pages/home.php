@@ -87,7 +87,7 @@
             padding: 0rem;
         }
         .e-card-bg {
-            background-image: url(/assets/images/ecard-bg-new.png);
+            background-image: url('/assets/images/ecard-bg-new.png');
             background-repeat: no-repeat;
             background-position: top;
             background-size: 100% auto;
@@ -226,11 +226,10 @@
             font-size: 0.7rem;
         }
         #capture {
-  overflow: visible !important; /* ป้องกันการตัดเนื้อหาที่เกินขอบ */
-  width: 100%; 
-  max-width: 800px;
-  background-color: #000;
-}
+            overflow: visible !important;
+            max-width: 800px;
+            background-color: #000;
+        }
     </style>
 </head>
 
