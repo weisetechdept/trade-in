@@ -225,6 +225,12 @@
             color: #fff;
             font-size: 0.7rem;
         }
+        #capture {
+  overflow: visible !important; /* ป้องกันการตัดเนื้อหาที่เกินขอบ */
+  width: 100%; 
+  max-width: 800px;
+  background-color: #000;
+}
     </style>
 </head>
 
@@ -305,103 +311,12 @@
                                             <td class="col3">AAA</td>
                                             <td class="col4">1 มี.ค. 68, 13:30</td>
                                         </tr>
-                                        <tr>
-                                            <td class="col1">10</td>
-                                            <td class="col2">1,000,000</td>
-                                            <td class="col3">AAA</td>
-                                            <td class="col4">1 มี.ค. 68, 13:30</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col1">10</td>
-                                            <td class="col2">1,000,000</td>
-                                            <td class="col3">AAA</td>
-                                            <td class="col4">1 มี.ค. 68, 13:30</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col1">10</td>
-                                            <td class="col2">1,000,000</td>
-                                            <td class="col3">AAA</td>
-                                            <td class="col4">1 มี.ค. 68, 13:30</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col1">10</td>
-                                            <td class="col2">1,000,000</td>
-                                            <td class="col3">AAA</td>
-                                            <td class="col4">1 มี.ค. 68, 13:30</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col1">10</td>
-                                            <td class="col2">1,000,000</td>
-                                            <td class="col3">AAA</td>
-                                            <td class="col4">1 มี.ค. 68, 13:30</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col1">10</td>
-                                            <td class="col2">1,000,000</td>
-                                            <td class="col3">AAA</td>
-                                            <td class="col4">1 มี.ค. 68, 13:30</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col1">10</td>
-                                            <td class="col2">1,000,000</td>
-                                            <td class="col3">AAA</td>
-                                            <td class="col4">1 มี.ค. 68, 13:30</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col1">10</td>
-                                            <td class="col2">1,000,000</td>
-                                            <td class="col3">AAA</td>
-                                            <td class="col4">1 มี.ค. 68, 13:30</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col1">10</td>
-                                            <td class="col2">1,000,000</td>
-                                            <td class="col3">AAA</td>
-                                            <td class="col4">1 มี.ค. 68, 13:30</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col1">10</td>
-                                            <td class="col2">1,000,000</td>
-                                            <td class="col3">AAA</td>
-                                            <td class="col4">1 มี.ค. 68, 13:30</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col1">10</td>
-                                            <td class="col2">1,000,000</td>
-                                            <td class="col3">AAA</td>
-                                            <td class="col4">1 มี.ค. 68, 13:30</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col1">10</td>
-                                            <td class="col2">1,000,000</td>
-                                            <td class="col3">AAA</td>
-                                            <td class="col4">1 มี.ค. 68, 13:30</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col1">10</td>
-                                            <td class="col2">1,000,000</td>
-                                            <td class="col3">AAA</td>
-                                            <td class="col4">1 มี.ค. 68, 13:30</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="col1">10</td>
-                                            <td class="col2">1,000,000</td>
-                                            <td class="col3">AAA</td>
-                                            <td class="col4">1 มี.ค. 68, 13:30</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col1">10</td>
-                                            <td class="col2">1,000,000</td>
-                                            <td class="col3">AAA</td>
-                                            <td class="col4">1 มี.ค. 68, 13:30</td>
-                                        </tr>
                                     </table>
                                 </div>
 
                             </div>
                             <div class="modal-footer">
-                            <button id="share-btn">Share</button> <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
+                                <button type="button" class="btn btn-success" id="save-btn">บันทึกภาพ</button> <button type="button" class="btn btn-secondary" id="share-btn">แชร์</button> <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
                             </div>
                             </div>
                         </div>
@@ -526,15 +441,32 @@
                 this.initEventListeners();
 
 
-
-    document.getElementById('share-btn').addEventListener('click', async () => {
+                async function captureImage() {
     const element = document.getElementById('capture');
+    
+    const canvas = await html2canvas(element, {
+      scale: window.devicePixelRatio,
+      useCORS: true,
+      scrollY: -window.scrollY,
+      windowWidth: document.documentElement.offsetWidth,
+      windowHeight: document.documentElement.scrollHeight
+    });
 
-    // จับภาพ div ด้วย html2canvas
-    const canvas = await html2canvas(element);
-    const dataUrl = canvas.toDataURL('image/png');
+    return canvas.toDataURL('image/png');
+  }
 
-    // สร้าง Blob จาก Base64
+  // ฟังก์ชัน Save ภาพ
+  async function saveImage() {
+    const dataUrl = await captureImage();
+    const link = document.createElement('a');
+    link.href = dataUrl;
+    link.download = 'shared-image.png';
+    link.click();
+  }
+
+  // ฟังก์ชัน Share ภาพ
+  async function shareImage() {
+    const dataUrl = await captureImage();
     const blob = await (await fetch(dataUrl)).blob();
     const file = new File([blob], 'shared-image.png', { type: 'image/png' });
 
@@ -545,21 +477,21 @@
           title: 'Shared Content',
           text: 'Check this out!',
         });
-        console.log('Shared successfully');
       } catch (error) {
         console.error('Error sharing:', error);
       }
     } else {
-      // แชร์ผ่าน Line หรือ Messenger ด้วย URL
+      // แชร์ผ่าน Line หรือ Messenger
       const encodedUrl = encodeURIComponent(dataUrl);
-
-      // แชร์ผ่าน Line
       window.open(`https://line.me/R/msg/text/?${encodedUrl}`, '_blank');
-
-      // แชร์ผ่าน Messenger (ถ้าต้องการใช้)
-      window.open(`https://www.messenger.com/new?attachment=${encodedUrl}`, '_blank');
     }
-  });
+  }
+
+  // Event Listeners
+  document.getElementById('share-btn').addEventListener('click', shareImage);
+  document.getElementById('save-btn').addEventListener('click', saveImage);
+    
+ 
             },
             methods: {
                 getEcard(event) {
