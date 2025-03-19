@@ -82,7 +82,7 @@
     $columns = [
         ['db' => 'cast_id', 'dt' => 0, 'field' => 'cast_id',
             'formatter' => function($d, $row){
-                return '<a href="/admin/detail/'.$d.'" target="_blank">'.$d.'</a>';
+                return $d;
             }
         ],
         ['db' => 'cast_thumb', 'dt' => 1, 'field' => 'cast_thumb',
@@ -182,10 +182,11 @@
         ],
         ['db' => 'cast_id', 'dt' => 16, 'field'=> 'cast_id',
             'formatter' => function($d, $row){
-                return "<a href=\"/admin/detail/$d\"  target=\"_blank\" class=\"btn btn-outline-primary btn-sm\"><span class=\"mdi mdi-account-edit\"></span> แก้ไข</a>";
+                return "<a href=\"/admin/detail/$d\"  target=\"_blank\" class=\"btn btn-outline-primary btn-sm mr-2\"><span class=\"mdi mdi-account-edit\"></span> แก้ไข</a>
+                <button data-ecard=\"$d\" class=\"btn btn-outline-success btn-sm ecard-btn\">e-card</button>";
             }        
         ]
-    ]; 
+    ];
 
     $joinQuery = "FROM car_stock s LEFT JOIN finance_data f ON s.cast_car = f.find_id";
     
