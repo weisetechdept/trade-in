@@ -87,7 +87,7 @@
             padding: 0rem;
         }
         .e-card-bg {
-            background-image: url(/assets/images/ecard-bg.png);
+            background-image: url(/assets/images/ecard-bg-new.png);
             background-repeat: no-repeat;
             background-position: top;
             background-size: 100% auto;
