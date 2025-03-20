@@ -154,7 +154,7 @@
             color: #fff;
             font-size: 0.55rem;
             top: 287px;
-            left: 187px;
+            left: 207px;
             text-align: center;
             line-height: 1.25;
         }
@@ -274,41 +274,41 @@
 
                                 <div class="e-card-bg" id="capture">
 
-                                    <img src="https://imagedelivery.net/FG9yH3i4rybjZWgNeKKJvA/66cdf591-5dae-4b14-f0cc-3a4a77ca5400/resize500" class="car-thumb-ecard">
-                                    <p class="headline">2022 Toyota Yaris</p>
-                                    <p class="sub-headline">รุ่น 1.2 E CVT ปี 2020 ทะเบียน กท 1234<br />ราคาที่ลูกค้ายอมรับได้ </p>
+                                    <!-- <img src="https://imagedelivery.net/FG9yH3i4rybjZWgNeKKJvA/66cdf591-5dae-4b14-f0cc-3a4a77ca5400/resize500" class="car-thumb-ecard"> -->
+                                    <img :src="ecardData.thumb" class="car-thumb-ecard">
+                                    <p class="headline">{{ ecardData.brand }}</p>
+                                    <p class="sub-headline">รุ่น {{ ecardData.model }} ปี {{ ecardData.year }}, ทะเบียน {{ ecardData.license_no }}<br />เลขไมล์ {{ ecardData.mileage }} กม. ลูกค้าต้องการ {{ ecardData.customer_price }} บาท</p>
 
                                     <div class="partner-price">
-                                        <p>1,000,000</p>
+                                        <p>{{ ecardData.highBid }}</p>
                                     </div>
-                                    <p class="partner-price-des">ราคาจากพันธมิตรเรา<br />สูงสุด ณ 18 มี.ค. 2568</p>
-
+                                    <p class="partner-price-des">ราคาจากพันธมิตรเรา<br />สูงสุด ณ {{ ecardData.nowDate }}</p>
 
                                     <div class="web-price">
-                                        <p>1,200,000*</p>
+                                        <p>{{ ecardData.tradePrice }}*</p>
                                     </div>
-                                    <p class="web-price-des">ราคาคั้งขายจากเว็บไซต์<br />รถมือสองจากทั้งหมด 145 ทั่วประเทศ</p>
+                                    <p class="web-price-des">ราคาคั้งขายจากเว็บไซต์<br />รถมือสองชั้นนำทั่วประเทศ</p>
 
                                     <div class="finance-price">
-                                        <p>950,000</p>
+                                        <p>{{ ecardData.tltPrice }}</p>
                                     </div>
                                     <p class="finance-price-des">ยอดจัดไฟแนนซ์<br />เต็มจำนวน</p>
 
-                                    <p class="offer-price">จำนวน 10 ครั้ง</p>
+                                    <p class="offer-price">จำนวน {{ ecardData.offerCount }} ครั้ง</p>
 
                                     <p class="sale-info">
-                                        รหัสรถ: 1254<br />
-                                        เซลล์: นาย สมชาย ใจดี<br />
-                                        ทีม: I<br />
-                                        วันที่สร้าง: 18 มี.ค. 2568
+                                        รหัสรถ: {{ ecardData.id }}<br />
+                                        เซลล์: {{ ecardData.sale }}<br />
+                                        ทีม: {{ ecardData.team }}<br />
+                                        วันที่สร้าง: {{ ecardData.cearteDate }}
                                     </p>
                                     
-                                    <table class="trans_table">
-                                        <tr>
-                                            <td class="col1">10</td>
-                                            <td class="col2">1,000,000</td>
-                                            <td class="col3">AAA</td>
-                                            <td class="col4">1 มี.ค. 68, 13:30</td>
+                                    <table class="trans_table" v-if="ecardData.offer && Array.isArray(ecardData.offer)">
+                                        <tr v-for="(offer, index) in ecardData.offer.slice().reverse()" :key="index">
+                                            <td class="col1">{{ ecardData.offer.length - index }}</td>
+                                            <td class="col2">{{ offer.off_price }}</td>
+                                            <td class="col3">{{ offer.off_name }}</td>
+                                            <td class="col4">{{ offer.off_datetime }}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -433,7 +433,8 @@
                     car: '1',
                     section: '2',
                     gen: '3'
-                }
+                },
+                ecardData: {}
             },
             mounted: function(){
                 this.getData();
@@ -441,62 +442,70 @@
 
 
                 async function captureImage() {
-    const element = document.getElementById('capture');
-    
-    const canvas = await html2canvas(element, {
-      scale: window.devicePixelRatio,
-      useCORS: true,
-      scrollY: -window.scrollY,
-      windowWidth: document.documentElement.offsetWidth,
-      windowHeight: document.documentElement.scrollHeight
-    });
+                    const element = document.getElementById('capture');
+                    
+                    const canvas = await html2canvas(element, {
+                        useCORS: true,
+                        scrollY: -window.scrollY,
+                        windowWidth: document.documentElement.offsetWidth,
+                        windowHeight: document.documentElement.scrollHeight,
+                        backgroundColor: null,
+                        imageSmoothingEnabled: false 
+                    });
 
-    return canvas.toDataURL('image/png');
-  }
+                    return canvas.toDataURL('image/png');
+                }
 
-  // ฟังก์ชัน Save ภาพ
-  async function saveImage() {
-    const dataUrl = await captureImage();
-    const link = document.createElement('a');
-    link.href = dataUrl;
-    link.download = 'shared-image.png';
-    link.click();
-  }
+                // ฟังก์ชัน Save ภาพ
+                async function saveImage() {
+                    const dataUrl = await captureImage();
+                    const link = document.createElement('a');
+                    link.href = dataUrl;
+                    link.download = 'shared-image.png';
+                    link.click();
+                }
 
-  // ฟังก์ชัน Share ภาพ
-  async function shareImage() {
-    const dataUrl = await captureImage();
-    const blob = await (await fetch(dataUrl)).blob();
-    const file = new File([blob], 'shared-image.png', { type: 'image/png' });
+                // ฟังก์ชัน Share ภาพ
+                async function shareImage() {
+                    const dataUrl = await captureImage();
+                    const blob = await (await fetch(dataUrl)).blob();
+                    const file = new File([blob], 'shared-image.png', { type: 'image/png' });
 
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      try {
-        await navigator.share({
-          files: [file],
-          title: 'Shared Content',
-          text: 'Check this out!',
-        });
-      } catch (error) {
-        console.error('Error sharing:', error);
-      }
-    } else {
-      // แชร์ผ่าน Line หรือ Messenger
-      const encodedUrl = encodeURIComponent(dataUrl);
-      window.open(`https://line.me/R/msg/text/?${encodedUrl}`, '_blank');
-    }
-  }
+                    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    try {
+                        await navigator.share({
+                        files: [file],
+                        title: 'Shared Content',
+                        text: 'Check this out!',
+                        });
+                    } catch (error) {
+                        console.error('Error sharing:', error);
+                    }
+                    } else {
+                    // แชร์ผ่าน Line หรือ Messenger
+                    const encodedUrl = encodeURIComponent(dataUrl);
+                    window.open(`https://line.me/R/msg/text/?${encodedUrl}`, '_blank');
+                    }
+                }
 
-  // Event Listeners
-  document.getElementById('share-btn').addEventListener('click', shareImage);
-  document.getElementById('save-btn').addEventListener('click', saveImage);
+                // Event Listeners
+                document.getElementById('share-btn').addEventListener('click', shareImage);
+                document.getElementById('save-btn').addEventListener('click', saveImage);
     
  
             },
             methods: {
+                
                 getEcard(event) {
                     let ecardId = event.target.getAttribute('data-ecard');
                     //swal(`Good job! ${ecardId}`, "You clicked the button!", "success");
                     $('#exampleModal').modal('show');
+                    axios.post('/admin/system/get-ecard.api.php', {
+                        ecardId: ecardId
+                    }).then((response) => {
+                        console.log(response.data);
+                        this.ecardData = response.data;
+                    });
                 },
                 getData(){
                     $('#datatable').DataTable({
