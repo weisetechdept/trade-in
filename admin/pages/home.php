@@ -474,9 +474,9 @@
                     if (navigator.canShare && navigator.canShare({ files: [file] })) {
                     try {
                         await navigator.share({
-                        files: [file],
-                        title: 'Shared Content',
-                        text: 'Check this out!',
+                            files: [file],
+                            title: 'รายละเอียดรถยนต์',
+                            // text: 'Check this out!',
                         });
                     } catch (error) {
                         console.error('Error sharing:', error);
