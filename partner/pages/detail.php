@@ -392,6 +392,13 @@
                             buttons: true,
                             dangerMode: true,
                         }).then((wilOkay) => {
+
+                            swal("กำลังส่งข้อเสนอ", "กรุณารอสักครู่", "info", {
+                                button: false,
+                                closeOnClickOutside: false,
+                                closeOnEsc: false,
+                            });
+                            
                             if (wilOkay) {
                                 axios.post('/partner/system/noti_offer.inc.php', {
                                     id: this.detail.id,
@@ -402,11 +409,13 @@
                                 })
                                 .then(response => {
                                     if(response.data.status == '200') {
+                                        
                                         swal("สำเร็จ", "ส่งข้อเสนอเรียบร้อย", "success",{
                                             button: "OK",
                                         }).then((value) => {
                                             window.location.reload();
                                         });
+
                                     } else if (response.data.status == '400'){
                                         swal("ไม่สำเร็จ", "Please try again", "error",{
                                             button: "OK",
