@@ -24,7 +24,7 @@
             // $diff_price = $customer_need_price - $price;
 
             $diff_price = '20000';
-            
+
 
             if($diff_price <= 50000){
 
@@ -73,7 +73,7 @@
                         array(
                             "type" => "uri",
                             "label" => "ดูข้อมูลรถยนต์",
-                            "uri" => "https://trade-in.toyotaparagon.com/app?way=car&id=".$carid
+                            "uri" => "https://trade-in.toyotaparagon.com/pt/stock/".base64_encode($carid)
                         )
                     )
                 )
