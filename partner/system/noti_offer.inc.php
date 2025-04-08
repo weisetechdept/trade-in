@@ -19,11 +19,11 @@
             $access_token = 'ZTh79ef5O5rWV7Hn0Bi/DBcLUUDYrhrsJxx3J1Tabc9sN7EwaIx6h1ngB/4RotU6rSvCgayGXCLNXETQy/g/JRRFdiAvPmpJ2847cK56p6nAOO8njpvSGIDL6Vp6p4WJ+iXoiXTCAmJ74r3kfZVt2QdB04t89/1O/w1cDnyilFU=';
             $userId = 'U6f5da61c00cd349634881dafa7a6e624';
 
-            // $customer_need_price = $db->where('cast_id',$carid)->getOne('car_stock');
-            // $customer_need_price = $customer_need_price['cast_price'];
-            // $diff_price = $customer_need_price - $price;
+            $customer_need_price = $db->where('cast_id',$carid)->getOne('car_stock');
+            $customer_need_price = $customer_need_price['cast_price'];
+            $diff_price = $customer_need_price - $price;
 
-            $diff_price = '20000';
+            //$diff_price = '20000';
 
 
             if($diff_price <= 50000){
