@@ -14,11 +14,42 @@
         function sendBackPartner($carid,$img,$price){
 
             
-
+            global $db;
             //global $pt_access_token;
             $access_token = 'ZTh79ef5O5rWV7Hn0Bi/DBcLUUDYrhrsJxx3J1Tabc9sN7EwaIx6h1ngB/4RotU6rSvCgayGXCLNXETQy/g/JRRFdiAvPmpJ2847cK56p6nAOO8njpvSGIDL6Vp6p4WJ+iXoiXTCAmJ74r3kfZVt2QdB04t89/1O/w1cDnyilFU=';
-
             $userId = 'U6f5da61c00cd349634881dafa7a6e624';
+
+            $customer_need_price = $db->where('cast_id',$carid)->getOne('car_stock');
+            $customer_need_price = $customer_need_price['cast_price'];
+
+            $diff_price = $customer_need_price - $price;
+
+            if($diff_price <= 50000){
+
+                $random_true = array(
+                    'ราคานี้โอเคเลยครับ! เดี๋ยวเอาไปเสนอให้ลูกค้าก่อนนะ ถ้าผ่านเดี๋ยวติดต่อกลับทันทีเลยครับ',
+                    'ราคาน่าเจรจามากครับ ขอเวลาเราคุยกับลูกค้าสักนิด แล้วจะรีบแจ้งกลับครับ',
+                    'เข้าข่ายที่ลูกค้าน่าจะโอเคครับ เดี๋ยวลองเจรจาให้ แล้วคุณอาจได้สิทธิ์ปิดดีลนี้เลยครับ!',
+                    'ดีเลยครับ ราคานี้สามารถเข้าสู่กระบวนการเจรจาได้ทันที เดี๋ยวเราจะจัดการให้ต่อครับผม',
+                    'ราคานี้น่าจะโอเคกับลูกค้า เดี๋ยวเราจะลองคุยให้ครับ',
+                    'ราคานี้เข้าเกณฑ์ที่เราสามารถเสนอให้ลูกค้าได้ เดี๋ยวเราจะดำเนินการเจรจาให้ครับผม'
+                );
+                $random = array_rand($random_true, 1);
+                $res_text = $random_true[$random];
+
+            } else {
+                $random_false = array(
+                    'ราคานี้อาจยังไม่โดนใจลูกค้า ลองปรับขึ้นอีกนิดให้พอได้เริ่มคุยกันนะครับ',
+                    'อีกนิดเดียวก็อาจจะเข้าเขตต่อรองได้แล้ว ลองขยับราคาขึ้นนิดนึงครับ',
+                    'ถ้าราคาขยับขึ้นอีกนิด ลูกค้าน่าจะสนใจมากขึ้นครับ ลองดูนะครับ!',
+                    'หากเพิ่มราคาอีกสักหน่อย อาจช่วยให้เราเริ่มต้นบทสนทนากับลูกค้าได้ง่ายขึ้นครับ',
+                    'โอกาสในการปิดการขายอาจเพิ่มขึ้นหากราคาสูงขึ้นใกล้กับความคาดหวังของลูกค้า',
+                    'ราคานี้อาจจะยังไม่ตรงใจลูกค้า ลองปรับขึ้นอีกนิดเพื่อให้เริ่มคุยกันได้ครับ',
+                );
+                $random = array_rand($random_false, 1);
+                $res_text = $random_false[$random];
+
+            }
 
             $messages = array(
                 'type' => 'template',
@@ -29,8 +60,8 @@
                     "imageAspectRatio" => "rectangle",
                     "imageSize" => "cover",
                     "imageBackgroundColor" => "#FFFFFF",
-                    "title" => "การเสนอราคาของคุณ",
-                    "text" => "ราคาของคุณยังไม่ถึงจุดที่ลูกค้าสนใจอาจเพิ่มราคาอีกนิดเพื่อเปิดการเจรจากับลูกค้า",
+                    "title" => "[ระบบ] เสนอราคา",
+                    "text" => $res_text,
                     "defaultAction" => array(
                         "type" => "uri",
                         "label" => "View detail",
