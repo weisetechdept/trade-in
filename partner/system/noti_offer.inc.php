@@ -13,7 +13,11 @@
 
         function sendBackPartner($carid,$img,$price){
 
-            global $pt_access_token;
+            
+
+            //global $pt_access_token;
+            $access_token = 'ZTh79ef5O5rWV7Hn0Bi/DBcLUUDYrhrsJxx3J1Tabc9sN7EwaIx6h1ngB/4RotU6rSvCgayGXCLNXETQy/g/JRRFdiAvPmpJ2847cK56p6nAOO8njpvSGIDL6Vp6p4WJ+iXoiXTCAmJ74r3kfZVt2QdB04t89/1O/w1cDnyilFU=';
+
             $userId = 'U6f5da61c00cd349634881dafa7a6e624';
 
             $messages = array(
@@ -48,7 +52,7 @@
             ));
 
             $url = 'https://api.line.me/v2/bot/message/multicast';
-            $headers = array('Content-Type: application/json', 'Authorization: Bearer '.$pt_access_token);
+            $headers = array('Content-Type: application/json', 'Authorization: Bearer '.$access_token);
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, "https://api.line.me/v2/bot/message/multicast");
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
