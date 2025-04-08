@@ -24,6 +24,7 @@
             // $diff_price = $customer_need_price - $price;
 
             $diff_price = '20000';
+            
 
             if($diff_price <= 50000){
 
