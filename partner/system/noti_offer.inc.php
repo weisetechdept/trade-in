@@ -11,6 +11,56 @@
     $total = $request->total;
     $parent = $request->parent;
 
+        function sendBackPartner($carid,$img,$price){
+
+            global $pt_access_token;
+            $userId = 'U6f5da61c00cd349634881dafa7a6e624';
+
+            $messages = array(
+                'type' => 'template',
+                'altText' => 'ให้ราคาจากพันธมิตร',
+                'template' => array(
+                    "type" => "buttons",
+                    "thumbnailImageUrl" => $img,
+                    "imageAspectRatio" => "rectangle",
+                    "imageSize" => "cover",
+                    "imageBackgroundColor" => "#FFFFFF",
+                    "title" => "การเสนอราคาของคุณ",
+                    "text" => "ราคาของคุณยังไม่ถึงจุดที่ลูกค้าสนใจอาจเพิ่มราคาอีกนิดเพื่อเปิดการเจรจากับลูกค้า",
+                    "defaultAction" => array(
+                        "type" => "uri",
+                        "label" => "View detail",
+                        "uri" => $img
+                    ),
+                    "actions" => array(
+                        array(
+                            "type" => "uri",
+                            "label" => "ดูข้อมูลรถยนต์",
+                            "uri" => "https://trade-in.toyotaparagon.com/app?way=car&id=".$carid
+                        )
+                    )
+                )
+            );
+
+            $post = json_encode(array(
+                'to' => array($userId),
+                'messages' => array($messages),
+            ));
+
+            $url = 'https://api.line.me/v2/bot/message/multicast';
+            $headers = array('Content-Type: application/json', 'Authorization: Bearer '.$pt_access_token);
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, "https://api.line.me/v2/bot/message/multicast");
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+            curl_setopt($ch, CURLOPT_FAILONERROR, true);
+
+            $result = curl_exec($ch);
+        }
+
         function sendOffer($carid,$uid,$img,$price) {
 
             global $pt_access_token;
@@ -92,44 +142,46 @@
 
         }
 
-    if($id == '' | $price == '' | $parent == ''){
-        $api = array(
-            'status' => '400',
-            'message' => 'ID not found'
-        );
-
-    } else {
-
-        $data = array(
-            'off_price' => $price,
-            'off_vender' => $parent,
-            'off_parent' => $id,
-            'off_datetime' => date('Y-m-d H:i:s')
-        );
-    
-        $up = $db->insert('offer',$data);
-        if($up){
-            $db->join('car_image i','s.cast_id = i.cari_parent','INNER');
-            $car = $db->where('cast_id',$id)->getOne('car_stock s');
-
-            $sales = $db_nms->where('id',$car['cast_sales_parent_no'])->getOne('db_member');
-            sendOffer($id,$sales['line_usrid'],$car['cari_link'],$price);
-
-            sendNotify($id,$price,$parent);
+        if($id == '' | $price == '' | $parent == ''){
             $api = array(
-                'status' => '200',
-                'message' => 'Success to offer'
+                'status' => '400',
+                'message' => 'ID not found'
             );
 
         } else {
 
-            $api = array(
-                'status' => '400',
-                'message' => 'Offer not Success'
+            $data = array(
+                'off_price' => $price,
+                'off_vender' => $parent,
+                'off_parent' => $id,
+                'off_datetime' => date('Y-m-d H:i:s')
             );
-        }
+        
+            $up = $db->insert('offer',$data);
+            if($up){
+                $db->join('car_image i','s.cast_id = i.cari_parent','INNER');
+                $car = $db->where('cast_id',$id)->getOne('car_stock s');
 
-    }
+                $sales = $db_nms->where('id',$car['cast_sales_parent_no'])->getOne('db_member');
+                sendOffer($id,$sales['line_usrid'],$car['cari_link'],$price);
+
+                sendBackPartner($id,$car['cari_link'],$price);
+
+                sendNotify($id,$price,$parent);
+                $api = array(
+                    'status' => '200',
+                    'message' => 'Success to offer'
+                );
+
+            } else {
+
+                $api = array(
+                    'status' => '400',
+                    'message' => 'Offer not Success'
+                );
+            }
+
+        }
 
     echo json_encode($api);
 
