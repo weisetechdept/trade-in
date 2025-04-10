@@ -22,7 +22,7 @@
             $customer_need_price = $customer_need_price['cast_price'];
             $diff_price = $customer_need_price - $price;
 
-            if($diff_price <= 50000 && $customer_need_price !== 0){
+            if(isset($customer_need_price) && $customer_need_price !== null && $diff_price <= 50000 && $customer_need_price !== 0){
 
                 $random_true = array(
                     'ราคานี้โอเคเลยครับ! เดี๋ยวเอาไปเสนอให้ลูกค้าก่อนนะ ถ้าผ่านเดี๋ยวติดต่อกลับทันทีเลยครับ',
