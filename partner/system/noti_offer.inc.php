@@ -72,14 +72,9 @@
                             "uri" => "https://trade-in.toyotaparagon.com/pt/stock/".base64_encode($carid)
                         ),
                         array(
-                            "type" => "uri",
-                            "label" => "ดูรายละเอียดเพิ่มเติม",
-                            "uri" => "https://trade-in.toyotaparagon.com/pt/details/".base64_encode($carid)
-                        ),
-                        array(
                             "type" => "message",
-                            "label" => "ส่งข้อความ",
-                            "text" => "ฉันสนใจข้อเสนอนี้"
+                            "label" => "ขอเจรจา",
+                            "text" => "ขอเจรจารถ ID : $carid ราคาที่เสนอ $price บาท ขอคุยรายละเอียดเพิ่มเติม"
                         )
                     )
                 )
