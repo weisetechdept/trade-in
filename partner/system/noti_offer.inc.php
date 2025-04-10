@@ -58,23 +58,23 @@
                     "imageAspectRatio" => "rectangle",
                     "imageSize" => "cover",
                     "imageBackgroundColor" => "#FFFFFF",
-                    "title" => 'ราคาที่คุณเสนอ '.number_format($price)." บาท",
-                    "text" => $res_text,
+                    "title" => 'ราคาที่คุณเสนอ '.number_format((float)$price, 2)." บาท",
+                    "text" => htmlspecialchars($res_text, ENT_QUOTES, 'UTF-8'),
                     "defaultAction" => array(
                         "type" => "uri",
                         "label" => "View detail",
-                        "uri" => $img
+                        "uri" => filter_var($img, FILTER_SANITIZE_URL)
                     ),
                     "actions" => array(
                         array(
                             "type" => "uri",
                             "label" => "ให้ราคาเพิ่ม",
-                            "uri" => "https://trade-in.toyotaparagon.com/pt/stock/".base64_encode($carid)
+                            "uri" => "https://trade-in.toyotaparagon.com/pt/stock/".base64_encode((string)$carid)
                         ),
                         array(
                             "type" => "message",
                             "label" => "ขอเจรจา",
-                            "text" => "ขอเจรจารถ ID : $carid ราคาที่เสนอ". number_format($price) ."บาท ขอคุยรายละเอียดเพิ่มเติม"
+                            "text" => "ขอเจรจารถ ID : ".htmlspecialchars($carid, ENT_QUOTES, 'UTF-8')." ราคาที่เสนอ". number_format((float)$price, 2) ."บาท ขอคุยรายละเอียดเพิ่มเติม"
                         )
                     )
                 )
