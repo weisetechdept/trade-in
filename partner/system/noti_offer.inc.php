@@ -68,8 +68,18 @@
                     "actions" => array(
                         array(
                             "type" => "uri",
-                            "label" => "ให้ราคาเพืิ่ม",
+                            "label" => "ให้ราคาเพิ่ม",
                             "uri" => "https://trade-in.toyotaparagon.com/pt/stock/".base64_encode($carid)
+                        ),
+                        array(
+                            "type" => "uri",
+                            "label" => "ดูรายละเอียดเพิ่มเติม",
+                            "uri" => "https://trade-in.toyotaparagon.com/pt/details/".base64_encode($carid)
+                        ),
+                        array(
+                            "type" => "uri",
+                            "label" => "ติดต่อเรา",
+                            "uri" => "https://trade-in.toyotaparagon.com/contact"
                         )
                     )
                 )
