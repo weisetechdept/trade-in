@@ -53,89 +53,30 @@
             }
 
             $messages = array(
-                'type' => 'bubble',
-                'body' => [
-                    'type' => 'box',
-                    'layout' => 'vertical',
-                    'contents' => [
-                        [
-                            'type' => 'text',
-                            'text' => 'Brown Cafe',
-                            'weight' => 'bold',
-                            'size' => 'xl'
-                        ],
-                        [
-                            'type' => 'text',
-                            'text' => 'hello, world'
-                        ]
-                    ]
-                ],
-                'footer' => [
-                    'type' => 'box',
-                    'layout' => 'vertical',
-                    'spacing' => 'sm',
-                    'contents' => [
-                        [
-                            'type' => 'button',
-                            'style' => 'link',
-                            'height' => 'sm',
-                            'action' => [
-                                'type' => 'uri',
-                                'label' => 'CALL',
-                                'uri' => 'https://line.me/'
-                            ]
-                        ],
-                        [
-                            'type' => 'button',
-                            'style' => 'link',
-                            'height' => 'sm',
-                            'action' => [
-                                'type' => 'uri',
-                                'label' => 'WEBSITE',
-                                'uri' => 'https://line.me/'
-                            ]
-                        ],
-                        [
-                            'type' => 'box',
-                            'layout' => 'vertical',
-                            'contents' => [],
-                            'margin' => 'sm'
-                        ]
-                    ],
-                    'flex' => 0
-                ]
+                'type' => 'template',
+                'altText' => 'ราคาของคุณ',
+                'template' => array(
+                    "type" => "buttons",
+                    "thumbnailImageUrl" => $img,
+                    "imageAspectRatio" => "rectangle",
+                    "imageSize" => "cover",
+                    "imageBackgroundColor" => "#FFFFFF",
+                    "title" => "คุณเสนอ " . number_format($price) . " บาท",
+                    "text" => $res_text,
+                    "defaultAction" => array(
+                        "type" => "uri",
+                        "label" => "View detail",
+                        "uri" => $img
+                    ),
+                    "actions" => array(
+                        array(
+                            "type" => "uri",
+                            "label" => "ให้ราคาเพืิ่ม",
+                            "uri" => "https://trade-in.toyotaparagon.com/pt/stock/".base64_encode($carid)
+                        )
+                    )
+                )
             );
-
-            // $messages = array(
-            //     'type' => 'template',
-            //     'altText' => 'ราคาของคุณ',
-            //     'template' => array(
-            //         "type" => "buttons",
-            //         "thumbnailImageUrl" => $img,
-            //         "imageAspectRatio" => "rectangle",
-            //         "imageSize" => "cover",
-            //         "imageBackgroundColor" => "#FFFFFF",
-            //         "title" => "คุณเสนอ " . number_format($price) . " บาท",
-            //         "text" => $res_text,
-            //         "defaultAction" => array(
-            //             "type" => "uri",
-            //             "label" => "View detail",
-            //             "uri" => $img
-            //         ),
-            //         "actions" => array(
-            //             array(
-            //                 "type" => "uri",
-            //                 "label" => "ให้ราคาเพืิ่ม",
-            //                 "uri" => "https://trade-in.toyotaparagon.com/pt/stock/".base64_encode($carid)
-            //             ),
-            //             array(
-            //                 "type" => "text",
-            //                 "label" => "ขอเจรจา",
-            //                 "text" => "ขอเจรจาราคารถยนต์หมายเลข ID : $carid ราคา ".number_format($price)." บาท "
-            //             ),
-            //         )
-            //     )
-            // );
 
             $post = json_encode(array(
                 'to' => array($userId),
