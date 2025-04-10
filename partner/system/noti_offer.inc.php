@@ -77,9 +77,9 @@
                             "uri" => "https://trade-in.toyotaparagon.com/pt/details/".base64_encode($carid)
                         ),
                         array(
-                            "type" => "uri",
-                            "label" => "ติดต่อเรา",
-                            "uri" => "https://trade-in.toyotaparagon.com/contact"
+                            "type" => "message",
+                            "label" => "ส่งข้อความ",
+                            "text" => "ฉันสนใจข้อเสนอนี้"
                         )
                     )
                 )
