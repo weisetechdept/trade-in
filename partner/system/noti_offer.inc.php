@@ -19,10 +19,10 @@
             $userId = 'U6f5da61c00cd349634881dafa7a6e624';
 
             $customer_need_price = $db->where('cast_id',$carid)->getOne('car_stock');
-            $customer_need_price = $customer_need_price['cast_price'];
+            $customer_need_price = isset($customer_need_price['cast_price']) ? $customer_need_price['cast_price'] : 0;
             $diff_price = $customer_need_price - $price;
 
-            if($diff_price <= 50000 && $customer_need_price !== 0){
+            if($diff_price <= 50000 && $customer_need_price > 0){
 
                 $random_true = array(
                     'ราคานี้โอเคเลยครับ! เดี๋ยวเอาไปเสนอให้ลูกค้าก่อนนะ ถ้าผ่านเดี๋ยวติดต่อกลับทันทีเลยครับ',
