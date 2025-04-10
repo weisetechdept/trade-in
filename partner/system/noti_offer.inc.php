@@ -58,8 +58,8 @@
                     "imageAspectRatio" => "rectangle",
                     "imageSize" => "cover",
                     "imageBackgroundColor" => "#FFFFFF",
-                    "title" => "คุณเสนอ บาท",
-                    "text" => '111111',
+                    "title" => "คุณเสนอ ". number_format($price) ." บาท",
+                    "text" => 'ราคาส่วนต่าง '.$diff_price,
                     "defaultAction" => array(
                         "type" => "uri",
                         "label" => "View detail",
