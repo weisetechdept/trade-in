@@ -61,7 +61,7 @@
                     "imageAspectRatio" => "rectangle",
                     "imageSize" => "cover",
                     "imageBackgroundColor" => "#FFFFFF",
-                    "title" => "[ระบบ] เสนอราคา",
+                    "title" => "คุณเสนอ " . number_format($price) . " บาท",
                     "text" => $res_text,
                     "defaultAction" => array(
                         "type" => "uri",
@@ -71,9 +71,14 @@
                     "actions" => array(
                         array(
                             "type" => "uri",
-                            "label" => "ดูข้อมูลรถยนต์",
+                            "label" => "ให้ราคาเพืิ่ม",
                             "uri" => "https://trade-in.toyotaparagon.com/pt/stock/".base64_encode($carid)
-                        )
+                        ),
+                        array(
+                            "type" => "text",
+                            "label" => "ขอเจรจา",
+                            "text" => "ขอเจรจาราคารถยนต์หมายเลข ID : $carid ราคา ".number_format($price)." บาท "
+                        ),
                     )
                 )
             );
