@@ -54,14 +54,14 @@
 
             $messages = array(
                 'type' => 'template',
-                'altText' => 'ราคาของคุณ',
+                'altText' => 'ให้ราคาจากพันธมิตร',
                 'template' => array(
                     "type" => "buttons",
                     "thumbnailImageUrl" => $img,
                     "imageAspectRatio" => "rectangle",
                     "imageSize" => "cover",
                     "imageBackgroundColor" => "#FFFFFF",
-                    "title" => "คุณเสนอ " . number_format($price) . " บาท",
+                    "title" => "คุณเสนอ บาท",
                     "text" => $res_text,
                     "defaultAction" => array(
                         "type" => "uri",
