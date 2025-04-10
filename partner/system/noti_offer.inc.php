@@ -58,8 +58,8 @@
                     "imageAspectRatio" => "rectangle",
                     "imageSize" => "cover",
                     "imageBackgroundColor" => "#FFFFFF",
-                    "title" => 'ราคาที่คุณเสนอ '.number_format((float)$price, 2)." บาท",
-                    "text" => htmlspecialchars($res_text, ENT_QUOTES, 'UTF-8'),
+                    "title" => $res_text,
+                    "text" => $res_text,
                     "defaultAction" => array(
                         "type" => "uri",
                         "label" => "View detail",
