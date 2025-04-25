@@ -24,10 +24,7 @@
 			}
 		}
 
-		$sales = $nms['first_name'];
-		$team = getTeam($nms['id']);
-
-		function sendOffer() {
+		function sendOffer($sales,$team,$id) {
 
 			$channelToken = 'IZd/+LM0eFbZBGVq67BcM6AC8MDkZSi7/DsikGWU45/a2moikJuzGP77d8J3w1UOFcc98ku2MmnnQwnKwYOyAWvkuMScEfxrImfS5NrC+nRX/bzJNehiCX9PwezVE3St1i81+6WuMUj90anooQivAAdB04t89/1O/w1cDnyilFU='; // ใส่ Token จริงของพี่พีตรงนี้
 			$groupId = 'Cfa616153832373dceb32b2fc028b6404'; // Group ID ที่พี่ได้จาก webhook
@@ -58,7 +55,10 @@
 			
 		}
 
-		sendOffer();
+		$sales = $nms['first_name'];
+		$team = getTeam($nms['id']);
+
+		sendOffer($sales,$team,$id);
 		if ($result) {
 			$api = array(
 				'status' => 200,
