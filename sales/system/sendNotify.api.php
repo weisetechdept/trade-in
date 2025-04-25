@@ -52,6 +52,18 @@
 
 			$result = curl_exec($ch);
 			curl_close($ch);
+
+			if ($result) {
+				$api = array(
+					'status' => 200,
+					'message' => 'ส่งข้อความสำเร็จ'
+				);
+			} else {
+				$api = array(
+					'status' => 400,
+					'message' => 'ส่งข้อความไม่สำเร็จ'
+				);
+			}
 			
 		}
 
@@ -59,17 +71,7 @@
 		$team = getTeam($nms['id']);
 
 		sendOffer($sales,$team,$id);
-		if ($result) {
-			$api = array(
-				'status' => 200,
-				'message' => 'ส่งข้อความสำเร็จ'
-			);
-		} else {
-			$api = array(
-				'status' => 400,
-				'message' => 'ส่งข้อความไม่สำเร็จ'
-			);
-		}
+
 		echo json_encode($api);
 				
 ?>
