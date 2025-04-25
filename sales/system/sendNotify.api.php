@@ -27,36 +27,44 @@
 		$sales = $nms['first_name'];
 		$team = getTeam($nms['id']);
 
-		ini_set('display_errors', 1);
-		ini_set('display_startup_errors', 1);
-		error_reporting(E_ALL);
+		function sendOffer() {
 
-		$sToken = "8PejR1DTTI8B8rEb8STbW2bZs8FDAtA21Ll7nBO7Hmf";
-		$sMessage = "[เซลล์] มีรถเข้ามาใหม่ จากเซลล์ ".$sales." ทีม ".$team.' , รหัสรถ ID : '.$stock['cast_id'].'[ https://trade-in.toyotaparagon.com/alink?cid='.$id.' ]';
+			$channelToken = 'ZTh79ef5O5rWV7Hn0Bi/DBcLUUDYrhrsJxx3J1Tabc9sN7EwaIx6h1ngB/4RotU6rSvCgayGXCLNXETQy/g/JRRFdiAvPmpJ2847cK56p6nAOO8njpvSGIDL6Vp6p4WJ+iXoiXTCAmJ74r3kfZVt2QdB04t89/1O/w1cDnyilFU='; // ใส่ Token จริงของพี่พีตรงนี้
+			$groupId = 'Cfa616153832373dceb32b2fc028b6404'; // Group ID ที่พี่ได้จาก webhook
 
-		$chOne = curl_init(); 
-		curl_setopt( $chOne, CURLOPT_URL, "https://notify-api.line.me/api/notify"); 
-		curl_setopt( $chOne, CURLOPT_SSL_VERIFYHOST, 0); 
-		curl_setopt( $chOne, CURLOPT_SSL_VERIFYPEER, 0); 
-		curl_setopt( $chOne, CURLOPT_POST, 1); 
-		curl_setopt( $chOne, CURLOPT_POSTFIELDS, "message=".$sMessage); 
-		$headers = array( 'Content-type: application/x-www-form-urlencoded', 'Authorization: Bearer '.$sToken.'', );
-		curl_setopt($chOne, CURLOPT_HTTPHEADER, $headers); 
-		curl_setopt( $chOne, CURLOPT_RETURNTRANSFER, 1); 
-		$result = curl_exec( $chOne ); 
+			// ข้อความที่ต้องการส่ง
+			$data = [
+				'to' => $groupId,
+				'messages' => [
+					[
+						'type' => 'text',
+						'text' => 'แจ้งเตือนเข้ากลุ่มมาแล้วจ้า 🎉'
+					]
+				]
+			];
 
-		//Result error 
-		if(curl_error($chOne)) 
-		{ 
-			//echo 'error:' . curl_error($chOne); 
-			echo json_encode(array('status' => '400'));
-		} 
-		else { 
-			/*
-			$result_ = json_decode($result, true); 
-			echo "status : ".$result_['status']; echo "message : ". $result_['message'];
-			*/
-			echo json_encode(array('status' => '200'));
-		} 
-		curl_close( $chOne );   
+			// ส่ง HTTP POST ไปที่ LINE Messaging API
+			$ch = curl_init('https://api.line.me/v2/bot/message/push');
+			curl_setopt($ch, CURLOPT_POST, true);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, [
+				'Content-Type: application/json',
+				'Authorization: Bearer ' . $channelToken
+			]);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+
+			$result = curl_exec($ch);
+			if (curl_errno($ch)) {
+				echo 'Curl error: ' . curl_error($ch);
+			} else {
+				echo 'Response: ' . $result;
+			}
+			curl_close($ch);
+			
+			
+		}
+
+		sendOffer();
+
+				
 ?>
