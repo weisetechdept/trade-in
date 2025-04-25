@@ -394,7 +394,7 @@
                                                 </tbody>
                                             </table>
                                             <div class="form-group mt-3">
-                                                <button @click="sendData" type="submit" class="btn btn-success waves-effect waves-light mr-1">บันทึก</button>
+                                                <button @click="sendData" type="submit" id="submitDataAddCar" class="btn btn-success waves-effect waves-light mr-1">บันทึก</button>
                                             </div>
                                         </div>
                                     </div>
@@ -562,8 +562,8 @@
                                     button: "ตกลง"
                                 })
                             } else {
-                                if (this.isSubmitting) return; // Prevent double submission
-                                this.isSubmitting = true;
+                                
+                                document.getElementById('submitDataAddCar').disabled = true;
 
                                 axios.post('/sales/system/new_car_up.inc.php', {
                                     id: this.user.id,
@@ -585,7 +585,7 @@
                                     loan: this.send.loan,
                                     ready: this.send.ready
                                 }).then(res => {
-                                    this.isSubmitting = false; // Reset submission state
+
                                     if(res.data.status == 200) 
                                         swal("สำเร็จ", "เพิ่มสมาชิกเรียบร้อย", "success",{  
                                             button: "ตกลง"
@@ -598,14 +598,8 @@
                                             button: "ตกลง"
                                         }
                                     );
-                                    if(res.data.status == 400) 
-                                        swal("ทำรายการไม่สำเร็จ", "สมาชิกไม่เข้าเงื่อนใขการสมัคร โปรดตรวจสอบคุณสมบัติอีกครั้ง (เป็นสมาชิก Paragon Family)", "warning",{ 
-                                            button: "ตกลง"
-                                        }
-                                    );
                                 }).catch(error => {
-                                    this.isSubmitting = false; // Reset submission state on error
-                                    console.error(error);
+                                    
                                 });
                             }
                         }
