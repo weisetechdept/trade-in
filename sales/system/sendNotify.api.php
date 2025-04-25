@@ -54,12 +54,12 @@
 			curl_close($ch);
 
 			if ($result) {
-				$api = array(
+				return array(
 					'status' => 200,
 					'message' => 'ส่งข้อความสำเร็จ'
 				);
 			} else {
-				$api = array(
+				return array(
 					'status' => 400,
 					'message' => 'ส่งข้อความไม่สำเร็จ'
 				);
@@ -70,7 +70,7 @@
 		$sales = $nms['first_name'];
 		$team = getTeam($nms['id']);
 
-		sendOffer($sales,$team,$id);
+		$api = sendOffer($sales,$team,$id);
 
 		echo json_encode($api);
 				
