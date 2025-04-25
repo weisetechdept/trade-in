@@ -38,7 +38,7 @@
 				'messages' => [
 					[
 						'type' => 'text',
-						'text' => 'แจ้งเตือนเข้ากลุ่มมาแล้วจ้า 🎉'
+						'text' => '[เซลล์] มีรถเข้ามาใหม่ จากเซลล์ '.$sales.' ทีม '.$team.' , รหัสรถ ID : '.$id.'[ https://trade-in.toyotaparagon.com/alink?cid='.$id.' ]'
 					]
 				]
 			];
@@ -54,26 +54,22 @@
 			curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
 
 			$result = curl_exec($ch);
-			if (curl_errno($ch)) {
-				
-				$api = array(
-					'status' => 400,
-					'message' => 'Error: ' . curl_error($ch)
-				);
-
-
-			} else {
-				
-				$api = array(
-					'status' => 200
-				);
-
-			}
 			curl_close($ch);
 			
 		}
 
 		sendOffer();
+		if ($result) {
+			$api = array(
+				'status' => 200,
+				'message' => 'ส่งข้อความสำเร็จ'
+			);
+		} else {
+			$api = array(
+				'status' => 400,
+				'message' => 'ส่งข้อความไม่สำเร็จ'
+			);
+		}
 		echo json_encode($api);
 				
 ?>
