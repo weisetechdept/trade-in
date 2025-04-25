@@ -544,6 +544,10 @@
                                 }
                             }
                         },
+
+
+
+
                         sendData() {
                             if(this.send.type == '0' || this.send.seat == '0' || this.send.door == '0' || this.send.tranmission == '0' || this.send.fuel.length == 0 || this.send.engine == '' || this.send.price == '' || this.send.seller_name == '' || this.send.tel == ''){
                                 swal("กรุณากรอกข้อมูลให้ครบถ้วน", "โปรดตรวจสอบข้อมูลให้ครบถ้วน", "warning",{ 
@@ -558,12 +562,7 @@
                                     button: "ตกลง"
                                 })
                             } else {
-                                if (this.isSubmitting) {
-                                    swal("คำเตือน", "คุณได้ส่งข้อมูลนี้ไปแล้ว", "warning", { 
-                                        button: "ตกลง"
-                                    });
-                                    return;
-                                }
+                                if (this.isSubmitting) return; // Prevent double submission
                                 this.isSubmitting = true;
 
                                 axios.post('/sales/system/new_car_up.inc.php', {
@@ -586,7 +585,7 @@
                                     loan: this.send.loan,
                                     ready: this.send.ready
                                 }).then(res => {
-                                    this.isSubmitting = false;
+                                    this.isSubmitting = false; // Reset submission state
                                     if(res.data.status == 200) 
                                         swal("สำเร็จ", "เพิ่มสมาชิกเรียบร้อย", "success",{  
                                             button: "ตกลง"
@@ -605,39 +604,17 @@
                                         }
                                     );
                                 }).catch(error => {
-                                    this.isSubmitting = false;
-                                    swal("เกิดข้อผิดพลาด", "ไม่สามารถส่งข้อมูลได้ในขณะนี้", "error", { 
-                                        button: "ตกลง"
-                                    });
+                                    this.isSubmitting = false; // Reset submission state on error
+                                    console.error(error);
                                 });
                             }
                         }
-                    },
-                    data() {
-                        return {
-                            send: {
-                                type: '0',
-                                seat: '0',
-                                door: '0',
-                                transmission: '0',
-                                fuel: [],
-                                engine: '',
-                                price: '',
-                                seller_name: '',
-                                tel: '',
-                                passengerType: '0',
-                                suspension: '0',
-                                drive: '0',
-                                year: '',
-                                pv: '',
-                                fin: '',
-                                loan: '',
-                                ready: ''
-                            },
-                                id: '',
-                            },
-                            isSubmitting: false
-                        }
+
+
+
+
+
+
                     }
                 });
                 
