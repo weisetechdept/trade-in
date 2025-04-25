@@ -55,16 +55,25 @@
 
 			$result = curl_exec($ch);
 			if (curl_errno($ch)) {
-				echo 'Curl error: ' . curl_error($ch);
+				
+				$api = array(
+					'status' => 400,
+					'message' => 'Error: ' . curl_error($ch)
+				);
+
+
 			} else {
-				echo 'Response: ' . $result;
+				
+				$api = array(
+					'status' => 200
+				);
+
 			}
 			curl_close($ch);
-			
 			
 		}
 
 		sendOffer();
-
+		echo json_encode($api);
 				
 ?>
