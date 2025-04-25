@@ -29,7 +29,7 @@
 
 		function sendOffer() {
 
-			$channelToken = 'ZTh79ef5O5rWV7Hn0Bi/DBcLUUDYrhrsJxx3J1Tabc9sN7EwaIx6h1ngB/4RotU6rSvCgayGXCLNXETQy/g/JRRFdiAvPmpJ2847cK56p6nAOO8njpvSGIDL6Vp6p4WJ+iXoiXTCAmJ74r3kfZVt2QdB04t89/1O/w1cDnyilFU='; // ใส่ Token จริงของพี่พีตรงนี้
+			$channelToken = 'IZd/+LM0eFbZBGVq67BcM6AC8MDkZSi7/DsikGWU45/a2moikJuzGP77d8J3w1UOFcc98ku2MmnnQwnKwYOyAWvkuMScEfxrImfS5NrC+nRX/bzJNehiCX9PwezVE3St1i81+6WuMUj90anooQivAAdB04t89/1O/w1cDnyilFU='; // ใส่ Token จริงของพี่พีตรงนี้
 			$groupId = 'Cfa616153832373dceb32b2fc028b6404'; // Group ID ที่พี่ได้จาก webhook
 
 			// ข้อความที่ต้องการส่ง
