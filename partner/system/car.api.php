@@ -23,7 +23,7 @@
                     return '<div class="overlay-sold" style="background-image: linear-gradient(rgba(255,0,0,0), rgba(255,0,0,0)), url('.$d.');"></div>';
                 }
             ],
-            ['db' => 'f.find_id', 'dt' => 2, 'field' => 'find_id',
+            ['db' => 's.cast_car', 'dt' => 2, 'field' => 'cast_car',
                 'formatter' => function($d, $row) {
                     //return $d;
                     return getName($d);
