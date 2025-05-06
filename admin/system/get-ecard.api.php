@@ -50,7 +50,7 @@
 
     function thumb($uid){
         global $db;
-        $thumb = $db->where('cari_parent ', $uid)->where('cari_group',2)->getOne('car_image', null,'cari_link');
+        $thumb = $db->where('cari_parent ', $uid)->where('cari_group',1)->getOne('car_image', null,'cari_link');
         if(empty($thumb)){
             return 'https://dummyimage.com/600x400/c4c4c4/fff&amp;text=no-image';
         }else {
