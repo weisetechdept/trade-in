@@ -16,12 +16,12 @@
 
     $line_part_uid = $partner['part_line_uid'];
 
-        function sendBackPartner($carid,$img,$price,$uid){
+        function sendBackPartner($carid,$img,$price){
 
             global $db;
 
             $access_token = 'ZTh79ef5O5rWV7Hn0Bi/DBcLUUDYrhrsJxx3J1Tabc9sN7EwaIx6h1ngB/4RotU6rSvCgayGXCLNXETQy/g/JRRFdiAvPmpJ2847cK56p6nAOO8njpvSGIDL6Vp6p4WJ+iXoiXTCAmJ74r3kfZVt2QdB04t89/1O/w1cDnyilFU=';
-            $userId = $uid;
+            $userId = 'U6f5da61c00cd349634881dafa7a6e624';
 
             $customer_need_price = $db->where('cast_id',$carid)->getOne('car_stock');
             $customer_need_price = isset($customer_need_price['cast_price']) ? $customer_need_price['cast_price'] : 0;
@@ -214,7 +214,7 @@
 
                 sendOffer($id,$sales['line_usrid'],$car['cari_link'],$price);
 
-                sendBackPartner($id,$car['cari_link'],$price,'U6f5da61c00cd349634881dafa7a6e624');
+                sendBackPartner($id,$car['cari_link'],$price);
 
                 sendNotify($id,$price,$parent);
                 $api = array(
