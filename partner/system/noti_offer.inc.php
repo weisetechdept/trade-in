@@ -11,11 +11,6 @@
     $total = $request->total;
     $parent = $request->parent;
 
-    $db->where('part_id',$parent);
-    $partner = $db->getOne('partner');
-
-    $line_part_uid = $partner['part_line_uid'];
-
         function sendBackPartner($carid,$img,$price){
 
             global $db;
