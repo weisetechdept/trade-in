@@ -12,6 +12,16 @@
         return $fin_name['find_year'].' '.$fin_name['find_brand'].' '.$fin_name['find_serie'];
     }
 
+    function thumb($id){
+        global $db;
+        $thumb = $db->where('cari_parent ', $id)->where('cari_group',1)->where('cari_status',1)->getOne('car_image', null,'cari_link');
+        if(empty($thumb)){
+            return 'https://dummyimage.com/600x400/c4c4c4/fff&amp;text=no-image';
+        }else {
+            return $thumb['cari_link'];
+        }
+    }
+
     if($_GET['get'] == 'today'){
 
         $table = 'car_stock';
@@ -19,9 +29,9 @@
         $primaryKey = 'cast_id';
         $columns = [
             ['db' => 's.cast_id', 'dt' => 0, 'field' => 'cast_id'],
-            ['db' => 'c.cari_link', 'dt' => 1, 'field' => 'cari_link',
+            ['db' => 's.cast_id', 'dt' => 1, 'field' => 'cast_id',
                 'formatter' => function($d, $row) {
-                    return '<div class="overlay-sold" style="background-image: linear-gradient(rgba(255,0,0,0), rgba(255,0,0,0)), url('.$d.');"></div>';
+                    return '<div class="overlay-sold" style="background-image: linear-gradient(rgba(255,0,0,0), rgba(255,0,0,0)), url('.thumb($d).');"></div>';
                 }
             ],
             ['db' => 's.cast_car', 'dt' => 2, 'field' => 'cast_car',
@@ -30,16 +40,15 @@
                     return getName($d);
                 }
             ],
-            ['db' => 's.cast_year', 'dt' => 3, 'field' => 'cast_year'],
-            ['db' => 's.cast_transmission', 'dt' => 4, 'field' => 'cast_transmission'],
-            ['db' => 's.cast_mileage', 'dt' => 5, 'field' => 'cast_mileage',
+            ['db' => 's.cast_transmission', 'dt' => 3, 'field' => 'cast_transmission'],
+            ['db' => 's.cast_mileage', 'dt' => 4, 'field' => 'cast_mileage',
                 'formatter' => function($d, $row) {
                     return number_format($d).' กม.';
                 }
             ],
             [
                 'db' => 'cast_id',
-                'dt' => 6,
+                'dt' => 5,
                 'field' => 'cast_id',
                 'formatter' => function($d, $row) {
                     return '<a href="/pt/stock/'.base64_encode($d).'" class="btn btn-outline-primary btn-sm">ดูข้อมูล</a>';
@@ -54,7 +63,7 @@
         $joinQuery .= " INNER JOIN car_image c
             ON s.cast_id = c.cari_parent AND s.cast_link_public = '1' AND s.cast_status IN ('1','2')";
         
-        $joinQuery .= " AND s.cast_datetime BETWEEN '".date('Y-m-d', strtotime(date('Y-m-d').' 00:00:00'.' -30 days'))."' AND '".date('Y-m-d 23:59:59')."'";
+        $joinQuery .= " AND s.cast_datetime BETWEEN '".date('Y-m-d', strtotime(date('Y-m-d').' 00:00:00'.' -15 days'))."' AND '".date('Y-m-d 23:59:59')."'";
         $joinQuery .= " GROUP BY s.cast_id";
 
         echo json_encode(

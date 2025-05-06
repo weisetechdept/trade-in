@@ -132,7 +132,6 @@
                                                 <th>รหัส</th>
                                                 <th>รูป</th>
                                                 <th>ยี่ห้อ - รุ่น</th>
-                                                <th>ปี</th>
                                                 <th>เกียร์</th>
                                                 <th>เลขไมล์</th>
                                                 <th>ข้อมูล</th>
@@ -140,7 +139,6 @@
                                         </thead>
                                         <tbody id="new-today">
                                             <tr>
-                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
