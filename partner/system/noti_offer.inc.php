@@ -214,7 +214,7 @@
 
                 sendOffer($id,$sales['line_usrid'],$car['cari_link'],$price);
 
-                sendBackPartner($id,$car['cari_link'],$price,$line_part_uid);
+                sendBackPartner($id,$car['cari_link'],$price,'U6f5da61c00cd349634881dafa7a6e624');
 
                 sendNotify($id,$price,$parent);
                 $api = array(
