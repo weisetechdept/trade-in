@@ -595,7 +595,7 @@
                                                     <p class="mt-2 mb-1">หมวดหมู่ : {{ docs.group }}</p>
                                                     <select class="form-control" v-model="docs.group" @change="editImgType(docs.group,docs.id)">
                                                         <option value="0">ไม่มีหมวดหมู่</option>
-                                                        <option value="1">[ภายนอก] : ด้านหน้าตรง</option>
+                                                        <option value="1">[ภายนอก] : ด้านหน้าตรง (จะไปขึ้นใน e-card)</option>
                                                         <option value="2">[ภายนอก] : ด้านหลังตรง</option>
                                                         <option value="3">[ภายนอก] : มุมเฉียงหน้า</option>
                                                         <option value="4">[ภายนอก] : มุมเฉียงหลัง</option>
