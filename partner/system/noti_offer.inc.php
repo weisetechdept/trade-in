@@ -11,9 +11,7 @@
     $total = $request->total;
     $parent = $request->parent;
 
-    $partnid = $_SESSION['partner_id'];
-
-    $db->where('part_id',$partnid);
+    $db->where('part_id',$parent);
     $partner = $db->getOne('partner');
 
     $line_part_uid = $partner['part_line_uid'];
@@ -216,7 +214,7 @@
 
                 sendOffer($id,$sales['line_usrid'],$car['cari_link'],$price);
 
-                sendBackPartner($id,$car['cari_link'],$price, $line_part_uid);
+                sendBackPartner($id,$car['cari_link'],$price,$line_part_uid);
 
                 sendNotify($id,$price,$parent);
                 $api = array(
