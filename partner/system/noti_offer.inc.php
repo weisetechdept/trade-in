@@ -11,12 +11,19 @@
     $total = $request->total;
     $parent = $request->parent;
 
-        function sendBackPartner($carid,$img,$price){
+    $partnid = $_SESSION['partner_id'];
+
+    $db->where('part_id',$partnid);
+    $partner = $db->getOne('partner');
+
+    $line_part_uid = $partner['part_line_uid'];
+
+        function sendBackPartner($carid,$img,$price,$uid){
 
             global $db;
 
             $access_token = 'ZTh79ef5O5rWV7Hn0Bi/DBcLUUDYrhrsJxx3J1Tabc9sN7EwaIx6h1ngB/4RotU6rSvCgayGXCLNXETQy/g/JRRFdiAvPmpJ2847cK56p6nAOO8njpvSGIDL6Vp6p4WJ+iXoiXTCAmJ74r3kfZVt2QdB04t89/1O/w1cDnyilFU=';
-            $userId = 'U6f5da61c00cd349634881dafa7a6e624';
+            $userId = $uid;
 
             $customer_need_price = $db->where('cast_id',$carid)->getOne('car_stock');
             $customer_need_price = isset($customer_need_price['cast_price']) ? $customer_need_price['cast_price'] : 0;
@@ -25,15 +32,24 @@
             if($diff_price <= 50000 && $customer_need_price > 0){
 
                 $random_true = array(
+                    'ราคานี้โอเคเลยครับ! เดี๋ยวเอาไปเสนอให้ลูกค้าก่อนนะ ถ้าผ่านเดี๋ยวติดต่อกลับทันทีเลยครับ',
+                    'ราคาน่าเจรจามากครับ ขอเวลาเราคุยกับลูกค้าสักนิด แล้วจะรีบแจ้งกลับครับ',
+                    'เข้าข่ายที่ลูกค้าน่าจะโอเคครับ เดี๋ยวลองเจรจาให้ แล้วคุณอาจได้สิทธิ์ปิดดีลนี้เลยครับ!',
                     'ดีเลยครับ ราคานี้สามารถเข้าสู่กระบวนการเจรจาได้ทันที',
-                    'ราคานี้น่าจะโอเคกับลูกค้า เดี๋ยวเราจะลองคุยให้ครับ'
+                    'ราคานี้น่าจะโอเคกับลูกค้า เดี๋ยวเราจะลองคุยให้ครับ',
+                    'ราคานี้เข้าเกณฑ์ที่เราสามารถเสนอให้ลูกค้าได้ เดี๋ยวเราจะดำเนินการเจรจาให้ครับผม'
                 );
                 $random = array_rand($random_true, 1);
                 $res_text = $random_true[$random];
 
             } else {
                 $random_false = array(
-                    'ถ้าราคาขยับขึ้นอีกนิด ลูกค้าน่าจะสนใจมากขึ้นครับ'
+                    'ราคานี้อาจยังไม่โดนใจลูกค้า ลองปรับขึ้นอีกนิดให้พอได้เริ่มคุยกันนะครับ',
+                    'อีกนิดเดียวก็อาจจะเข้าเขตต่อรองได้แล้ว ลองขยับราคาขึ้นนิดนึงครับ',
+                    'ถ้าราคาขยับขึ้นอีกนิด ลูกค้าน่าจะสนใจมากขึ้นครับ',
+                    'หากเพิ่มราคาอีกสักหน่อย อาจช่วยให้เราเริ่มต้นบทสนทนากับลูกค้าได้ง่ายขึ้นครับ',
+                    'โอกาสในการปิดการขายอาจเพิ่มขึ้นหากราคาสูงขึ้นใกล้กับความคาดหวังของลูกค้า',
+                    'ราคานี้อาจจะยังไม่ตรงใจลูกค้า ลองปรับขึ้นอีกนิดเพื่อให้เริ่มคุยกันได้ครับ',
                 );
                 $random = array_rand($random_false, 1);
                 $res_text = $random_false[$random];
@@ -200,7 +216,7 @@
 
                 sendOffer($id,$sales['line_usrid'],$car['cari_link'],$price);
 
-                sendBackPartner($id,$car['cari_link'],$price);
+                sendBackPartner($id,$car['cari_link'],$price, $line_part_uid);
 
                 sendNotify($id,$price,$parent);
                 $api = array(
