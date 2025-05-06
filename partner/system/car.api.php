@@ -7,6 +7,7 @@
     require('ssp.class.php'); 
 
     function getName($id){
+        global $db;
         $fin_name = $db->where('find_id',$id)->getOne('finance_data');
         return $fin_name['find_year'].' '.$fin_name['find_brand'].' '.$fin_name['find_serie'];
     }
@@ -26,7 +27,7 @@
             ['db' => 's.cast_car', 'dt' => 2, 'field' => 'cast_car',
                 'formatter' => function($d, $row) {
                     //return $d;
-                    return $d;
+                    return getName($d);
                 }
             ],
             ['db' => 's.cast_year', 'dt' => 3, 'field' => 'cast_year'],
