@@ -4,7 +4,12 @@
     date_default_timezone_set("Asia/Bangkok");
 
     $sql_details = ['user'=> $usern,'pass'=> $passn,'db'=> $dbn,'host'=> $hostn,'charset'=>'utf8'];
-    require('ssp.class.php');
+    require('ssp.class.php'); 
+
+    function getName($id){
+        $fin_name = $db->where('find_id',$id)->getOne('finance_data');
+        return $fin_name['find_year'].' '.$fin_name['find_brand'].' '.$fin_name['find_serie'];
+    }
 
     if($_GET['get'] == 'today'){
 
@@ -18,9 +23,10 @@
                     return '<div class="overlay-sold" style="background-image: linear-gradient(rgba(255,0,0,0), rgba(255,0,0,0)), url('.$d.');"></div>';
                 }
             ],
-            ['db' => 'f.find_section', 'dt' => 2, 'field' => 'find_section',
+            ['db' => 'f.find_id', 'dt' => 2, 'field' => 'find_id',
                 'formatter' => function($d, $row) {
-                    return $d;
+                    //return $d;
+                    return getName($d);
                 }
             ],
             ['db' => 's.cast_year', 'dt' => 3, 'field' => 'cast_year'],
