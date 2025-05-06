@@ -26,7 +26,7 @@
             ['db' => 's.cast_car', 'dt' => 2, 'field' => 'cast_car',
                 'formatter' => function($d, $row) {
                     //return $d;
-                    return getName($d);
+                    return $d;
                 }
             ],
             ['db' => 's.cast_year', 'dt' => 3, 'field' => 'cast_year'],
