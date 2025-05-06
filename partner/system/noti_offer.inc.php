@@ -11,12 +11,17 @@
     $total = $request->total;
     $parent = $request->parent;
 
-        function sendBackPartner($carid,$img,$price){
+        function sendBackPartner($carid,$img,$price,$parent) {
 
             global $db;
 
+            $db->where('part_id',$parent);
+            $partner = $db->getOne('partner');
+            $part_line_id = $partner['part_line_uid'];
+
             $access_token = 'ZTh79ef5O5rWV7Hn0Bi/DBcLUUDYrhrsJxx3J1Tabc9sN7EwaIx6h1ngB/4RotU6rSvCgayGXCLNXETQy/g/JRRFdiAvPmpJ2847cK56p6nAOO8njpvSGIDL6Vp6p4WJ+iXoiXTCAmJ74r3kfZVt2QdB04t89/1O/w1cDnyilFU=';
-            $userId = 'U6f5da61c00cd349634881dafa7a6e624';
+            
+            $userId = $part_line_id;
 
             $customer_need_price = $db->where('cast_id',$carid)->getOne('car_stock');
             $customer_need_price = isset($customer_need_price['cast_price']) ? $customer_need_price['cast_price'] : 0;
