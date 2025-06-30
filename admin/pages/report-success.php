@@ -353,14 +353,13 @@
                     $('#datatable').DataTable().ajax.url('/admin/system/report-success.api.php?show='+ stat ).load(); // Reload the DataTable with a new URL
                 },
                 updateStatus(){
-                        if(ecard.date == '' || ecard.date == '0000-00-00' || ecard.date == null){
-                                this.ecard.date = '0000-00-00';
-                            }
+                    
                         //console.log(this.ecard);
+                        if(this.ecard.date == '' || this.ecard.date == '0000-00-00' || this.ecard.date == null){
+                            this.ecard.date = '0000-00-00';
+                        }
+
                         axios.post('/admin/system/success_insert.api.php', {
-
-                            
-
                             id: this.ecard.id,
                             partner: this.ecard.partner,
                             price: this.ecard.price,
@@ -370,7 +369,7 @@
                             date: this.ecard.date,
                             detailStatus: this.ecard.detail
                         }).then(response => {
-                            //onsole.log(response.data);
+                            console.log(response.data);
                             if(response.data.updateSucc.status == 'success'){
                                 swal("สำเร็จ", "บันทึกข้อมูลเรียบร้อย", "success");
                                 $('#datatable').DataTable().ajax.reload(); // Reload the DataTable
