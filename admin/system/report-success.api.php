@@ -30,6 +30,12 @@
         return "$strDay $strMonthThai $strYear";
     }
 
+    function getBuyerName($uid){
+        global $db;
+        $buyer = $db->where('part_id', $uid)->getOne('db_member', null,'part_fname');
+        return $buyer['part_fname'];
+    }
+
     function getTeamName($uid){
         global $db_nms;
         $team = $db_nms->get('db_user_group', null, 'name,detail,leader');
@@ -150,7 +156,7 @@
                 if(empty($d)){
                     return '-';
                 } else {
-                    return $d;
+                    return getBuyerName($d);
                 }
             }
         ],
