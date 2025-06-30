@@ -356,6 +356,11 @@
                     
                         //console.log(this.ecard);
                         axios.post('/admin/system/success_insert.api.php', {
+
+                            if(ecard.date == '' || ecard.date == '0000-00-00' || ecard.date == null){
+                                this.ecard.date = '0000-00-00';
+                            }
+
                             id: this.ecard.id,
                             partner: this.ecard.partner,
                             price: this.ecard.price,
@@ -365,7 +370,7 @@
                             date: this.ecard.date,
                             detailStatus: this.ecard.detail
                         }).then(response => {
-                            console.log(response.data);
+                            //onsole.log(response.data);
                             if(response.data.updateSucc.status == 'success'){
                                 swal("สำเร็จ", "บันทึกข้อมูลเรียบร้อย", "success");
                                 $('#datatable').DataTable().ajax.reload(); // Reload the DataTable
