@@ -183,13 +183,28 @@
                                             <td> 
                                                 <select v-model="ecard.newcar_detail" class="form-control">
                                                     <option value="0">= เลือกเหตุผล =</option>
-                                                    <option v-if="ecard.newcar == 3" value="1">ลูกค้าไม่พร้อมขาย</option>
+                                                    <!-- <option v-if="ecard.newcar == 3" value="1">ลูกค้าไม่พร้อมขาย</option>
                                                     <option v-if="ecard.newcar == 3" value="2">ไม่ขายแล้ว</option>
                                                     <option v-if="ecard.newcar == 3" value="3">รอหาผู้ซื้อ</option>
                                                     <option v-if="ecard.newcar == 2" value="4">ลูกค้าไม่ประสงค์จะจองรถใหม่อยู่แล้ว</option>
                                                     <option v-if="ecard.newcar == 2" value="5">ยังไม่ตัดสินใจ</option>
                                                     <option v-if="ecard.newcar == 4" value="6">ไม่พร้อม</option>
-                                                    <option v-if="ecard.newcar == 4" value="7">อาจจะจบเก่า (ใกล้เคียง 50,000)</option>
+                                                    <option v-if="ecard.newcar == 4" value="7">อาจจะจบเก่า (ใกล้เคียง 50,000)</option> -->
+
+                                                    <option v-if="ecard.newcar == 4" value="8">ติดตามต่อ</option>
+                                                    <option v-if="ecard.newcar == 4" value="9">ขายเองที่อื่นแล้ว</option>
+                                                    <option v-if="ecard.newcar == 4" value="10">เปลี่ยนใจไม่ขาย</option>
+                                                    <option v-if="ecard.newcar == 4" value="11">ยังไม่พร้อมออกรถใหม่</option>
+                                                    <option v-if="ecard.newcar == 4" value="12">ราคาใกล้เคียงแต่ลูกค้าไม่ยอมลดราคา</option>
+                                                    <option v-if="ecard.newcar == 4" value="13">ราคาใกล้เคียงแต่ลูกค้าเงียบไม่ตอบ</option>
+                                                    <option v-if="ecard.newcar == 4" value="14">สำเร็จ</option>
+                                                    <option v-if="ecard.newcar == 4" value="15">โพสต์ขายอยู่</option>
+                                                    <option v-if="ecard.newcar == 4" value="16">เซลส์ไม่ตอบ</option>
+                                                    <option v-if="ecard.newcar == 4" value="17">ราคาใกล้เคียงแต่ยังไม่จบรถใหม่</option>
+                                                    <option v-if="ecard.newcar == 4" value="18">หนี้ท่วม</option>
+                                                    <option v-if="ecard.newcar == 4" value="19">ลูกค้าต้องการมากกว่าราคาตั้งขาย</option>
+                                                    <option v-if="ecard.newcar == 4" value="20">ลูกค้าไม่แจ้งราคาที่จะขาย</option>
+                                                    <option v-if="ecard.newcar == 4" value="21">จบรถเก่าแล้ว/ลูกค้ายกเลิกขาย</option>
                                                 </select>
                                             </td>
                                         </tr>
@@ -234,7 +249,7 @@
                                                 <th>ผู้ซื้อ</th>
                                                 <th>ราคา</th>
                                                 <th>ค่าคอม</th>
-                                                <th>สถานะ</th>
+                                                <th>สถานะรอง</th>
                                                 <th>หมายเหตุ</th>
                                                 <th>วันที่จบ</th>
                                                 <th>จัดการ</th>

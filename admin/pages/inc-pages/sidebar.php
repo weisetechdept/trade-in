@@ -33,6 +33,7 @@
                         <li><a href="/admin/trast">รถยนต์ที่ถูกลบ</a></li>
                     </ul>
                 </li>
+                <li><a href="/admin/success-report" class=" waves-effect"><i class="feather-box"></i><span>อัพเดทสถานะ</span></a></li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="feather-bar-chart-2"></i><span>รายงาน</span></a>
                     <ul class="sub-menu" aria-expanded="false">
@@ -41,7 +42,7 @@
                         <li><a href="/admin/qm-report">รายงานเปรียบเทียบ</a></li>
                         <li><a href="/admin/price-report">รายงานราคา</a></li>
                         <!-- <li><a href="/admin/img-report">รายงานคุณภาพลูกค้า</a></li> -->
-                        <li><a href="/admin/success-report">รายงานเพิ่มเติม 1</a></li>
+                        <!-- <li><a href="/admin/success-report">รายงานเพิ่มเติม 1</a></li> -->
                         <li><a href="/admin/status-report">รายงานสถานะ</a></li>
                     </ul>
                 </li>
