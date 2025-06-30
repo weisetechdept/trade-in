@@ -209,9 +209,9 @@
         ['db' => 'succ_newcar_rs', 'dt' => 14, 'field'=> 'succ_newcar_rs',
             'formatter' => function($d, $row){
                 if($d == '' || $d == '0' || empty($d)){
-                    return '✓';
-                } else {
                     return '✕';
+                } else {
+                    return '✓';
                 }
             }
         ],
