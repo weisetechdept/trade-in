@@ -239,13 +239,8 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="d-flex flex-column">
-                                        <table id="datatable" class="table table-responsive table-striped table-bordered dt-responsive">
+                                        <table id="datatable" class="table table-responsive table-striped dt-responsive">
                                             <thead>
-                                                <tr>
-                                                    <th colspan="8">ข้อมูล Trade</th>
-                                                    <th colspan="6" class="bg-light-gray">ข้อมูลขาย</th>
-                                                    <th>จัดการ</th>
-                                                </tr>
                                                 <tr>
                                                     <th width="45px">รหัส</th>
                                                     <th>รูป</th>
