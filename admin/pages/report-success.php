@@ -260,11 +260,13 @@
                                                 <th>สถานะรอง</th>
                                                 <th>หมายเหตุ</th>
                                                 <th>วันที่จบ</th>
+                                                <th>RS</th>
                                                 <th>จัดการ</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
+                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
