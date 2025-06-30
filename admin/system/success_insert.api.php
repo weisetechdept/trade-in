@@ -24,7 +24,7 @@
             'succ_commission' => $commission,
             'succ_newcar' => $newcar,
             'succ_newcar_detail' => $newcar_detail,
-            'succ_newcar_rs' => '0',
+           
             'succ_date' => $date,
             'succ_comment' => $detail,
             'succ_newcar_rs' => $newcar_rs,
@@ -47,7 +47,7 @@
             'succ_newcar' => $newcar,
             'succ_newcar_detail' => $newcar_detail,
             'succ_comment' => $detail,
-            'succ_newcar_rs' => '0',
+            'succ_newcar_rs' => $newcar_rs,
             'succ_date' => $date,
             'succ_parent' => $id,
             'succ_create_at' => date('Y-m-d H:i:s'),
