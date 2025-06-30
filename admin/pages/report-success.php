@@ -173,8 +173,8 @@
                                                     <option value="0">= เลือกสถานะรอง =</option>
                                                     <option value="1">จบรถเก่า / จองรถใหม่</option>
                                                     <option value="2">จบรถเก่า / ไม่จองรถใหม่</option>
-                                                    <option value="3">ไม่จบรถเก่า / จองรถใหม่</option>
-                                                    <option value="4">ไม่จบรถเก่า / ไม่จองรถใหม่</option>
+                                                    <option value="3">ไม่จบรถเก่า / ไม่จองรถใหม่</option>
+                                                    <option value="4">ไม่จบรถเก่า / จองรถใหม่</option>
                                                 </select>
                                             </td>
                                         </tr>
@@ -191,20 +191,20 @@
                                                     <option v-if="ecard.newcar == 4" value="6">ไม่พร้อม</option>
                                                     <option v-if="ecard.newcar == 4" value="7">อาจจะจบเก่า (ใกล้เคียง 50,000)</option> -->
 
-                                                    <option v-if="ecard.newcar == 4" value="8">ติดตามต่อ</option>
-                                                    <option v-if="ecard.newcar == 4" value="9">ขายเองที่อื่นแล้ว</option>
-                                                    <option v-if="ecard.newcar == 4" value="10">เปลี่ยนใจไม่ขาย</option>
-                                                    <option v-if="ecard.newcar == 4" value="11">ยังไม่พร้อมออกรถใหม่</option>
-                                                    <option v-if="ecard.newcar == 4" value="12">ราคาใกล้เคียงแต่ลูกค้าไม่ยอมลดราคา</option>
-                                                    <option v-if="ecard.newcar == 4" value="13">ราคาใกล้เคียงแต่ลูกค้าเงียบไม่ตอบ</option>
-                                                    <option v-if="ecard.newcar == 4" value="14">สำเร็จ</option>
-                                                    <option v-if="ecard.newcar == 4" value="15">โพสต์ขายอยู่</option>
-                                                    <option v-if="ecard.newcar == 4" value="16">เซลส์ไม่ตอบ</option>
-                                                    <option v-if="ecard.newcar == 4" value="17">ราคาใกล้เคียงแต่ยังไม่จบรถใหม่</option>
-                                                    <option v-if="ecard.newcar == 4" value="18">หนี้ท่วม</option>
-                                                    <option v-if="ecard.newcar == 4" value="19">ลูกค้าต้องการมากกว่าราคาตั้งขาย</option>
-                                                    <option v-if="ecard.newcar == 4" value="20">ลูกค้าไม่แจ้งราคาที่จะขาย</option>
-                                                    <option v-if="ecard.newcar == 4" value="21">จบรถเก่าแล้ว/ลูกค้ายกเลิกขาย</option>
+                                                    <option v-if="ecard.newcar == 4 || ecard.newcar == 3" value="8">ติดตามต่อ</option>
+                                                    <option v-if="ecard.newcar == 4 || ecard.newcar == 3" value="9">ขายเองที่อื่นแล้ว</option>
+                                                    <option v-if="ecard.newcar == 4 || ecard.newcar == 3" value="10">เปลี่ยนใจไม่ขาย</option>
+                                                    <option v-if="ecard.newcar == 3 || ecard.newcar == 2" value="11">ยังไม่พร้อมออกรถใหม่</option>
+                                                    <option v-if="ecard.newcar == 4 || ecard.newcar == 3" value="12">ราคาใกล้เคียงแต่ลูกค้าไม่ยอมลดราคา</option>
+                                                    <option v-if="ecard.newcar == 4 || ecard.newcar == 3" value="13">ราคาใกล้เคียงแต่ลูกค้าเงียบไม่ตอบ</option>
+                                                    <option v-if="ecard.newcar == 1 || ecard.newcar == 2" value="14">สำเร็จ</option>
+                                                    <option v-if="ecard.newcar == 4 || ecard.newcar == 3" value="15">โพสต์ขายอยู่</option>
+                                                    <option v-if="ecard.newcar == 4 || ecard.newcar == 3" value="16">เซลส์ไม่ตอบ</option>
+                                                    <option v-if="ecard.newcar == 3" value="17">ราคาใกล้เคียงแต่ยังไม่จบรถใหม่</option>
+                                                    <option v-if="ecard.newcar == 4 || ecard.newcar == 3" value="18">หนี้ท่วม</option>
+                                                    <option v-if="ecard.newcar == 4 || ecard.newcar == 3" value="19">ลูกค้าต้องการมากกว่าราคาตั้งขาย</option>
+                                                    <option v-if="ecard.newcar == 4 || ecard.newcar == 3" value="20">ลูกค้าไม่แจ้งราคาที่จะขาย</option>
+                                                    <option v-if="ecard.newcar == 4 || ecard.newcar == 3" value="21">จบรถเก่าแล้ว/ลูกค้ายกเลิกขาย</option>
                                                 </select>
                                             </td>
                                         </tr>

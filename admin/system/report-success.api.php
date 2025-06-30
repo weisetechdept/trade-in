@@ -73,9 +73,9 @@
         } elseif ($st == 2) {
             return "<span class=\"badge badge-soft-primary\">จบรถเก่า / ไม่จองรถใหม่</span>";
         } elseif ($st == 3) {
-            return "<span class=\"badge badge-soft-warning\">ไม่จบรถเก่า / จองรถใหม่</span>";
+            return "<span class=\"badge badge-soft-warning\">ไม่จบรถเก่า / ไม่จองรถใหม่</span>";
         } elseif ($st == 4) {
-            return "<span class=\"badge badge-soft-info\">ไม่จบรถเก่า / ไม่จองรถใหม่</span>";
+            return "<span class=\"badge badge-soft-info\">ไม่จบรถเก่า / จองรถใหม่</span>";
         } 
     }
 
