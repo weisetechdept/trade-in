@@ -257,7 +257,7 @@
                                                     <th>หมายเหตุ</th>
                                                     <th>วันที่จบ</th>
                                                     <th>RS</th>
-                                                    <th width="200px">จัดการ</th>
+                                                    <th width="120px">จัดการ</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
