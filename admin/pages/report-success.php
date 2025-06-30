@@ -238,7 +238,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <table id="datatable" class="table table-responsive">
+                                    <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap" style="width: 100%;">
                                         <thead>
                                             <tr>
                                                 <th colspan="8" >ข้อมูล Trade</th>
