@@ -349,6 +349,7 @@
                     newcar_detail:'0',
                     date: '',
                     detail:' ',
+                    newcar_rs:'0',
                     list: []
                 },
             },
@@ -375,7 +376,8 @@
                             newcar: this.ecard.newcar,
                             newcar_detail: this.ecard.newcar_detail,
                             date: this.ecard.date,
-                            detailStatus: this.ecard.detail
+                            detailStatus: this.ecard.detail,
+                            newcar_rs: this.ecard.newcar_rs
                         }).then(response => {
                             console.log(response.data);
                             if(response.data.updateSucc.status == 'success'){
