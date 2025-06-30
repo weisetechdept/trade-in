@@ -238,53 +238,55 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap" style="width: 100%;">
-                                        <thead>
-                                            <tr>
-                                                <th colspan="8" >ข้อมูล Trade</th>
-                                                <th colspan="6" class="bg-light-gray" >ข้อมูลขาย</th>
-                                                <th>จัดการ</th>
-                                            </tr>
-                                            <tr>
-                                                <th width="45px">รหัส</th>
-                                                <th>รูป</th>
-                                                <th>แบบรุ่น</th>
-                                                <th>ปีรุ่น</th>
-                                                <th>สี</th>
-                                                <th>เซลล์</th>
-                                                <th>ทีม</th>
-                                                <th>สถานะ</th>
-                                                <th>ผู้ซื้อ</th>
-                                                <th>ราคา</th>
-                                                <th>ค่าคอม</th>
-                                                <th>สถานะรอง</th>
-                                                <th>หมายเหตุ</th>
-                                                <th>วันที่จบ</th>
-                                                <th>RS</th>
-                                                <th>จัดการ</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <div class="d-flex flex-column">
+                                        <table id="datatable" class="table table-responsive table-striped table-bordered dt-responsive">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="8">ข้อมูล Trade</th>
+                                                    <th colspan="6" class="bg-light-gray">ข้อมูลขาย</th>
+                                                    <th>จัดการ</th>
+                                                </tr>
+                                                <tr>
+                                                    <th width="45px">รหัส</th>
+                                                    <th>รูป</th>
+                                                    <th>แบบรุ่น</th>
+                                                    <th>ปีรุ่น</th>
+                                                    <th>สี</th>
+                                                    <th>เซลล์</th>
+                                                    <th>ทีม</th>
+                                                    <th>สถานะ</th>
+                                                    <th>ผู้ซื้อ</th>
+                                                    <th>ราคา</th>
+                                                    <th>ค่าคอม</th>
+                                                    <th>สถานะรอง</th>
+                                                    <th>หมายเหตุ</th>
+                                                    <th>วันที่จบ</th>
+                                                    <th>RS</th>
+                                                    <th>จัดการ</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
 
                                 </div> 
                             </div>
