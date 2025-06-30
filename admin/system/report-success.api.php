@@ -180,7 +180,7 @@
         ],
         ['db' => 'succ_date', 'dt' => 13, 'field'=> 'succ_date',
             'formatter' => function($d, $row){
-                if($d == ''){
+                if($d == '' || $d == '0000-00-00' || empty($d)){
                     return '-';
                 } else {
                     return DateThai($d);
