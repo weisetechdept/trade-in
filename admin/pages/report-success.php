@@ -214,6 +214,14 @@
                                                 <textarea v-model="ecard.detail" class="form-control" rows="3"></textarea>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <th scope="row">การปล่อยรถใหม่ (RS)</th>
+                                            <td> <select v-model="ecard.newcar_rs" class="form-control">
+                                                    <option value="0">ยังไม่ RS</option>
+                                                    <option value="1">RS แล้ว</option>
+                                                </select>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
