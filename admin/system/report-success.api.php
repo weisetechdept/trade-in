@@ -32,8 +32,9 @@
 
     function getBuyerName($uid){
         global $db;
-        $buyer = $db->where('part_id', $uid)->getOne('partner', null,'part_fname');
-        return $buyer['part_fname'];
+        $db->join('partner_bus b', 'p.part_bus_id = b.busi_id', 'LEFT');
+        $buyer = $db->where('part_id', $uid)->getOne('partner p', null,'part_fname');
+        return $buyer['part_fname'].' '.$buyer['busi_name'];
     }
 
     function getTeamName($uid){
