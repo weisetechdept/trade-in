@@ -44,6 +44,7 @@
                         <!-- <li><a href="/admin/img-report">รายงานคุณภาพลูกค้า</a></li> -->
                         <!-- <li><a href="/admin/success-report">รายงานเพิ่มเติม 1</a></li> -->
                         <li><a href="/admin/status-report">รายงานสถานะ</a></li>
+                        <li><a href="/admin/mgr-report">สรุป</a></li>
                     </ul>
                 </li>
                 <li><a href="/admin/member" class=" waves-effect"><i class="feather-user"></i><span>จัดการสมาชิก</span></a></li>

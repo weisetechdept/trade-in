@@ -136,6 +136,10 @@
         require_once 'admin/pages/report-success.php';
     });
 
+    $router->get( '/admin/mgr-report', function() {
+        require_once 'admin/pages/report-mgr.php';
+    });
+
     /* sales */
 
     $router->get( '/app', function() {
