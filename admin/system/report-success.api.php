@@ -32,7 +32,7 @@
 
     function getBuyerName($uid){
         global $db;
-        $buyer = $db->where('part_id', $uid)->getOne('db_member', null,'part_fname');
+        $buyer = $db->where('part_id', $uid)->getOne('partner', null,'part_fname');
         return $buyer['part_fname'];
     }
 
