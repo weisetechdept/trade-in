@@ -215,7 +215,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">การปล่อยรถใหม่ (RS)</th>
+                                            <th scope="row">รถใหม่ (RS)</th>
                                             <td> <select v-model="ecard.newcar_rs" class="form-control">
                                                     <option value="0">ยังไม่ RS</option>
                                                     <option value="1">RS แล้ว</option>
