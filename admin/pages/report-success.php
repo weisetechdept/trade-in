@@ -353,13 +353,13 @@
                     $('#datatable').DataTable().ajax.url('/admin/system/report-success.api.php?show='+ stat ).load(); // Reload the DataTable with a new URL
                 },
                 updateStatus(){
-                    
+                        if(ecard.date == '' || ecard.date == '0000-00-00' || ecard.date == null){
+                                this.ecard.date = '0000-00-00';
+                            }
                         //console.log(this.ecard);
                         axios.post('/admin/system/success_insert.api.php', {
 
-                            if(ecard.date == '' || ecard.date == '0000-00-00' || ecard.date == null){
-                                this.ecard.date = '0000-00-00';
-                            }
+                            
 
                             id: this.ecard.id,
                             partner: this.ecard.partner,
