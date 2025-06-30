@@ -208,7 +208,11 @@
         ],
         ['db' => 'succ_newcar_rs', 'dt' => 14, 'field'=> 'succ_newcar_rs',
             'formatter' => function($d, $row){
-                    return $d;
+                if($d == '' || $d == '0' || empty($d)){
+                    return '✓';
+                } else {
+                    return '✕';
+                }
             }
         ],
         ['db' => 'cast_id', 'dt' => 15, 'field'=> 'cast_id',
