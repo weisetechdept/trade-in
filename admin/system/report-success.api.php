@@ -122,40 +122,27 @@ $table = 'car_stock';
 
 $primaryKey = 'cast_id';
 $columns = [
-    ['db' => 'cast_id', 'dt' => 0, 'field' => 'cast_id',
-        'formatter' => function($d, $row){
-            return $d;
-        }
-    ],
+    ['db' => 'cast_id', 'dt' => 0, 'field' => 'cast_id'],
     ['db' => 'cast_id', 'dt' => 1, 'field' => 'cast_id',
         'formatter' => function($d, $row){
             return thumb($d);
         }
     ],
-    ['db' => 'cast_car', 'dt' => 2, 'field' => 'cast_car',
+    // สำหรับแบบรุ่น - ให้ search ผ่าน concat field
+    ['db' => 'CONCAT(IFNULL(f.find_brand,""), " ", IFNULL(f.find_serie,""))', 'dt' => 2, 'field' => 'brand_serie', 'as' => 'brand_serie',
         'formatter' => function($d, $row){
-            return getBrandSerie($d);
+            return $d; // ใช้ค่าที่ concat แล้ว
         }
     ],
-    ['db' => 'find_year', 'dt' => 3, 'field'=> 'find_year',
-        'formatter' => function($d, $row){
-            if(empty($d)){
-                return '-';
-            } else {
-                return $d;
-            }
-        }
-    ],
-    ['db' => 'cast_color', 'dt' => 4, 'field'=> 'cast_color',
-        'formatter' => function($d, $row){
-            return $d;
-        }
-    ],
+    ['db' => 'find_year', 'dt' => 3, 'field'=> 'find_year'],
+    ['db' => 'cast_color', 'dt' => 4, 'field'=> 'cast_color'],
+    // สำหรับเซลล์ - เก็บเป็น ID แต่แสดงเป็นชื่อ
     ['db' => 'cast_sales_parent_no', 'dt' => 5, 'field'=> 'cast_sales_parent_no',
         'formatter' => function($d, $row){
             return getSaleName($d); 
         }
     ],
+    // สำหรับทีม - เก็บเป็น ID แต่แสดงเป็นชื่อทีม
     ['db' => 'cast_sales_parent_no', 'dt' => 6, 'field'=> 'cast_sales_parent_no',
         'formatter' => function($d, $row){
             return getTeamName($d); 
@@ -166,9 +153,13 @@ $columns = [
             return number_format($d);
         }
     ],
-    ['db' => 'cast_car', 'dt' => 8, 'field'=> 'cast_car',
+    ['db' => 'find_price', 'dt' => 8, 'field'=> 'find_price',
         'formatter' => function($d, $row){
-            return getTLTPrice($d);
+            if(empty($d)){
+                return "ไม่มี";
+            } else {
+                return number_format($d);
+            }
         }
     ],
     ['db' => 'cast_price', 'dt' => 9, 'field'=> 'cast_price',
@@ -222,15 +213,7 @@ $columns = [
             }
         }
     ],
-    ['db' => 'succ_comment', 'dt' => 16, 'field'=> 'succ_comment',
-        'formatter' => function($d, $row){
-            if(empty($d)){
-                return '-';
-            } else {
-                return $d;
-            }
-        }
-    ],
+    ['db' => 'succ_comment', 'dt' => 16, 'field'=> 'succ_comment'],
     ['db' => 'succ_date', 'dt' => 17, 'field'=> 'succ_date',
         'formatter' => function($d, $row){
             if($d == '' || $d == '0000-00-00' || empty($d)){
@@ -342,3 +325,9 @@ error_log("Final WHERE clause: " . $where);
 echo json_encode(
     SSP::simple($_GET, $sql_details_1, $table, $primaryKey, $columns, $joinQuery, $where)
 );
+
+// Debug log สำหรับ development
+if (isset($_GET['debug'])) {
+    error_log("Search WHERE clause: " . $where);
+    error_log("Search parameters: " . json_encode($_GET));
+}
