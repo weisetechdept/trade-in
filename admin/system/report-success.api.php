@@ -166,7 +166,7 @@
             }
         ],
 
-        ['db' => 'cast_car', 'dt' => 8, 'field'=> 'cast_car',
+        ['db' => 'cast_car', 'dt' => 8, 'field'=> 'cast_id',
             'formatter' => function($d, $row){
                 return getTLTPrice($d);
             }
@@ -184,11 +184,6 @@
         ],
         ['db' => 'cast_id', 'dt' => 11, 'field'=> 'cast_id',
             'formatter' => function($d, $row){
-                return getTLTPrice($d);
-            }
-        ],
-        ['db' => 'cast_id', 'dt' => 12, 'field'=> 'cast_id',
-            'formatter' => function($d, $row){
                 return countOffer($d);
             }
         ],
@@ -197,7 +192,7 @@
 
 
 
-        ['db' => 'succ_partner', 'dt' => 13, 'field'=> 'succ_partner',
+        ['db' => 'succ_partner', 'dt' => 12, 'field'=> 'succ_partner',
             'formatter' => function($d, $row){
                 if(empty($d)){
                     return '-';
@@ -206,7 +201,7 @@
                 }
             }
         ],
-        ['db' => 'succ_price', 'dt' => 14, 'field'=> 'succ_price',
+        ['db' => 'succ_price', 'dt' => 13, 'field'=> 'succ_price',
             'formatter' => function($d, $row){
                 if(empty($d)){
                     return '-';
@@ -215,7 +210,7 @@
                 }
             }
         ],
-        ['db' => 'succ_commission', 'dt' => 15, 'field'=> 'succ_commission',
+        ['db' => 'succ_commission', 'dt' => 14, 'field'=> 'succ_commission',
             'formatter' => function($d, $row){
                 if(empty($d)){
                     return '-';
@@ -224,7 +219,7 @@
                 }
             }
         ],
-        ['db' => 'succ_newcar', 'dt' => 16, 'field'=> 'succ_newcar',
+        ['db' => 'succ_newcar', 'dt' => 15, 'field'=> 'succ_newcar',
             'formatter' => function($d, $row){
                 if(empty($d)){
                     return '-';
@@ -233,7 +228,7 @@
                 }
             }
         ],
-        ['db' => 'succ_comment', 'dt' => 17, 'field'=> 'succ_comment',
+        ['db' => 'succ_comment', 'dt' => 16, 'field'=> 'succ_comment',
             'formatter' => function($d, $row){
                 if(empty($d)){
                     return '-';
@@ -242,7 +237,7 @@
                 }
             }
         ],
-        ['db' => 'succ_date', 'dt' => 18, 'field'=> 'succ_date',
+        ['db' => 'succ_date', 'dt' => 17, 'field'=> 'succ_date',
             'formatter' => function($d, $row){
                 if($d == '' || $d == '0000-00-00' || empty($d)){
                     return '-';
@@ -251,7 +246,7 @@
                 }
             }
         ],
-        ['db' => 'succ_newcar_rs', 'dt' => 19, 'field'=> 'succ_newcar_rs',
+        ['db' => 'succ_newcar_rs', 'dt' => 18, 'field'=> 'succ_newcar_rs',
             'formatter' => function($d, $row){
                 if($d == '' || $d == '0' || empty($d)){
                     return '✕';
@@ -260,7 +255,7 @@
                 }
             }
         ],
-        ['db' => 'cast_id', 'dt' => 20, 'field'=> 'cast_id',
+        ['db' => 'cast_id', 'dt' => 19, 'field'=> 'cast_id',
             'formatter' => function($d, $row){
                 return "<button data-ecard=\"$d\" class=\"btn btn-outline-success btn-sm ecard-btn\">+ ข้อมูล</button> <a href=\"/admin/detail/$d\"  target=\"_blank\" class=\"btn btn-outline-primary btn-sm mr-2 ml-2\">ดู</a>";
             }        
