@@ -220,10 +220,6 @@
                                 <button type="button" class="btn btn-outline-success" @click="loadData('4')">
                                     สำเร็จ
                                 </button>
-                                <!-- Debug button -->
-                                <button type="button" class="btn btn-outline-secondary ml-3" @click="testSearch()">
-                                    🔧 Test Search
-                                </button>
                             </div>
                         </div>
 
@@ -538,40 +534,9 @@
                 }
             },
             mounted: function() {
-                try {
-                    console.log('Vue component mounted');
-                    
-                    // ตรวจสอบ dependencies
-                    if (typeof jQuery === 'undefined') {
-                        console.error('jQuery not loaded');
-                        alert('jQuery ไม่ได้โหลด กรุณาตรวจสอบ');
-                        return;
-                    }
-                    
-                    if (typeof $.fn.DataTable === 'undefined') {
-                        console.error('DataTables not loaded');
-                        alert('DataTables plugin ไม่ได้โหลด กรุณาตรวจสอบ');
-                        return;
-                    }
-                    
-                    console.log('Dependencies OK');
-                    
-                    this.loadFilterOptions();
-                    this.getData();
-                    this.initEventListeners();
-                    
-                    // เพิ่ม fallback setup หากอันแรกไม่ทำงาน
-                    var self = this;
-                    setTimeout(function() {
-                        if (self.dataTable) {
-                            console.log('Fallback search setup');
-                            self.setupSearchEvents();
-                        }
-                    }, 3000);
-                } catch (error) {
-                    console.error('Error in mounted:', error);
-                    alert('เกิดข้อผิดพลาดในการเริ่มต้น: ' + error.message);
-                }
+                this.loadFilterOptions();
+                this.getData();
+                this.initEventListeners();
             },
             methods: {
                 loadFilterOptions: function() {
@@ -592,110 +557,24 @@
                     var self = this;
                     
                     setTimeout(function() {
-                        try {
-                            console.log('Populating select options...');
-                            
-                            // เซลล์
-                            var salesSelect = $('.search-select[data-column="5"]');
-                            if (salesSelect.length > 0 && self.filterOptions.sales) {
-                                self.filterOptions.sales.forEach(function(sale) {
-                                    if (sale && sale.name) {
-                                        salesSelect.append(`<option value="${sale.name}">${sale.name}</option>`);
-                                    }
-                                });
-                                console.log('Sales options populated:', self.filterOptions.sales.length);
-                            }
-                            
-                            // ทีม
-                            var teamSelect = $('.search-select[data-column="6"]');
-                            if (teamSelect.length > 0 && self.filterOptions.teams) {
-                                self.filterOptions.teams.forEach(function(team) {
-                                    if (team && team.name) {
-                                        teamSelect.append(`<option value="${team.name}">${team.name}</option>`);
-                                    }
-                                });
-                                console.log('Team options populated:', self.filterOptions.teams.length);
-                            }
-                            
-                            // ผู้ซื้อ
-                            var partnerSelect = $('.search-select[data-column="12"]');
-                            if (partnerSelect.length > 0 && self.filterOptions.partners) {
-                                self.filterOptions.partners.forEach(function(partner) {
-                                    if (partner && partner.name) {
-                                        partnerSelect.append(`<option value="${partner.name}">${partner.name}</option>`);
-                                    }
-                                });
-                                console.log('Partner options populated:', self.filterOptions.partners.length);
-                            }
-                            
-                            // Setup search events หลังจาก populate options เสร็จแล้ว
-                            self.setupSearchEvents();
-                        } catch (error) {
-                            console.error('Error populating select options:', error);
-                        }
-                    }, 1000);
-                },
-
-                setupSearchEvents: function() {
-                    var self = this;
-                    
-                    try {
-                        console.log('Setting up search events...');
-                        console.log('DataTable ready:', !!this.dataTable);
-                        
-                        var searchInputs = $('.search-input, .search-select');
-                        console.log('Search inputs found:', searchInputs.length);
-                        
-                        if (!this.dataTable) {
-                            console.error('DataTable not ready yet');
-                            return;
-                        }
-                        
-                        // ลบ event handlers เก่าก่อน
-                        searchInputs.off('keyup change input');
-                        
-                        // Setup ใหม่
-                        searchInputs.each(function(index) {
-                            var $input = $(this);
-                            var columnIndex = parseInt($input.data('column'));
-                            
-                            if (isNaN(columnIndex)) {
-                                console.warn('Invalid column index for input', index);
-                                return;
-                            }
-                            
-                            console.log('Setting up input', index, 'for column', columnIndex);
-                            
-                            $input.on('keyup change input', function() {
-                                var value = String(this.value || '');
-                                
-                                console.log('Search triggered - Column:', columnIndex, 'Value:', value);
-                                
-                                try {
-                                    if (self.dataTable && typeof self.dataTable.column === 'function') {
-                                        var column = self.dataTable.column(columnIndex);
-                                        if (column && typeof column.search === 'function') {
-                                            var currentSearch = column.search();
-                                            if (currentSearch !== value) {
-                                                console.log('Performing search on column', columnIndex);
-                                                column.search(value).draw(false);
-                                            }
-                                        } else {
-                                            console.warn('Column', columnIndex, 'not found or no search method');
-                                        }
-                                    } else {
-                                        console.warn('DataTable not ready or no column method');
-                                    }
-                                } catch (error) {
-                                    console.error('Error searching column', columnIndex, ':', error);
-                                }
-                            });
+                        // เซลล์
+                        var salesSelect = $('.search-select[data-column="5"]');
+                        self.filterOptions.sales.forEach(function(sale) {
+                            salesSelect.append(`<option value="${sale.name}">${sale.name}</option>`);
                         });
                         
-                        console.log('Search events setup complete');
-                    } catch (error) {
-                        console.error('Error setting up search events:', error);
-                    }
+                        // ทีม
+                        var teamSelect = $('.search-select[data-column="6"]');
+                        self.filterOptions.teams.forEach(function(team) {
+                            teamSelect.append(`<option value="${team.name}">${team.name}</option>`);
+                        });
+                        
+                        // ผู้ซื้อ
+                        var partnerSelect = $('.search-select[data-column="12"]');
+                        self.filterOptions.partners.forEach(function(partner) {
+                            partnerSelect.append(`<option value="${partner.name}">${partner.name}</option>`);
+                        });
+                    }, 500);
                 },
 
                 clearAllFilters: function() {
@@ -849,54 +728,6 @@
                             console.log('DataTable initialized with column search');
                         }
                     });
-                },
-
-                testSearch: function() {
-                    try {
-                        console.log('=== Search Test ===');
-                        console.log('DataTable exists:', !!this.dataTable);
-                        console.log('Search inputs count:', $('.search-input').length);
-                        console.log('Search selects count:', $('.search-select').length);
-                        
-                        // ทดสอบ search ใน column 0 (รหัส)
-                        if (this.dataTable && typeof this.dataTable.column === 'function') {
-                            console.log('Testing search on column 0...');
-                            try {
-                                this.dataTable.column(0).search('1').draw(false);
-                                console.log('Column 0 search value:', this.dataTable.column(0).search());
-                            } catch (e) {
-                                console.error('Error testing column search:', e);
-                            }
-                            
-                            // แสดง column search ทั้งหมด
-                            console.log('All column searches:');
-                            try {
-                                this.dataTable.columns().every(function(index) {
-                                    var search = this.search();
-                                    if (search) {
-                                        console.log('Column', index, 'search:', search);
-                                    }
-                                });
-                            } catch (e) {
-                                console.error('Error checking column searches:', e);
-                            }
-                        } else {
-                            console.log('DataTable not ready for testing');
-                        }
-                        
-                        // แสดง data-column attributes
-                        $('.search-input, .search-select').each(function(index) {
-                            console.log('Input', index, '- data-column:', $(this).data('column'), 'value:', this.value, 'type:', this.tagName);
-                        });
-                        
-                        // ลองเรียก setupSearchEvents อีกครั้ง
-                        this.setupSearchEvents();
-                        
-                        console.log('Test completed');
-                    } catch (error) {
-                        console.error('Error in testSearch:', error);
-                        alert('เกิดข้อผิดพลาดในการทดสอบ: ' + error.message);
-                    }
                 },
 
                 initEventListeners: function() {
