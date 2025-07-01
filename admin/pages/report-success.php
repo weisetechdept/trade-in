@@ -243,7 +243,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="d-flex flex-column">
-                                        <table id="datatable" class="table table-striped">
+                                        <table id="datatable" class="table table-responsive">
                                             <thead>
                                                 <tr>
                                                     <th width="45px">รหัส</th>

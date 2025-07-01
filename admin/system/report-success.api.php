@@ -172,9 +172,9 @@
             }
         ],
 
-        ['db' => 'cast_id', 'dt' => 9, 'field'=> 'cast_price',
+        ['db' => 'cast_price', 'dt' => 9, 'field'=> 'cast_price',
             'formatter' => function($d, $row){
-                return $d;
+                return number_format($d);
             }
         ],
         ['db' => 'cast_id', 'dt' => 10, 'field'=> 'cast_id',
