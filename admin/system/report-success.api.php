@@ -133,23 +133,9 @@
                 return getTeamName($d); 
             }
         ],
-        ['db' => 'cast_status', 'dt' => 7, 'field'=> 'cast_status',
+        ['db' => 'cast_id', 'dt' => 7, 'field'=> 'cast_id',
             'formatter' => function($d, $row){
-                if($d == 0){
-                    return "<span class=\"badge badge-soft-unknow\">ไม่มีสถานะ</span>";
-                } elseif($d == 1){
-                    return "<span class=\"badge badge-soft-primary\">ติดตามลูกค้า</span>";
-                } elseif($d == 2){
-                    return "<span class=\"badge badge-soft-warning\">ไม่ได้สัมผัสรถ</span>";
-                } elseif($d == 3){
-                    return "<span class=\"badge badge-soft-info\">ลูกค้าขายเอง / ขายที่อื่น</span>";
-                } elseif($d == 4){
-                    return "<span class=\"badge badge-soft-success\">สำเร็จ</span>";
-                } elseif($d == 10) {
-                    return "<span class=\"badge badge-soft-danger\">ลบ</span>";
-                } else {
-                    return "<span class=\"badge badge-soft-secondary\">ไม่มีข้อมูล</span>";
-                }
+                return "<a href=\"/admin/detail/$d\" target=\"_blank\">$d</a>";
             }
         ],
         ['db' => 'succ_partner', 'dt' => 8, 'field'=> 'succ_partner',
@@ -211,7 +197,7 @@
                 if($d == '' || $d == '0' || empty($d)){
                     return '✕';
                 } else {
-                    return '✓';
+                    
                 }
             }
         ],
