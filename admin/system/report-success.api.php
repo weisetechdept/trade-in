@@ -3,6 +3,10 @@ session_start();
 require_once '../../db-conn.php';
 date_default_timezone_set("Asia/Bangkok");
 
+// Debug: Log all incoming parameters
+error_log("=== Search Debug ===");
+error_log("GET parameters: " . json_encode($_GET));
+
 if($_GET['show'] == '0'){
     $show = '0';
 } elseif($_GET['show'] == '1'){
@@ -326,8 +330,13 @@ echo json_encode(
     SSP::simple($_GET, $sql_details_1, $table, $primaryKey, $columns, $joinQuery, $where)
 );
 
-// Debug log สำหรับ development
-if (isset($_GET['debug'])) {
-    error_log("Search WHERE clause: " . $where);
-    error_log("Search parameters: " . json_encode($_GET));
+// Debug log
+error_log("Final WHERE clause: " . $where);
+
+// Debug: ส่ง debug info หาก request มี debug parameter
+if (isset($_GET['debug']) && $_GET['debug'] == '1') {
+    error_log("=== Debug Info ===");
+    error_log("Show parameter: " . $show);
+    error_log("Final WHERE: " . $where);
+    error_log("JOIN Query: " . $joinQuery);
 }
