@@ -36,123 +36,65 @@
             padding: calc(70px + 24px) calc(15px) 70px calc(15px);
         }
         
-        /* Table Container Styles */
+        /* Table Container */
         .table-container {
             width: 100%;
             overflow-x: auto;
             background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
-        .table-container::-webkit-scrollbar {
-            height: 8px;
-        }
-        
-        .table-container::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 4px;
-        }
-        
-        .table-container::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 4px;
-        }
-        
-        .table-container::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
-        
-        /* Enhanced Table Styles */
+        /* Table Styles */
         #datatable {
             width: 100% !important;
-            min-width: 1800px; /* กำหนดความกว้างขั้นต่ำ */
+            min-width: 1800px;
             white-space: nowrap;
-            font-size: 13px;
         }
         
         #datatable th,
         #datatable td {
-            padding: 12px 8px !important;
+            padding: 8px 6px !important;
             vertical-align: middle;
-            border-right: 1px solid #e9ecef;
-        }
-        
-        #datatable th:last-child,
-        #datatable td:last-child {
-            border-right: none;
-        }
-        
-        #datatable th {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            font-weight: 500;
             text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-        
-        #datatable tbody tr {
-            transition: all 0.2s ease;
-        }
-        
-        #datatable tbody tr:hover {
-            background-color: #f8f9ff !important;
-            transform: translateY(-1px);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         
         /* Column widths */
-        #datatable th:nth-child(1), #datatable td:nth-child(1) { width: 80px; min-width: 80px; } /* รหัส */
-        #datatable th:nth-child(2), #datatable td:nth-child(2) { width: 100px; min-width: 100px; } /* รูป */
-        #datatable th:nth-child(3), #datatable td:nth-child(3) { width: 180px; min-width: 180px; } /* แบบรุ่น */
-        #datatable th:nth-child(4), #datatable td:nth-child(4) { width: 80px; min-width: 80px; } /* ปีรุ่น */
-        #datatable th:nth-child(5), #datatable td:nth-child(5) { width: 100px; min-width: 100px; } /* สี */
-        #datatable th:nth-child(6), #datatable td:nth-child(6) { width: 120px; min-width: 120px; } /* เซลล์ */
-        #datatable th:nth-child(7), #datatable td:nth-child(7) { width: 100px; min-width: 100px; } /* ทีม */
-        #datatable th:nth-child(8), #datatable td:nth-child(8) { width: 110px; min-width: 110px; } /* ตั้งขาย */
-        #datatable th:nth-child(9), #datatable td:nth-child(9) { width: 110px; min-width: 110px; } /* จัด TLT */
-        #datatable th:nth-child(10), #datatable td:nth-child(10) { width: 110px; min-width: 110px; } /* รับได้ */
-        #datatable th:nth-child(11), #datatable td:nth-child(11) { width: 110px; min-width: 110px; } /* เสนอราคา */
-        #datatable th:nth-child(12), #datatable td:nth-child(12) { width: 80px; min-width: 80px; } /* เสนอ */
-        #datatable th:nth-child(13), #datatable td:nth-child(13) { width: 140px; min-width: 140px; } /* ผู้ซื้อ */
-        #datatable th:nth-child(14), #datatable td:nth-child(14) { width: 110px; min-width: 110px; } /* ราคา */
-        #datatable th:nth-child(15), #datatable td:nth-child(15) { width: 100px; min-width: 100px; } /* ค่าคอม */
-        #datatable th:nth-child(16), #datatable td:nth-child(16) { width: 160px; min-width: 160px; } /* สถานะรอง */
-        #datatable th:nth-child(17), #datatable td:nth-child(17) { width: 150px; min-width: 150px; } /* หมายเหตุ */
-        #datatable th:nth-child(18), #datatable td:nth-child(18) { width: 100px; min-width: 100px; } /* วันที่จบ */
-        #datatable th:nth-child(19), #datatable td:nth-child(19) { width: 60px; min-width: 60px; } /* RS */
-        #datatable th:nth-child(20), #datatable td:nth-child(20) { width: 140px; min-width: 140px; } /* จัดการ */
+        #datatable th:nth-child(1), #datatable td:nth-child(1) { width: 80px; min-width: 80px; }
+        #datatable th:nth-child(2), #datatable td:nth-child(2) { width: 100px; min-width: 100px; }
+        #datatable th:nth-child(3), #datatable td:nth-child(3) { width: 180px; min-width: 180px; }
+        #datatable th:nth-child(4), #datatable td:nth-child(4) { width: 80px; min-width: 80px; }
+        #datatable th:nth-child(5), #datatable td:nth-child(5) { width: 100px; min-width: 100px; }
+        #datatable th:nth-child(6), #datatable td:nth-child(6) { width: 120px; min-width: 120px; }
+        #datatable th:nth-child(7), #datatable td:nth-child(7) { width: 100px; min-width: 100px; }
+        #datatable th:nth-child(8), #datatable td:nth-child(8) { width: 110px; min-width: 110px; }
+        #datatable th:nth-child(9), #datatable td:nth-child(9) { width: 110px; min-width: 110px; }
+        #datatable th:nth-child(10), #datatable td:nth-child(10) { width: 110px; min-width: 110px; }
+        #datatable th:nth-child(11), #datatable td:nth-child(11) { width: 110px; min-width: 110px; }
+        #datatable th:nth-child(12), #datatable td:nth-child(12) { width: 80px; min-width: 80px; }
+        #datatable th:nth-child(13), #datatable td:nth-child(13) { width: 140px; min-width: 140px; }
+        #datatable th:nth-child(14), #datatable td:nth-child(14) { width: 110px; min-width: 110px; }
+        #datatable th:nth-child(15), #datatable td:nth-child(15) { width: 100px; min-width: 100px; }
+        #datatable th:nth-child(16), #datatable td:nth-child(16) { width: 160px; min-width: 160px; }
+        #datatable th:nth-child(17), #datatable td:nth-child(17) { width: 150px; min-width: 150px; }
+        #datatable th:nth-child(18), #datatable td:nth-child(18) { width: 100px; min-width: 100px; }
+        #datatable th:nth-child(19), #datatable td:nth-child(19) { width: 60px; min-width: 60px; }
+        #datatable th:nth-child(20), #datatable td:nth-child(20) { width: 140px; min-width: 140px; }
         
-        /* Search row styles */
-        .column-search-row {
-            background: #f8f9fa !important;
-        }
-        
+        /* Search row */
         .column-search-row th {
             padding: 8px 4px !important;
-            background: #f8f9fa !important;
-            color: #495057;
-            border-bottom: 2px solid #dee2e6;
-            position: sticky;
-            top: 40px;
-            z-index: 9;
         }
         
         .column-search-row .form-control,
         .column-search-row .form-control-sm {
-            font-size: 11px;
-            padding: 0.25rem 0.4rem;
-            height: 28px;
-            border-radius: 4px;
-            border: 1px solid #ced4da;
+            font-size: 12px;
+            padding: 0.3rem 0.5rem;
+            height: 32px;
             width: 100%;
         }
         
         .column-search-row select.form-control {
-            font-size: 11px;
-            height: 28px;
+            font-size: 12px;
+            height: 32px;
         }
         
         /* Car thumbnail */
@@ -160,174 +102,33 @@
             width: 80px;
             height: 55px;
             object-fit: cover;
-            border-radius: 6px;
-            border: 2px solid #e9ecef;
-            transition: transform 0.2s ease;
-        }
-        
-        .car-thumb:hover {
-            transform: scale(1.1);
-            border-color: #007bff;
+            border-radius: 4px;
         }
         
         /* Badge styles */
         .badge-soft-unknow {
             background-color: #f6b9f7;
             color: #fff;
-            font-size: 11px;
-            padding: 4px 8px;
         }
         
         .badge-soft-primary {
             background-color: #b3d7ff;
             color: #004085;
-            font-size: 11px;
-            padding: 4px 8px;
         }
         
         .badge-soft-warning {
             background-color: #fff3cd;
             color: #856404;
-            font-size: 11px;
-            padding: 4px 8px;
         }
         
         .badge-soft-info {
             background-color: #d1ecf1;
             color: #0c5460;
-            font-size: 11px;
-            padding: 4px 8px;
         }
         
-        /* Card View Styles */
-        .card-view {
-            display: none;
-        }
-        
-        .card-item {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 16px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            border-left: 4px solid #667eea;
-        }
-        
-        .card-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        }
-        
-        .card-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #e9ecef;
-        }
-        
-        .card-header img {
-            width: 80px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-right: 15px;
-        }
-        
-        .card-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #2c3e50;
-            margin: 0;
-        }
-        
-        .card-subtitle {
-            font-size: 14px;
-            color: #7f8c8d;
-            margin: 2px 0 0 0;
-        }
-        
-        .card-body-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 12px;
-        }
-        
-        .card-field {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
-            border-bottom: 1px solid #f8f9fa;
-        }
-        
-        .card-field:last-child {
-            border-bottom: none;
-        }
-        
-        .card-field-label {
-            font-weight: 500;
-            color: #495057;
-            font-size: 12px;
-        }
-        
-        .card-field-value {
-            font-weight: 600;
-            color: #2c3e50;
-            font-size: 13px;
-        }
-        
-        .card-actions {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #e9ecef;
-            text-align: right;
-        }
-        
-        /* View Toggle Buttons */
-        .view-toggle {
-            margin-bottom: 20px;
-        }
-        
-        .view-toggle .btn {
-            margin-right: 10px;
-            transition: all 0.2s ease;
-        }
-        
-        .view-toggle .btn.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-color: #667eea;
-            color: white;
-        }
-        
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .page-content {
-                padding: calc(70px + 24px) 10px 70px 10px;
-            }
-            
-            #datatable {
-                font-size: 12px;
-            }
-            
-            #datatable th,
-            #datatable td {
-                padding: 8px 4px !important;
-            }
-        }
-        
-        /* DataTable wrapper adjustments */
+        /* Hide global search */
         #datatable_wrapper .dataTables_filter {
             display: none;
-        }
-        
-        #datatable_wrapper .dataTables_length {
-            margin-bottom: 10px;
-        }
-        
-        #datatable_wrapper .dataTables_info {
-            padding-top: 10px;
         }
         
         .btn-group, .btn-group-vertical {
@@ -335,13 +136,17 @@
         }
         
         .card-body {
-            padding: 0;
+            padding: 1rem;
         }
         
         .card {
             margin-bottom: 10px;
-            border: none;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .page-content {
+                padding: calc(70px + 24px) 10px 70px 10px;
+            }
         }
     </style>
 </head>
@@ -388,20 +193,6 @@
                                 <button type="button" class="btn btn-outline-success" @click="loadData('4')">
                                     สำเร็จ
                                 </button>
-                            </div>
-                        </div>
-
-                        <!-- View Toggle -->
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="view-toggle">
-                                    <button type="button" class="btn btn-outline-secondary" :class="{active: currentView === 'table'}" @click="setView('table')">
-                                        <i class="fas fa-table"></i> ตารางแนวนอน
-                                    </button>
-                                    <button type="button" class="btn btn-outline-secondary" :class="{active: currentView === 'card'}" @click="setView('card')">
-                                        <i class="fas fa-th-large"></i> การ์ดแนวตั้ง
-                                    </button>
-                                </div>
                             </div>
                         </div>
 
@@ -503,13 +294,13 @@
                             </div>
                         </div>
 
-                        <!-- Table View -->
-                        <div class="row" v-show="currentView === 'table'">
+                        <!-- Table -->
+                        <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="table-container">
-                                            <table id="datatable" class="table table-striped">
+                                            <table id="datatable" class="table table-striped table-bordered">
                                                 <thead>
                                                     <tr>
                                                         <th>รหัส</th>
@@ -594,24 +385,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Card View -->
-                        <div class="row card-view" v-show="currentView === 'card'">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div id="cardContainer">
-                                            <div class="text-center" style="padding: 50px;">
-                                                <div class="spinner-border text-primary" role="status">
-                                                    <span class="sr-only">กำลังโหลด...</span>
-                                                </div>
-                                                <p class="mt-2">กำลังโหลดข้อมูล...</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -661,7 +434,6 @@
         var app = new Vue({
             el: '#app',
             data: {
-                currentView: 'table', // 'table' or 'card'
                 ecard: {
                     id: '',
                     partner: '0',
@@ -675,14 +447,10 @@
                     list: []
                 },
                 dataTable: null,
-                cardData: [],
                 filterOptions: {
                     sales: [],
                     teams: [],
-                    partners: [],
-                    colors: [],
-                    models: [],
-                    years: []
+                    partners: []
                 }
             },
             mounted: function() {
@@ -691,83 +459,6 @@
                 this.initEventListeners();
             },
             methods: {
-                setView: function(viewType) {
-                    this.currentView = viewType;
-                    if (viewType === 'card' && this.cardData.length === 0) {
-                        this.loadCardData();
-                    }
-                },
-
-                loadCardData: function() {
-                    var self = this;
-                    axios.get('/admin/system/report-success.api.php?format=json')
-                        .then(response => {
-                            if (response.data && response.data.data) {
-                                self.cardData = response.data.data;
-                                self.renderCardView();
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error loading card data:', error);
-                        });
-                },
-
-                renderCardView: function() {
-                    var html = '';
-                    this.cardData.forEach(function(item) {
-                        html += `
-                            <div class="card-item">
-                                <div class="card-header">
-                                    <img src="${item[1] || 'https://dummyimage.com/80x60/c4c4c4/fff&text=no-image'}" alt="รถ">
-                                    <div>
-                                        <h5 class="card-title">รหัส: ${item[0]}</h5>
-                                        <p class="card-subtitle">${item[2]} (${item[3]})</p>
-                                    </div>
-                                </div>
-                                <div class="card-body-grid">
-                                    <div class="card-field">
-                                        <span class="card-field-label">สี:</span>
-                                        <span class="card-field-value">${item[4]}</span>
-                                    </div>
-                                    <div class="card-field">
-                                        <span class="card-field-label">เซลล์:</span>
-                                        <span class="card-field-value">${item[5]}</span>
-                                    </div>
-                                    <div class="card-field">
-                                        <span class="card-field-label">ทีม:</span>
-                                        <span class="card-field-value">${item[6]}</span>
-                                    </div>
-                                    <div class="card-field">
-                                        <span class="card-field-label">ตั้งขาย:</span>
-                                        <span class="card-field-value">${item[7]}</span>
-                                    </div>
-                                    <div class="card-field">
-                                        <span class="card-field-label">รับได้:</span>
-                                        <span class="card-field-value">${item[9]}</span>
-                                    </div>
-                                    <div class="card-field">
-                                        <span class="card-field-label">ผู้ซื้อ:</span>
-                                        <span class="card-field-value">${item[12] || '-'}</span>
-                                    </div>
-                                    <div class="card-field">
-                                        <span class="card-field-label">ราคา:</span>
-                                        <span class="card-field-value">${item[13] || '-'}</span>
-                                    </div>
-                                    <div class="card-field">
-                                        <span class="card-field-label">สถานะรอง:</span>
-                                        <span class="card-field-value">${item[15] || '-'}</span>
-                                    </div>
-                                </div>
-                                <div class="card-actions">
-                                    <button data-ecard="${item[0]}" class="btn btn-outline-success btn-sm ecard-btn">+ ข้อมูล</button>
-                                    <a href="/admin/detail/${item[0]}" target="_blank" class="btn btn-outline-primary btn-sm ml-2">ดู</a>
-                                </div>
-                            </div>
-                        `;
-                    });
-                    document.getElementById('cardContainer').innerHTML = html;
-                },
-
                 loadFilterOptions: function() {
                     var self = this;
                     axios.get('/admin/system/filter-options.api.php')
@@ -841,14 +532,8 @@
                                 self.dataTable.page(currentPage).draw('page');
                             } catch(e) {
                                 self.dataTable.draw();
-                                console.log('Could not return to previous page, staying on page 1');
                             }
                         });
-                    }
-                    
-                    // Reload card data if in card view
-                    if (this.currentView === 'card') {
-                        this.loadCardData();
                     }
                 },
 
@@ -871,12 +556,7 @@
                         console.log(response.data);
                         if (response.data.updateSucc && response.data.updateSucc.status == 'success') {
                             swal("สำเร็จ", "บันทึกข้อมูลเรียบร้อย", "success");
-                            if (this.dataTable) {
-                                this.dataTable.ajax.reload(null, false);
-                            }
-                            if (this.currentView === 'card') {
-                                this.loadCardData();
-                            }
+                            this.dataTable.ajax.reload(null, false);
                         } else {
                             swal("ผิดพลาด", "ไม่สามารถบันทึกข้อมูลได้", "error");
                         }
@@ -921,10 +601,10 @@
                         lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
                         processing: true,
                         serverSide: true,
-                        responsive: false, // ปิด responsive เพื่อใช้ horizontal scroll
+                        responsive: false,
                         bInfo: false,
                         order: [[0, "desc"]],
-                        scrollX: true, // เปิด horizontal scroll
+                        scrollX: true,
                         language: {
                             "processing": "กำลังดาวน์โหลดข้อมูล...",
                             "search": "ค้นหา:",
@@ -960,15 +640,6 @@
                                             column.search(value).draw();
                                         }
                                     });
-                                    
-                                    if (input.is('input[type="text"]')) {
-                                        input.on('keyup', function() {
-                                            var value = this.value;
-                                            if (column.search() !== value) {
-                                                column.search(value).draw();
-                                            }
-                                        });
-                                    }
                                 }
                             });
                             
