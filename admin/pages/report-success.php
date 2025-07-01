@@ -79,9 +79,63 @@
         #datatable th:nth-child(19), #datatable td:nth-child(19) { width: 60px; min-width: 60px; }
         #datatable th:nth-child(20), #datatable td:nth-child(20) { width: 140px; min-width: 140px; }
         
-        /* Search row */
+        /* Header ปกติ - เฉพาะแถวแรก */
+        #datatable thead tr:first-child th {
+            background: #343a40;
+            color: white;
+            font-weight: 500;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            cursor: pointer; /* เปิด cursor pointer สำหรับ sort */
+            border-bottom: 1px solid #495057;
+        }
+        
+        #datatable thead tr:first-child th:hover {
+            background: #495057;
+        }
+        
+        /* เพิ่ม icon hint สำหรับ sortable columns */
+        #datatable thead tr:first-child th:not(:nth-child(2)):not(:nth-child(20))::after {
+            content: " ⇅";
+            font-size: 10px;
+            opacity: 0.6;
+            margin-left: 4px;
+        }
+        
+        /* Search row styles - แยกจาก header */
+        .column-search-row {
+            background: #f8f9fa !important;
+        }
+        
         .column-search-row th {
             padding: 8px 4px !important;
+            background: #f8f9fa !important;
+            color: #495057;
+            border-bottom: 2px solid #dee2e6;
+            position: sticky;
+            top: 40px;
+            z-index: 9;
+            cursor: default !important; /* ปิด cursor pointer */
+            border-top: 3px solid #007bff; /* เส้นสีฟ้าเพื่อแยกจากแถว sort */
+        }
+        
+        /* ปิด sort icons ในแถว search */
+        .column-search-row th::before,
+        .column-search-row th::after {
+            display: none !important;
+        }
+        
+        /* ปิด hover effect สำหรับแถว search */
+        .column-search-row th:hover {
+            background: #f8f9fa !important;
+        }
+        
+        /* เพิ่ม label สำหรับแถว search */
+        .column-search-row th:first-child::before {
+            content: "🔍 ";
+            font-size: 12px;
         }
         
         .column-search-row .form-control,
@@ -665,4 +719,3 @@
     <script src="/assets/js/theme.js"></script>
 </body>
 </html>
-
