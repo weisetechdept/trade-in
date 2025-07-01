@@ -3,10 +3,6 @@ session_start();
 require_once '../../db-conn.php';
 date_default_timezone_set("Asia/Bangkok");
 
-// Debug: Log all incoming parameters
-error_log("=== Search Debug ===");
-error_log("GET parameters: " . json_encode($_GET));
-
 if($_GET['show'] == '0'){
     $show = '0';
 } elseif($_GET['show'] == '1'){
