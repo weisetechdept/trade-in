@@ -1,333 +1,847 @@
-<?php 
-session_start();
-require_once '../../db-conn.php';
-date_default_timezone_set("Asia/Bangkok");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Trade-In Success Report</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta content="A77" name="description" />
+    <meta content="A77" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-if($_GET['show'] == '0'){
-    $show = '0';
-} elseif($_GET['show'] == '1'){
-    $show = '1';
-} elseif($_GET['show'] == '2'){
-    $show = '2';
-} elseif($_GET['show'] == '3'){
-    $show = '3';
-} elseif($_GET['show'] == '4'){
-    $show = '4';
-} else {
-    $show = '0,1,2,3,4';
-}
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="/assets/images/favicon.ico">
 
-function DateThai($strDate)
-{
-    $strYear = date("y",strtotime($strDate));
-    $strMonth= date("n",strtotime($strDate));
-    $strDay= date("j",strtotime($strDate));
+    <!-- Plugins css -->
+    <link href="/assets/plugins/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/plugins/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/plugins/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/plugins/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" />
 
-    $strMonthCut = Array("","ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค.");
-    $strMonthThai=$strMonthCut[$strMonth];
-    return "$strDay $strMonthThai $strYear";
-}
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@100;200;300;400;500;600;700;800&family=Kanit:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-function getBuyerName($uid){
-    global $db;
-    $db->join('partner_bus b', 'p.part_bus_id = b.busi_id', 'LEFT');
-    $buyer = $db->where('part_id', $uid)->getOne('partner p', null,'part_fname, part_lname');
-    if($buyer) {
-        return $buyer['part_fname'].' '.$buyer['part_lname'];
-    }
-    return '-';
-}
-
-function getTeamName($uid){
-    global $db_nms;
-    $team = $db_nms->get('db_user_group', null, 'name,detail,leader');
-    foreach($team as $t){
-        $tm = array_merge(json_decode($t['detail']),json_decode($t['leader']));
-        if(in_array($uid,$tm)){
-            return $t['name'];
-        } 
-    }
-    return '-';
-}
-
-function getSaleName($uid){
-    global $db_nms;
-    $sale = $db_nms->where('id', $uid)->getOne('db_member', null,'first_name');
-    return $sale ? $sale['first_name'] : 'Unknown';
-}
-
-function thumb($uid){
-    global $db;
-    $thumb = $db->where('cari_parent', $uid)->where('cari_group',1)->getOne('car_image', null,'cari_link');
-    if(empty($thumb)){
-        return '<img src="https://dummyimage.com/600x400/c4c4c4/fff&amp;text=no-image" class="car-thumb">';
-    } else {
-        return "<img src=\"" . $thumb['cari_link'] . "\" class=\"car-thumb\">";
-    }
-}
-
-function getBrandSerie($uid){
-    global $db;
-    $brand = $db->where('find_id', $uid)->getOne('finance_data', null,'find_brand ,find_serie');
-    if(empty($brand)){
-        return 'Unknown';
-    } else {
-        return $brand['find_brand'].' '.$brand['find_serie'];
-    }
-}
-
-function getSubStatus($st) {
-    if($st == 1) {
-        return "<span class=\"badge badge-soft-unknow\">จบรถเก่า / จองรถใหม่</span>";
-    } elseif ($st == 2) {
-        return "<span class=\"badge badge-soft-primary\">จบรถเก่า / ไม่จองรถใหม่</span>";
-    } elseif ($st == 3) {
-        return "<span class=\"badge badge-soft-warning\">ไม่จบรถเก่า / ไม่จองรถใหม่</span>";
-    } elseif ($st == 4) {
-        return "<span class=\"badge badge-soft-info\">ไม่จบรถเก่า / จองรถใหม่</span>";
-    } 
-    return '-';
-}
-
-function getOfferPrice($uid){
-    global $db;
-    $offer = $db->where('off_parent', $uid)->orderBy('off_price','DESC')->getOne('offer', null,'off_price');
-    if(empty($offer)){
-        return "ไม่มี";
-    } else {
-        return number_format($offer['off_price']);
-    }
-}
-
-function getTLTPrice($uid){
-    global $db;
-    $offer = $db->where('find_id', $uid)->getOne('finance_data', null,'find_price');
-    if(empty($offer)){
-        return "ไม่มี";
-    } else {
-        return number_format($offer['find_price']);
-    }
-}
-
-function countOffer($id){
-    global $db;
-    $count = $db->where('off_parent', $id)->getValue('offer','count(*)');
-    return $count;
-}
-
-$sql_details_1 = ['user'=> $usern,'pass'=> $passn,'db'=> $dbn,'host'=> $hostn,'charset'=>'utf8'];
-
-require 'ssp.class.php';
-$table = 'car_stock';
-
-$primaryKey = 'cast_id';
-$columns = [
-    ['db' => 'cast_id', 'dt' => 0, 'field' => 'cast_id'],
-    ['db' => 'cast_id', 'dt' => 1, 'field' => 'cast_id',
-        'formatter' => function($d, $row){
-            return thumb($d);
+    <!-- App css -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/theme.min.css" rel="stylesheet" type="text/css" />
+    
+    <style>
+        body {
+            font-family: 'Chakra Petch', sans-serif;
         }
-    ],
-    // สำหรับแบบรุ่น - ให้ search ผ่าน concat field
-    ['db' => 'CONCAT(IFNULL(f.find_brand,""), " ", IFNULL(f.find_serie,""))', 'dt' => 2, 'field' => 'brand_serie', 'as' => 'brand_serie',
-        'formatter' => function($d, $row){
-            return $d; // ใช้ค่าที่ concat แล้ว
+        .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+            font-family: 'Kanit', sans-serif;
+            font-weight: 400;
         }
-    ],
-    ['db' => 'find_year', 'dt' => 3, 'field'=> 'find_year'],
-    ['db' => 'cast_color', 'dt' => 4, 'field'=> 'cast_color'],
-    // สำหรับเซลล์ - เก็บเป็น ID แต่แสดงเป็นชื่อ
-    ['db' => 'cast_sales_parent_no', 'dt' => 5, 'field'=> 'cast_sales_parent_no',
-        'formatter' => function($d, $row){
-            return getSaleName($d); 
+        .page-content {
+            padding: calc(70px + 24px) calc(15px) 70px calc(15px);
         }
-    ],
-    // สำหรับทีม - เก็บเป็น ID แต่แสดงเป็นชื่อทีม
-    ['db' => 'cast_sales_parent_no', 'dt' => 6, 'field'=> 'cast_sales_parent_no',
-        'formatter' => function($d, $row){
-            return getTeamName($d); 
+        
+        /* Table Container */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            background: white;
         }
-    ],
-    ['db' => 'cast_trade_price', 'dt' => 7, 'field'=> 'cast_trade_price',
-        'formatter' => function($d, $row){
-            return number_format($d);
+        
+        /* Table Styles */
+        #datatable {
+            width: 100% !important;
+            min-width: 1800px;
+            white-space: nowrap;
         }
-    ],
-    ['db' => 'find_price', 'dt' => 8, 'field'=> 'find_price',
-        'formatter' => function($d, $row){
-            if(empty($d)){
-                return "ไม่มี";
-            } else {
-                return number_format($d);
+        
+        #datatable th,
+        #datatable td {
+            padding: 8px 6px !important;
+            vertical-align: middle;
+            text-align: center;
+        }
+        
+        /* Header styles - สีเข้มสำหรับ sort */
+        #datatable thead th {
+            background: #343a40;
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        #datatable thead th:hover {
+            background: #495057;
+        }
+        
+        /* ปิด sorting สำหรับคอลัมน์ที่ไม่ต้องการ */
+        #datatable thead th:nth-child(2),
+        #datatable thead th:nth-child(20) {
+            cursor: default;
+        }
+        
+        #datatable thead th:nth-child(2):hover,
+        #datatable thead th:nth-child(20):hover {
+            background: #343a40;
+        }
+        
+        /* Search Filters Container */
+        .search-filters-container {
+            border-left: 4px solid #007bff;
+        }
+        
+        .search-filters-container::-webkit-scrollbar {
+            height: 6px;
+        }
+        
+        .search-filters-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+        
+        .search-filters-container::-webkit-scrollbar-thumb {
+            background: #007bff;
+            border-radius: 3px;
+        }
+        
+        /* Column widths */
+        #datatable th:nth-child(1), #datatable td:nth-child(1) { width: 80px; min-width: 80px; }
+        #datatable th:nth-child(2), #datatable td:nth-child(2) { width: 100px; min-width: 100px; }
+        #datatable th:nth-child(3), #datatable td:nth-child(3) { width: 180px; min-width: 180px; }
+        #datatable th:nth-child(4), #datatable td:nth-child(4) { width: 80px; min-width: 80px; }
+        #datatable th:nth-child(5), #datatable td:nth-child(5) { width: 100px; min-width: 100px; }
+        #datatable th:nth-child(6), #datatable td:nth-child(6) { width: 120px; min-width: 120px; }
+        #datatable th:nth-child(7), #datatable td:nth-child(7) { width: 100px; min-width: 100px; }
+        #datatable th:nth-child(8), #datatable td:nth-child(8) { width: 110px; min-width: 110px; }
+        #datatable th:nth-child(9), #datatable td:nth-child(9) { width: 110px; min-width: 110px; }
+        #datatable th:nth-child(10), #datatable td:nth-child(10) { width: 110px; min-width: 110px; }
+        #datatable th:nth-child(11), #datatable td:nth-child(11) { width: 110px; min-width: 110px; }
+        #datatable th:nth-child(12), #datatable td:nth-child(12) { width: 80px; min-width: 80px; }
+        #datatable th:nth-child(13), #datatable td:nth-child(13) { width: 140px; min-width: 140px; }
+        #datatable th:nth-child(14), #datatable td:nth-child(14) { width: 110px; min-width: 110px; }
+        #datatable th:nth-child(15), #datatable td:nth-child(15) { width: 100px; min-width: 100px; }
+        #datatable th:nth-child(16), #datatable td:nth-child(16) { width: 160px; min-width: 160px; }
+        #datatable th:nth-child(17), #datatable td:nth-child(17) { width: 150px; min-width: 150px; }
+        #datatable th:nth-child(18), #datatable td:nth-child(18) { width: 100px; min-width: 100px; }
+        #datatable th:nth-child(19), #datatable td:nth-child(19) { width: 60px; min-width: 60px; }
+        #datatable th:nth-child(20), #datatable td:nth-child(20) { width: 140px; min-width: 140px; }
+        
+        /* Car thumbnail */
+        .car-thumb {
+            width: 80px;
+            height: 55px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        
+        /* Badge styles */
+        .badge-soft-unknow {
+            background-color: #f6b9f7;
+            color: #fff;
+        }
+        
+        .badge-soft-primary {
+            background-color: #b3d7ff;
+            color: #004085;
+        }
+        
+        .badge-soft-warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .badge-soft-info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        /* Hide global search */
+        #datatable_wrapper .dataTables_filter {
+            display: none;
+        }
+        
+        .btn-group, .btn-group-vertical {
+            margin-bottom: 15px;
+        }
+        
+        .card-body {
+            padding: 1rem;
+        }
+        
+        .card {
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .page-content {
+                padding: calc(70px + 24px) 10px 70px 10px;
             }
         }
-    ],
-    ['db' => 'cast_price', 'dt' => 9, 'field'=> 'cast_price',
-        'formatter' => function($d, $row){
-            return number_format($d);
-        }
-    ],
-    ['db' => 'cast_id', 'dt' => 10, 'field'=> 'cast_id',
-        'formatter' => function($d, $row){
-            return getOfferPrice($d);
-        }
-    ],
-    ['db' => 'cast_id', 'dt' => 11, 'field'=> 'cast_id',
-        'formatter' => function($d, $row){
-            return countOffer($d);
-        }
-    ],
-    ['db' => 'succ_partner', 'dt' => 12, 'field'=> 'succ_partner',
-        'formatter' => function($d, $row){
-            if(empty($d)){
-                return '-';
-            } else {
-                return getBuyerName($d);
-            }
-        }
-    ],
-    ['db' => 'succ_price', 'dt' => 13, 'field'=> 'succ_price',
-        'formatter' => function($d, $row){
-            if(empty($d)){
-                return '-';
-            } else {
-                return number_format($d);
-            }
-        }
-    ],
-    ['db' => 'succ_commission', 'dt' => 14, 'field'=> 'succ_commission',
-        'formatter' => function($d, $row){
-            if(empty($d)){
-                return '-';
-            } else {
-                return number_format($d);
-            }
-        }
-    ],
-    ['db' => 'succ_newcar', 'dt' => 15, 'field'=> 'succ_newcar',
-        'formatter' => function($d, $row){
-            if(empty($d)){
-                return '-';
-            } else {
-                return getSubStatus($d);
-            }
-        }
-    ],
-    ['db' => 'succ_comment', 'dt' => 16, 'field'=> 'succ_comment'],
-    ['db' => 'succ_date', 'dt' => 17, 'field'=> 'succ_date',
-        'formatter' => function($d, $row){
-            if($d == '' || $d == '0000-00-00' || empty($d)){
-                return '-';
-            } else {
-                return DateThai($d);
-            }
-        }
-    ],
-    ['db' => 'succ_newcar_rs', 'dt' => 18, 'field'=> 'succ_newcar_rs',
-        'formatter' => function($d, $row){
-            if($d == '' || $d == '0' || empty($d)){
-                return '✕';
-            } else {
-                return '✓';
-            }
-        }
-    ],
-    ['db' => 'cast_id', 'dt' => 19, 'field'=> 'cast_id',
-        'formatter' => function($d, $row){
-            return "<button data-ecard=\"$d\" class=\"btn btn-outline-success btn-sm ecard-btn\">+ ข้อมูล</button> <a href=\"/admin/detail/$d\"  target=\"_blank\" class=\"btn btn-outline-primary btn-sm mr-2 ml-2\">ดู</a>";
-        }        
-    ]
-];
+    </style>
+</head>
 
-$joinQuery = "FROM car_stock s LEFT JOIN finance_data f ON s.cast_car = f.find_id LEFT JOIN success sc ON s.cast_id = sc.succ_parent";
+<body>
+    <div id="layout-wrapper">
+        <?php 
+                include_once('inc-pages/nav.php');
+                include_once('inc-pages/sidebar.php');
+        ?>
+        <div class="main-content">
+            <div class="page-content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-flex align-items-center justify-content-between">
+                                <h4 class="mb-0 font-size-18">รายงานรถที่ซื้อสำเร็จ</h4>
+                                <div class="page-title-right">
+                                    <ol class="breadcrumb m-0">
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Trade-in</a></li>
+                                        <li class="breadcrumb-item active">รายงานรถที่ซื้อสำเร็จ</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="app">
+                        <!-- Status Filter Buttons -->
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <button type="button" class="btn btn-outline-primary" @click="loadData('0,1,2,3,4')">
+                                    ทั้งหมด
+                                </button>
+                                <button type="button" class="btn btn-outline-primary" @click="loadData('1')">
+                                    ติดตามลูกค้า
+                                </button>
+                                <button type="button" class="btn btn-outline-warning" @click="loadData('2')">
+                                    ไม่ได้สัมผัสรถ
+                                </button>
+                                <button type="button" class="btn btn-outline-info" @click="loadData('3')">
+                                    ลูกค้าขายเอง / ขายที่อื่น
+                                </button>
+                                <button type="button" class="btn btn-outline-success" @click="loadData('4')">
+                                    สำเร็จ
+                                </button>
+                                <!-- Debug button -->
+                                <button type="button" class="btn btn-outline-secondary ml-3" @click="testSearch()">
+                                    🔧 Test Search
+                                </button>
+                            </div>
+                        </div>
 
-$where = " s.cast_status IN ($show) ";
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">เพิ่มข้อมูลขายของ {{ ecard.id }}</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table class="table table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">วันที่สร้าง</th>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">ผู้ซื้อ</th>
+                                                    <td>
+                                                        <select v-model="ecard.partner" class="form-control">
+                                                            <option value="0">= เลือกพันธมิตร =</option>
+                                                            <option v-for="pt in ecard.list" :value="pt.id">{{ pt.name }}</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">ราคารับซื้อ</th>
+                                                    <td><input v-model="ecard.price" class="form-control"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">ค่าคอม</th>
+                                                    <td><input v-model="ecard.commission" class="form-control"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">วันที่จบ</th>
+                                                    <td><input v-model="ecard.date" class="form-control" type="date" :value="ecard.date !== '0000-00-00' ? ecard.date : ''"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">สถานะรอง</th>
+                                                    <td>
+                                                        <select v-model="ecard.newcar" class="form-control">
+                                                            <option value="0">= เลือกสถานะรอง =</option>
+                                                            <option value="1">จบรถเก่า / จองรถใหม่</option>
+                                                            <option value="2">จบรถเก่า / ไม่จองรถใหม่</option>
+                                                            <option value="3">ไม่จบรถเก่า / ไม่จองรถใหม่</option>
+                                                            <option value="4">ไม่จบรถเก่า / จองรถใหม่</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr v-if="ecard.newcar == 3 || ecard.newcar == 2 || ecard.newcar == 4 || ecard.newcar == 1">
+                                                    <th scope="row">เหตุผล</th>
+                                                    <td>
+                                                        <select v-model="ecard.newcar_detail" class="form-control">
+                                                            <option value="0">= เลือกเหตุผล =</option>
+                                                            <option v-if="ecard.newcar == 4 || ecard.newcar == 3" value="8">ติดตามต่อ</option>
+                                                            <option v-if="ecard.newcar == 4 || ecard.newcar == 3" value="9">ขายเองที่อื่นแล้ว</option>
+                                                            <option v-if="ecard.newcar == 4 || ecard.newcar == 3" value="10">เปลี่ยนใจไม่ขาย</option>
+                                                            <option v-if="ecard.newcar == 3 || ecard.newcar == 2" value="11">ยังไม่พร้อมออกรถใหม่</option>
+                                                            <option v-if="ecard.newcar == 4 || ecard.newcar == 3" value="12">ราคาใกล้เคียงแต่ลูกค้าไม่ยอมลดราคา</option>
+                                                            <option v-if="ecard.newcar == 4 || ecard.newcar == 3" value="13">ราคาใกล้เคียงแต่ลูกค้าเงียบไม่ตอบ</option>
+                                                            <option v-if="ecard.newcar == 1 || ecard.newcar == 2" value="14">สำเร็จ</option>
+                                                            <option v-if="ecard.newcar == 4 || ecard.newcar == 3" value="15">โพสต์ขายอยู่</option>
+                                                            <option v-if="ecard.newcar == 4 || ecard.newcar == 3" value="16">เซลส์ไม่ตอบ</option>
+                                                            <option v-if="ecard.newcar == 3" value="17">ราคาใกล้เคียงแต่ยังไม่จบรถใหม่</option>
+                                                            <option v-if="ecard.newcar == 4 || ecard.newcar == 3" value="18">หนี้ท่วม</option>
+                                                            <option v-if="ecard.newcar == 4 || ecard.newcar == 3" value="19">ลูกค้าต้องการมากกว่าราคาตั้งขาย</option>
+                                                            <option v-if="ecard.newcar == 4 || ecard.newcar == 3" value="20">ลูกค้าไม่แจ้งราคาที่จะขาย</option>
+                                                            <option v-if="ecard.newcar == 4 || ecard.newcar == 3" value="21">จบรถเก่าแล้ว/ลูกค้ายกเลิกขาย</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">หมายเหตุ</th>
+                                                    <td>
+                                                        <textarea v-model="ecard.detail" class="form-control" rows="3"></textarea>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">รถใหม่ (RS)</th>
+                                                    <td>
+                                                        <select v-model="ecard.newcar_rs" class="form-control">
+                                                            <option value="0">ยังไม่ RS</option>
+                                                            <option value="1">RS แล้ว</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-success" @click="updateStatus" data-dismiss="modal">บันทึก</button>
+                                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">ปิด</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-// Handle global search
-if(isset($_GET['search']['value']) && !empty($_GET['search']['value'])){
-    $searchValue = $_GET['search']['value'];
-    $where .= " AND (s.cast_id LIKE '%$searchValue%' OR s.cast_sales_parent_no LIKE '%$searchValue%' OR f.find_brand LIKE '%$searchValue%' OR f.find_serie LIKE '%$searchValue%' OR s.cast_color LIKE '%$searchValue%' OR s.cast_price LIKE '%$searchValue%' OR s.cast_status LIKE '%$searchValue%' OR s.cast_datetime LIKE '%$searchValue%')";
-}
+                        <!-- Table -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <!-- Search Filters Row - ย้ายมาไว้ด้านบน -->
+                                        <div class="search-filters-container mb-3" style="overflow-x: auto; background: #f8f9fa; padding: 10px; border-radius: 5px; border: 2px solid #007bff;">
+                                            <div style="display: flex; gap: 8px; min-width: 1800px;">
+                                                <div style="width: 80px; min-width: 80px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">รหัส</label>
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="0" placeholder="รหัส" style="font-size: 12px; height: 32px;">
+                                                </div>
+                                                <div style="width: 100px; min-width: 100px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">รูป</label>
+                                                    <div style="height: 32px; display: flex; align-items: center; color: #6c757d;">-</div>
+                                                </div>
+                                                <div style="width: 180px; min-width: 180px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">แบบรุ่น</label>
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="2" placeholder="แบบรุ่น" style="font-size: 12px; height: 32px;">
+                                                </div>
+                                                <div style="width: 80px; min-width: 80px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">ปีรุ่น</label>
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="3" placeholder="ปีรุ่น" style="font-size: 12px; height: 32px;">
+                                                </div>
+                                                <div style="width: 100px; min-width: 100px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">สี</label>
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="4" placeholder="สี" style="font-size: 12px; height: 32px;">
+                                                </div>
+                                                <div style="width: 120px; min-width: 120px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">เซลล์</label>
+                                                    <select class="form-control form-control-sm search-select" data-column="5" style="font-size: 12px; height: 32px;">
+                                                        <option value="">ทุกคน</option>
+                                                    </select>
+                                                </div>
+                                                <div style="width: 100px; min-width: 100px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">ทีม</label>
+                                                    <select class="form-control form-control-sm search-select" data-column="6" style="font-size: 12px; height: 32px;">
+                                                        <option value="">ทุกทีม</option>
+                                                    </select>
+                                                </div>
+                                                <div style="width: 110px; min-width: 110px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">ตั้งขาย</label>
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="7" placeholder="ตั้งขาย" style="font-size: 12px; height: 32px;">
+                                                </div>
+                                                <div style="width: 110px; min-width: 110px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">จัด TLT</label>
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="8" placeholder="จัด TLT" style="font-size: 12px; height: 32px;">
+                                                </div>
+                                                <div style="width: 110px; min-width: 110px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">รับได้</label>
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="9" placeholder="รับได้" style="font-size: 12px; height: 32px;">
+                                                </div>
+                                                <div style="width: 110px; min-width: 110px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">เสนอราคา</label>
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="10" placeholder="เสนอราคา" style="font-size: 12px; height: 32px;">
+                                                </div>
+                                                <div style="width: 80px; min-width: 80px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">เสนอ</label>
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="11" placeholder="เสนอ" style="font-size: 12px; height: 32px;">
+                                                </div>
+                                                <div style="width: 140px; min-width: 140px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">ผู้ซื้อ</label>
+                                                    <select class="form-control form-control-sm search-select" data-column="12" style="font-size: 12px; height: 32px;">
+                                                        <option value="">ทุกคน</option>
+                                                    </select>
+                                                </div>
+                                                <div style="width: 110px; min-width: 110px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">ราคา</label>
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="13" placeholder="ราคา" style="font-size: 12px; height: 32px;">
+                                                </div>
+                                                <div style="width: 100px; min-width: 100px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">ค่าคอม</label>
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="14" placeholder="ค่าคอม" style="font-size: 12px; height: 32px;">
+                                                </div>
+                                                <div style="width: 160px; min-width: 160px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">สถานะรอง</label>
+                                                    <select class="form-control form-control-sm search-select" data-column="15" style="font-size: 12px; height: 32px;">
+                                                        <option value="">ทุกสถานะ</option>
+                                                        <option value="1">จบรถเก่า / จองรถใหม่</option>
+                                                        <option value="2">จบรถเก่า / ไม่จองรถใหม่</option>
+                                                        <option value="3">ไม่จบรถเก่า / ไม่จองรถใหม่</option>
+                                                        <option value="4">ไม่จบรถเก่า / จองรถใหม่</option>
+                                                    </select>
+                                                </div>
+                                                <div style="width: 150px; min-width: 150px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">หมายเหตุ</label>
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="16" placeholder="หมายเหตุ" style="font-size: 12px; height: 32px;">
+                                                </div>
+                                                <div style="width: 100px; min-width: 100px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">วันที่จบ</label>
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="17" placeholder="วันที่จบ" style="font-size: 12px; height: 32px;">
+                                                </div>
+                                                <div style="width: 60px; min-width: 60px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">RS</label>
+                                                    <select class="form-control form-control-sm search-select" data-column="18" style="font-size: 12px; height: 32px;">
+                                                        <option value="">ทั้งหมด</option>
+                                                        <option value="0">ยังไม่ RS</option>
+                                                        <option value="1">RS แล้ว</option>
+                                                    </select>
+                                                </div>
+                                                <div style="width: 140px; min-width: 140px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">จัดการ</label>
+                                                    <div style="height: 32px; display: flex; align-items: center; color: #6c757d;">-</div>
+                                                </div>
+                                            </div>
+                                        </div>
 
-// Handle individual column search
-if(isset($_GET['columns'])){
-    foreach($_GET['columns'] as $i => $column){
-        if(!empty($column['search']['value'])){
-            $searchValue = mysqli_real_escape_string($db->mysqli, $column['search']['value']);
+                                        <div class="table-container">
+                                            <table id="datatable" class="table table-striped table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>รหัส ⇅</th>
+                                                        <th>รูป</th>
+                                                        <th>แบบรุ่น ⇅</th>
+                                                        <th>ปีรุ่น ⇅</th>
+                                                        <th>สี ⇅</th>
+                                                        <th>เซลล์ ⇅</th>
+                                                        <th>ทีม ⇅</th>
+                                                        <th>ตั้งขาย ⇅</th>
+                                                        <th>จัด TLT ⇅</th>
+                                                        <th>รับได้ ⇅</th>
+                                                        <th>เสนอราคา ⇅</th>
+                                                        <th>เสนอ ⇅</th>
+                                                        <th>ผู้ซื้อ ⇅</th>
+                                                        <th>ราคา ⇅</th>
+                                                        <th>ค่าคอม ⇅</th>
+                                                        <th>สถานะรอง ⇅</th>
+                                                        <th>หมายเหตุ ⇅</th>
+                                                        <th>วันที่จบ ⇅</th>
+                                                        <th>RS ⇅</th>
+                                                        <th>จัดการ</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td colspan="20" class="text-center">กำลังโหลดข้อมูล...</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
-            switch($i){
-                case 0: // รหัส
-                    $where .= " AND s.cast_id LIKE '%$searchValue%'";
-                    break;
-                case 2: // แบบรุ่น - แก้ไขให้ search ได้
-                    $where .= " AND (f.find_brand LIKE '%$searchValue%' OR f.find_serie LIKE '%$searchValue%' OR CONCAT(IFNULL(f.find_brand,''), ' ', IFNULL(f.find_serie,'')) LIKE '%$searchValue%')";
-                    break;
-                case 3: // ปีรุ่น
-                    $where .= " AND f.find_year LIKE '%$searchValue%'";
-                    break;
-                case 4: // สี
-                    $where .= " AND s.cast_color LIKE '%$searchValue%'";
-                    break;
-                case 5: // เซลล์ - ต้องค้นหาจากชื่อ member
-                    $subQuery = "(SELECT id FROM {$dbn}.db_member WHERE first_name LIKE '%$searchValue%')";
-                    $where .= " AND s.cast_sales_parent_no IN $subQuery";
-                    break;
-                case 6: // ทีม - ปรับปรุงการค้นหาทีม
-                    $teamSubQuery = "(SELECT JSON_UNQUOTE(JSON_EXTRACT(detail, '$[*]')) FROM {$dbn}.db_user_group WHERE name LIKE '%$searchValue%')";
-                    $where .= " AND s.cast_sales_parent_no IN $teamSubQuery";
-                    break;
-                case 7: // ตั้งขาย
-                    $where .= " AND s.cast_trade_price LIKE '%$searchValue%'";
-                    break;
-                case 8: // จัด TLT
-                    $where .= " AND f.find_price LIKE '%$searchValue%'";
-                    break;
-                case 9: // รับได้
-                    $where .= " AND s.cast_price LIKE '%$searchValue%'";
-                    break;
-                case 10: // เสนอราคา
-                    $where .= " AND s.cast_id IN (SELECT off_parent FROM offer WHERE off_price LIKE '%$searchValue%')";
-                    break;
-                case 11: // เสนอ (จำนวน)
-                    if(is_numeric($searchValue)) {
-                        $where .= " AND (SELECT COUNT(*) FROM offer WHERE off_parent = s.cast_id) = $searchValue";
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            2023 © Weise Tech.
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="text-sm-right d-none d-sm-block">
+                                Design & Develop by Weise Tech
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <div class="menu-overlay"></div>
+
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/metismenu.min.js"></script>
+    <script src="/assets/js/waves.js"></script>
+
+    <script src="/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/assets/plugins/datatables/dataTables.bootstrap4.js"></script>
+    <script src="/assets/plugins/datatables/dataTables.responsive.min.js"></script>
+    <script src="/assets/plugins/datatables/responsive.bootstrap4.min.js"></script>
+    <script src="/assets/plugins/datatables/dataTables.buttons.min.js"></script>
+    <script src="/assets/plugins/datatables/buttons.bootstrap4.min.js"></script>
+    <script src="/assets/plugins/datatables/buttons.html5.min.js"></script>
+    <script src="/assets/plugins/datatables/buttons.flash.min.js"></script>
+    <script src="/assets/plugins/datatables/buttons.print.min.js"></script>
+    <script src="/assets/plugins/datatables/dataTables.keyTable.min.js"></script>
+    <script src="/assets/plugins/datatables/dataTables.select.min.js"></script>
+    <script src="/assets/plugins/datatables/pdfmake.min.js"></script>
+    <script src="/assets/plugins/datatables/vfs_fonts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.1/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                ecard: {
+                    id: '',
+                    partner: '0',
+                    price: '',
+                    commission: '',
+                    newcar: '0',
+                    newcar_detail: '0',
+                    date: '',
+                    detail: ' ',
+                    newcar_rs: '0',
+                    list: []
+                },
+                dataTable: null,
+                filterOptions: {
+                    sales: [],
+                    teams: [],
+                    partners: []
+                }
+            },
+            mounted: function() {
+                this.loadFilterOptions();
+                this.getData();
+                this.initEventListeners();
+                
+                // เพิ่ม fallback setup หากอันแรกไม่ทำงาน
+                var self = this;
+                setTimeout(function() {
+                    if (self.dataTable) {
+                        self.setupSearchEvents();
                     }
-                    break;
-                case 12: // ผู้ซื้อ
-                    $where .= " AND sc.succ_partner IN (SELECT part_id FROM partner WHERE part_fname LIKE '%$searchValue%' OR part_lname LIKE '%$searchValue%')";
-                    break;
-                case 13: // ราคา
-                    $where .= " AND sc.succ_price LIKE '%$searchValue%'";
-                    break;
-                case 14: // ค่าคอม
-                    $where .= " AND sc.succ_commission LIKE '%$searchValue%'";
-                    break;
-                case 15: // สถานะรอง
-                    $where .= " AND sc.succ_newcar = '$searchValue'";
-                    break;
-                case 16: // หมายเหตุ
-                    $where .= " AND sc.succ_comment LIKE '%$searchValue%'";
-                    break;
-                case 17: // วันที่จบ
-                    $where .= " AND sc.succ_date LIKE '%$searchValue%'";
-                    break;
-                case 18: // RS
-                    $where .= " AND sc.succ_newcar_rs = '$searchValue'";
-                    break;
+                }, 2000);
+            },
+            methods: {
+                loadFilterOptions: function() {
+                    var self = this;
+                    axios.get('/admin/system/filter-options.api.php')
+                        .then(response => {
+                            if (response.data.success) {
+                                self.filterOptions = response.data.data;
+                                self.populateSelectOptions();
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error loading filter options:', error);
+                        });
+                },
+
+                populateSelectOptions: function() {
+                    var self = this;
+                    
+                    setTimeout(function() {
+                        // เซลล์
+                        var salesSelect = $('.search-select[data-column="5"]');
+                        self.filterOptions.sales.forEach(function(sale) {
+                            salesSelect.append(`<option value="${sale.name}">${sale.name}</option>`);
+                        });
+                        
+                        // ทีม
+                        var teamSelect = $('.search-select[data-column="6"]');
+                        self.filterOptions.teams.forEach(function(team) {
+                            teamSelect.append(`<option value="${team.name}">${team.name}</option>`);
+                        });
+                        
+                        // ผู้ซื้อ
+                        var partnerSelect = $('.search-select[data-column="12"]');
+                        self.filterOptions.partners.forEach(function(partner) {
+                            partnerSelect.append(`<option value="${partner.name}">${partner.name}</option>`);
+                        });
+                        
+                        // Setup search events หลังจาก populate options เสร็จแล้ว
+                        self.setupSearchEvents();
+                    }, 1000);
+                },
+
+                setupSearchEvents: function() {
+                    var self = this;
+                    
+                    console.log('Setting up search events...');
+                    console.log('DataTable ready:', !!this.dataTable);
+                    console.log('Search inputs found:', $('.search-input, .search-select').length);
+                    
+                    if (!this.dataTable) {
+                        console.error('DataTable not ready yet');
+                        return;
+                    }
+                    
+                    // ลบ event handlers เก่าก่อน
+                    $('.search-input, .search-select').off('keyup change input');
+                    
+                    // Setup ใหม่
+                    $('.search-input, .search-select').each(function(index) {
+                        var $input = $(this);
+                        var columnIndex = parseInt($input.data('column'));
+                        
+                        console.log('Setting up input', index, 'for column', columnIndex);
+                        
+                        $input.on('keyup change input', function() {
+                            var value = this.value;
+                            
+                            console.log('Search triggered - Column:', columnIndex, 'Value:', value);
+                            
+                            try {
+                                var column = self.dataTable.column(columnIndex);
+                                if (column && column.search() !== value) {
+                                    console.log('Performing search on column', columnIndex);
+                                    column.search(value).draw(false);
+                                } else {
+                                    console.log('Search value unchanged or column not found');
+                                }
+                            } catch (error) {
+                                console.error('Error searching column', columnIndex, ':', error);
+                            }
+                        });
+                    });
+                    
+                    console.log('Search events setup complete');
+                },
+
+                clearAllFilters: function() {
+                    $('.search-input, .search-select').val('');
+                    if (this.dataTable) {
+                        this.dataTable.columns().search('').draw();
+                    }
+                },
+
+                loadData: function(stat) {
+                    if (this.dataTable) {
+                        var columnSearches = [];
+                        this.dataTable.columns().every(function(index) {
+                            columnSearches[index] = this.search();
+                        });
+                        
+                        var currentPage = this.dataTable.page();
+                        var self = this;
+                        
+                        this.dataTable.ajax.url('/admin/system/report-success.api.php?show=' + stat).load(function() {
+                            self.dataTable.columns().every(function(index) {
+                                if (columnSearches[index]) {
+                                    this.search(columnSearches[index]);
+                                }
+                            });
+                            
+                            $('.column-search-row th').each(function(index) {
+                                var input = $(this).find('input, select');
+                                if (input.length > 0 && columnSearches[index]) {
+                                    input.val(columnSearches[index]);
+                                }
+                            });
+                            
+                            try {
+                                self.dataTable.page(currentPage).draw('page');
+                            } catch(e) {
+                                self.dataTable.draw();
+                            }
+                        });
+                    }
+                },
+
+                updateStatus: function() {
+                    if (this.ecard.date == '' || this.ecard.date == '0000-00-00' || this.ecard.date == null) {
+                        this.ecard.date = '0000-00-00';
+                    }
+
+                    axios.post('/admin/system/success_insert.api.php', {
+                        id: this.ecard.id,
+                        partner: this.ecard.partner,
+                        price: this.ecard.price,
+                        commission: this.ecard.commission,
+                        newcar: this.ecard.newcar,
+                        newcar_detail: this.ecard.newcar_detail,
+                        date: this.ecard.date,
+                        detailStatus: this.ecard.detail,
+                        newcar_rs: this.ecard.newcar_rs
+                    }).then(response => {
+                        console.log(response.data);
+                        if (response.data.updateSucc && response.data.updateSucc.status == 'success') {
+                            swal("สำเร็จ", "บันทึกข้อมูลเรียบร้อย", "success");
+                            this.dataTable.ajax.reload(null, false);
+                        } else {
+                            swal("ผิดพลาด", "ไม่สามารถบันทึกข้อมูลได้", "error");
+                        }
+                    }).catch(error => {
+                        console.error(error);
+                        swal("ผิดพลาด", "ไม่สามารถบันทึกข้อมูลได้", "error");
+                    });
+                },
+
+                getEcard: function(event) {
+                    axios.get('/admin/system/success-info.api.php?id=' + event.target.getAttribute('data-ecard'))
+                        .then(response => {
+                            this.ecard.list = response.data.data;
+                            this.ecard.id = response.data.jobData.id;
+                            this.ecard.partner = response.data.jobData.partner;
+                            this.ecard.price = response.data.jobData.price;
+                            this.ecard.commission = response.data.jobData.commission;
+                            this.ecard.newcar = response.data.jobData.newcar;
+                            this.ecard.newcar_detail = response.data.jobData.newcar_detail;
+                            this.ecard.date = response.data.jobData.date;
+                            this.ecard.detail = response.data.jobData.detail;
+                        })
+                        .catch(error => {
+                            console.error(error);
+                        });
+
+                    $('#exampleModal').modal('show');
+                },
+
+                getData: function() {
+                    var self = this;
+                    
+                    this.dataTable = $('#datatable').DataTable({
+                        ajax: {
+                            url: '/admin/system/report-success.api.php',
+                            dataSrc: function(json) {
+                                console.log('AJAX response:', json);
+                                return json.data;
+                            }
+                        },
+                        pageLength: 10,
+                        lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+                        processing: true,
+                        serverSide: true,
+                        responsive: false,
+                        bInfo: false,
+                        order: [[0, "desc"]],
+                        scrollX: true,
+                        language: {
+                            "processing": "กำลังดาวน์โหลดข้อมูล...",
+                            "search": "ค้นหา:",
+                            "lengthMenu": "แสดง _MENU_ รายการ",
+                            "emptyTable": "ไม่มีข้อมูลในตาราง",
+                            "zeroRecords": "ไม่พบข้อมูลที่ค้นหา"
+                        },
+                        dom: 'lBfrtip',
+                        buttons: [
+                            'copy', 'print',
+                            {
+                                text: 'ล้างตัวกรอง',
+                                action: function (e, dt, node, config) {
+                                    self.clearAllFilters();
+                                }
+                            }
+                        ],
+                        search: {
+                            "regex": true,
+                            "smart": false,
+                        },
+                        stateSave: true, // เก็บสถานะการ sort
+                        initComplete: function() {
+                            var api = this.api();
+                            
+                            api.columns().every(function(index) {
+                                var column = this;
+                                var input = $('.column-search-row th').eq(index).find('input, select');
+                                
+                                if (input.length > 0) {
+                                    input.on('keyup change clear', function() {
+                                        var value = this.value;
+                                        if (column.search() !== value) {
+                                            // ค้นหาโดยไม่เปลี่ยน sort
+                                            column.search(value).draw(false);
+                                        }
+                                    });
+                                }
+                            });
+                            
+                            console.log('DataTable initialized with column search');
+                        }
+                    });
+                },
+
+                testSearch: function() {
+                    console.log('=== Search Test ===');
+                    console.log('DataTable exists:', !!this.dataTable);
+                    console.log('Search inputs count:', $('.search-input').length);
+                    console.log('Search selects count:', $('.search-select').length);
+                    
+                    // ทดสอบ search ใน column 0 (รหัส)
+                    if (this.dataTable) {
+                        console.log('Testing search on column 0...');
+                        this.dataTable.column(0).search('1').draw(false);
+                        console.log('Column 0 search value:', this.dataTable.column(0).search());
+                        
+                        // ทดสอบ manual AJAX call
+                        console.log('Current DataTable AJAX URL:', this.dataTable.ajax.url());
+                        
+                        // แสดง column search ทั้งหมด
+                        console.log('All column searches:');
+                        this.dataTable.columns().every(function(index) {
+                            var search = this.search();
+                            if (search) {
+                                console.log('Column', index, 'search:', search);
+                            }
+                        });
+                    }
+                    
+                    // แสดง data-column attributes
+                    $('.search-input, .search-select').each(function(index) {
+                        console.log('Input', index, '- data-column:', $(this).data('column'), 'value:', this.value);
+                    });
+                    
+                    // ลองเรียก setupSearchEvents อีกครั้ง
+                    this.setupSearchEvents();
+                    
+                    // ทดสอบ manual search
+                    console.log('Testing manual search on first input...');
+                    var firstInput = $('.search-input').first();
+                    if (firstInput.length > 0) {
+                        firstInput.val('test').trigger('keyup');
+                    }
+                },
+
+                initEventListeners: function() {
+                    var self = this;
+                    document.addEventListener('click', function(event) {
+                        if (event.target.classList.contains('ecard-btn')) {
+                            self.getEcard(event);
+                        }
+                    });
+                }
             }
-        }
-    }
-}
+        });
+    </script>
 
-// Debug: Log the final query for troubleshooting
-error_log("Final WHERE clause: " . $where);
-
-echo json_encode(
-    SSP::simple($_GET, $sql_details_1, $table, $primaryKey, $columns, $joinQuery, $where)
-);
-
-// Debug log สำหรับ development
-if (isset($_GET['debug'])) {
-    error_log("Search WHERE clause: " . $where);
-    error_log("Search parameters: " . json_encode($_GET));
-}
+    <script src="/assets/js/theme.js"></script>
+</body>
+</html>
