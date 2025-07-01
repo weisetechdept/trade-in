@@ -220,6 +220,10 @@
                                 <button type="button" class="btn btn-outline-success" @click="loadData('4')">
                                     สำเร็จ
                                 </button>
+                                <!-- Debug button -->
+                                <button type="button" class="btn btn-outline-secondary ml-3" @click="testSearch()">
+                                    🔧 Test Search
+                                </button>
                             </div>
                         </div>
 
@@ -537,6 +541,14 @@
                 this.loadFilterOptions();
                 this.getData();
                 this.initEventListeners();
+                
+                // เพิ่ม fallback setup หากอันแรกไม่ทำงาน
+                var self = this;
+                setTimeout(function() {
+                    if (self.dataTable) {
+                        self.setupSearchEvents();
+                    }
+                }, 2000);
             },
             methods: {
                 loadFilterOptions: function() {
@@ -574,7 +586,54 @@
                         self.filterOptions.partners.forEach(function(partner) {
                             partnerSelect.append(`<option value="${partner.name}">${partner.name}</option>`);
                         });
-                    }, 500);
+                        
+                        // Setup search events หลังจาก populate options เสร็จแล้ว
+                        self.setupSearchEvents();
+                    }, 1000);
+                },
+
+                setupSearchEvents: function() {
+                    var self = this;
+                    
+                    console.log('Setting up search events...');
+                    console.log('DataTable ready:', !!this.dataTable);
+                    console.log('Search inputs found:', $('.search-input, .search-select').length);
+                    
+                    if (!this.dataTable) {
+                        console.error('DataTable not ready yet');
+                        return;
+                    }
+                    
+                    // ลบ event handlers เก่าก่อน
+                    $('.search-input, .search-select').off('keyup change input');
+                    
+                    // Setup ใหม่
+                    $('.search-input, .search-select').each(function(index) {
+                        var $input = $(this);
+                        var columnIndex = parseInt($input.data('column'));
+                        
+                        console.log('Setting up input', index, 'for column', columnIndex);
+                        
+                        $input.on('keyup change input', function() {
+                            var value = this.value;
+                            
+                            console.log('Search triggered - Column:', columnIndex, 'Value:', value);
+                            
+                            try {
+                                var column = self.dataTable.column(columnIndex);
+                                if (column && column.search() !== value) {
+                                    console.log('Performing search on column', columnIndex);
+                                    column.search(value).draw(false);
+                                } else {
+                                    console.log('Search value unchanged or column not found');
+                                }
+                            } catch (error) {
+                                console.error('Error searching column', columnIndex, ':', error);
+                            }
+                        });
+                    });
+                    
+                    console.log('Search events setup complete');
                 },
 
                 clearAllFilters: function() {
@@ -728,6 +787,28 @@
                             console.log('DataTable initialized with column search');
                         }
                     });
+                },
+
+                testSearch: function() {
+                    console.log('=== Search Test ===');
+                    console.log('DataTable exists:', !!this.dataTable);
+                    console.log('Search inputs count:', $('.search-input').length);
+                    console.log('Search selects count:', $('.search-select').length);
+                    
+                    // ทดสอบ search ใน column 0 (รหัส)
+                    if (this.dataTable) {
+                        console.log('Testing search on column 0...');
+                        this.dataTable.column(0).search('1').draw(false);
+                        console.log('Column 0 search value:', this.dataTable.column(0).search());
+                    }
+                    
+                    // แสดง data-column attributes
+                    $('.search-input, .search-select').each(function(index) {
+                        console.log('Input', index, '- data-column:', $(this).data('column'), 'value:', this.value);
+                    });
+                    
+                    // ลองเรียก setupSearchEvents อีกครั้ง
+                    this.setupSearchEvents();
                 },
 
                 initEventListeners: function() {
