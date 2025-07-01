@@ -57,6 +57,51 @@
             text-align: center;
         }
         
+        /* Header styles - สีเข้มสำหรับ sort */
+        #datatable thead th {
+            background: #343a40;
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        #datatable thead th:hover {
+            background: #495057;
+        }
+        
+        /* ปิด sorting สำหรับคอลัมน์ที่ไม่ต้องการ */
+        #datatable thead th:nth-child(2),
+        #datatable thead th:nth-child(20) {
+            cursor: default;
+        }
+        
+        #datatable thead th:nth-child(2):hover,
+        #datatable thead th:nth-child(20):hover {
+            background: #343a40;
+        }
+        
+        /* Search Filters Container */
+        .search-filters-container {
+            border-left: 4px solid #007bff;
+        }
+        
+        .search-filters-container::-webkit-scrollbar {
+            height: 6px;
+        }
+        
+        .search-filters-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+        
+        .search-filters-container::-webkit-scrollbar-thumb {
+            background: #007bff;
+            border-radius: 3px;
+        }
+        
         /* Column widths */
         #datatable th:nth-child(1), #datatable td:nth-child(1) { width: 80px; min-width: 80px; }
         #datatable th:nth-child(2), #datatable td:nth-child(2) { width: 100px; min-width: 100px; }
@@ -78,24 +123,6 @@
         #datatable th:nth-child(18), #datatable td:nth-child(18) { width: 100px; min-width: 100px; }
         #datatable th:nth-child(19), #datatable td:nth-child(19) { width: 60px; min-width: 60px; }
         #datatable th:nth-child(20), #datatable td:nth-child(20) { width: 140px; min-width: 140px; }
-        
-        /* Search row */
-        .column-search-row th {
-            padding: 8px 4px !important;
-        }
-        
-        .column-search-row .form-control,
-        .column-search-row .form-control-sm {
-            font-size: 12px;
-            padding: 0.3rem 0.5rem;
-            height: 32px;
-            width: 100%;
-        }
-        
-        .column-search-row select.form-control {
-            font-size: 12px;
-            height: 32px;
-        }
         
         /* Car thumbnail */
         .car-thumb {
@@ -192,6 +219,10 @@
                                 </button>
                                 <button type="button" class="btn btn-outline-success" @click="loadData('4')">
                                     สำเร็จ
+                                </button>
+                                <!-- Debug button -->
+                                <button type="button" class="btn btn-outline-secondary ml-3" @click="testSearch()">
+                                    🔧 Test Search
                                 </button>
                             </div>
                         </div>
@@ -299,79 +330,132 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
+                                        <!-- Search Filters Row - ย้ายมาไว้ด้านบน -->
+                                        <div class="search-filters-container mb-3" style="overflow-x: auto; background: #f8f9fa; padding: 10px; border-radius: 5px; border: 2px solid #007bff;">
+                                            <div style="display: flex; gap: 8px; min-width: 1800px;">
+                                                <div style="width: 80px; min-width: 80px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">รหัส</label>
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="0" placeholder="รหัส" style="font-size: 12px; height: 32px;">
+                                                </div>
+                                                <div style="width: 100px; min-width: 100px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">รูป</label>
+                                                    <div style="height: 32px; display: flex; align-items: center; color: #6c757d;">-</div>
+                                                </div>
+                                                <div style="width: 180px; min-width: 180px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">แบบรุ่น</label>
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="2" placeholder="แบบรุ่น" style="font-size: 12px; height: 32px;">
+                                                </div>
+                                                <div style="width: 80px; min-width: 80px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">ปีรุ่น</label>
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="3" placeholder="ปีรุ่น" style="font-size: 12px; height: 32px;">
+                                                </div>
+                                                <div style="width: 100px; min-width: 100px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">สี</label>
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="4" placeholder="สี" style="font-size: 12px; height: 32px;">
+                                                </div>
+                                                <div style="width: 120px; min-width: 120px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">เซลล์</label>
+                                                    <select class="form-control form-control-sm search-select" data-column="5" style="font-size: 12px; height: 32px;">
+                                                        <option value="">ทุกคน</option>
+                                                    </select>
+                                                </div>
+                                                <div style="width: 100px; min-width: 100px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">ทีม</label>
+                                                    <select class="form-control form-control-sm search-select" data-column="6" style="font-size: 12px; height: 32px;">
+                                                        <option value="">ทุกทีม</option>
+                                                    </select>
+                                                </div>
+                                                <div style="width: 110px; min-width: 110px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">ตั้งขาย</label>
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="7" placeholder="ตั้งขาย" style="font-size: 12px; height: 32px;">
+                                                </div>
+                                                <div style="width: 110px; min-width: 110px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">จัด TLT</label>
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="8" placeholder="จัด TLT" style="font-size: 12px; height: 32px;">
+                                                </div>
+                                                <div style="width: 110px; min-width: 110px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">รับได้</label>
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="9" placeholder="รับได้" style="font-size: 12px; height: 32px;">
+                                                </div>
+                                                <div style="width: 110px; min-width: 110px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">เสนอราคา</label>
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="10" placeholder="เสนอราคา" style="font-size: 12px; height: 32px;">
+                                                </div>
+                                                <div style="width: 80px; min-width: 80px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">เสนอ</label>
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="11" placeholder="เสนอ" style="font-size: 12px; height: 32px;">
+                                                </div>
+                                                <div style="width: 140px; min-width: 140px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">ผู้ซื้อ</label>
+                                                    <select class="form-control form-control-sm search-select" data-column="12" style="font-size: 12px; height: 32px;">
+                                                        <option value="">ทุกคน</option>
+                                                    </select>
+                                                </div>
+                                                <div style="width: 110px; min-width: 110px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">ราคา</label>
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="13" placeholder="ราคา" style="font-size: 12px; height: 32px;">
+                                                </div>
+                                                <div style="width: 100px; min-width: 100px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">ค่าคอม</label>
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="14" placeholder="ค่าคอม" style="font-size: 12px; height: 32px;">
+                                                </div>
+                                                <div style="width: 160px; min-width: 160px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">สถานะรอง</label>
+                                                    <select class="form-control form-control-sm search-select" data-column="15" style="font-size: 12px; height: 32px;">
+                                                        <option value="">ทุกสถานะ</option>
+                                                        <option value="1">จบรถเก่า / จองรถใหม่</option>
+                                                        <option value="2">จบรถเก่า / ไม่จองรถใหม่</option>
+                                                        <option value="3">ไม่จบรถเก่า / ไม่จองรถใหม่</option>
+                                                        <option value="4">ไม่จบรถเก่า / จองรถใหม่</option>
+                                                    </select>
+                                                </div>
+                                                <div style="width: 150px; min-width: 150px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">หมายเหตุ</label>
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="16" placeholder="หมายเหตุ" style="font-size: 12px; height: 32px;">
+                                                </div>
+                                                <div style="width: 100px; min-width: 100px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">วันที่จบ</label>
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="17" placeholder="วันที่จบ" style="font-size: 12px; height: 32px;">
+                                                </div>
+                                                <div style="width: 60px; min-width: 60px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">RS</label>
+                                                    <select class="form-control form-control-sm search-select" data-column="18" style="font-size: 12px; height: 32px;">
+                                                        <option value="">ทั้งหมด</option>
+                                                        <option value="0">ยังไม่ RS</option>
+                                                        <option value="1">RS แล้ว</option>
+                                                    </select>
+                                                </div>
+                                                <div style="width: 140px; min-width: 140px;">
+                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">จัดการ</label>
+                                                    <div style="height: 32px; display: flex; align-items: center; color: #6c757d;">-</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="table-container">
                                             <table id="datatable" class="table table-striped table-bordered">
                                                 <thead>
                                                     <tr>
-                                                        <th>รหัส</th>
+                                                        <th>รหัส ⇅</th>
                                                         <th>รูป</th>
-                                                        <th>แบบรุ่น</th>
-                                                        <th>ปีรุ่น</th>
-                                                        <th>สี</th>
-                                                        <th>เซลล์</th>
-                                                        <th>ทีม</th>
-                                                        <th>ตั้งขาย</th>
-                                                        <th>จัด TLT</th>
-                                                        <th>รับได้</th>
-                                                        <th>เสนอราคา</th>
-                                                        <th>เสนอ</th>
-                                                        <th>ผู้ซื้อ</th>
-                                                        <th>ราคา</th>
-                                                        <th>ค่าคอม</th>
-                                                        <th>สถานะรอง</th>
-                                                        <th>หมายเหตุ</th>
-                                                        <th>วันที่จบ</th>
-                                                        <th>RS</th>
+                                                        <th>แบบรุ่น ⇅</th>
+                                                        <th>ปีรุ่น ⇅</th>
+                                                        <th>สี ⇅</th>
+                                                        <th>เซลล์ ⇅</th>
+                                                        <th>ทีม ⇅</th>
+                                                        <th>ตั้งขาย ⇅</th>
+                                                        <th>จัด TLT ⇅</th>
+                                                        <th>รับได้ ⇅</th>
+                                                        <th>เสนอราคา ⇅</th>
+                                                        <th>เสนอ ⇅</th>
+                                                        <th>ผู้ซื้อ ⇅</th>
+                                                        <th>ราคา ⇅</th>
+                                                        <th>ค่าคอม ⇅</th>
+                                                        <th>สถานะรอง ⇅</th>
+                                                        <th>หมายเหตุ ⇅</th>
+                                                        <th>วันที่จบ ⇅</th>
+                                                        <th>RS ⇅</th>
                                                         <th>จัดการ</th>
-                                                    </tr>
-                                                    <!-- Column Search Row -->
-                                                    <tr class="column-search-row">
-                                                        <th><input type="text" class="form-control form-control-sm" placeholder="รหัส"></th>
-                                                        <th></th>
-                                                        <th><input type="text" class="form-control form-control-sm" placeholder="แบบรุ่น"></th>
-                                                        <th><input type="text" class="form-control form-control-sm" placeholder="ปีรุ่น"></th>
-                                                        <th><input type="text" class="form-control form-control-sm" placeholder="สี"></th>
-                                                        <th>
-                                                            <select class="form-control form-control-sm">
-                                                                <option value="">ทุกคน</option>
-                                                            </select>
-                                                        </th>
-                                                        <th>
-                                                            <select class="form-control form-control-sm">
-                                                                <option value="">ทุกทีม</option>
-                                                            </select>
-                                                        </th>
-                                                        <th><input type="text" class="form-control form-control-sm" placeholder="ตั้งขาย"></th>
-                                                        <th><input type="text" class="form-control form-control-sm" placeholder="จัด TLT"></th>
-                                                        <th><input type="text" class="form-control form-control-sm" placeholder="รับได้"></th>
-                                                        <th><input type="text" class="form-control form-control-sm" placeholder="เสนอราคา"></th>
-                                                        <th><input type="text" class="form-control form-control-sm" placeholder="เสนอ"></th>
-                                                        <th>
-                                                            <select class="form-control form-control-sm">
-                                                                <option value="">ทุกคน</option>
-                                                            </select>
-                                                        </th>
-                                                        <th><input type="text" class="form-control form-control-sm" placeholder="ราคา"></th>
-                                                        <th><input type="text" class="form-control form-control-sm" placeholder="ค่าคอม"></th>
-                                                        <th>
-                                                            <select class="form-control form-control-sm">
-                                                                <option value="">ทุกสถานะ</option>
-                                                                <option value="1">จบรถเก่า / จองรถใหม่</option>
-                                                                <option value="2">จบรถเก่า / ไม่จองรถใหม่</option>
-                                                                <option value="3">ไม่จบรถเก่า / ไม่จองรถใหม่</option>
-                                                                <option value="4">ไม่จบรถเก่า / จองรถใหม่</option>
-                                                            </select>
-                                                        </th>
-                                                        <th><input type="text" class="form-control form-control-sm" placeholder="หมายเหตุ"></th>
-                                                        <th><input type="text" class="form-control form-control-sm" placeholder="วันที่จบ"></th>
-                                                        <th>
-                                                            <select class="form-control form-control-sm">
-                                                                <option value="">ทั้งหมด</option>
-                                                                <option value="0">ยังไม่ RS</option>
-                                                                <option value="1">RS แล้ว</option>
-                                                            </select>
-                                                        </th>
-                                                        <th></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -454,9 +538,40 @@
                 }
             },
             mounted: function() {
-                this.loadFilterOptions();
-                this.getData();
-                this.initEventListeners();
+                try {
+                    console.log('Vue component mounted');
+                    
+                    // ตรวจสอบ dependencies
+                    if (typeof jQuery === 'undefined') {
+                        console.error('jQuery not loaded');
+                        alert('jQuery ไม่ได้โหลด กรุณาตรวจสอบ');
+                        return;
+                    }
+                    
+                    if (typeof $.fn.DataTable === 'undefined') {
+                        console.error('DataTables not loaded');
+                        alert('DataTables plugin ไม่ได้โหลด กรุณาตรวจสอบ');
+                        return;
+                    }
+                    
+                    console.log('Dependencies OK');
+                    
+                    this.loadFilterOptions();
+                    this.getData();
+                    this.initEventListeners();
+                    
+                    // เพิ่ม fallback setup หากอันแรกไม่ทำงาน
+                    var self = this;
+                    setTimeout(function() {
+                        if (self.dataTable) {
+                            console.log('Fallback search setup');
+                            self.setupSearchEvents();
+                        }
+                    }, 3000);
+                } catch (error) {
+                    console.error('Error in mounted:', error);
+                    alert('เกิดข้อผิดพลาดในการเริ่มต้น: ' + error.message);
+                }
             },
             methods: {
                 loadFilterOptions: function() {
@@ -477,28 +592,114 @@
                     var self = this;
                     
                     setTimeout(function() {
-                        // เซลล์
-                        var salesSelect = $('.column-search-row th').eq(5).find('select');
-                        self.filterOptions.sales.forEach(function(sale) {
-                            salesSelect.append(`<option value="${sale.name}">${sale.name}</option>`);
+                        try {
+                            console.log('Populating select options...');
+                            
+                            // เซลล์
+                            var salesSelect = $('.search-select[data-column="5"]');
+                            if (salesSelect.length > 0 && self.filterOptions.sales) {
+                                self.filterOptions.sales.forEach(function(sale) {
+                                    if (sale && sale.name) {
+                                        salesSelect.append(`<option value="${sale.name}">${sale.name}</option>`);
+                                    }
+                                });
+                                console.log('Sales options populated:', self.filterOptions.sales.length);
+                            }
+                            
+                            // ทีม
+                            var teamSelect = $('.search-select[data-column="6"]');
+                            if (teamSelect.length > 0 && self.filterOptions.teams) {
+                                self.filterOptions.teams.forEach(function(team) {
+                                    if (team && team.name) {
+                                        teamSelect.append(`<option value="${team.name}">${team.name}</option>`);
+                                    }
+                                });
+                                console.log('Team options populated:', self.filterOptions.teams.length);
+                            }
+                            
+                            // ผู้ซื้อ
+                            var partnerSelect = $('.search-select[data-column="12"]');
+                            if (partnerSelect.length > 0 && self.filterOptions.partners) {
+                                self.filterOptions.partners.forEach(function(partner) {
+                                    if (partner && partner.name) {
+                                        partnerSelect.append(`<option value="${partner.name}">${partner.name}</option>`);
+                                    }
+                                });
+                                console.log('Partner options populated:', self.filterOptions.partners.length);
+                            }
+                            
+                            // Setup search events หลังจาก populate options เสร็จแล้ว
+                            self.setupSearchEvents();
+                        } catch (error) {
+                            console.error('Error populating select options:', error);
+                        }
+                    }, 1000);
+                },
+
+                setupSearchEvents: function() {
+                    var self = this;
+                    
+                    try {
+                        console.log('Setting up search events...');
+                        console.log('DataTable ready:', !!this.dataTable);
+                        
+                        var searchInputs = $('.search-input, .search-select');
+                        console.log('Search inputs found:', searchInputs.length);
+                        
+                        if (!this.dataTable) {
+                            console.error('DataTable not ready yet');
+                            return;
+                        }
+                        
+                        // ลบ event handlers เก่าก่อน
+                        searchInputs.off('keyup change input');
+                        
+                        // Setup ใหม่
+                        searchInputs.each(function(index) {
+                            var $input = $(this);
+                            var columnIndex = parseInt($input.data('column'));
+                            
+                            if (isNaN(columnIndex)) {
+                                console.warn('Invalid column index for input', index);
+                                return;
+                            }
+                            
+                            console.log('Setting up input', index, 'for column', columnIndex);
+                            
+                            $input.on('keyup change input', function() {
+                                var value = String(this.value || '');
+                                
+                                console.log('Search triggered - Column:', columnIndex, 'Value:', value);
+                                
+                                try {
+                                    if (self.dataTable && typeof self.dataTable.column === 'function') {
+                                        var column = self.dataTable.column(columnIndex);
+                                        if (column && typeof column.search === 'function') {
+                                            var currentSearch = column.search();
+                                            if (currentSearch !== value) {
+                                                console.log('Performing search on column', columnIndex);
+                                                column.search(value).draw(false);
+                                            }
+                                        } else {
+                                            console.warn('Column', columnIndex, 'not found or no search method');
+                                        }
+                                    } else {
+                                        console.warn('DataTable not ready or no column method');
+                                    }
+                                } catch (error) {
+                                    console.error('Error searching column', columnIndex, ':', error);
+                                }
+                            });
                         });
                         
-                        // ทีม
-                        var teamSelect = $('.column-search-row th').eq(6).find('select');
-                        self.filterOptions.teams.forEach(function(team) {
-                            teamSelect.append(`<option value="${team.name}">${team.name}</option>`);
-                        });
-                        
-                        // ผู้ซื้อ
-                        var partnerSelect = $('.column-search-row th').eq(12).find('select');
-                        self.filterOptions.partners.forEach(function(partner) {
-                            partnerSelect.append(`<option value="${partner.name}">${partner.name}</option>`);
-                        });
-                    }, 500);
+                        console.log('Search events setup complete');
+                    } catch (error) {
+                        console.error('Error setting up search events:', error);
+                    }
                 },
 
                 clearAllFilters: function() {
-                    $('.column-search-row input, .column-search-row select').val('');
+                    $('.search-input, .search-select').val('');
                     if (this.dataTable) {
                         this.dataTable.columns().search('').draw();
                     }
@@ -648,6 +849,54 @@
                             console.log('DataTable initialized with column search');
                         }
                     });
+                },
+
+                testSearch: function() {
+                    try {
+                        console.log('=== Search Test ===');
+                        console.log('DataTable exists:', !!this.dataTable);
+                        console.log('Search inputs count:', $('.search-input').length);
+                        console.log('Search selects count:', $('.search-select').length);
+                        
+                        // ทดสอบ search ใน column 0 (รหัส)
+                        if (this.dataTable && typeof this.dataTable.column === 'function') {
+                            console.log('Testing search on column 0...');
+                            try {
+                                this.dataTable.column(0).search('1').draw(false);
+                                console.log('Column 0 search value:', this.dataTable.column(0).search());
+                            } catch (e) {
+                                console.error('Error testing column search:', e);
+                            }
+                            
+                            // แสดง column search ทั้งหมด
+                            console.log('All column searches:');
+                            try {
+                                this.dataTable.columns().every(function(index) {
+                                    var search = this.search();
+                                    if (search) {
+                                        console.log('Column', index, 'search:', search);
+                                    }
+                                });
+                            } catch (e) {
+                                console.error('Error checking column searches:', e);
+                            }
+                        } else {
+                            console.log('DataTable not ready for testing');
+                        }
+                        
+                        // แสดง data-column attributes
+                        $('.search-input, .search-select').each(function(index) {
+                            console.log('Input', index, '- data-column:', $(this).data('column'), 'value:', this.value, 'type:', this.tagName);
+                        });
+                        
+                        // ลองเรียก setupSearchEvents อีกครั้ง
+                        this.setupSearchEvents();
+                        
+                        console.log('Test completed');
+                    } catch (error) {
+                        console.error('Error in testSearch:', error);
+                        alert('เกิดข้อผิดพลาดในการทดสอบ: ' + error.message);
+                    }
                 },
 
                 initEventListeners: function() {
