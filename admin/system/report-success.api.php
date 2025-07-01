@@ -86,6 +86,32 @@
         } 
     }
 
+    function getOfferPrice($uid){
+        global $db;
+        $offer = $db->where('off_parent', $uid)->orderBy('off_price','DESC')->getOne('offer', null,'off_price');
+        if(empty($offer)){
+            return "ไม่มี";
+        } else {
+            return number_format($offer['off_price']);
+        }
+    }
+
+    function getTLTPrice($uid){
+        global $db;
+        $offer = $db->where('find_id', $uid)->getOne('finance_data', null,'find_price');
+        if(empty($offer)){
+            return "ไม่มี";
+        } else {
+            return number_format($offer['find_price']);
+        }
+    }
+
+    function countOffer($id){
+        global $db;
+        $count = $db->where('off_parent', $id)->getValue('offer','count(*)');
+        return $count;
+    }
+
     
     $sql_details_1 = ['user'=> $usern,'pass'=> $passn,'db'=> $dbn,'host'=> $hostn,'charset'=>'utf8'];
     
@@ -133,12 +159,28 @@
                 return getTeamName($d); 
             }
         ],
+
         ['db' => 'cast_id', 'dt' => 7, 'field'=> 'cast_id',
             'formatter' => function($d, $row){
-                return "<a href=\"/admin/detail/$d\" target=\"_blank\">$d</a>";
+                return getOfferPrice($d);
             }
         ],
-        ['db' => 'succ_partner', 'dt' => 8, 'field'=> 'succ_partner',
+        ['db' => 'cast_id', 'dt' => 8, 'field'=> 'cast_id',
+            'formatter' => function($d, $row){
+                return getTLTPrice($d);
+            }
+        ],
+        ['db' => 'cast_id', 'dt' => 9, 'field'=> 'cast_id',
+            'formatter' => function($d, $row){
+                return countOffer($d);
+            }
+        ],
+
+
+
+
+
+        ['db' => 'succ_partner', 'dt' => 10, 'field'=> 'succ_partner',
             'formatter' => function($d, $row){
                 if(empty($d)){
                     return '-';
@@ -147,7 +189,7 @@
                 }
             }
         ],
-        ['db' => 'succ_price', 'dt' => 9, 'field'=> 'succ_price',
+        ['db' => 'succ_price', 'dt' => 11, 'field'=> 'succ_price',
             'formatter' => function($d, $row){
                 if(empty($d)){
                     return '-';
@@ -156,7 +198,7 @@
                 }
             }
         ],
-        ['db' => 'succ_commission', 'dt' => 10, 'field'=> 'succ_commission',
+        ['db' => 'succ_commission', 'dt' => 12, 'field'=> 'succ_commission',
             'formatter' => function($d, $row){
                 if(empty($d)){
                     return '-';
@@ -165,7 +207,7 @@
                 }
             }
         ],
-        ['db' => 'succ_newcar', 'dt' => 11, 'field'=> 'succ_newcar',
+        ['db' => 'succ_newcar', 'dt' => 13, 'field'=> 'succ_newcar',
             'formatter' => function($d, $row){
                 if(empty($d)){
                     return '-';
@@ -174,7 +216,7 @@
                 }
             }
         ],
-        ['db' => 'succ_comment', 'dt' => 12, 'field'=> 'succ_comment',
+        ['db' => 'succ_comment', 'dt' => 14, 'field'=> 'succ_comment',
             'formatter' => function($d, $row){
                 if(empty($d)){
                     return '-';
@@ -183,7 +225,7 @@
                 }
             }
         ],
-        ['db' => 'succ_date', 'dt' => 13, 'field'=> 'succ_date',
+        ['db' => 'succ_date', 'dt' => 15, 'field'=> 'succ_date',
             'formatter' => function($d, $row){
                 if($d == '' || $d == '0000-00-00' || empty($d)){
                     return '-';
@@ -192,7 +234,7 @@
                 }
             }
         ],
-        ['db' => 'succ_newcar_rs', 'dt' => 14, 'field'=> 'succ_newcar_rs',
+        ['db' => 'succ_newcar_rs', 'dt' => 16, 'field'=> 'succ_newcar_rs',
             'formatter' => function($d, $row){
                 if($d == '' || $d == '0' || empty($d)){
                     return '✕';
@@ -201,7 +243,7 @@
                 }
             }
         ],
-        ['db' => 'cast_id', 'dt' => 15, 'field'=> 'cast_id',
+        ['db' => 'cast_id', 'dt' => 17, 'field'=> 'cast_id',
             'formatter' => function($d, $row){
                 return "<button data-ecard=\"$d\" class=\"btn btn-outline-success btn-sm ecard-btn\">+ ข้อมูล</button> <a href=\"/admin/detail/$d\"  target=\"_blank\" class=\"btn btn-outline-primary btn-sm mr-2 ml-2\">ดู</a>";
             }        

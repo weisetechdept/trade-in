@@ -254,6 +254,8 @@
                                                     <th>เซลล์</th>
                                                     <th>ทีม</th>
                                                     <th>สถานะ</th>
+                                                    <th>สถานะ</th>
+                                                    <th>สถานะ</th>
                                                     <th>ผู้ซื้อ</th>
                                                     <th>ราคา</th>
                                                     <th>ค่าคอม</th>
@@ -266,6 +268,8 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
+                                                    <td></td>
+                                                    <td></td>
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
