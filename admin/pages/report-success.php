@@ -355,11 +355,15 @@
                                                 </div>
                                                 <div style="width: 120px; min-width: 120px;">
                                                     <label style="font-size: 11px; font-weight: bold; color: #495057;">เซลล์</label>
-                                                    <input type="text" class="form-control form-control-sm search-input" data-column="5" placeholder="เซลล์" style="font-size: 12px; height: 32px;">
+                                                    <select class="form-control form-control-sm search-select" data-column="5" style="font-size: 12px; height: 32px;">
+                                                        <option value="">ทุกคน</option>
+                                                    </select>
                                                 </div>
                                                 <div style="width: 100px; min-width: 100px;">
                                                     <label style="font-size: 11px; font-weight: bold; color: #495057;">ทีม</label>
-                                                    <input type="text" class="form-control form-control-sm search-input" data-column="6" placeholder="ทีม" style="font-size: 12px; height: 32px;">
+                                                    <select class="form-control form-control-sm search-select" data-column="6" style="font-size: 12px; height: 32px;">
+                                                        <option value="">ทุกทีม</option>
+                                                    </select>
                                                 </div>
                                                 <div style="width: 110px; min-width: 110px;">
                                                     <label style="font-size: 11px; font-weight: bold; color: #495057;">ตั้งขาย</label>
@@ -591,7 +595,29 @@
                         try {
                             console.log('Populating select options...');
                             
-                            // ผู้ซื้อ - เหลือแค่อันนี้
+                            // เซลล์
+                            var salesSelect = $('.search-select[data-column="5"]');
+                            if (salesSelect.length > 0 && self.filterOptions.sales) {
+                                self.filterOptions.sales.forEach(function(sale) {
+                                    if (sale && sale.name) {
+                                        salesSelect.append(`<option value="${sale.name}">${sale.name}</option>`);
+                                    }
+                                });
+                                console.log('Sales options populated:', self.filterOptions.sales.length);
+                            }
+                            
+                            // ทีม
+                            var teamSelect = $('.search-select[data-column="6"]');
+                            if (teamSelect.length > 0 && self.filterOptions.teams) {
+                                self.filterOptions.teams.forEach(function(team) {
+                                    if (team && team.name) {
+                                        teamSelect.append(`<option value="${team.name}">${team.name}</option>`);
+                                    }
+                                });
+                                console.log('Team options populated:', self.filterOptions.teams.length);
+                            }
+                            
+                            // ผู้ซื้อ
                             var partnerSelect = $('.search-select[data-column="12"]');
                             if (partnerSelect.length > 0 && self.filterOptions.partners) {
                                 self.filterOptions.partners.forEach(function(partner) {
