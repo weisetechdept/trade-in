@@ -302,7 +302,7 @@
                                         <div class="table-container">
                                             <table id="datatable" class="table table-striped table-bordered">
                                                 <thead>
-                                                    <tr>
+                                                    <!-- <tr>
                                                         <th>รหัส</th>
                                                         <th>รูป</th>
                                                         <th>แบบรุ่น</th>
@@ -323,7 +323,7 @@
                                                         <th>วันที่จบ</th>
                                                         <th>RS</th>
                                                         <th>จัดการ</th>
-                                                    </tr>
+                                                    </tr> -->
                                                     <!-- Column Search Row -->
                                                     <tr class="column-search-row">
                                                         <th><input type="text" class="form-control form-control-sm" placeholder="รหัส"></th>
