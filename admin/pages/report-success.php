@@ -147,6 +147,10 @@
                                 <table class="table table-bordered">
                                     <tbody>
                                         <tr>
+                                            <th scope="row">วันที่สร้าง</th>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
                                             <th scope="row">ผู้ซื้อ</th>
                                             <td>
                                                 <select v-model="ecard.partner" class="form-control">
@@ -357,40 +361,88 @@
                 this.initEventListeners();
             },
             methods: {
+                // loadData(stat){
+                //     $('#datatable').DataTable().ajax.url('/admin/system/report-success.api.php?show='+ stat ).load(); // Reload the DataTable with a new URL
+                // },
                 loadData(stat){
-                    $('#datatable').DataTable().ajax.url('/admin/system/report-success.api.php?show='+ stat ).load(); // Reload the DataTable with a new URL
-                },
-                updateStatus(){
+                    var table = $('#datatable').DataTable();
+                    var currentPage = table.page();
                     
-                        //console.log(this.ecard);
-                        if(this.ecard.date == '' || this.ecard.date == '0000-00-00' || this.ecard.date == null){
-                            this.ecard.date = '0000-00-00';
-                        }
+                    table.ajax.url('/admin/system/report-success.api.php?show='+ stat).load(function() {
+                        // คงหน้าเดิมไว้หลังจากโหลดข้อมูลใหม่
+                        table.page(currentPage).draw('page');
+                    });
+                },
 
-                        axios.post('/admin/system/success_insert.api.php', {
-                            id: this.ecard.id,
-                            partner: this.ecard.partner,
-                            price: this.ecard.price,
-                            commission: this.ecard.commission,
-                            newcar: this.ecard.newcar,
-                            newcar_detail: this.ecard.newcar_detail,
-                            date: this.ecard.date,
-                            detailStatus: this.ecard.detail,
-                            newcar_rs: this.ecard.newcar_rs
-                        }).then(response => {
-                            console.log(response.data);
-                            if(response.data.updateSucc.status == 'success'){
-                                swal("สำเร็จ", "บันทึกข้อมูลเรียบร้อย", "success");
-                                $('#datatable').DataTable().ajax.reload(); // Reload the DataTable
-                            } else {
-                                swal("ผิดพลาด", "ไม่สามารถบันทึกข้อมูลได้", "error");
-                            }
-                        }).catch(error => {
-                            console.error(error);
-                        });
-                    
-                    
+                updateStatus(){
+                    //console.log(this.ecard);
+                    if(this.ecard.date == '' || this.ecard.date == '0000-00-00' || this.ecard.date == null){
+                        this.ecard.date = '0000-00-00';
+                    }
+
+                    // วิธีที่ 1: ใช้ resetPaging: false (แนะนำ)
+                    axios.post('/admin/system/success_insert.api.php', {
+                        id: this.ecard.id,
+                        partner: this.ecard.partner,
+                        price: this.ecard.price,
+                        commission: this.ecard.commission,
+                        newcar: this.ecard.newcar,
+                        newcar_detail: this.ecard.newcar_detail,
+                        date: this.ecard.date,
+                        detailStatus: this.ecard.detail,
+                        newcar_rs: this.ecard.newcar_rs
+                    }).then(response => {
+                        console.log(response.data);
+                        if(response.data.updateSucc.status == 'success'){
+                            swal("สำเร็จ", "บันทึกข้อมูลเรียบร้อย", "success");
+                            // วิธีที่ 1: เพิ่ม parameter resetPaging: false
+                            $('#datatable').DataTable().ajax.reload(null, false);
+                            
+                            /* วิธีที่ 2: เก็บหน้าปัจจุบันแล้วกลับไป (ใช้หากวิธีที่ 1 ไม่ได้ผล)
+                            var table = $('#datatable').DataTable();
+                            var currentPage = table.page();
+                            table.ajax.reload(function() {
+                                table.page(currentPage).draw('page');
+                            });
+                            */
+                        } else {
+                            swal("ผิดพลาด", "ไม่สามารถบันทึกข้อมูลได้", "error");
+                        }
+                    }).catch(error => {
+                        console.error(error);
+                    });
                 },
+                // updateStatus(){
+                    
+                //         //console.log(this.ecard);
+                //         if(this.ecard.date == '' || this.ecard.date == '0000-00-00' || this.ecard.date == null){
+                //             this.ecard.date = '0000-00-00';
+                //         }
+
+                //         axios.post('/admin/system/success_insert.api.php', {
+                //             id: this.ecard.id,
+                //             partner: this.ecard.partner,
+                //             price: this.ecard.price,
+                //             commission: this.ecard.commission,
+                //             newcar: this.ecard.newcar,
+                //             newcar_detail: this.ecard.newcar_detail,
+                //             date: this.ecard.date,
+                //             detailStatus: this.ecard.detail,
+                //             newcar_rs: this.ecard.newcar_rs
+                //         }).then(response => {
+                //             console.log(response.data);
+                //             if(response.data.updateSucc.status == 'success'){
+                //                 swal("สำเร็จ", "บันทึกข้อมูลเรียบร้อย", "success");
+                //                 $('#datatable').DataTable().ajax.reload(); // Reload the DataTable
+                //             } else {
+                //                 swal("ผิดพลาด", "ไม่สามารถบันทึกข้อมูลได้", "error");
+                //             }
+                //         }).catch(error => {
+                //             console.error(error);
+                //         });
+                    
+                    
+                // },
                 getEcard(event) {
                     axios.get('/admin/system/success-info.api.php?id=' + event.target.getAttribute('data-ecard'))
                         .then(response => {
