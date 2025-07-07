@@ -126,7 +126,11 @@ $table = 'car_stock';
 
 $primaryKey = 'cast_id';
 $columns = [
-    ['db' => 'cast_id', 'dt' => 0, 'field' => 'cast_id'],
+    ['db' => 'cast_id', 'dt' => 0, 'field' => 'cast_id',
+        'formatter' => function($d, $row){
+            return "<a href=\"/admin/detail/$d\" target=\"_blank\">$d</a>";
+        }
+    ],
     ['db' => 'cast_id', 'dt' => 1, 'field' => 'cast_id',
         'formatter' => function($d, $row){
             return thumb($d);
