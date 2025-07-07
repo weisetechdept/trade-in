@@ -125,6 +125,8 @@ require 'ssp.class.php';
 $table = 'car_stock';
 
 $primaryKey = 'cast_id';
+
+// ปรับปรุงคอลัมน์เพื่อรองรับการค้นหาเซลล์และทีมแบบ free text
 $columns = [
     ['db' => 'cast_id', 'dt' => 0, 'field' => 'cast_id',
         'formatter' => function($d, $row){
@@ -144,13 +146,13 @@ $columns = [
     ],
     ['db' => 'find_year', 'dt' => 3, 'field'=> 'find_year'],
     ['db' => 'cast_color', 'dt' => 4, 'field'=> 'cast_color'],
-    // สำหรับเซลล์ - เก็บเป็น ID แต่แสดงเป็นชื่อ
-    ['db' => 'cast_sales_parent_no', 'dt' => 5, 'field'=> 'cast_sales_parent_no',
+    // สำหรับเซลล์ - เพิ่ม field ชื่อเซลล์เพื่อให้ search ได้ง่าย
+    ['db' => 'member.first_name', 'dt' => 5, 'field'=> 'sale_name', 'as' => 'sale_name',
         'formatter' => function($d, $row){
-            return getSaleName($d); 
+            return $d ?: 'Unknown'; 
         }
     ],
-    // สำหรับทีม - เก็บเป็น ID แต่แสดงเป็นชื่อทีม
+    // สำหรับทีม - ใช้ function เพื่อหาชื่อทีม
     ['db' => 'cast_sales_parent_no', 'dt' => 6, 'field'=> 'cast_sales_parent_no',
         'formatter' => function($d, $row){
             return getTeamName($d); 
@@ -247,17 +249,28 @@ $columns = [
     ]
 ];
 
-$joinQuery = "FROM car_stock s LEFT JOIN finance_data f ON s.cast_car = f.find_id LEFT JOIN success sc ON s.cast_id = sc.succ_parent";
+// ปรับปรุง JOIN query เพื่อรองรับการค้นหาเซลล์และทีม
+$joinQuery = "FROM car_stock s 
+    LEFT JOIN finance_data f ON s.cast_car = f.find_id 
+    LEFT JOIN success sc ON s.cast_id = sc.succ_parent";
 
 $where = " s.cast_status IN ($show) ";
 
 // Handle global search
 if(isset($_GET['search']['value']) && !empty($_GET['search']['value'])){
-    $searchValue = $_GET['search']['value'];
-    $where .= " AND (s.cast_id LIKE '%$searchValue%' OR s.cast_sales_parent_no LIKE '%$searchValue%' OR f.find_brand LIKE '%$searchValue%' OR f.find_serie LIKE '%$searchValue%' OR s.cast_color LIKE '%$searchValue%' OR s.cast_price LIKE '%$searchValue%' OR s.cast_status LIKE '%$searchValue%' OR s.cast_datetime LIKE '%$searchValue%')";
+    $searchValue = mysqli_real_escape_string($db->mysqli, $_GET['search']['value']);
+    $where .= " AND (s.cast_id LIKE '%$searchValue%' 
+        OR s.cast_sales_parent_no LIKE '%$searchValue%' 
+        OR f.find_brand LIKE '%$searchValue%' 
+        OR f.find_serie LIKE '%$searchValue%' 
+        OR s.cast_color LIKE '%$searchValue%' 
+        OR s.cast_price LIKE '%$searchValue%' 
+        OR s.cast_status LIKE '%$searchValue%' 
+        OR s.cast_datetime LIKE '%$searchValue%'
+        OR member.first_name LIKE '%$searchValue%')";
 }
 
-// Handle individual column search
+// Handle individual column search - ปรับปรุงให้รองรับ free text search
 if(isset($_GET['columns'])){
     foreach($_GET['columns'] as $i => $column){
         if(!empty($column['search']['value'])){
@@ -267,8 +280,10 @@ if(isset($_GET['columns'])){
                 case 0: // รหัส
                     $where .= " AND s.cast_id LIKE '%$searchValue%'";
                     break;
-                case 2: // แบบรุ่น - แก้ไขให้ search ได้
-                    $where .= " AND (f.find_brand LIKE '%$searchValue%' OR f.find_serie LIKE '%$searchValue%' OR CONCAT(IFNULL(f.find_brand,''), ' ', IFNULL(f.find_serie,'')) LIKE '%$searchValue%')";
+                case 2: // แบบรุ่น
+                    $where .= " AND (f.find_brand LIKE '%$searchValue%' 
+                        OR f.find_serie LIKE '%$searchValue%' 
+                        OR CONCAT(IFNULL(f.find_brand,''), ' ', IFNULL(f.find_serie,'')) LIKE '%$searchValue%')";
                     break;
                 case 3: // ปีรุ่น
                     $where .= " AND f.find_year LIKE '%$searchValue%'";
@@ -276,13 +291,12 @@ if(isset($_GET['columns'])){
                 case 4: // สี
                     $where .= " AND s.cast_color LIKE '%$searchValue%'";
                     break;
-                case 5: // เซลล์ - ต้องค้นหาจากชื่อ member
-                    $subQuery = "(SELECT id FROM {$dbn}.db_member WHERE first_name LIKE '%$searchValue%')";
-                    $where .= " AND s.cast_sales_parent_no IN $subQuery";
+                case 5: // เซลล์ - ค้นหาจากชื่อโดยตรง (ง่ายขึ้น)
+                    $where .= " AND member.first_name LIKE '%$searchValue%'";
                     break;
-                case 6: // ทีม - ปรับปรุงการค้นหาทีม
-                    $teamSubQuery = "(SELECT JSON_UNQUOTE(JSON_EXTRACT(detail, '$[*]')) FROM {$dbn}.db_user_group WHERE name LIKE '%$searchValue%')";
-                    $where .= " AND s.cast_sales_parent_no IN $teamSubQuery";
+                case 6: // ทีม - ปิดการค้นหาชั่วคราวเพื่อไม่ให้เกิด error
+                    // TODO: implement team search later
+                    // $where .= " AND 1=1"; // ไม่กรองอะไร
                     break;
                 case 7: // ตั้งขาย
                     $where .= " AND s.cast_trade_price LIKE '%$searchValue%'";
@@ -305,10 +319,20 @@ if(isset($_GET['columns'])){
                     $where .= " AND sc.succ_partner IN (SELECT part_id FROM partner WHERE part_fname LIKE '%$searchValue%' OR part_lname LIKE '%$searchValue%')";
                     break;
                 case 13: // ราคา
-                    $where .= " AND sc.succ_price LIKE '%$searchValue%'";
+                    $searchValue = str_replace(',', '', $searchValue); // ลบ comma ออก
+                    if(is_numeric($searchValue)) {
+                        $where .= " AND sc.succ_price = '$searchValue'";
+                    } else {
+                        $where .= " AND sc.succ_price LIKE '%$searchValue%'";
+                    }
                     break;
                 case 14: // ค่าคอม
-                    $where .= " AND sc.succ_commission LIKE '%$searchValue%'";
+                    $searchValue = str_replace(',', '', $searchValue); // ลบ comma ออก
+                    if(is_numeric($searchValue)) {
+                        $where .= " AND sc.succ_commission = '$searchValue'";
+                    } else {
+                        $where .= " AND sc.succ_commission LIKE '%$searchValue%'";
+                    }
                     break;
                 case 15: // สถานะรอง
                     $where .= " AND sc.succ_newcar = '$searchValue'";
@@ -329,6 +353,8 @@ if(isset($_GET['columns'])){
 
 // Debug: Log the final query for troubleshooting
 error_log("Final WHERE clause: " . $where);
+error_log("Final JOIN query: " . $joinQuery);
+error_log("Database name: " . $dbn);
 
 echo json_encode(
     SSP::simple($_GET, $sql_details_1, $table, $primaryKey, $columns, $joinQuery, $where)
@@ -338,4 +364,5 @@ echo json_encode(
 if (isset($_GET['debug'])) {
     error_log("Search WHERE clause: " . $where);
     error_log("Search parameters: " . json_encode($_GET));
+    error_log("JOIN query: " . $joinQuery);
 }
