@@ -152,10 +152,10 @@ $columns = [
             return $d ?: 'Unknown'; 
         }
     ],
-    // สำหรับทีม - เพิ่ม field ชื่อทีมเพื่อให้ search ได้ง่าย
-    ['db' => 'team_info.team_name', 'dt' => 6, 'field'=> 'team_name', 'as' => 'team_name',
+    // สำหรับทีม - ใช้ function เพื่อหาชื่อทีม
+    ['db' => 'cast_sales_parent_no', 'dt' => 6, 'field'=> 'cast_sales_parent_no',
         'formatter' => function($d, $row){
-            return $d ?: '-'; 
+            return getTeamName($d); 
         }
     ],
     ['db' => 'cast_trade_price', 'dt' => 7, 'field'=> 'cast_trade_price',
@@ -253,16 +253,7 @@ $columns = [
 $joinQuery = "FROM car_stock s 
     LEFT JOIN finance_data f ON s.cast_car = f.find_id 
     LEFT JOIN success sc ON s.cast_id = sc.succ_parent
-    LEFT JOIN {$dbn}.db_member member ON s.cast_sales_parent_no = member.id
-    LEFT JOIN (
-        SELECT 
-            JSON_UNQUOTE(JSON_EXTRACT(detail, '$[*]')) as member_id,
-            JSON_UNQUOTE(JSON_EXTRACT(leader, '$[*]')) as leader_id,
-            name as team_name
-        FROM {$dbn}.db_user_group
-        WHERE JSON_VALID(detail) = 1 AND JSON_VALID(leader) = 1
-    ) team_info ON FIND_IN_SET(s.cast_sales_parent_no, REPLACE(REPLACE(team_info.member_id, '[', ''), ']', '')) > 0 
-        OR FIND_IN_SET(s.cast_sales_parent_no, REPLACE(REPLACE(team_info.leader_id, '[', ''), ']', '')) > 0";
+    LEFT JOIN `{$dbn}`.db_member member ON s.cast_sales_parent_no = member.id";
 
 $where = " s.cast_status IN ($show) ";
 
@@ -277,8 +268,7 @@ if(isset($_GET['search']['value']) && !empty($_GET['search']['value'])){
         OR s.cast_price LIKE '%$searchValue%' 
         OR s.cast_status LIKE '%$searchValue%' 
         OR s.cast_datetime LIKE '%$searchValue%'
-        OR member.first_name LIKE '%$searchValue%'
-        OR team_info.team_name LIKE '%$searchValue%')";
+        OR member.first_name LIKE '%$searchValue%')";
 }
 
 // Handle individual column search - ปรับปรุงให้รองรับ free text search
@@ -305,8 +295,9 @@ if(isset($_GET['columns'])){
                 case 5: // เซลล์ - ค้นหาจากชื่อโดยตรง (ง่ายขึ้น)
                     $where .= " AND member.first_name LIKE '%$searchValue%'";
                     break;
-                case 6: // ทีม - ค้นหาจากชื่อทีมโดยตรง (ง่ายขึ้น)
-                    $where .= " AND team_info.team_name LIKE '%$searchValue%'";
+                case 6: // ทีม - ปิดการค้นหาชั่วคราวเพื่อไม่ให้เกิด error
+                    // TODO: implement team search later
+                    // $where .= " AND 1=1"; // ไม่กรองอะไร
                     break;
                 case 7: // ตั้งขาย
                     $where .= " AND s.cast_trade_price LIKE '%$searchValue%'";
@@ -364,6 +355,7 @@ if(isset($_GET['columns'])){
 // Debug: Log the final query for troubleshooting
 error_log("Final WHERE clause: " . $where);
 error_log("Final JOIN query: " . $joinQuery);
+error_log("Database name: " . $dbn);
 
 echo json_encode(
     SSP::simple($_GET, $sql_details_1, $table, $primaryKey, $columns, $joinQuery, $where)
