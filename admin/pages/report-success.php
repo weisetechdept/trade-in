@@ -82,12 +82,7 @@
         #datatable thead th:nth-child(20):hover {
             background: #343a40;
         }
-        
-        /* Search Filters Container */
-        .search-filters-container {
-            border-left: 4px solid #007bff;
-        }
-        
+
         .search-filters-container::-webkit-scrollbar {
             height: 6px;
         }
@@ -330,8 +325,8 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <!-- Search Filters Row - ย้ายมาไว้ด้านบน -->
-                                        <div class="search-filters-container mb-3" style="overflow-x: auto; background: #f8f9fa; padding: 10px; border-radius: 5px; border: 2px solid #007bff;">
+                                        <!-- Search Filters Row - เปลี่ยน select เป็น input text สำหรับ เซลล์ และ ทีม -->
+                                        <div class="search-filters-container mb-3" style="overflow-x: auto; padding: 10px;">
                                             <div style="display: flex; gap: 8px; min-width: 1800px;">
                                                 <div style="width: 80px; min-width: 80px;">
                                                     <label style="font-size: 11px; font-weight: bold; color: #495057;">รหัส</label>
@@ -353,17 +348,15 @@
                                                     <label style="font-size: 11px; font-weight: bold; color: #495057;">สี</label>
                                                     <input type="text" class="form-control form-control-sm search-input" data-column="4" placeholder="สี" style="font-size: 12px; height: 32px;">
                                                 </div>
+                                                <!-- เปลี่ยนจาก select เป็น input text สำหรับเซลล์ -->
                                                 <div style="width: 120px; min-width: 120px;">
                                                     <label style="font-size: 11px; font-weight: bold; color: #495057;">เซลล์</label>
-                                                    <select class="form-control form-control-sm search-select" data-column="5" style="font-size: 12px; height: 32px;">
-                                                        <option value="">ทุกคน</option>
-                                                    </select>
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="5" placeholder="ชื่อเซลล์" style="font-size: 12px; height: 32px;">
                                                 </div>
+                                                <!-- เปลี่ยนจาก select เป็น input text สำหรับทีม -->
                                                 <div style="width: 100px; min-width: 100px;">
                                                     <label style="font-size: 11px; font-weight: bold; color: #495057;">ทีม</label>
-                                                    <select class="form-control form-control-sm search-select" data-column="6" style="font-size: 12px; height: 32px;">
-                                                        <option value="">ทุกทีม</option>
-                                                    </select>
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="6" placeholder="ชื่อทีม" style="font-size: 12px; height: 32px;">
                                                 </div>
                                                 <div style="width: 110px; min-width: 110px;">
                                                     <label style="font-size: 11px; font-weight: bold; color: #495057;">ตั้งขาย</label>
@@ -595,29 +588,7 @@
                         try {
                             console.log('Populating select options...');
                             
-                            // เซลล์
-                            var salesSelect = $('.search-select[data-column="5"]');
-                            if (salesSelect.length > 0 && self.filterOptions.sales) {
-                                self.filterOptions.sales.forEach(function(sale) {
-                                    if (sale && sale.name) {
-                                        salesSelect.append(`<option value="${sale.name}">${sale.name}</option>`);
-                                    }
-                                });
-                                console.log('Sales options populated:', self.filterOptions.sales.length);
-                            }
-                            
-                            // ทีม
-                            var teamSelect = $('.search-select[data-column="6"]');
-                            if (teamSelect.length > 0 && self.filterOptions.teams) {
-                                self.filterOptions.teams.forEach(function(team) {
-                                    if (team && team.name) {
-                                        teamSelect.append(`<option value="${team.name}">${team.name}</option>`);
-                                    }
-                                });
-                                console.log('Team options populated:', self.filterOptions.teams.length);
-                            }
-                            
-                            // ผู้ซื้อ
+                            // ผู้ซื้อ - เฉพาะ select ที่ยังคงใช้ dropdown
                             var partnerSelect = $('.search-select[data-column="12"]');
                             if (partnerSelect.length > 0 && self.filterOptions.partners) {
                                 self.filterOptions.partners.forEach(function(partner) {
