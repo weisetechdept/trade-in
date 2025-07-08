@@ -1,4 +1,7 @@
 <?php 
+session_start();
+        require_once '../../db-conn.php';
+        date_default_timezone_set("Asia/Bangkok");
 if($_SESSION['tin_admin'] != true){
         echo json_encode(array('error' => 'Unauthorized access'));
         exit();
@@ -8,9 +11,7 @@ if($_SESSION['tin_admin'] != true){
         ini_set('display_startup_errors', 0);
         error_reporting(E_ALL);
 
-        session_start();
-        require_once '../../db-conn.php';
-        date_default_timezone_set("Asia/Bangkok");
+        
 
         // Debug: Log all incoming parameters
         error_log("=== Search Debug ===");
