@@ -2,6 +2,7 @@
     session_start();
     require_once '../../db-conn.php';
     date_default_timezone_set("Asia/Bangkok");
+    
     if($_SESSION['tin_admin'] != true){
         echo json_encode(array('error' => 'Unauthorized access'));
         exit();
@@ -87,6 +88,18 @@
                     'other_detail' => '== ยังไม่เปิดใช้งาน =='
                 );
             }
+
+            $db->join('partner_bus pb', 'pn.part_bus_id=pb.busi_id', 'LEFT');
+            $partnerData = $db->where('part_status',1)->get('partner pn');
+
+            foreach($partnerData as $p){
+                $api['data'][] = array(
+                    'id' => $p['part_id'],
+                    'name' => $p['part_fname'].' ('.$p['busi_name'].')'
+                );
+            }
+
+
 
             echo json_encode($api);
     }
