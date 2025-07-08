@@ -1,4 +1,9 @@
 <?php 
+// Disable error display and enable error logging
+ini_set('display_errors', 0);
+ini_set('display_startup_errors', 0);
+error_reporting(E_ALL);
+
 session_start();
 require_once '../../db-conn.php';
 date_default_timezone_set("Asia/Bangkok");
@@ -131,37 +136,42 @@ $columns = [
             return "<a href=\"/admin/detail/$d\" target=\"_blank\">$d</a>";
         }
     ],
-    ['db' => 'cast_id', 'dt' => 1, 'field' => 'cast_id',
+    ['db' => 'cast_id', 'dt' => 1, 'field'=> 'cast_id',
+        'formatter' => function($d, $row){
+            return "<button data-ecard=\"$d\" class=\"btn btn-outline-success btn-sm ecard-btn\">+ ข้อมูล</button> <a href=\"/admin/detail/$d\"  target=\"_blank\" class=\"btn btn-outline-primary btn-sm mr-2 ml-2\">ดู</a>";
+        }        
+    ],
+    ['db' => 'cast_id', 'dt' => 2, 'field' => 'cast_id',
         'formatter' => function($d, $row){
             return thumb($d);
         }
     ],
     // สำหรับแบบรุ่น - ให้ search ผ่าน concat field
-    ['db' => 'CONCAT(IFNULL(f.find_brand,""), " ", IFNULL(f.find_serie,""))', 'dt' => 2, 'field' => 'brand_serie', 'as' => 'brand_serie',
+    ['db' => 'CONCAT(IFNULL(f.find_brand,""), " ", IFNULL(f.find_serie,""))', 'dt' => 3, 'field' => 'brand_serie', 'as' => 'brand_serie',
         'formatter' => function($d, $row){
             return $d; // ใช้ค่าที่ concat แล้ว
         }
     ],
-    ['db' => 'find_year', 'dt' => 3, 'field'=> 'find_year'],
-    ['db' => 'cast_color', 'dt' => 4, 'field'=> 'cast_color'],
+    ['db' => 'find_year', 'dt' => 4, 'field'=> 'find_year'],
+    ['db' => 'cast_color', 'dt' => 5, 'field'=> 'cast_color'],
     // สำหรับเซลล์ - เก็บเป็น ID แต่แสดงเป็นชื่อ
-    ['db' => 'cast_sales_parent_no', 'dt' => 5, 'field'=> 'cast_sales_parent_no',
+    ['db' => 'cast_sales_parent_no', 'dt' => 6, 'field'=> 'cast_sales_parent_no',
         'formatter' => function($d, $row){
             return getSaleName($d); 
         }
     ],
     // สำหรับทีม - เก็บเป็น ID แต่แสดงเป็นชื่อทีม
-    ['db' => 'cast_sales_parent_no', 'dt' => 6, 'field'=> 'cast_sales_parent_no',
+    ['db' => 'cast_sales_parent_no', 'dt' => 7, 'field'=> 'cast_sales_parent_no',
         'formatter' => function($d, $row){
             return getTeamName($d); 
         }
     ],
-    ['db' => 'cast_trade_price', 'dt' => 7, 'field'=> 'cast_trade_price',
+    ['db' => 'cast_trade_price', 'dt' => 8, 'field'=> 'cast_trade_price',
         'formatter' => function($d, $row){
             return number_format($d);
         }
     ],
-    ['db' => 'find_price', 'dt' => 8, 'field'=> 'find_price',
+    ['db' => 'find_price', 'dt' => 9, 'field'=> 'find_price',
         'formatter' => function($d, $row){
             if(empty($d)){
                 return "ไม่มี";
@@ -170,22 +180,22 @@ $columns = [
             }
         }
     ],
-    ['db' => 'cast_price', 'dt' => 9, 'field'=> 'cast_price',
+    ['db' => 'cast_price', 'dt' => 10, 'field'=> 'cast_price',
         'formatter' => function($d, $row){
             return number_format($d);
         }
     ],
-    ['db' => 'cast_id', 'dt' => 10, 'field'=> 'cast_id',
+    ['db' => 'cast_id', 'dt' => 11, 'field'=> 'cast_id',
         'formatter' => function($d, $row){
             return getOfferPrice($d);
         }
     ],
-    ['db' => 'cast_id', 'dt' => 11, 'field'=> 'cast_id',
+    ['db' => 'cast_id', 'dt' => 12, 'field'=> 'cast_id',
         'formatter' => function($d, $row){
             return countOffer($d);
         }
     ],
-    ['db' => 'succ_partner', 'dt' => 12, 'field'=> 'succ_partner',
+    ['db' => 'succ_partner', 'dt' => 13, 'field'=> 'succ_partner',
         'formatter' => function($d, $row){
             if(empty($d)){
                 return '-';
@@ -194,7 +204,7 @@ $columns = [
             }
         }
     ],
-    ['db' => 'succ_price', 'dt' => 13, 'field'=> 'succ_price',
+    ['db' => 'succ_price', 'dt' => 14, 'field'=> 'succ_price',
         'formatter' => function($d, $row){
             if(empty($d)){
                 return '-';
@@ -203,7 +213,7 @@ $columns = [
             }
         }
     ],
-    ['db' => 'succ_commission', 'dt' => 14, 'field'=> 'succ_commission',
+    ['db' => 'succ_commission', 'dt' => 15, 'field'=> 'succ_commission',
         'formatter' => function($d, $row){
             if(empty($d)){
                 return '-';
@@ -212,7 +222,7 @@ $columns = [
             }
         }
     ],
-    ['db' => 'succ_newcar', 'dt' => 15, 'field'=> 'succ_newcar',
+    ['db' => 'succ_newcar', 'dt' => 16, 'field'=> 'succ_newcar',
         'formatter' => function($d, $row){
             if(empty($d)){
                 return '-';
@@ -221,8 +231,16 @@ $columns = [
             }
         }
     ],
-    ['db' => 'succ_comment', 'dt' => 16, 'field'=> 'succ_comment'],
-    ['db' => 'succ_date', 'dt' => 17, 'field'=> 'succ_date',
+    ['db' => 'succ_comment', 'dt' => 17, 'field'=> 'succ_comment',
+        'formatter' => function($d, $row){
+            if(empty($d)){
+                return '-';
+            } else {
+                return htmlspecialchars(mb_substr($d, 0, 50, 'UTF-8'), ENT_QUOTES, 'UTF-8'); // Show only first 50 letters
+            }
+        }
+    ],
+    ['db' => 'succ_date', 'dt' => 18, 'field'=> 'succ_date',
         'formatter' => function($d, $row){
             if($d == '' || $d == '0000-00-00' || empty($d)){
                 return '-';
@@ -231,7 +249,7 @@ $columns = [
             }
         }
     ],
-    ['db' => 'succ_newcar_rs', 'dt' => 18, 'field'=> 'succ_newcar_rs',
+    ['db' => 'succ_newcar_rs', 'dt' => 19, 'field'=> 'succ_newcar_rs',
         'formatter' => function($d, $row){
             if($d == '' || $d == '0' || empty($d)){
                 return '✕';
@@ -239,11 +257,6 @@ $columns = [
                 return '✓';
             }
         }
-    ],
-    ['db' => 'cast_id', 'dt' => 19, 'field'=> 'cast_id',
-        'formatter' => function($d, $row){
-            return "<button data-ecard=\"$d\" class=\"btn btn-outline-success btn-sm ecard-btn\">+ ข้อมูล</button> <a href=\"/admin/detail/$d\"  target=\"_blank\" class=\"btn btn-outline-primary btn-sm mr-2 ml-2\">ดู</a>";
-        }        
     ]
 ];
 
@@ -267,20 +280,21 @@ if(isset($_GET['columns'])){
                 case 0: // รหัส
                     $where .= " AND s.cast_id LIKE '%$searchValue%'";
                     break;
-                case 2: // แบบรุ่น - แก้ไขให้ search ได้
+                case 3: // แบบรุ่น - แก้ไขให้ search ได้
                     $where .= " AND (f.find_brand LIKE '%$searchValue%' OR f.find_serie LIKE '%$searchValue%' OR CONCAT(IFNULL(f.find_brand,''), ' ', IFNULL(f.find_serie,'')) LIKE '%$searchValue%')";
                     break;
-                case 3: // ปีรุ่น
+                case 4: // ปีรุ่น
                     $where .= " AND f.find_year LIKE '%$searchValue%'";
                     break;
-                case 4: // สี
+                case 5: // สี
                     $where .= " AND s.cast_color LIKE '%$searchValue%'";
                     break;
-                case 5: // เซลล์ - ต้องค้นหาจากชื่อ member
-                    $subQuery = "(SELECT id FROM {$dbn}.db_member WHERE first_name LIKE '%$searchValue%' OR last_name LIKE '%$searchValue%')";
+                case 6: // เซลล์ - ต้องค้นหาจากชื่อ member
+                    $subQuery = "(SELECT
+                     id FROM {$dbn}.db_member WHERE first_name LIKE '%$searchValue%' OR last_name LIKE '%$searchValue%')";
                     $where .= " AND s.cast_sales_parent_no IN $subQuery";
                     break;
-                case 6: // ทีม - ปรับปรุงการค้นหาทีม
+                case 7: // ทีม - ปรับปรุงการค้นหาทีม
                     // This requires MySQL 8.0+ for JSON_TABLE, fallback to LIKE if not available
                     $teamSubQuery = "(SELECT id FROM {$dbn}.db_member WHERE id IN (
                         SELECT CAST(JSON_UNQUOTE(JSON_EXTRACT(j.value, '$')) AS UNSIGNED)
@@ -289,42 +303,42 @@ if(isset($_GET['columns'])){
                     ))";
                     $where .= " AND s.cast_sales_parent_no IN $teamSubQuery";
                     break;
-                case 7: // ตั้งขาย
+                case 8: // ตั้งขาย
                     $where .= " AND s.cast_trade_price LIKE '%$searchValue%'";
                     break;
-                case 8: // จัด TLT
+                case 9: // จัด TLT
                     $where .= " AND f.find_price LIKE '%$searchValue%'";
                     break;
-                case 9: // รับได้
+                case 10: // รับได้
                     $where .= " AND s.cast_price LIKE '%$searchValue%'";
                     break;
-                case 10: // เสนอราคา
+                case 11: // เสนอราคา
                     $where .= " AND s.cast_id IN (SELECT off_parent FROM offer WHERE off_price LIKE '%$searchValue%')";
                     break;
-                case 11: // เสนอ (จำนวน)
+                case 12: // เสนอ (จำนวน)
                     if(is_numeric($searchValue)) {
                         $where .= " AND (SELECT COUNT(*) FROM offer WHERE off_parent = s.cast_id) = $searchValue";
                     }
                     break;
-                case 12: // ผู้ซื้อ
+                case 13: // ผู้ซื้อ
                     $where .= " AND sc.succ_partner IN (SELECT part_id FROM partner WHERE part_fname LIKE '%$searchValue%' OR part_lname LIKE '%$searchValue%')";
                     break;
-                case 13: // ราคา
+                case 14: // ราคา
                     $where .= " AND sc.succ_price LIKE '%$searchValue%'";
                     break;
-                case 14: // ค่าคอม
+                case 15: // ค่าคอม
                     $where .= " AND sc.succ_commission LIKE '%$searchValue%'";
                     break;
-                case 15: // สถานะรอง
+                case 16: // สถานะรอง
                     $where .= " AND sc.succ_newcar = '$searchValue'";
                     break;
-                case 16: // หมายเหตุ
+                case 17: // หมายเหตุ
                     $where .= " AND sc.succ_comment LIKE '%$searchValue%'";
                     break;
-                case 17: // วันที่จบ
+                case 18: // วันที่จบ
                     $where .= " AND sc.succ_date LIKE '%$searchValue%'";
                     break;
-                case 18: // RS
+                case 19: // RS
                     $where .= " AND sc.succ_newcar_rs = '$searchValue'";
                     break;
             }

@@ -98,7 +98,7 @@
         }
         
         /* Column widths */
-        #datatable th:nth-child(1), #datatable td:nth-child(1) { width: 80px; min-width: 80px; }
+        #datatable th:nth-child(1), #datatable td:nth-child(1) { width: 90px; min-width: 90px; }
         #datatable th:nth-child(2), #datatable td:nth-child(2) { width: 100px; min-width: 100px; }
         #datatable th:nth-child(3), #datatable td:nth-child(3) { width: 180px; min-width: 180px; }
         #datatable th:nth-child(4), #datatable td:nth-child(4) { width: 80px; min-width: 80px; }
@@ -164,6 +164,10 @@
         .card {
             margin-bottom: 10px;
         }
+
+        table.dataTable thead > tr > th.sorting_asc, table.dataTable thead > tr > th.sorting_desc, table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > td.sorting_asc, table.dataTable thead > tr > td.sorting_desc, table.dataTable thead > tr > td.sorting {
+            padding-right: 0;
+        }
         
         @media (max-width: 768px) {
             .page-content {
@@ -215,10 +219,7 @@
                                 <button type="button" class="btn btn-outline-success" @click="loadData('4')">
                                     สำเร็จ
                                 </button>
-                                <!-- Debug button -->
-                                <button type="button" class="btn btn-outline-secondary ml-3" @click="testSearch()">
-                                    🔧 Test Search
-                                </button>
+                                
                             </div>
                         </div>
 
@@ -285,7 +286,7 @@
                                                             <option v-if="ecard.newcar == 4 || ecard.newcar == 3" value="13">ราคาใกล้เคียงแต่ลูกค้าเงียบไม่ตอบ</option>
                                                             <option v-if="ecard.newcar == 1 || ecard.newcar == 2" value="14">สำเร็จ</option>
                                                             <option v-if="ecard.newcar == 4 || ecard.newcar == 3" value="15">โพสต์ขายอยู่</option>
-                                                            <option v-if="ecard.newcar == 4 || ecard.newcar == 3" value="16">เซลส์ไม่ตอบ</option>
+                                                            <option v-if="ecard.newcar == 4 || ecard.newcar == 3" value="16">เซลส์ไม่ตอบ</option><div class=".000"></div>
                                                             <option v-if="ecard.newcar == 3" value="17">ราคาใกล้เคียงแต่ยังไม่จบรถใหม่</option>
                                                             <option v-if="ecard.newcar == 4 || ecard.newcar == 3" value="18">หนี้ท่วม</option>
                                                             <option v-if="ecard.newcar == 4 || ecard.newcar == 3" value="19">ลูกค้าต้องการมากกว่าราคาตั้งขาย</option>
@@ -332,10 +333,6 @@
                                                     <label style="font-size: 11px; font-weight: bold; color: #495057;">รหัส</label>
                                                     <input type="text" class="form-control form-control-sm search-input" data-column="0" placeholder="รหัส" style="font-size: 12px; height: 32px;">
                                                 </div>
-                                                <div style="width: 100px; min-width: 100px;">
-                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">รูป</label>
-                                                    <div style="height: 32px; display: flex; align-items: center; color: #6c757d;">-</div>
-                                                </div>
                                                 <div style="width: 180px; min-width: 180px;">
                                                     <label style="font-size: 11px; font-weight: bold; color: #495057;">แบบรุ่น</label>
                                                     <input type="text" class="form-control form-control-sm search-input" data-column="2" placeholder="แบบรุ่น" style="font-size: 12px; height: 32px;">
@@ -380,9 +377,10 @@
                                                 </div>
                                                 <div style="width: 140px; min-width: 140px;">
                                                     <label style="font-size: 11px; font-weight: bold; color: #495057;">ผู้ซื้อ</label>
-                                                    <select class="form-control form-control-sm search-select" data-column="12" style="font-size: 12px; height: 32px;">
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="12" placeholder="ผู้ซื้อ" style="font-size: 12px; height: 32px;">
+                                                    <!-- <select class="form-control form-control-sm search-select" data-column="12" style="font-size: 12px; height: 32px;">
                                                         <option value="">ทุกคน</option>
-                                                    </select>
+                                                    </select> -->
                                                 </div>
                                                 <div style="width: 110px; min-width: 110px;">
                                                     <label style="font-size: 11px; font-weight: bold; color: #495057;">ราคา</label>
@@ -418,10 +416,6 @@
                                                         <option value="1">RS แล้ว</option>
                                                     </select>
                                                 </div>
-                                                <div style="width: 140px; min-width: 140px;">
-                                                    <label style="font-size: 11px; font-weight: bold; color: #495057;">จัดการ</label>
-                                                    <div style="height: 32px; display: flex; align-items: center; color: #6c757d;">-</div>
-                                                </div>
                                             </div>
                                         </div>
 
@@ -429,26 +423,26 @@
                                             <table id="datatable" class="table table-striped table-bordered">
                                                 <thead>
                                                     <tr>
-                                                        <th>รหัส ⇅</th>
-                                                        <th>รูป</th>
-                                                        <th>แบบรุ่น ⇅</th>
-                                                        <th>ปีรุ่น ⇅</th>
-                                                        <th>สี ⇅</th>
-                                                        <th>เซลล์ ⇅</th>
-                                                        <th>ทีม ⇅</th>
-                                                        <th>ตั้งขาย ⇅</th>
-                                                        <th>จัด TLT ⇅</th>
-                                                        <th>รับได้ ⇅</th>
-                                                        <th>เสนอราคา ⇅</th>
-                                                        <th>เสนอ ⇅</th>
-                                                        <th>ผู้ซื้อ ⇅</th>
-                                                        <th>ราคา ⇅</th>
-                                                        <th>ค่าคอม ⇅</th>
-                                                        <th>สถานะรอง ⇅</th>
-                                                        <th>หมายเหตุ ⇅</th>
-                                                        <th>วันที่จบ ⇅</th>
-                                                        <th>RS ⇅</th>
+                                                        <th>รหัส</th>
                                                         <th>จัดการ</th>
+                                                        <th>รูป</th>
+                                                        <th>แบบรุ่น</th>
+                                                        <th>ปีรุ่น</th>
+                                                        <th>สี ⇅</th>
+                                                        <th>เซลล์</th>
+                                                        <th>ทีม</th>
+                                                        <th>ตั้งขาย</th>
+                                                        <th>จัด TLT</th>
+                                                        <th>รับได้</th>
+                                                        <th>เสนอราคา</th>
+                                                        <th>เสนอ</th>
+                                                        <th>ผู้ซื้อ</th>
+                                                        <th>ราคา</th>
+                                                        <th>ค่าคอม</th>
+                                                        <th>สถานะรอง</th>
+                                                        <th>หมายเหตุ</th>
+                                                        <th>วันที่จบ</th>
+                                                        <th>RS</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
