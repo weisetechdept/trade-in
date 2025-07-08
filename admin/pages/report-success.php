@@ -204,7 +204,7 @@
                         <!-- Status Filter Buttons -->
                         <div class="row mb-3">
                             <div class="col-12">
-                                <button type="button" class="btn btn-outline-primary" @click="loadData('0,1,2,3,4')">
+                                <button type="button" class="btn btn-primary" @click="loadData('0,1,2,3,4')">
                                     ทั้งหมด
                                 </button>
                                 <button type="button" class="btn btn-outline-primary" @click="loadData('1')">
@@ -237,8 +237,16 @@
                                         <table class="table table-bordered">
                                             <tbody>
                                                 <tr>
+                                                    <th scope="row">รถยนต์</th>
+                                                    <td>{{ ecard.car }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">เซลล๋</th>
+                                                    <td>{{ ecard.sales }}</td>
+                                                </tr>
+                                                <tr>
                                                     <th scope="row">วันที่สร้าง</th>
-                                                    <td></td>
+                                                    <td>{{ ecard.create_date }}</td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">ผู้ซื้อ</th>
@@ -296,11 +304,18 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
+                                                    <th scope="row">เพิ่มเติม</th>
+                                                    <td>
+                                                        <textarea v-model="ecard.other_detail" class="form-control" rows="3"></textarea>
+                                                    </td>
+                                                </tr>
+                                                <tr>
                                                     <th scope="row">หมายเหตุ</th>
                                                     <td>
                                                         <textarea v-model="ecard.detail" class="form-control" rows="3"></textarea>
                                                     </td>
                                                 </tr>
+                                                
                                                 <tr>
                                                     <th scope="row">รถใหม่ (RS)</th>
                                                     <td>
@@ -515,7 +530,11 @@
                     date: '',
                     detail: ' ',
                     newcar_rs: '0',
-                    list: []
+                    list: [],
+                    car: '',
+                    sales: '',
+                    create_date: '',
+                    other_detail: ''
                 },
                 dataTable: null,
                 filterOptions: {
@@ -744,6 +763,11 @@
                             this.ecard.newcar_detail = response.data.jobData.newcar_detail;
                             this.ecard.date = response.data.jobData.date;
                             this.ecard.detail = response.data.jobData.detail;
+
+                            this.ecard.car = response.data.jobData.car;
+                            this.ecard.sales = response.data.jobData.sales;
+                            this.ecard.create_date = response.data.jobData.create_date;
+                            this.ecard.other_detail = response.data.jobData.other_detail;
                         })
                         .catch(error => {
                             console.error(error);
