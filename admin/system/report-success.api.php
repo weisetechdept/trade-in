@@ -351,7 +351,6 @@ if($_SESSION['tin_admin'] != true){
         foreach($_GET['columns'] as $i => $column){
             if(!empty($column['search']['value'])){
                 $searchValue = mysqli_real_escape_string($db->mysqli, $column['search']['value']);
-                
                 switch($i){
                     case 0: // รหัส
                         $where .= " AND s.cast_id LIKE '%$searchValue%'";
@@ -368,21 +367,87 @@ if($_SESSION['tin_admin'] != true){
                         $where .= " AND s.cast_color LIKE '%$searchValue%'";
                         break;
                     case 6: // เซลล์ - ค้นหาผ่าน PHP function
-                        $salesIds = getSalesIdsByName($searchValue);
-                        if(!empty($salesIds)) {
-                            $salesIdList = implode(',', array_map('intval', $salesIds));
-                            $where .= " AND s.cast_sales_parent_no IN ($salesIdList)";
-                        } else {
-                            $where .= " AND s.cast_sales_parent_no = -1"; // ไม่พบเซลล์
+                        error_log("=== Case 6 Debug - Sales Search ===");
+                        error_log("Search value: " . $searchValue);
+                        
+                        // ตรวจสอบ $db_nms connection
+                        if(!isset($db_nms)) {
+                            error_log("ERROR: db_nms not connected for sales search");
+                            $where .= " AND 1=0"; // ไม่แสดงข้อมูลใดๆ
+                            break;
+                        }
+                        
+                        try {
+                            $salesIds = getSalesIdsByName($searchValue);
+                            error_log("Sales IDs found: " . json_encode($salesIds));
+                            error_log("Sales IDs count: " . count($salesIds));
+                            
+                            if(!empty($salesIds) && is_array($salesIds)) {
+                                // ทำความสะอาด IDs ให้แน่ใจว่าเป็นตัวเลข
+                                $cleanIds = [];
+                                foreach($salesIds as $id) {
+                                    if(is_numeric($id) && $id > 0) {
+                                        $cleanIds[] = intval($id);
+                                    }
+                                }
+                                
+                                if(!empty($cleanIds)) {
+                                    $salesIdList = implode(',', $cleanIds);
+                                    $where .= " AND s.cast_sales_parent_no IN ($salesIdList)";
+                                    error_log("Applied WHERE clause: AND s.cast_sales_parent_no IN ($salesIdList)");
+                                } else {
+                                    error_log("No valid sales IDs after cleaning");
+                                    $where .= " AND s.cast_sales_parent_no = -1"; // ไม่พบเซลล์
+                                }
+                            } else {
+                                error_log("No sales found or invalid result for: " . $searchValue);
+                                $where .= " AND s.cast_sales_parent_no = -1"; // ไม่พบเซลล์
+                            }
+                        } catch (Exception $e) {
+                            error_log("Exception in sales search: " . $e->getMessage());
+                            $where .= " AND s.cast_sales_parent_no = -1";
                         }
                         break;
-                    case 7: // ทีม - ค้นหาผ่าง PHP function
-                        $teamMemberIds = getTeamMemberIdsByTeamName($searchValue);
-                        if(!empty($teamMemberIds)) {
-                            $memberIdList = implode(',', array_map('intval', $teamMemberIds));
-                            $where .= " AND s.cast_sales_parent_no IN ($memberIdList)";
-                        } else {
-                            $where .= " AND s.cast_sales_parent_no = -1"; // ไม่พบทีม
+                    case 7: // ทีม - ค้นหาจากชื่อทีม
+                        error_log("=== Case 7 Debug - Team Search ===");
+                        error_log("Search value: " . $searchValue);
+                        
+                        // ตรวจสอบ $db_nms connection
+                        if(!isset($db_nms)) {
+                            error_log("ERROR: db_nms not connected for team search");
+                            $where .= " AND 1=0"; // ไม่แสดงข้อมูลใดๆ
+                            break;
+                        }
+                        
+                        try {
+                            $teamMemberIds = getTeamMemberIdsByTeamName($searchValue);
+                            error_log("Team member IDs found: " . json_encode($teamMemberIds));
+                            error_log("Team member IDs count: " . count($teamMemberIds));
+                            
+                            if (!empty($teamMemberIds) && is_array($teamMemberIds)) {
+                                // ทำความสะอาด IDs ให้แน่ใจว่าเป็นตัวเลข
+                                $cleanIds = [];
+                                foreach($teamMemberIds as $id) {
+                                    if(is_numeric($id) && $id > 0) {
+                                        $cleanIds[] = intval($id);
+                                    }
+                                }
+                                
+                                if(!empty($cleanIds)) {
+                                    $teamMemberIdsList = implode(',', $cleanIds);
+                                    $where .= " AND s.cast_sales_parent_no IN ($teamMemberIdsList)";
+                                    error_log("Applied WHERE clause: AND s.cast_sales_parent_no IN ($teamMemberIdsList)");
+                                } else {
+                                    error_log("No valid team member IDs after cleaning");
+                                    $where .= " AND s.cast_sales_parent_no = -1"; // ไม่พบทีม
+                                }
+                            } else {
+                                error_log("No team members found or invalid result for: " . $searchValue);
+                                $where .= " AND s.cast_sales_parent_no = -1"; // ไม่พบทีม
+                            }
+                        } catch (Exception $e) {
+                            error_log("Exception in team search: " . $e->getMessage());
+                            $where .= " AND s.cast_sales_parent_no = -1";
                         }
                         break;
                     case 8: // ตั้งขาย
@@ -462,6 +527,116 @@ if($_SESSION['tin_admin'] != true){
                         $where .= " AND sc.succ_newcar_rs = '$searchValue'";
                         break;
                 }
+                // switch($i){
+                //     case 0: // รหัส
+                //         $where .= " AND s.cast_id LIKE '%$searchValue%'";
+                //         break;
+                //     case 3: // แบบรุ่น
+                //         $where .= " AND (f.find_brand LIKE '%$searchValue%' 
+                //             OR f.find_serie LIKE '%$searchValue%' 
+                //             OR CONCAT(IFNULL(f.find_brand,''), ' ', IFNULL(f.find_serie,'')) LIKE '%$searchValue%')";
+                //         break;
+                //     case 4: // ปีรุ่น
+                //         $where .= " AND f.find_year LIKE '%$searchValue%'";
+                //         break;
+                //     case 5: // สี
+                //         $where .= " AND s.cast_color LIKE '%$searchValue%'";
+                //         break;
+                //     case 6: // เซลล์ - ค้นหาผ่าน PHP function
+                //         $salesIds = getSalesIdsByName($searchValue);
+                //         if(!empty($salesIds)) {
+                //             $salesIdList = implode(',', array_map('intval', $salesIds));
+                //             $where .= " AND s.cast_sales_parent_no IN ($salesIdList)";
+                //         } else {
+                //             $where .= " AND s.cast_sales_parent_no = -1"; // ไม่พบเซลล์
+                //         }
+                //         break;
+                //     case 7: // ทีม - ค้นหาจากชื่อทีม
+                //         $teamMemberIds = getTeamMemberIdsByTeamName($searchValue);
+                //         if (!empty($teamMemberIds)) {
+                //             $teamMemberIdsList = implode(',', array_map('intval', $teamMemberIds));
+                //             $where .= " AND s.cast_sales_parent_no IN ($teamMemberIdsList)";
+                //         } else {
+                //             $where .= " AND s.cast_sales_parent_no = -1"; // ไม่พบทีม
+                //         }
+                //         break;
+                //     case 8: // ตั้งขาย
+                //         $numericSearch = str_replace(',', '', $searchValue);
+                //         if(is_numeric($numericSearch)) {
+                //             $where .= " AND s.cast_trade_price = '$numericSearch'";
+                //         } else {
+                //             $where .= " AND s.cast_trade_price LIKE '%$searchValue%'";
+                //         }
+                //         break;
+                //     case 9: // จัด TLT
+                //         $numericSearch = str_replace(',', '', $searchValue);
+                //         if(is_numeric($numericSearch)) {
+                //             $where .= " AND f.find_price = '$numericSearch'";
+                //         } else {
+                //             $where .= " AND f.find_price LIKE '%$searchValue%'";
+                //         }
+                //         break;
+                //     case 10: // รับได้
+                //         $numericSearch = str_replace(',', '', $searchValue);
+                //         if(is_numeric($numericSearch)) {
+                //             $where .= " AND s.cast_price = '$numericSearch'";
+                //         } else {
+                //             $where .= " AND s.cast_price LIKE '%$searchValue%'";
+                //         }
+                //         break;
+                //     case 11: // เสนอราคา - ค้นหาในตาราง offer
+                //         $numericSearch = str_replace(',', '', $searchValue);
+                //         if($searchValue === 'ไม่มี') {
+                //             $where .= " AND s.cast_id NOT IN (SELECT DISTINCT off_parent FROM offer)";
+                //         } elseif(is_numeric($numericSearch)) {
+                //             $where .= " AND s.cast_id IN (SELECT off_parent FROM offer WHERE off_price = '$numericSearch')";
+                //         } else {
+                //             $where .= " AND s.cast_id IN (SELECT off_parent FROM offer WHERE off_price LIKE '%$numericSearch%')";
+                //         }
+                //         break;
+                //     case 12: // เสนอ (จำนวน)
+                //         if(is_numeric($searchValue)) {
+                //             $where .= " AND (SELECT COUNT(*) FROM offer WHERE off_parent = s.cast_id) = $searchValue";
+                //         }
+                //         break;
+                //     case 13: // ผู้ซื้อ - ค้นหาผ่าน PHP function
+                //         $partnerIds = getPartnerIdsByName($searchValue);
+                //         if(!empty($partnerIds)) {
+                //             $partnerIdList = implode(',', array_map('intval', $partnerIds));
+                //             $where .= " AND sc.succ_partner IN ($partnerIdList)";
+                //         } else {
+                //             $where .= " AND sc.succ_partner = -1"; // ไม่พบผู้ซื้อ
+                //         }
+                //         break;
+                //     case 14: // ราคา
+                //         $numericSearch = str_replace(',', '', $searchValue);
+                //         if(is_numeric($numericSearch)) {
+                //             $where .= " AND sc.succ_price = '$numericSearch'";
+                //         } else {
+                //             $where .= " AND sc.succ_price LIKE '%$searchValue%'";
+                //         }
+                //         break;
+                //     case 15: // ค่าคอม
+                //         $numericSearch = str_replace(',', '', $searchValue);
+                //         if(is_numeric($numericSearch)) {
+                //             $where .= " AND sc.succ_commission = '$numericSearch'";
+                //         } else {
+                //             $where .= " AND sc.succ_commission LIKE '%$searchValue%'";
+                //         }
+                //         break;
+                //     case 16: // สถานะรอง
+                //         $where .= " AND sc.succ_newcar = '$searchValue'";
+                //         break;
+                //     case 17: // หมายเหตุ
+                //         $where .= " AND sc.succ_comment LIKE '%$searchValue%'";
+                //         break;
+                //     case 18: // วันที่จบ
+                //         $where .= " AND sc.succ_date LIKE '%$searchValue%'";
+                //         break;
+                //     case 19: // RS
+                //         $where .= " AND sc.succ_newcar_rs = '$searchValue'";
+                //         break;
+                // }
             }
         }
     }
@@ -477,5 +652,39 @@ if($_SESSION['tin_admin'] != true){
     if (isset($_GET['debug'])) {
         error_log("Search WHERE clause: " . $where);
         error_log("Search parameters: " . json_encode($_GET));
+    }
+    
+    // เพิ่มฟังก์ชันทดสอบ (ใส่ก่อน } ปิดท้าย)
+    if(isset($_GET['test_functions'])) {
+        echo "<h3>Debug Functions Test</h3>";
+        echo "db isset: " . (isset($db) ? 'Yes' : 'No') . "<br>";
+        echo "db_nms isset: " . (isset($db_nms) ? 'Yes' : 'No') . "<br>";
+        
+        if(isset($_GET['test_sales'])) {
+            $testSales = $_GET['test_sales'];
+            echo "<h4>Testing Sales: '$testSales'</h4>";
+            $salesIds = getSalesIdsByName($testSales);
+            echo "Result: " . json_encode($salesIds) . "<br>";
+            
+            if(!empty($salesIds)) {
+                foreach($salesIds as $id) {
+                    echo "ID: $id = " . getSaleName($id) . "<br>";
+                }
+            }
+        }
+        
+        if(isset($_GET['test_team'])) {
+            $testTeam = $_GET['test_team'];
+            echo "<h4>Testing Team: '$testTeam'</h4>";
+            $teamIds = getTeamMemberIdsByTeamName($testTeam);
+            echo "Result: " . json_encode($teamIds) . "<br>";
+            
+            if(!empty($teamIds)) {
+                foreach($teamIds as $id) {
+                    echo "ID: $id = " . getSaleName($id) . " (Team: " . getTeamName($id) . ")<br>";
+                }
+            }
+        }
+        exit();
     }
 }
