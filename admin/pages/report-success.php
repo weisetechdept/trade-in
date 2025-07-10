@@ -358,64 +358,64 @@
                                                 </div>
                                                 <div style="width: 180px; min-width: 180px;">
                                                     <label style="font-size: 11px; font-weight: bold; color: #495057;">แบบรุ่น</label>
-                                                    <input type="text" class="form-control form-control-sm search-input" data-column="2" placeholder="แบบรุ่น" style="font-size: 12px; height: 32px;">
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="3" placeholder="แบบรุ่น" style="font-size: 12px; height: 32px;">
                                                 </div>
                                                 <div style="width: 80px; min-width: 80px;">
                                                     <label style="font-size: 11px; font-weight: bold; color: #495057;">ปีรุ่น</label>
-                                                    <input type="text" class="form-control form-control-sm search-input" data-column="3" placeholder="ปีรุ่น" style="font-size: 12px; height: 32px;">
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="4" placeholder="ปีรุ่น" style="font-size: 12px; height: 32px;">
                                                 </div>
                                                 <div style="width: 100px; min-width: 100px;">
                                                     <label style="font-size: 11px; font-weight: bold; color: #495057;">สี</label>
-                                                    <input type="text" class="form-control form-control-sm search-input" data-column="4" placeholder="สี" style="font-size: 12px; height: 32px;">
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="5" placeholder="สี" style="font-size: 12px; height: 32px;">
                                                 </div>
                                                 <!-- เปลี่ยนจาก select เป็น input text สำหรับเซลล์ -->
                                                 <div style="width: 120px; min-width: 120px;">
                                                     <label style="font-size: 11px; font-weight: bold; color: #495057;">เซลล์</label>
-                                                    <input type="text" class="form-control form-control-sm search-input" data-column="5" placeholder="ชื่อเซลล์" style="font-size: 12px; height: 32px;">
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="6" placeholder="ชื่อเซลล์" style="font-size: 12px; height: 32px;">
                                                 </div>
                                                 <!-- เปลี่ยนจาก select เป็น input text สำหรับทีม -->
                                                 <div style="width: 100px; min-width: 100px;">
                                                     <label style="font-size: 11px; font-weight: bold; color: #495057;">ทีม</label>
-                                                    <input type="text" class="form-control form-control-sm search-input" data-column="6" placeholder="ชื่อทีม" style="font-size: 12px; height: 32px;">
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="7" placeholder="ชื่อทีม" style="font-size: 12px; height: 32px;">
                                                 </div>
                                                 <div style="width: 110px; min-width: 110px;">
                                                     <label style="font-size: 11px; font-weight: bold; color: #495057;">ตั้งขาย</label>
-                                                    <input type="text" class="form-control form-control-sm search-input" data-column="7" placeholder="ตั้งขาย" style="font-size: 12px; height: 32px;">
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="8" placeholder="ตั้งขาย" style="font-size: 12px; height: 32px;">
                                                 </div>
                                                 <div style="width: 110px; min-width: 110px;">
                                                     <label style="font-size: 11px; font-weight: bold; color: #495057;">จัด TLT</label>
-                                                    <input type="text" class="form-control form-control-sm search-input" data-column="8" placeholder="จัด TLT" style="font-size: 12px; height: 32px;">
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="9" placeholder="จัด TLT" style="font-size: 12px; height: 32px;">
                                                 </div>
                                                 <div style="width: 110px; min-width: 110px;">
                                                     <label style="font-size: 11px; font-weight: bold; color: #495057;">รับได้</label>
-                                                    <input type="text" class="form-control form-control-sm search-input" data-column="9" placeholder="รับได้" style="font-size: 12px; height: 32px;">
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="10" placeholder="รับได้" style="font-size: 12px; height: 32px;">
                                                 </div>
                                                 <div style="width: 110px; min-width: 110px;">
                                                     <label style="font-size: 11px; font-weight: bold; color: #495057;">เสนอราคา</label>
-                                                    <input type="text" class="form-control form-control-sm search-input" data-column="10" placeholder="เสนอราคา" style="font-size: 12px; height: 32px;">
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="11" placeholder="เสนอราคา" style="font-size: 12px; height: 32px;">
                                                 </div>
                                                 <div style="width: 80px; min-width: 80px;">
                                                     <label style="font-size: 11px; font-weight: bold; color: #495057;">เสนอ</label>
-                                                    <input type="text" class="form-control form-control-sm search-input" data-column="11" placeholder="เสนอ" style="font-size: 12px; height: 32px;">
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="12" placeholder="เสนอ" style="font-size: 12px; height: 32px;">
                                                 </div>
                                                 <div style="width: 140px; min-width: 140px;">
                                                     <label style="font-size: 11px; font-weight: bold; color: #495057;">ผู้ซื้อ</label>
-                                                    <input type="text" class="form-control form-control-sm search-input" data-column="12" placeholder="ผู้ซื้อ" style="font-size: 12px; height: 32px;">
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="13" placeholder="ผู้ซื้อ" style="font-size: 12px; height: 32px;">
                                                     <!-- <select class="form-control form-control-sm search-select" data-column="12" style="font-size: 12px; height: 32px;">
                                                         <option value="">ทุกคน</option>
                                                     </select> -->
                                                 </div>
                                                 <div style="width: 110px; min-width: 110px;">
                                                     <label style="font-size: 11px; font-weight: bold; color: #495057;">ราคา</label>
-                                                    <input type="text" class="form-control form-control-sm search-input" data-column="13" placeholder="ราคา" style="font-size: 12px; height: 32px;">
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="14" placeholder="ราคา" style="font-size: 12px; height: 32px;">
                                                 </div>
                                                 <div style="width: 100px; min-width: 100px;">
                                                     <label style="font-size: 11px; font-weight: bold; color: #495057;">ค่าคอม</label>
-                                                    <input type="text" class="form-control form-control-sm search-input" data-column="14" placeholder="ค่าคอม" style="font-size: 12px; height: 32px;">
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="15" placeholder="ค่าคอม" style="font-size: 12px; height: 32px;">
                                                 </div>
                                                 <div style="width: 160px; min-width: 160px;">
                                                     <label style="font-size: 11px; font-weight: bold; color: #495057;">สถานะรอง</label>
-                                                    <select class="form-control form-control-sm search-select" data-column="15" style="font-size: 12px; height: 32px;">
+                                                    <select class="form-control form-control-sm search-select" data-column="16" style="font-size: 12px; height: 32px;">
                                                         <option value="">ทุกสถานะ</option>
                                                         <option value="1">จบรถเก่า / จองรถใหม่</option>
                                                         <option value="2">จบรถเก่า / ไม่จองรถใหม่</option>
@@ -425,15 +425,15 @@
                                                 </div>
                                                 <div style="width: 150px; min-width: 150px;">
                                                     <label style="font-size: 11px; font-weight: bold; color: #495057;">หมายเหตุ</label>
-                                                    <input type="text" class="form-control form-control-sm search-input" data-column="16" placeholder="หมายเหตุ" style="font-size: 12px; height: 32px;">
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="17" placeholder="หมายเหตุ" style="font-size: 12px; height: 32px;">
                                                 </div>
                                                 <div style="width: 100px; min-width: 100px;">
                                                     <label style="font-size: 11px; font-weight: bold; color: #495057;">วันที่จบ</label>
-                                                    <input type="text" class="form-control form-control-sm search-input" data-column="17" placeholder="วันที่จบ" style="font-size: 12px; height: 32px;">
+                                                    <input type="text" class="form-control form-control-sm search-input" data-column="18" placeholder="วันที่จบ" style="font-size: 12px; height: 32px;">
                                                 </div>
                                                 <div style="width: 60px; min-width: 60px;">
                                                     <label style="font-size: 11px; font-weight: bold; color: #495057;">RS</label>
-                                                    <select class="form-control form-control-sm search-select" data-column="18" style="font-size: 12px; height: 32px;">
+                                                    <select class="form-control form-control-sm search-select" data-column="19" style="font-size: 12px; height: 32px;">
                                                         <option value="">ทั้งหมด</option>
                                                         <option value="0">ยังไม่ RS</option>
                                                         <option value="1">RS แล้ว</option>
