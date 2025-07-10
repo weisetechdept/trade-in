@@ -467,7 +467,7 @@
                                                         <th>วันที่จบ</th>
                                                         <th>RS</th>
                                                     </tr>
-                                                </thead>
+                                                </thead> 
                                                 <tbody>
                                                     <tr>
                                                         <td colspan="20" class="text-center">กำลังโหลดข้อมูล...</td>
@@ -762,7 +762,11 @@
                 getEcard: function(event) {
                     axios.get('/admin/system/success-info.api.php?id=' + event.target.getAttribute('data-ecard'))
                         .then(response => {
+
+                            console.log(response.data);
+                            
                             this.ecard.list = response.data.data;
+
                             this.ecard.id = response.data.jobData.id;
                             this.ecard.partner = response.data.jobData.partner;
                             this.ecard.price = response.data.jobData.price;

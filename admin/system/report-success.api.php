@@ -186,42 +186,48 @@ if($_SESSION['tin_admin'] != true){
                 return "<a href=\"/admin/detail/$d\" target=\"_blank\">$d</a>";
             }
         ],
+
+        ['db' => 'cast_id', 'dt' => 1, 'field'=> 'cast_id',
+            'formatter' => function($d, $row){
+                return "<button data-ecard=\"$d\" class=\"btn btn-outline-success btn-sm ecard-btn\">+ ข้อมูล</button> <a href=\"/admin/detail/$d\" target=\"_blank\" class=\"btn btn-outline-primary btn-sm mr-2 ml-2\">ดู</a>";
+            }
+        ],
         // 1: รูป  
-        ['db' => 'cast_id', 'dt' => 1, 'field' => 'cast_id',
+        ['db' => 'cast_id', 'dt' => 2, 'field' => 'cast_id',
             'formatter' => function($d, $row){
                 return thumb($d);
             }
         ],
         // 2: แบบรุ่น
-        ['db' => 'CONCAT(IFNULL(f.find_brand,""), " ", IFNULL(f.find_serie,""))', 'dt' => 2, 'field' => 'brand_serie', 'as' => 'brand_serie',
+        ['db' => 'CONCAT(IFNULL(f.find_brand,""), " ", IFNULL(f.find_serie,""))', 'dt' => 3, 'field' => 'brand_serie', 'as' => 'brand_serie',
             'formatter' => function($d, $row){
                 return $d;
             }
         ],
         // 3: ปีรุ่น
-        ['db' => 'find_year', 'dt' => 3, 'field'=> 'find_year'],
+        ['db' => 'find_year', 'dt' => 4, 'field'=> 'find_year'],
         // 4: สี
-        ['db' => 'cast_color', 'dt' => 4, 'field'=> 'cast_color'],
+        ['db' => 'cast_color', 'dt' => 5, 'field'=> 'cast_color'],
         // 5: เซลล์ - เก็บ ID และชื่อ
-        ['db' => 'cast_sales_parent_no', 'dt' => 5, 'field'=> 'cast_sales_parent_no',
+        ['db' => 'cast_sales_parent_no', 'dt' => 6, 'field'=> 'cast_sales_parent_no',
             'formatter' => function($d, $row){
                 return getSaleName($d); 
             }
         ],
         // 6: ทีม - เก็บ ID และชื่อ
-        ['db' => 'cast_sales_parent_no', 'dt' => 6, 'field'=> 'cast_sales_parent_no',
+        ['db' => 'cast_sales_parent_no', 'dt' => 7, 'field'=> 'cast_sales_parent_no',
             'formatter' => function($d, $row){
                 return getTeamName($d); 
             }
         ],
         // 7: ตั้งขาย
-        ['db' => 'cast_trade_price', 'dt' => 7, 'field'=> 'cast_trade_price',
+        ['db' => 'cast_trade_price', 'dt' => 8, 'field'=> 'cast_trade_price',
             'formatter' => function($d, $row){
                 return number_format($d);
             }
         ],
         // 8: จัด TLT
-        ['db' => 'find_price', 'dt' => 8, 'field'=> 'find_price',
+        ['db' => 'find_price', 'dt' => 9, 'field'=> 'find_price',
             'formatter' => function($d, $row){
                 if(empty($d)){
                     return "ไม่มี";
@@ -231,25 +237,25 @@ if($_SESSION['tin_admin'] != true){
             }
         ],
         // 9: รับได้
-        ['db' => 'cast_price', 'dt' => 9, 'field'=> 'cast_price',
+        ['db' => 'cast_price', 'dt' => 10, 'field'=> 'cast_price',
             'formatter' => function($d, $row){
                 return number_format($d);
             }
         ],
         // 10: เสนอราคา
-        ['db' => 'cast_id', 'dt' => 10, 'field'=> 'cast_id',
+        ['db' => 'cast_id', 'dt' => 11, 'field'=> 'cast_id',
             'formatter' => function($d, $row){
                 return getOfferPrice($d);
             }
         ],
         // 11: เสนอ (จำนวน)
-        ['db' => 'cast_id', 'dt' => 11, 'field'=> 'cast_id',
+        ['db' => 'cast_id', 'dt' => 12, 'field'=> 'cast_id',
             'formatter' => function($d, $row){
                 return countOffer($d);
             }
         ],
         // 12: ผู้ซื้อ
-        ['db' => 'succ_partner', 'dt' => 12, 'field'=> 'succ_partner',
+        ['db' => 'succ_partner', 'dt' => 13, 'field'=> 'succ_partner',
             'formatter' => function($d, $row){
                 if(empty($d)){
                     return '-';
@@ -259,7 +265,7 @@ if($_SESSION['tin_admin'] != true){
             }
         ],
         // 13: ราคา
-        ['db' => 'succ_price', 'dt' => 13, 'field'=> 'succ_price',
+        ['db' => 'succ_price', 'dt' => 14, 'field'=> 'succ_price',
             'formatter' => function($d, $row){
                 if(empty($d)){
                     return '-';
@@ -269,7 +275,7 @@ if($_SESSION['tin_admin'] != true){
             }
         ],
         // 14: ค่าคอม
-        ['db' => 'succ_commission', 'dt' => 14, 'field'=> 'succ_commission',
+        ['db' => 'succ_commission', 'dt' => 15, 'field'=> 'succ_commission',
             'formatter' => function($d, $row){
                 if(empty($d)){
                     return '-';
@@ -279,7 +285,7 @@ if($_SESSION['tin_admin'] != true){
             }
         ],
         // 15: สถานะรอง
-        ['db' => 'succ_newcar', 'dt' => 15, 'field'=> 'succ_newcar',
+        ['db' => 'succ_newcar', 'dt' => 16, 'field'=> 'succ_newcar',
             'formatter' => function($d, $row){
                 if(empty($d)){
                     return '-';
@@ -289,7 +295,7 @@ if($_SESSION['tin_admin'] != true){
             }
         ],
         // 16: หมายเหตุ
-        ['db' => 'succ_comment', 'dt' => 16, 'field'=> 'succ_comment',
+        ['db' => 'succ_comment', 'dt' => 17, 'field'=> 'succ_comment',
             'formatter' => function($d, $row){
                 if(empty($d)){
                     return '-';
@@ -298,8 +304,8 @@ if($_SESSION['tin_admin'] != true){
                 }
             }
         ],
-        // 17: วันที่จบ
-        ['db' => 'succ_date', 'dt' => 17, 'field'=> 'succ_date',
+        
+        ['db' => 'succ_date', 'dt' => 18, 'field'=> 'succ_date',
             'formatter' => function($d, $row){
                 if($d == '' || $d == '0000-00-00' || empty($d)){
                     return '-';
@@ -309,7 +315,7 @@ if($_SESSION['tin_admin'] != true){
             }
         ],
         // 18: RS
-        ['db' => 'succ_newcar_rs', 'dt' => 18, 'field'=> 'succ_newcar_rs',
+        ['db' => 'succ_newcar_rs', 'dt' => 19, 'field'=> 'succ_newcar_rs',
             'formatter' => function($d, $row){
                 if($d == '' || $d == '0' || empty($d)){
                     return '✕';
@@ -317,13 +323,8 @@ if($_SESSION['tin_admin'] != true){
                     return '✓';
                 }
             }
-        ],
-        // 19: จัดการ
-        ['db' => 'cast_id', 'dt' => 19, 'field'=> 'cast_id',
-            'formatter' => function($d, $row){
-                return "<button data-ecard=\"$d\" class=\"btn btn-outline-success btn-sm ecard-btn\">+ ข้อมูล</button> <a href=\"/admin/detail/$d\"  target=\"_blank\" class=\"btn btn-outline-primary btn-sm mr-2 ml-2\">ดู</a>";
-            }        
         ]
+        
     ];
 
     $joinQuery = "FROM car_stock s 
