@@ -49,7 +49,7 @@
             }
 
             $db->join('finance_data fd', 'cs.cast_car=fd.find_id', 'RIGHT');
-            $c_date = $db->where('cast_id',$_GET['id'])->getOne('car_stock cs','cast_datetime,find_brand,find_serie,find_section,find_year,cast_sales_parent');
+            $c_date = $db->where('cast_id',$_GET['id'])->getOne('car_stock cs','cast_datetime,find_brand,find_serie,find_section,find_year,cast_sales_parent_no');
 
             $api['jobData'] = array();
 
@@ -62,7 +62,7 @@
                 'newcar_detail' => '0',
                 'date' => '0000-00-00',
                 'car' => $c_date['find_year'].' '.$c_date['find_brand'].' '.$c_date['find_serie'].' '.$c_date['find_section'],
-                'sales' =>  getSaleName($c_date['cast_sales_parent']),
+                'sales' =>  getSaleName($c_date['cast_sales_parent_no']),
                 'create_date' => DateThai($c_date['cast_datetime']),
                 'other_detail' => '== ยังไม่เปิดใช้งาน =='
             );
@@ -83,7 +83,7 @@
                     'date' => $chk['succ_date'],
                     'detail' => $chk['succ_comment'],
                     'car' => $c_date['find_year'].' '.$c_date['find_brand'].' '.$c_date['find_serie'].' '.$c_date['find_section'],
-                    'sales' =>  getSaleName($c_date['cast_sales_parent']),
+                    'sales' =>  getSaleName($c_date['cast_sales_parent_no']),
                     'create_date' => DateThai($c_date['cast_datetime']),
                     'other_detail' => '== ยังไม่เปิดใช้งาน =='
                 );
