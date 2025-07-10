@@ -304,7 +304,7 @@ if($_SESSION['tin_admin'] != true){
                 }
             }
         ],
-        
+
         ['db' => 'succ_date', 'dt' => 18, 'field'=> 'succ_date',
             'formatter' => function($d, $row){
                 if($d == '' || $d == '0000-00-00' || empty($d)){
@@ -356,18 +356,18 @@ if($_SESSION['tin_admin'] != true){
                     case 0: // รหัส
                         $where .= " AND s.cast_id LIKE '%$searchValue%'";
                         break;
-                    case 2: // แบบรุ่น
+                    case 3: // แบบรุ่น
                         $where .= " AND (f.find_brand LIKE '%$searchValue%' 
                             OR f.find_serie LIKE '%$searchValue%' 
                             OR CONCAT(IFNULL(f.find_brand,''), ' ', IFNULL(f.find_serie,'')) LIKE '%$searchValue%')";
                         break;
-                    case 3: // ปีรุ่น
+                    case 4: // ปีรุ่น
                         $where .= " AND f.find_year LIKE '%$searchValue%'";
                         break;
-                    case 4: // สี
+                    case 5: // สี
                         $where .= " AND s.cast_color LIKE '%$searchValue%'";
                         break;
-                    case 5: // เซลล์ - ค้นหาผ่าน PHP function
+                    case 6: // เซลล์ - ค้นหาผ่าน PHP function
                         $salesIds = getSalesIdsByName($searchValue);
                         if(!empty($salesIds)) {
                             $salesIdList = implode(',', array_map('intval', $salesIds));
@@ -376,7 +376,7 @@ if($_SESSION['tin_admin'] != true){
                             $where .= " AND s.cast_sales_parent_no = -1"; // ไม่พบเซลล์
                         }
                         break;
-                    case 6: // ทีม - ค้นหาผ่าง PHP function
+                    case 7: // ทีม - ค้นหาผ่าง PHP function
                         $teamMemberIds = getTeamMemberIdsByTeamName($searchValue);
                         if(!empty($teamMemberIds)) {
                             $memberIdList = implode(',', array_map('intval', $teamMemberIds));
@@ -385,7 +385,7 @@ if($_SESSION['tin_admin'] != true){
                             $where .= " AND s.cast_sales_parent_no = -1"; // ไม่พบทีม
                         }
                         break;
-                    case 7: // ตั้งขาย
+                    case 8: // ตั้งขาย
                         $numericSearch = str_replace(',', '', $searchValue);
                         if(is_numeric($numericSearch)) {
                             $where .= " AND s.cast_trade_price = '$numericSearch'";
@@ -393,7 +393,7 @@ if($_SESSION['tin_admin'] != true){
                             $where .= " AND s.cast_trade_price LIKE '%$searchValue%'";
                         }
                         break;
-                    case 8: // จัด TLT
+                    case 9: // จัด TLT
                         $numericSearch = str_replace(',', '', $searchValue);
                         if(is_numeric($numericSearch)) {
                             $where .= " AND f.find_price = '$numericSearch'";
@@ -401,7 +401,7 @@ if($_SESSION['tin_admin'] != true){
                             $where .= " AND f.find_price LIKE '%$searchValue%'";
                         }
                         break;
-                    case 9: // รับได้
+                    case 10: // รับได้
                         $numericSearch = str_replace(',', '', $searchValue);
                         if(is_numeric($numericSearch)) {
                             $where .= " AND s.cast_price = '$numericSearch'";
@@ -409,7 +409,7 @@ if($_SESSION['tin_admin'] != true){
                             $where .= " AND s.cast_price LIKE '%$searchValue%'";
                         }
                         break;
-                    case 10: // เสนอราคา - ค้นหาในตาราง offer
+                    case 11: // เสนอราคา - ค้นหาในตาราง offer
                         $numericSearch = str_replace(',', '', $searchValue);
                         if($searchValue === 'ไม่มี') {
                             $where .= " AND s.cast_id NOT IN (SELECT DISTINCT off_parent FROM offer)";
@@ -419,12 +419,12 @@ if($_SESSION['tin_admin'] != true){
                             $where .= " AND s.cast_id IN (SELECT off_parent FROM offer WHERE off_price LIKE '%$numericSearch%')";
                         }
                         break;
-                    case 11: // เสนอ (จำนวน)
+                    case 12: // เสนอ (จำนวน)
                         if(is_numeric($searchValue)) {
                             $where .= " AND (SELECT COUNT(*) FROM offer WHERE off_parent = s.cast_id) = $searchValue";
                         }
                         break;
-                    case 12: // ผู้ซื้อ - ค้นหาผ่าน PHP function
+                    case 13: // ผู้ซื้อ - ค้นหาผ่าน PHP function
                         $partnerIds = getPartnerIdsByName($searchValue);
                         if(!empty($partnerIds)) {
                             $partnerIdList = implode(',', array_map('intval', $partnerIds));
@@ -433,7 +433,7 @@ if($_SESSION['tin_admin'] != true){
                             $where .= " AND sc.succ_partner = -1"; // ไม่พบผู้ซื้อ
                         }
                         break;
-                    case 13: // ราคา
+                    case 14: // ราคา
                         $numericSearch = str_replace(',', '', $searchValue);
                         if(is_numeric($numericSearch)) {
                             $where .= " AND sc.succ_price = '$numericSearch'";
@@ -441,7 +441,7 @@ if($_SESSION['tin_admin'] != true){
                             $where .= " AND sc.succ_price LIKE '%$searchValue%'";
                         }
                         break;
-                    case 14: // ค่าคอม
+                    case 15: // ค่าคอม
                         $numericSearch = str_replace(',', '', $searchValue);
                         if(is_numeric($numericSearch)) {
                             $where .= " AND sc.succ_commission = '$numericSearch'";
@@ -449,16 +449,16 @@ if($_SESSION['tin_admin'] != true){
                             $where .= " AND sc.succ_commission LIKE '%$searchValue%'";
                         }
                         break;
-                    case 15: // สถานะรอง
+                    case 16: // สถานะรอง
                         $where .= " AND sc.succ_newcar = '$searchValue'";
                         break;
-                    case 16: // หมายเหตุ
+                    case 17: // หมายเหตุ
                         $where .= " AND sc.succ_comment LIKE '%$searchValue%'";
                         break;
-                    case 17: // วันที่จบ
+                    case 18: // วันที่จบ
                         $where .= " AND sc.succ_date LIKE '%$searchValue%'";
                         break;
-                    case 18: // RS
+                    case 19: // RS
                         $where .= " AND sc.succ_newcar_rs = '$searchValue'";
                         break;
                 }
