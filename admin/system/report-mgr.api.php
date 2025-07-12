@@ -62,7 +62,7 @@
             curl_close($curl);
 
             $results = json_decode($resp);
-
+ 
             // Initialize managerCounts for this month
             $managerCounts = [];
 
