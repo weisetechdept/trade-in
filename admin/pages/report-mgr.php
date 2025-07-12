@@ -73,6 +73,20 @@
         .bg-status {
             background-color: #fbffe1;
         }
+        .month-header {
+            font-weight: bold;
+            text-align: center;
+        }
+        .highlight-100 {
+            text-align: center;
+        }
+        .percentage {
+            text-align: center;
+        }
+        .mark {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -82,153 +96,106 @@
                 include_once('inc-pages/nav.php');
                 include_once('inc-pages/sidebar.php');
         ?>
-        <div class="main-content">
+            <div class="main-content" id="count">
 
-            <div class="page-content" id="count">
-                <div class="container-fluid">
+                <div class="page-content">
+                    <div class="container-fluid">
 
-                    <div class="row">
                         <div class="col-12">
-                            <div class="page-title-box d-flex align-items-center justify-content-between">
-                                <h4 class="mb-0 font-size-18">รายงานเปรียบเทียบ</h4>
+                            <div class="card">
+                                <div class="card-body">
 
-                                <div class="page-title-right">
-                                    <ol class="breadcrumb m-0">
-                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Trade-in</a></li>
-                                        <li class="breadcrumb-item active">รายงานเปรียบเทียบ</li>
-                                    </ol>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>  
+                                    <div id="main-table" class="table table-responsive tab-content active">
 
-                <div class="row">
+                                        <h3>📋 ทุกทีม x 3เดือน</h3>
+                                        
+                                        <div class="responsive-wrapper">
+                                            <table id="mainDataTable" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th rowspan="3">ทีม</th>
 
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                
-                                    <div class="form-row">
-                                        <div class="col-md-3 mb-1">
-                                            <label>ตั้งแต่</label>
-                                            <input type="date" class="form-control" v-model="search.start">
-                                        </div>
+                                                        <template v-for="(item, index) in reportData.A" :key="index">
+                                                            <th colspan="10" class="category-section">{{ item.month_year }}</th>
+                                                        </template>
 
-                                        <div class="col-md-3">
-                                            <label>ถึง</label>
-                                            <input type="date" class="form-control" v-model="search.end">
-                                        </div>
+                                                        <th colspan="2" class="summary-row">รวม</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <!-- B/K -->
+                                                         <template v-for="(item, index) in reportData.A" :key="index">
+                                                            <th colspan="2" class="month-header">BOOKING</th>
+                                                            <th colspan="2" class="month-header">ประเมิน</th>
+                                                            <th colspan="2" class="month-header">สัมผัส</th>
+                                                            <th colspan="2" class="month-header">จบเก่า</th>
+                                                            <th colspan="2" class="month-header">ไม่สัมผัส</th>
+                                                        </template>
 
-                                        <div class="col-md-3">
-                                            <button class="btn btn-primary search-btn" @click="searchData()" type="submit">ค้นหา</button>
+                                                        <!-- สรุป -->
+                                                        <th class="summary-row" rowspan="3">เฉลี่ย</th>
+                                                        <th class="summary-row" rowspan="3">แนวโน้ม</th>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <template v-for="(item, index) in reportData.A" :key="index">
+                                                            <th class="month-header mark">BK</th>
+                                                            <th class="month-header">C</th>
+                                                            <th class="month-header">V</th>
+                                                            <th class="month-header">%</th>
+                                                            <th class="month-header">V</th>
+                                                            <th class="month-header">%</th>
+                                                            <th class="month-header">B/O</th>
+                                                            <th class="month-header">N</th>
+                                                            <th class="month-header">V</th>
+                                                            <th class="month-header">%</th>
+                                                        </template>
+                                                        
+                                                    </tr>
+                                                    
+                                                </thead>
+                                                <tbody>
+                                                    <tr v-for="(item, index) in reportData" :key="index">
+                                                        <td class="team-header">{{index}}</td>
+                                                        
+                                                        <!-- B/K -->
+                                                        <template v-for="(month, monthIndex) in item" :key="monthIndex">
+                                                            <td class="highlight-100 mark">{{ month.bkn }}</td>
+                                                            <td class="highlight-100">{{ month.canceln }}</td>
+                                                            <td class="highlight-100">{{ month.trade_in }}</td>
+                                                            <td class="highlight-100">{{ month.trade_in_per }}</td>
+                                                            <td class="highlight-100">{{ month.touch }}</td>
+                                                            <td class="highlight-100">{{ month.touch_per }}</td>
+                                                            <td class="percentage">{{ month.trade_bo_rs }}</td>
+                                                            <td class="percentage">{{ month.trade_n_rs }}</td>
+                                                            <td class="percentage">{{ month.no_touch }}</td>
+                                                            <td class="percentage">{{ month.no_touch_per }}</td>
+                                                        </template>
+                                                        
+
+                                                        <td class="percentage"></td>
+                                                        <td class="percentage"></td>
+
+
+                                                        
+                                                    </tr>
+                                                    
+                                                    <!-- แถวสรุป -->
+                                                    <tr class="summary-row">
+                                                        <td><strong>เฉลี่ยรวม</strong></td>
+
+                                                       
+                                                        <!-- B/K เฉลี่ย -->
+                                                    
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
-                          
                             </div>
                         </div>
                     </div>
-                </div>
 
-
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>สถานะล่าสุด</th>
-                                            <th v-for="c in count">{{ c.team }}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>ซื้อรถคันแรก</td>
-                                            <td v-for="c in count">{{ c.objFirst }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>ซื้อรถทดแทน</td>
-                                            <td v-for="c in count">{{ c.objReplace }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>ซื้อเพิ่มเติม</td>
-                                            <td v-for="c in count">{{ c.objAddon }}</td>
-                                        </tr>
-                                        <tr class="gray-imp">
-                                            <td>ยอดจองรถใหม่</td>
-                                            <td v-for="c in count">{{ c.value }}</td>
-                                        </tr>
-                                        <tr class="gray-imp">
-                                            <td>ส่งให้ Trade-In</td>
-                                            <td v-for="c in count">{{ c.trade }}</td>
-                                        </tr>
-                                        <tr class="gray">
-                                            <td>%</td>
-                                            <td v-for="c in count">{{ c.percentage }}</td>
-                                        </tr>
-                                        
-                                        <tr class="bg-status">
-                                            <td>รอสถานะ</td>
-                                            <td v-for="c in count">{{ c.wait_value }}</td>
-                                        </tr>
-                                        <tr class="bg-status">
-                                            <td>ขายกับเรา</td>
-                                            <td v-for="c in count">{{ c.sold_value }}</td>
-                                        </tr>
-                                        <tr class="bg-status">
-                                            <td>ลค.ขายเอง</td>
-                                            <td v-for="c in count">{{ c.cancel_value }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                
-                            </div> 
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-4">
-                        <div class="card">
-                            <div class="card-body">
-
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>ประเภท</th>
-                                            <th>จำนวน</th>
-                                            <th>%</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td width="150px">ซื้อรถคันแรก</td>
-                                            <td>{{ type.first }}</td>
-                                            <td>{{ type.first_per }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>ซื้อรถทดแทน</td>
-                                            <td>{{ type.replace }}</td>
-                                            <td>{{ type.replace_per }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>ซื้อเพิ่มเติม</td>
-                                            <td>{{ type.addon }}</td>
-                                            <td>{{ type.addon_per }}</td>
-                                        </tr>
-                                        <tr class="gray">
-                                            <td>รวม</td>
-                                            <td>{{ type.all }}</td>
-                                            <td>100%</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
 
                 </div>
             </div>
@@ -252,7 +219,6 @@
 
         </div>
       
-
     </div>
  
 
@@ -274,31 +240,20 @@
         var count = new Vue({
             el: '#count',
             data: {
-                count: [],
-                type: [],
-                search: {
-                    start: '<?php echo date('Y-m-01'); ?>',
-                    end: '<?php echo date('Y-m-d'); ?>',
-                    status: 'all'
-                }
+                reportData: [],
             },
             mounted() {
-                axios.get('/admin/system/qm-report.api.php?start=<?php echo date('Y-m-01'); ?>&end=<?php echo date('Y-m-d'); ?>').then(res => {
-                    this.count = res.data.count;
-                    this.type = res.data.type;
-                });
+                axios.get('/admin/system/report-mgr.api.php')
+                    .then(response => {
+                        console.log(response.data);
+                        this.reportData = response.data.team;
+                    })
+                    .catch(error => {
+                        console.error('Error fetching data:', error);
+                    })
             },
             methods: {
-                searchData() {
-                    swal("กำลังโหลด...", {
-                        buttons: false
-                    });
-                    axios.get('/admin/system/qm-report.api.php?start=' + this.search.start + '&end=' + this.search.end).then(res => {
-                        this.count = res.data.count;
-                        this.type = res.data.type;
-                        swal.close();
-                    });
-                },
+                
             }
         });
 
